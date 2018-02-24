@@ -78,6 +78,7 @@ local.properties
 *.iml
 *.ipr
 out/
+production/
 
 ### NetBeans ###
 nbproject/private/
