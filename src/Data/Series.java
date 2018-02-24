@@ -20,20 +20,24 @@ public class Series {
     private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIENTRACKER/Series.json");
 
     private String name;
-    private int seasons;
-    private int[] episodes;
+    private List<Episode> episodes;
+    private int state;      //0=not started; 1=watching; 2=wait for new episodes; 3=finished
+    private int runtime;
+    private String description;
+    private double rating;
     private int currentSeason;
     private int currentEpisode;
-    private int state;      //0=not started; 1=watching; 2=wait for new episodes; 3=finished
 
-    public Series(String name, int seasons, int[] episodes, int currentSeason, int currentEpisode, int state){
+
+    public Series(String name, List<Episode> episodes, int state, int runtime, String description, double rating, int currentSeason, int currentEpisode){
         this.name = name;
-        this.seasons = seasons;
-        this.episodes = new int[seasons];
-        System.arraycopy(episodes, 0, this.episodes, 0, episodes.length);
+        this.episodes = episodes;
+        this.state = state;
+        this.runtime = runtime;
+        this.description = description;
+        this.rating = rating;
         this.currentSeason = currentSeason;
         this.currentEpisode = currentEpisode;
-        this.state = state;
     }
 
     public static List<Series> readData() {
@@ -67,12 +71,7 @@ public class Series {
     }
 
     public int getSumEpisodes() {
-        int sum = 0;
-        for(int epi : episodes){
-            sum += epi;
-        }
-
-        return sum;
+        return episodes.size();
     }
 
     public String getName() {
@@ -83,12 +82,44 @@ public class Series {
         this.name = name;
     }
 
-    public int getSeasons() {
-        return seasons;
+    public List<Episode> getEpisodes() {
+        return episodes;
     }
 
-    public void setSeasons(int seasons) {
-        this.seasons = seasons;
+    public void setEpisodes(List<Episode> episodes) {
+        this.episodes = episodes;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     public int getCurrentSeason() {
@@ -105,22 +136,6 @@ public class Series {
 
     public void setCurrentEpisode(int currentEpisode) {
         this.currentEpisode = currentEpisode;
-    }
-
-    public int[] getEpisodes() {
-        return episodes;
-    }
-
-    public void setEpisodes(int[] episodes) {
-        this.episodes = episodes;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
     }
 
     @Override
