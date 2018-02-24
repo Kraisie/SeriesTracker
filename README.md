@@ -14,6 +14,7 @@
 * Check every period of time if there are new episodes/seasons of a series
     * Period changeable in Settings
     * Change interval of back-ups in settings  
+* When a series is discontinued (TVDB) it shall switch the `userState` to discontinued too, when the user finished watching it.
 
 #### Think-Abouts
 
