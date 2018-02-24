@@ -30,9 +30,7 @@ public class Series {
         this.name = name;
         this.seasons = seasons;
         this.episodes = new int[seasons];
-        for(int i = 0; i < episodes.length; i++){
-            this.episodes[i] = episodes[i];
-        }
+        System.arraycopy(episodes, 0, this.episodes, 0, episodes.length);
         this.currentSeason = currentSeason;
         this.currentEpisode = currentEpisode;
         this.state = state;
