@@ -16,7 +16,7 @@ public class BackUp {
     private long lastSave;
     private List<Series> series;
 
-    private static final Path PATH = Paths.get("F:\\BACKUP-SERIEN", "/Series-backup.json");
+    private static Path PATH;
 
     public BackUp(){
         this.lastSave = System.currentTimeMillis();
@@ -24,6 +24,8 @@ public class BackUp {
     }
 
     private static BackUp readBackUp() {
+        setPath();
+
         String json = "";
         try {
             json = new String(Files.readAllBytes(PATH));
@@ -36,6 +38,8 @@ public class BackUp {
     }
 
     public static void writeBackUp(BackUp backUp) {
+        setPath();
+
         PopUp pop = new PopUp();
         Gson gson = new Gson();
         String json = gson.toJson(backUp);
@@ -53,6 +57,18 @@ public class BackUp {
         }else{
             writeBackUp(new BackUp());
             return false;
+        }
+    }
+
+    private static void setPath(){
+        //Detect Windows or Linux and fuck Mac
+        if(System.getProperty("os.name").toLowerCase().contains("win")){
+            PATH = Paths.get("F:\\BACKUP-SERIEN", "/Series-backup.json");
+        }else if(System.getProperty("os.name").toLowerCase().contains("nux") || System.getProperty("os.name").toLowerCase().contains("nix") || System.getProperty("os.name").toLowerCase().contains("aix")){
+            PATH = Paths.get(System.getProperty("user.home"), "/media/"+ System.getProperty("user.name") + "/LEON-FP/BACKUP-SERIEN/Series-backup.json");
+        }else{
+            PopUp popUp = new PopUp();
+            popUp.error("Could not identify your OS. Too bad.");
         }
     }
 
