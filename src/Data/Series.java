@@ -21,7 +21,8 @@ public class Series {
 
     private String name;
     private List<Episode> episodes;
-    private int state;      //0=not started; 1=watching; 2=wait for new episodes; 3=finished
+    private int userState;      //0=not started; 1=watching; 2=wait for new episodes; 3=finished
+    private String status;      //Continuing /
     private int runtime;
     private String description;
     private double rating;
@@ -29,10 +30,11 @@ public class Series {
     private int currentEpisode;
 
 
-    public Series(String name, List<Episode> episodes, int state, int runtime, String description, double rating, int currentSeason, int currentEpisode){
+    public Series(String name, List<Episode> episodes, int userStatetate, String status, int runtime, String description, double rating, int currentSeason, int currentEpisode){
         this.name = name;
         this.episodes = episodes;
-        this.state = state;
+        this.userState = userState;
+        this.status = status;
         this.runtime = runtime;
         this.description = description;
         this.rating = rating;
@@ -90,12 +92,20 @@ public class Series {
         this.episodes = episodes;
     }
 
-    public int getState() {
-        return state;
+    public int getUserState() {
+        return userState;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setUserState(int userState) {
+        this.userState = userState;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getRuntime() {
