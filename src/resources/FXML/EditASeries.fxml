@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="464.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditASeriesController">
+   <children>
+      <TextField fx:id="seriesName" alignment="CENTER" layoutX="96.0" layoutY="17.0" prefHeight="25.0" prefWidth="181.0" />
+      <Spinner fx:id="numberSeasons" editable="true" layoutX="437.0" layoutY="15.0" />
+      <Label layoutX="309.0" layoutY="18.0" text="Number of seasons">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="65.0" text="Season 1 episodes" />
+      <Label layoutX="14.0" layoutY="100.0" text="Season 2 episodes" />
+      <Label layoutX="14.0" layoutY="135.0" text="Season 3 episodes" />
+      <Spinner fx:id="numberEpisodesSeason1" editable="true" layoutX="128.0" layoutY="58.0" />
+      <Label layoutX="14.0" layoutY="19.0" text="Series name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="282.0" layoutY="425.0" mnemonicParsing="false" onAction="#editSeries" text="Edit" />
+      <Label layoutX="14.0" layoutY="170.0" text="Season 4 episodes" />
+      <Label layoutX="14.0" layoutY="205.0" text="Season 5 episodes" />
+      <Spinner fx:id="numberEpisodesSeason2" editable="true" layoutX="128.0" layoutY="96.0" />
+      <Spinner fx:id="numberEpisodesSeason3" editable="true" layoutX="128.0" layoutY="131.0" />
+      <Spinner fx:id="numberEpisodesSeason4" editable="true" layoutX="128.0" layoutY="166.0" />
+      <Spinner fx:id="numberEpisodesSeason5" editable="true" layoutX="128.0" layoutY="201.0" />
+      <Label layoutX="14.0" layoutY="240.0" text="Season 6 episodes" />
+      <Label layoutX="14.0" layoutY="275.0" text="Season 7 episodes" />
+      <Label layoutX="14.0" layoutY="310.0" text="Season 8 episodes" />
+      <Label layoutX="14.0" layoutY="345.0" text="Season 9 episodes" />
+      <Spinner fx:id="numberEpisodesSeason6" editable="true" layoutX="128.0" layoutY="236.0" />
+      <Spinner fx:id="numberEpisodesSeason7" editable="true" layoutX="128.0" layoutY="271.0" />
+      <Spinner fx:id="numberEpisodesSeason8" editable="true" layoutX="128.0" layoutY="306.0" />
+      <Spinner fx:id="numberEpisodesSeason9" editable="true" layoutX="128.0" layoutY="341.0" />
+      <Label layoutX="300.0" layoutY="62.0" text="Season 10 episodes" />
+      <Spinner fx:id="numberEpisodesSeason10" editable="true" layoutX="418.0" layoutY="58.0" />
+      <Spinner fx:id="numberEpisodesSeason11" editable="true" layoutX="418.0" layoutY="96.0" />
+      <Label layoutX="300.0" layoutY="100.0" text="Season 11 episodes" />
+      <Label layoutX="300.0" layoutY="135.0" text="Season 12 episodes" />
+      <Label layoutX="300.0" layoutY="170.0" text="Season 13 episodes" />
+      <Label layoutX="300.0" layoutY="205.0" text="Season 14 episodes" />
+      <Label layoutX="300.0" layoutY="240.0" prefHeight="0.0" prefWidth="98.0" text="Season 15 episodes" />
+      <Label layoutX="300.0" layoutY="275.0" text="Season 16 episodes" />
+      <Label layoutX="300.0" layoutY="310.0" text="Season 17 episodes" />
+      <Label layoutX="300.0" layoutY="345.0" text="Season 18 episodes" />
+      <Spinner fx:id="numberEpisodesSeason12" editable="true" layoutX="418.0" layoutY="131.0" />
+      <Spinner fx:id="numberEpisodesSeason13" editable="true" layoutX="418.0" layoutY="166.0" />
+      <Spinner fx:id="numberEpisodesSeason14" editable="true" layoutX="418.0" layoutY="201.0" />
+      <Spinner fx:id="numberEpisodesSeason15" editable="true" layoutX="418.0" layoutY="236.0" />
+      <Spinner fx:id="numberEpisodesSeason16" editable="true" layoutX="418.0" layoutY="271.0" />
+      <Spinner fx:id="numberEpisodesSeason17" editable="true" layoutX="418.0" layoutY="306.0" />
+      <Spinner fx:id="numberEpisodesSeason18" editable="true" layoutX="418.0" layoutY="341.0" />
+      <Button fx:id="buttonBack" layoutX="418.0" layoutY="425.0" mnemonicParsing="false" onAction="#backMainMenu" text="Go back to the Main Menu" />
+      <Spinner fx:id="spinnerStateSeries" layoutX="128.0" layoutY="376.0" />
+      <Label layoutX="14.0" layoutY="380.0" text="State of Series:" />
+      <Label layoutX="128.0" layoutY="401.0" text="0=not started; 1=watching;">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label layoutX="128.0" layoutY="411.0" text="2=wait for new episodes; 3=finished">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
