@@ -15,7 +15,7 @@
     * Period changeable in Settings
     * Change interval of back-ups in settings  
 * When a series is discontinued (TVDB) it shall switch the `userState` to discontinued too, when the user finished watching it.
-* Let User add a series manually with the same options everywhere
+* Let User add a series manually with the same options everywhere, fix the current ones
     * Check all given Data if they are valid
 
 #### Think-Abouts
