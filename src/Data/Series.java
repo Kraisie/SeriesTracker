@@ -22,7 +22,7 @@ public class Series {
     private String name;
     private List<Episode> episodes;
     private int userState;      //0=not started; 1=watching; 2=wait for new episodes; 3=finished
-    private String status;      //Continuing /
+    private String status;      //Continuing / Ended
     private int runtime;
     private String description;
     private double rating;
@@ -70,6 +70,20 @@ public class Series {
         List<Series> list = readData();
         list.add(data);
         writeData(list);
+    }
+
+    public static boolean checkDuplicate(List<Series> allSeries, String name){
+        boolean exists = false;
+        for (Series series : allSeries) {
+            if (name.equals(series.getName())) {
+                PopUp pop = new PopUp();
+                pop.error("This series already exists in your list!");
+                exists = true;
+                break;
+            }
+        }
+
+        return !exists;
     }
 
     public int getSumEpisodes() {

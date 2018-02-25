@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ManualAdd">
+   <children>
+      <Button fx:id="nextButton" layoutX="541.0" layoutY="361.0" mnemonicParsing="false" onAction="#nextOrAdd" text="Next" />
+      <Label layoutX="373.0" layoutY="368.0" text="Press on next if everything is filled in">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNameSeries" layoutX="14.0" layoutY="14.0" text="Name of the Series:" textFill="#ff1212" />
+      <TextField fx:id="nameSeries" layoutX="174.0" layoutY="9.0" prefHeight="25.0" prefWidth="260.0" />
+      <ChoiceBox fx:id="choiceDiscontinued" layoutX="174.0" layoutY="67.0" prefHeight="25.0" prefWidth="260.0" />
+      <Label fx:id="labelDiscontinued" layoutX="14.0" layoutY="64.0" text="Discontinued?" />
+      <Label fx:id="labelAvgTime" layoutX="14.0" layoutY="124.0" text="Average Time (episode):" />
+      <Spinner fx:id="spinnerAvgTimeEpisode" layoutX="174.0" layoutY="119.0" />
+      <Label fx:id="labelInMinutes" layoutX="56.0" layoutY="137.0" text="in minutes">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelRating" layoutX="16.0" layoutY="176.0" text="Rating (anyones rating):" />
+      <Label fx:id="labelPoints" layoutX="24.0" layoutY="190.0" text="0 (bad) to 10 points (good)">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Spinner fx:id="spinnerRating" layoutX="174.0" layoutY="171.0" prefHeight="25.0" prefWidth="164.0" />
+      <Label fx:id="labelDescription" layoutX="16.0" layoutY="222.0" text="Description (with no input it will just contain &quot;-&quot;): " />
+      <TextArea fx:id="textAreaDescription" layoutX="16.0" layoutY="245.0" prefHeight="105.0" prefWidth="576.0" promptText="Short Description of the series..." wrapText="true" />
+      <Label layoutX="13.0" layoutY="368.0" text="RED = Needs an input, rest is optional" textFill="#ff1212">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNumberSeasons" layoutX="14.0" layoutY="14.0" text="Number of seasons:" textFill="#ff1212" />
+      <Spinner fx:id="spinnerNumberSeasons" layoutX="148.0" layoutY="9.0" prefHeight="25.0" prefWidth="164.0" />
+      <Spinner fx:id="numberEpisodesSeason1" layoutX="124.0" layoutY="59.0" />
+      <Label fx:id="labelEpisodesSeason1" layoutX="3.0" layoutY="64.0" text="Episodes Season 1:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason2" layoutX="124.0" layoutY="89.0" />
+      <Label fx:id="labelEpisodesSeason2" layoutX="3.0" layoutY="94.0" text="Episodes Season 2:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason3" layoutX="124.0" layoutY="119.0" />
+      <Label fx:id="labelEpisodesSeason3" layoutX="3.0" layoutY="124.0" text="Episodes Season 3:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason4" layoutX="124.0" layoutY="149.0" />
+      <Label fx:id="labelEpisodesSeason4" layoutX="3.0" layoutY="154.0" text="Episodes Season 4:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason5" layoutX="124.0" layoutY="179.0" />
+      <Label fx:id="labelEpisodesSeason5" layoutX="3.0" layoutY="184.0" text="Episodes Season 5:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason6" layoutX="124.0" layoutY="209.0" />
+      <Label fx:id="labelEpisodesSeason6" layoutX="3.0" layoutY="214.0" text="Episodes Season 6:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason7" layoutX="124.0" layoutY="239.0" />
+      <Label fx:id="labelEpisodesSeason7" layoutX="3.0" layoutY="244.0" text="Episodes Season 7:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason8" layoutX="124.0" layoutY="269.0" />
+      <Label fx:id="labelEpisodesSeason8" layoutX="3.0" layoutY="274.0" text="Episodes Season 8:" textFill="#ff1212" />
+      <Label fx:id="labelEpisodesSeason9" layoutX="2.0" layoutY="304.0" text="Episodes Season 9:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason9" layoutX="124.0" layoutY="299.0" />
+      <Spinner fx:id="numberEpisodesSeason10" layoutX="434.0" layoutY="59.0" />
+      <Label fx:id="labelEpisodesSeason10" layoutX="303.0" layoutY="64.0" text="Episodes Season 10:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason11" layoutX="434.0" layoutY="89.0" />
+      <Label fx:id="labelEpisodesSeason11" layoutX="303.0" layoutY="94.0" text="Episodes Season 11:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason12" layoutX="434.0" layoutY="120.0" />
+      <Label fx:id="labelEpisodesSeason12" layoutX="303.0" layoutY="124.0" text="Episodes Season 12:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason13" layoutX="434.0" layoutY="150.0" />
+      <Label fx:id="labelEpisodesSeason13" layoutX="303.0" layoutY="154.0" text="Episodes Season 13:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason14" layoutX="434.0" layoutY="180.0" />
+      <Label fx:id="labelEpisodesSeason14" layoutX="303.0" layoutY="184.0" text="Episodes Season 14:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason15" layoutX="434.0" layoutY="210.0" />
+      <Label fx:id="labelEpisodesSeason15" layoutX="303.0" layoutY="214.0" text="Episodes Season 15:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason16" layoutX="434.0" layoutY="240.0" />
+      <Label fx:id="labelEpisodesSeason16" layoutX="303.0" layoutY="244.0" text="Episodes Season 16:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason17" layoutX="434.0" layoutY="270.0" />
+      <Label fx:id="labelEpisodesSeason17" layoutX="303.0" layoutY="274.0" text="Episodes Season 17:" textFill="#ff1212" />
+      <Label fx:id="labelEpisodesSeason18" layoutX="302.0" layoutY="304.0" text="Episodes Season 18:" textFill="#ff1212" />
+      <Spinner fx:id="numberEpisodesSeason18" layoutX="434.0" layoutY="300.0" />
+      <Button layoutX="251.0" layoutY="361.0" mnemonicParsing="false" onAction="#back" text="Main Menu" />
+   </children>
+</AnchorPane>
