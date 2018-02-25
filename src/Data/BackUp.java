@@ -39,7 +39,6 @@ public class BackUp {
 
     public static void writeBackUp(BackUp backUp) {
         setPath();
-
         PopUp pop = new PopUp();
         Gson gson = new Gson();
         String json = gson.toJson(backUp);
@@ -51,6 +50,7 @@ public class BackUp {
     }
 
     public static boolean checkOldBackUp(){
+        setPath();
         if(Files.exists(PATH)){
             BackUp backUp = readBackUp();
             return (System.currentTimeMillis() - backUp.lastSave) >= 86400000L;
@@ -65,7 +65,7 @@ public class BackUp {
         if(System.getProperty("os.name").toLowerCase().contains("win")){
             PATH = Paths.get("F:\\BACKUP-SERIEN", "/Series-backup.json");
         }else if(System.getProperty("os.name").toLowerCase().contains("nux") || System.getProperty("os.name").toLowerCase().contains("nix") || System.getProperty("os.name").toLowerCase().contains("aix")){
-            PATH = Paths.get(System.getProperty("user.home"), "/media/"+ System.getProperty("user.name") + "/LEON-FP/BACKUP-SERIEN/Series-backup.json");
+            PATH = Paths.get("/media/leon/LEON-FP/BACKUP-SERIEN/Series-backup.json");
         }else{
             PopUp popUp = new PopUp();
             popUp.error("Could not identify your OS. Too bad.");
