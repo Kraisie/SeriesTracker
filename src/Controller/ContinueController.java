@@ -1,5 +1,6 @@
 package Controller;
 
+import Data.Episode;
 import Data.Series;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +27,7 @@ public class ContinueController {
     public void initialize(){
         labelSeason.setAlignment(Pos.CENTER);
         labelEpisode.setAlignment(Pos.CENTER);
-        labelSeason.setText("How many episodes does season " + (MainMenuController.toController.getCurrentSeason() + 1));
+        labelSeason.setText("How many episodes does season " + (MainMenuController.toController.getCurrent().getSeason() + 1));
         labelEpisode.setText(" of '" + MainMenuController.toController.getName() + "' have?");
 
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100);
@@ -41,18 +42,15 @@ public class ContinueController {
         List<Series> allSeries = Series.readData();
         for (Series series : allSeries) {
             if (series.equals(MainMenuController.toController)) {
-                //get number of seasons to change it later
-                int[] seasons = MainMenuController.toController.getEpisodes();
-                int[] newSeasons = new int[seasons.length + 1];
-                System.arraycopy(seasons, 0, newSeasons, 0, seasons.length);
-                newSeasons[newSeasons.length - 1] = numberEpisodes.getValue();
+                //get new number of seasons (now + 1)
+                List<Episode> episodes = series.getEpisodes();
+                for(int i = 0; i < numberEpisodes.getValue(); i++){
+                    episodes.add(new Episode(0,0,"",""));
+                }
 
                 //set state to watching and set current to current Season+1 and episode 1
-                series.setState(1);
-                series.setSeasons(newSeasons.length);
-                series.setEpisodes(newSeasons);
-                series.setCurrentSeason(series.getCurrentSeason() + 1);
-                series.setCurrentEpisode(1);
+                series.setUserState(1);
+                series.setEpisodes(episodes);
             }
         }
 
