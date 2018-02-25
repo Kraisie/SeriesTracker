@@ -21,9 +21,9 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="94.0" text="from TVDB. Just type the name of series and press 'Add':">
+                        <Label layoutX="41.0" layoutY="93.0" text="from TVDB. Just type the name of the series and">
                            <font>
-                              <Font size="23.0" />
+                              <Font size="24.0" />
                            </font>
                         </Label>
                         <TextField fx:id="nameTVDB" layoutX="57.0" layoutY="200.0" prefHeight="25.0" prefWidth="487.0" promptText="Name of a series (english)" />
@@ -31,6 +31,11 @@
                         <Label layoutX="149.0" layoutY="250.0" text="spelling and also make sure you have the right name." />
                         <Button layoutX="260.0" layoutY="329.0" mnemonicParsing="false" onAction="#addTVDB" text="Add Series" />
                         <Button fx:id="buttonBack1" layoutX="416.0" layoutY="386.0" mnemonicParsing="false" onAction="#back" text="Go back to the Main Menu" />
+                        <Label layoutX="201.0" layoutY="139.0" text="press 'Add Series':">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content></Tab>
