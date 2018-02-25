@@ -393,6 +393,7 @@ public class MainMenuController {
                     for(int i = 0; i < episodes.size(); i++){
                         if(episodes.get(i).isCurrent()){
                             episodes.get(i).setCurrent(false);
+                            episodes.get(i).setWatched(true);
                             episodes.get(i+1).setCurrent(true);
                         }
                     }
@@ -418,6 +419,7 @@ public class MainMenuController {
                         if(episodes.get(i).isCurrent()){
                             episodes.get(i).setCurrent(false);
                             episodes.get(i-1).setCurrent(true);
+                            episodes.get(i-1).setWatched(false);
                         }
                     }
                 }
