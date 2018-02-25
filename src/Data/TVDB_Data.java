@@ -24,8 +24,6 @@ public class TVDB_Data {
     private static int runtime;
     private static String description;
     private static double rating;
-    private static int currentSeason = 1;
-    private static int currentEpisode = 1;
 
     public static Series searchFindAndGetSeries(String seriesName) {
         //LOGIN
@@ -40,7 +38,7 @@ public class TVDB_Data {
         //GET Episodes
         getEpisodes(token, id);
 
-        return new Series(name, episodes, userState, status, runtime, description, rating, currentSeason, currentEpisode);
+        return new Series(name, episodes, userState, status, runtime, description, rating);
     }
 
     private static String logIn() {
