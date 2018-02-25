@@ -27,6 +27,7 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("/resources/FXML/MainMenu.fxml"));
         primaryStage.setTitle("Series Control Panel");
+        primaryStage.setResizable(false);
         primaryStage.getIcons().add(img);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
