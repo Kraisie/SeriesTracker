@@ -26,11 +26,9 @@ public class Series {
     private int runtime;
     private String description;
     private double rating;
-    private int currentSeason;
-    private int currentEpisode;
 
 
-    public Series(String name, List<Episode> episodes, int userStatetate, String status, int runtime, String description, double rating, int currentSeason, int currentEpisode){
+    public Series(String name, List<Episode> episodes, int userStatetate, String status, int runtime, String description, double rating){
         this.name = name;
         this.episodes = episodes;
         this.userState = userState;
@@ -38,8 +36,6 @@ public class Series {
         this.runtime = runtime;
         this.description = description;
         this.rating = rating;
-        this.currentSeason = currentSeason;
-        this.currentEpisode = currentEpisode;
     }
 
     public static List<Series> readData() {
@@ -84,6 +80,21 @@ public class Series {
         }
 
         return !exists;
+    }
+
+    public Episode getCurrent(){
+        for(Episode ep : episodes){
+            if(ep.isCurrent()){
+                return ep;
+            }
+        }
+
+        return new Episode(0,0,"","");
+    }
+
+    public int getNumberOfSeasons(){
+        Episode episode = episodes.get(episodes.size() - 1);
+        return episode.getSeason();
     }
 
     public int getSumEpisodes() {
@@ -144,22 +155,6 @@ public class Series {
 
     public void setRating(double rating) {
         this.rating = rating;
-    }
-
-    public int getCurrentSeason() {
-        return currentSeason;
-    }
-
-    public void setCurrentSeason(int currentSeason) {
-        this.currentSeason = currentSeason;
-    }
-
-    public int getCurrentEpisode() {
-        return currentEpisode;
-    }
-
-    public void setCurrentEpisode(int currentEpisode) {
-        this.currentEpisode = currentEpisode;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package Controller;
 
+import Data.Episode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class InformationController {
 
@@ -26,23 +28,24 @@ public class InformationController {
 
     public void initialize(){
         labelNameSeries.setText(MainMenuController.toController.getName());
-        labelNumberSeasons.setText(String.valueOf(MainMenuController.toController.getSeasons()));
+        labelNumberSeasons.setText(String.valueOf(MainMenuController.toController.getNumberOfSeasons()));
 
-        int[] episodes = MainMenuController.toController.getEpisodes();
+        List<Episode> episodes = MainMenuController.toController.getEpisodes();
         int sumEpisodes = 0;
-        for(int epi : episodes){
-            sumEpisodes += epi;
+        for(Episode epi : episodes){
+            sumEpisodes++;
         }
         labelNumberEpisodes.setText(String.valueOf(sumEpisodes));
 
-        labelCurrentSeason.setText(String.valueOf(MainMenuController.toController.getCurrentSeason()) + " / " + MainMenuController.toController.getSeasons());
-        labelCurrentEpisode.setText(String.valueOf(MainMenuController.toController.getCurrentEpisode()) + " / " + episodes[MainMenuController.toController.getCurrentSeason() - 1]);
+        labelCurrentSeason.setText(String.valueOf(MainMenuController.toController.getCurrent().getSeason()) + " / " + MainMenuController.toController.getNumberOfSeasons());
+        labelCurrentEpisode.setText(String.valueOf(MainMenuController.toController.getCurrent().getEpNumberOfSeason()) + " / " + MainMenuController.toController.getSumEpisodes());
 
         int watchedEpisodes = 0;
-        for(int i = 0; i+1 < MainMenuController.toController.getCurrentSeason(); i++){
-            watchedEpisodes += episodes[i];
+        for(Episode ep : episodes){
+            if(ep.isWatched()){
+                watchedEpisodes++;
+            }
         }
-        watchedEpisodes += MainMenuController.toController.getCurrentEpisode() - 1;
         double completion = (double)watchedEpisodes/sumEpisodes;
         completion *= 100;          //for percentage
         labelPercentageCompletition.setText(String.format("%.2f", completion) + "%");

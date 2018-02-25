@@ -7,6 +7,7 @@ public class Episode {
     private String name;
     private String overview;
     private boolean current;
+    private boolean watched;
 
     public Episode(int epNumberOfSeason, int season, String name, String overview){
         this.epNumberOfSeason = epNumberOfSeason;
@@ -14,6 +15,7 @@ public class Episode {
         this.name = name;
         this.overview = overview;
         this.current = false;
+        this.watched = false;
     }
 
     public int getEpNumberOfSeason() {
@@ -54,6 +56,14 @@ public class Episode {
 
     public void setCurrent(boolean current) {
         this.current = current;
+    }
+
+    public boolean isWatched() {
+        return watched;
+    }
+
+    public void setWatched(boolean watched) {
+        this.watched = watched;
     }
 
     @Override
