@@ -49,7 +49,7 @@ public class PopUp {
     }
 
     public void error(String text){
-        URL resource = MainMenuController.class.getResource("/resources/Warning.png");
+        URL resource = MainMenuController.class.getResource("/resources/Pics/Warning.png");
         Image img = new Image(resource.toString());
 
         Stage popUp = new Stage();
