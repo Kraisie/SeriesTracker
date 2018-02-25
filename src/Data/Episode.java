@@ -6,12 +6,14 @@ public class Episode {
     private int season;
     private String name;
     private String overview;
+    private boolean current;
 
     public Episode(int epNumberOfSeason, int season, String name, String overview){
         this.epNumberOfSeason = epNumberOfSeason;
         this.season = season;
         this.name = name;
         this.overview = overview;
+        this.current = false;
     }
 
     public int getEpNumberOfSeason() {
@@ -44,6 +46,14 @@ public class Episode {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public boolean isCurrent() {
+        return current;
+    }
+
+    public void setCurrent(boolean current) {
+        this.current = current;
     }
 
     @Override

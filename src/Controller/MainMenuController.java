@@ -1,5 +1,6 @@
 package Controller;
 
+import Data.Episode;
 import Data.Series;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -103,7 +104,7 @@ public class MainMenuController {
         listEntries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
         if (!listEntries.isEmpty()) {
             for (Series listEntry : listEntries) {
-                switch (listEntry.getState()) {
+                switch (listEntry.getUserState()) {
                     case 0:
                         notStartedSeries.add(listEntry);
                         break;
@@ -310,70 +311,22 @@ public class MainMenuController {
         label.setTextFill(javafx.scene.paint.Color.web(hexColor));
     }
 
-    private String getContrastColor(Color color) {
-        //kinda gud method:
-        //avg R/G/B to binary                                                   --> 22 = 0001 0110
-        //1,2 & 3,4 & 5,6 & 7,8 with XOR (00 = 0; 01 = 1; 10 = 1; 11 = 0)       --> 0111
-        //4-digit xor reverse and append right order                            --> 1110 0111
-        //new binary to hex                                                     --> 1110 0111 = E7
-        //NVM WORKS FOR PIXEL VS PIXEL BUT SHIT FOR AREAS -______-
-        //AND GREY IS STILL SHIT
-        //FFFAAAAACCCCCKKKKKKK!!!!!!!!
-
-        int red = colorChannelToBinary(color.getRed());
-        int green = colorChannelToBinary(color.getGreen());
-        int blue = colorChannelToBinary(color.getBlue());
-
-        Color invColor = new Color(red, green, blue);
-
-        String hexColor = Integer.toHexString(invColor.getRGB() & 0xffffff);
-        if (hexColor.length() < 6) {
-            hexColor = "000000".substring(0, 6 - hexColor.length()) + hexColor;
-        }
-
-        return "#" + hexColor;
-    }
-
-    private int colorChannelToBinary(int channelValue) {
-        //binary of value
-        String binaryString = String.format("%8s", Integer.toBinaryString(channelValue)).replace(' ', '0');
-
-        //xor
-        char[] xor = new char[4];
-        char[] binaryChars = new char[8];
-        binaryString.getChars(0, 8, binaryChars, 0);        //8 is the end and won't get copied anymore
-        for(int i = 0; i < binaryChars.length; i+=2){
-            if(binaryChars[i] != binaryChars[i+1]){
-                xor[i/2] = '1';
-            }else{
-                xor[i/2] = '0';
-            }
-        }
-
-        //reverse and not reverse back in binary
-        char[] newBinaryChars = new char[8];
-        for(int i = 0; i < xor.length; i++){
-            newBinaryChars[i] = xor[3-i];
-        }
-        for(int i = 0; i < xor.length; i++){
-            newBinaryChars[i+4] = xor[i];
-        }
-
-        //binary to int
-        String newBinary = new String(newBinaryChars);
-
-        return Integer.parseInt(newBinary, 2);
-    }
-
-//    private String getContrastBlackOrWhiteHex(Color color) {
-//        //get black or white regarding the background for most contrast (not another color)
-//        double yiq = ((color.getRed() * 299) + (color.getGreen() * 587) + (color.getBlue() * 114)) / 1000;
-//        Color invColor = new Color(255, 255, 255);
-//        if (yiq >= 128) {
-//            invColor = new Color(0, 0, 0);
-//        }
+//    private String getContrastColor(Color color) {
+//        //kinda gud method:
+//        //avg R/G/B to binary                                                   --> 22 = 0001 0110
+//        //1,2 & 3,4 & 5,6 & 7,8 with XOR (00 = 0; 01 = 1; 10 = 1; 11 = 0)       --> 0111
+//        //4-digit xor reverse and append right order                            --> 1110 0111
+//        //new binary to hex                                                     --> 1110 0111 = E7
+//        //NVM WORKS FOR PIXEL VS PIXEL BUT SHIT FOR AREAS -______-
+//        //AND GREY IS STILL SHIT
+//        //FFFAAAAACCCCCKKKKKKK!!!!!!!!
 //
-//        //to hex
+//        int red = colorChannelToBinary(color.getRed());
+//        int green = colorChannelToBinary(color.getGreen());
+//        int blue = colorChannelToBinary(color.getBlue());
+//
+//        Color invColor = new Color(red, green, blue);
+//
 //        String hexColor = Integer.toHexString(invColor.getRGB() & 0xffffff);
 //        if (hexColor.length() < 6) {
 //            hexColor = "000000".substring(0, 6 - hexColor.length()) + hexColor;
@@ -382,24 +335,67 @@ public class MainMenuController {
 //        return "#" + hexColor;
 //    }
 
+//    private int colorChannelToBinary(int channelValue) {
+//        //binary of value
+//        String binaryString = String.format("%8s", Integer.toBinaryString(channelValue)).replace(' ', '0');
+//
+//        //xor
+//        char[] xor = new char[4];
+//        char[] binaryChars = new char[8];
+//        binaryString.getChars(0, 8, binaryChars, 0);        //8 is the end and won't get copied anymore
+//        for(int i = 0; i < binaryChars.length; i+=2){
+//            if(binaryChars[i] != binaryChars[i+1]){
+//                xor[i/2] = '1';
+//            }else{
+//                xor[i/2] = '0';
+//            }
+//        }
+//
+//        //reverse and not reverse back in binary
+//        char[] newBinaryChars = new char[8];
+//        for(int i = 0; i < xor.length; i++){
+//            newBinaryChars[i] = xor[3-i];
+//        }
+//        for(int i = 0; i < xor.length; i++){
+//            newBinaryChars[i+4] = xor[i];
+//        }
+//
+//        //binary to int
+//        String newBinary = new String(newBinaryChars);
+//
+//        return Integer.parseInt(newBinary, 2);
+//    }
+
+    private String getContrastColor(Color color) {
+        //get black or white regarding the background for most contrast (not another color)
+        double yiq = ((color.getRed() * 299) + (color.getGreen() * 587) + (color.getBlue() * 114)) / 1000;
+        Color invColor = new Color(255, 255, 255);
+        if (yiq >= 128) {
+            invColor = new Color(0, 0, 0);
+        }
+
+        //to hex
+        String hexColor = Integer.toHexString(invColor.getRGB() & 0xffffff);
+        if (hexColor.length() < 6) {
+            hexColor = "000000".substring(0, 6 - hexColor.length()) + hexColor;
+        }
+
+        return "#" + hexColor;
+    }
+
     public void incEpisode() {
         //add episode, if end of season add season
         if (tableContinueWatching.getSelectionModel().getSelectedItem() != null) {
             List<Series> allSeries = Series.readData();
             for (Series series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
-                    if (series.getCurrentEpisode() == series.getEpisodes()[series.getCurrentSeason() - 1] && series.getCurrentSeason() != series.getSeasons()) {
-                        //if end of season start at episode 1 of the next season
-                        series.setCurrentEpisode(1);
-                        series.setCurrentSeason(series.getCurrentSeason() + 1);
-                    } else if (series.getCurrentEpisode() == series.getEpisodes()[series.getCurrentSeason() - 1]) {
-                        //if end of seasons set state to 2 (waiting for new episodes) and stay at current season/episode
-                        series.setState(2);
-                    } else {
-                        //just increment episode when not at any end
-                        series.setCurrentEpisode(series.getCurrentEpisode() + 1);
+                    List<Episode> episodes = series.getEpisodes();
+                    for(int i = 0; i < episodes.size(); i++){
+                        if(episodes.get(i).isCurrent()){
+                            episodes.get(i).setCurrent(false);
+                            episodes.get(i+1).setCurrent(true);
+                        }
                     }
-                    break;
                 }
             }
 
@@ -417,18 +413,13 @@ public class MainMenuController {
             List<Series> allSeries = Series.readData();
             for (Series series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
-                    if (series.getCurrentEpisode() == 1 && series.getCurrentSeason() != 1) {
-                        //if episode one of any season that is not one, decrease season and episode to max episode of last season
-                        series.setCurrentEpisode(series.getEpisodes()[series.getCurrentSeason() - 2]); //-2 since -1 for 0/1-difference in arrays and -1 for the season before this one
-                        series.setCurrentSeason(series.getCurrentSeason() - 1);
-                    } else if (series.getCurrentEpisode() == 1 && series.getCurrentSeason() == 1) {
-                        // if epsiode one in season 1 don't do anything
-                        System.out.println("TEST");
-                    } else {
-                        //if not episode one
-                        series.setCurrentEpisode(series.getCurrentEpisode() - 1);
+                    List<Episode> episodes = series.getEpisodes();
+                    for(int i = 0; i < episodes.size(); i++){
+                        if(episodes.get(i).isCurrent()){
+                            episodes.get(i).setCurrent(false);
+                            episodes.get(i-1).setCurrent(true);
+                        }
                     }
-                    break;
                 }
             }
 
@@ -497,7 +488,7 @@ public class MainMenuController {
             List<Series> allSeries = Series.readData();
             for (Series series : allSeries) {
                 if (series.equals(tableWaitEpisodes.getSelectionModel().getSelectedItem())) {
-                    series.setState(3);       //3 = finished
+                    series.setUserState(3);       //3 = finished
                 }
             }
 
@@ -534,7 +525,7 @@ public class MainMenuController {
             List<Series> allSeries = Series.readData();
             for (Series allSery : allSeries) {
                 if (allSery.equals(tableStartWatching.getSelectionModel().getSelectedItem())) {
-                    allSery.setState(1);
+                    allSery.setUserState(1);
                     break;
                 }
             }
