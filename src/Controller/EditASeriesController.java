@@ -1,5 +1,6 @@
 package Controller;
 
+import Data.Episode;
 import Data.Series;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EditASeriesController {
@@ -61,49 +63,49 @@ public class EditASeriesController {
     public void initialize() {
         setValueFactory();
         seriesName.setText(EditController.toController.getName());
-        numberSeasons.getValueFactory().setValue(EditController.toController.getSeasons());
+        numberSeasons.getValueFactory().setValue(EditController.toController.getNumberOfSeasons());
 
-        int[] episodes = EditController.toController.getEpisodes();
-        switch (EditController.toController.getSeasons()) {
-            case 18:
-                numberEpisodesSeason18.getValueFactory().setValue(episodes[17]);
-            case 17:
-                numberEpisodesSeason17.getValueFactory().setValue(episodes[16]);
-            case 16:
-                numberEpisodesSeason16.getValueFactory().setValue(episodes[15]);
-            case 15:
-                numberEpisodesSeason15.getValueFactory().setValue(episodes[14]);
-            case 14:
-                numberEpisodesSeason14.getValueFactory().setValue(episodes[13]);
-            case 13:
-                numberEpisodesSeason13.getValueFactory().setValue(episodes[12]);
-            case 12:
-                numberEpisodesSeason12.getValueFactory().setValue(episodes[11]);
-            case 11:
-                numberEpisodesSeason11.getValueFactory().setValue(episodes[10]);
-            case 10:
-                numberEpisodesSeason10.getValueFactory().setValue(episodes[9]);
-            case 9:
-                numberEpisodesSeason9.getValueFactory().setValue(episodes[8]);
-            case 8:
-                numberEpisodesSeason8.getValueFactory().setValue(episodes[7]);
-            case 7:
-                numberEpisodesSeason7.getValueFactory().setValue(episodes[6]);
-            case 6:
-                numberEpisodesSeason6.getValueFactory().setValue(episodes[5]);
-            case 5:
-                numberEpisodesSeason5.getValueFactory().setValue(episodes[4]);
-            case 4:
-                numberEpisodesSeason4.getValueFactory().setValue(episodes[3]);
-            case 3:
-                numberEpisodesSeason3.getValueFactory().setValue(episodes[2]);
-            case 2:
-                numberEpisodesSeason2.getValueFactory().setValue(episodes[1]);
-            case 1:
-                numberEpisodesSeason1.getValueFactory().setValue(episodes[0]);
-        }
-
-        spinnerStateSeries.getValueFactory().setValue(EditController.toController.getState());
+        List<Episode> episodes = EditController.toController.getEpisodes();
+//        switch (EditController.toController.getSeasons()) {
+//            case 18:
+//                numberEpisodesSeason18.getValueFactory().setValue(episodes.get(17));
+//            case 17:
+//                numberEpisodesSeason17.getValueFactory().setValue(episodes[16]);
+//            case 16:
+//                numberEpisodesSeason16.getValueFactory().setValue(episodes[15]);
+//            case 15:
+//                numberEpisodesSeason15.getValueFactory().setValue(episodes[14]);
+//            case 14:
+//                numberEpisodesSeason14.getValueFactory().setValue(episodes[13]);
+//            case 13:
+//                numberEpisodesSeason13.getValueFactory().setValue(episodes[12]);
+//            case 12:
+//                numberEpisodesSeason12.getValueFactory().setValue(episodes[11]);
+//            case 11:
+//                numberEpisodesSeason11.getValueFactory().setValue(episodes[10]);
+//            case 10:
+//                numberEpisodesSeason10.getValueFactory().setValue(episodes[9]);
+//            case 9:
+//                numberEpisodesSeason9.getValueFactory().setValue(episodes[8]);
+//            case 8:
+//                numberEpisodesSeason8.getValueFactory().setValue(episodes[7]);
+//            case 7:
+//                numberEpisodesSeason7.getValueFactory().setValue(episodes[6]);
+//            case 6:
+//                numberEpisodesSeason6.getValueFactory().setValue(episodes[5]);
+//            case 5:
+//                numberEpisodesSeason5.getValueFactory().setValue(episodes[4]);
+//            case 4:
+//                numberEpisodesSeason4.getValueFactory().setValue(episodes[3]);
+//            case 3:
+//                numberEpisodesSeason3.getValueFactory().setValue(episodes[2]);
+//            case 2:
+//                numberEpisodesSeason2.getValueFactory().setValue(episodes[1]);
+//            case 1:
+//                numberEpisodesSeason1.getValueFactory().setValue(episodes[0]);
+//        }
+//
+//        spinnerStateSeries.getValueFactory().setValue(EditController.toController.getState());
     }
 
     private void setValueFactory() {
@@ -233,54 +235,53 @@ public class EditASeriesController {
 
     public void editSeries() {
         List<Series> allSeries = Series.readData();
-        for (Series allSery : allSeries) {
-            if (EditController.toController.getName().equals(allSery.getName())) {
-                allSery.setName(seriesName.getText());
-                allSery.setSeasons(numberSeasons.getValue());
+        for (Series series : allSeries) {
+            if (EditController.toController.getName().equals(series.getName())) {
+                series.setName(seriesName.getText());
 
-                int[] episodes = new int[numberSeasons.getValue()];
-                for(int i = 0; i < episodes.length; i++){
-                    switch(i){
-                        case 0: episodes[0] = numberEpisodesSeason1.getValue();
-                            break;
-                        case 1: episodes[1] = numberEpisodesSeason2.getValue();
-                            break;
-                        case 2: episodes[2] = numberEpisodesSeason3.getValue();
-                            break;
-                        case 3: episodes[3] = numberEpisodesSeason4.getValue();
-                            break;
-                        case 4: episodes[4] = numberEpisodesSeason5.getValue();
-                            break;
-                        case 5: episodes[5] = numberEpisodesSeason6.getValue();
-                            break;
-                        case 6: episodes[6] = numberEpisodesSeason7.getValue();
-                            break;
-                        case 7: episodes[7] = numberEpisodesSeason8.getValue();
-                            break;
-                        case 8: episodes[8] = numberEpisodesSeason9.getValue();
-                            break;
-                        case 9: episodes[9] = numberEpisodesSeason10.getValue();
-                            break;
-                        case 10: episodes[10] = numberEpisodesSeason11.getValue();
-                            break;
-                        case 11: episodes[11] = numberEpisodesSeason12.getValue();
-                            break;
-                        case 12: episodes[12] = numberEpisodesSeason13.getValue();
-                            break;
-                        case 13: episodes[13] = numberEpisodesSeason14.getValue();
-                            break;
-                        case 14: episodes[14] = numberEpisodesSeason15.getValue();
-                            break;
-                        case 15: episodes[15] = numberEpisodesSeason16.getValue();
-                            break;
-                        case 16: episodes[16] = numberEpisodesSeason17.getValue();
-                            break;
-                        case 17: episodes[17] = numberEpisodesSeason18.getValue();
-                            break;
-                    }
-                }
-                allSery.setEpisodes(episodes);
-                allSery.setState(spinnerStateSeries.getValue());
+                List<Episode> episodes = new ArrayList<>();
+//                for(int i = 0; i < episodes.length; i++){
+//                    switch(i){
+//                        case 0: episodes[0] = numberEpisodesSeason1.getValue();
+//                            break;
+//                        case 1: episodes[1] = numberEpisodesSeason2.getValue();
+//                            break;
+//                        case 2: episodes[2] = numberEpisodesSeason3.getValue();
+//                            break;
+//                        case 3: episodes[3] = numberEpisodesSeason4.getValue();
+//                            break;
+//                        case 4: episodes[4] = numberEpisodesSeason5.getValue();
+//                            break;
+//                        case 5: episodes[5] = numberEpisodesSeason6.getValue();
+//                            break;
+//                        case 6: episodes[6] = numberEpisodesSeason7.getValue();
+//                            break;
+//                        case 7: episodes[7] = numberEpisodesSeason8.getValue();
+//                            break;
+//                        case 8: episodes[8] = numberEpisodesSeason9.getValue();
+//                            break;
+//                        case 9: episodes[9] = numberEpisodesSeason10.getValue();
+//                            break;
+//                        case 10: episodes[10] = numberEpisodesSeason11.getValue();
+//                            break;
+//                        case 11: episodes[11] = numberEpisodesSeason12.getValue();
+//                            break;
+//                        case 12: episodes[12] = numberEpisodesSeason13.getValue();
+//                            break;
+//                        case 13: episodes[13] = numberEpisodesSeason14.getValue();
+//                            break;
+//                        case 14: episodes[14] = numberEpisodesSeason15.getValue();
+//                            break;
+//                        case 15: episodes[15] = numberEpisodesSeason16.getValue();
+//                            break;
+//                        case 16: episodes[16] = numberEpisodesSeason17.getValue();
+//                            break;
+//                        case 17: episodes[17] = numberEpisodesSeason18.getValue();
+//                            break;
+//                    }
+//                }
+                series.setEpisodes(episodes);
+                series.setUserState(spinnerStateSeries.getValue());
                 break;
             }
         }
