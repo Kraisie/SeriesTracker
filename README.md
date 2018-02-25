@@ -2,6 +2,8 @@
 
 ### Track your series.
 
+You can convert your old `.json` to the new `.json` here: https://github.com/leonfrisch/SeriesJSONtoNew
+
 #### ToDo-List
 
 * Add amount of wasted time (Info-Table)
