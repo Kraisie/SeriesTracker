@@ -34,7 +34,7 @@ public class FinishedController {
         ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
         if (!listEntries.isEmpty()) {
             for (Series listEntry : listEntries) {
-                if(listEntry.getState() == 3){
+                if(listEntry.getUserState() == 3){
                     finishedSeries.add(listEntry);
                 }
             }
