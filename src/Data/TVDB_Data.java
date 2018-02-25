@@ -83,6 +83,15 @@ public class TVDB_Data {
     }
 
     private static String searchSeries(String search, String token) {
+        search = search.replaceAll(" ", "%20");
+        search = search.replaceAll("%", "%25");
+        search = search.replaceAll("&", "%26");
+        search = search.replaceAll("ä", "%C3%A4");
+        search = search.replaceAll("Ä", "%C3%84");
+        search = search.replaceAll("ö", "%C3%B6");
+        search = search.replaceAll("Ö", "%C3%96");
+        search = search.replaceAll("ü", "%C3%BC");
+        search = search.replaceAll("Ü", "%C3%9C");
         String foundJSON = requestToString("search", token, search);
 
         if (!foundJSON.contains("Resource not found")) {
