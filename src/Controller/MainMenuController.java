@@ -122,6 +122,7 @@ public class MainMenuController {
             }
         }
 
+        //Fix getCurrent()
         columnContinueName.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnContinueSeason.setCellValueFactory(new PropertyValueFactory<>("currentSeason"));
         columnContinueEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
