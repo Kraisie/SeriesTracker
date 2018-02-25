@@ -12,7 +12,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Set `current` when translating old to new `Series.json`, otherwise set it on 1.1
     * Should have the side-effect that `getCurrent` works to fill Tables
     
-* FIX FUCKING EVERYTHING
+* FIX FUCKING EVERYTHING FXML
 
 * Add amount of wasted time (Info-Table)
 * Description of series to Info-Table
@@ -52,3 +52,4 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Added average Time of an episode to get wasted time on a series
 * Added Description of a series
 * Implemented TVDB-API
+* Program that changes old `Series.json` to a `.json`
