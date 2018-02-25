@@ -89,8 +89,18 @@ public class Series {
             }
         }
 
-        return new Episode(0,0,"","");
+        return null;
     }
+
+    //For CellValue
+    public int getCurrentSeason(){
+        return getCurrent().getSeason();
+    }
+
+    public int getCurrentEpisode(){
+        return getCurrent().getEpNumberOfSeason();
+    }
+    //End CellValue
 
     public int getNumberOfSeasons(){
         Episode episode = episodes.get(episodes.size() - 1);
