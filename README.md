@@ -18,6 +18,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * When a series is discontinued (TVDB) it shall switch the `userState` to discontinued too, when the user finished watching it.
 * Let User add a series manually with the same options everywhere, fix the current ones
     * Check all given Data if they are valid
+* Order episodes regarding their Season and Episode, since they are currently not and it would destroy `incEpisode` and `decEpisode`.
 
 #### Think-Abouts
 
