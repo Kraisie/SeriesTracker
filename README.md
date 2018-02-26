@@ -7,7 +7,20 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 #### ToDo-List
 
 * Filter every season or episode that has 0/null in its epNumber/seasonNumber
-* Get all episodes not just 10 episodes of every Season (but idk how)
+* Get all episodes not just 10 episodes of every Season (but idk how --> Solution: episodes have pages)
+    * pages: 
+    `{
+        "links": {
+        "first": 1,
+        "last": 2,
+        "next": null,
+        "prev": 1
+    },[...]`
+        * first: first page of all
+        * last: last page (maybe iterate from 1 to last to get all)
+        * next and prev are irrelevant
+    * pages-link: https://api.thetvdb.com/series/<id>/episodes?page=<page>
+    * --> Add all pages to List of episodes
 * Maybe switch to another API that is not shit
 * Set `current` when translating old to new `Series.json`, otherwise set it on 1.1
     * Should have the side-effect that `getCurrent` works to fill Tables
