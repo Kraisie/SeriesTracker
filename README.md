@@ -20,7 +20,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
         * last: last page (maybe iterate from 1 to last to get all)
         * next and prev are irrelevant
     * pages-link: https://api.thetvdb.com/series/<id>/episodes?page=<page>
-    * --> Add all pages to List of episodes
+    * --> Add all pages to List of episodes (sometimes last page does not exist, so check wether it has any info)
 * Maybe switch to another API that is not shit
 * Set `current` when translating old to new `Series.json`, otherwise set it on 1.1
     * Should have the side-effect that `getCurrent` works to fill Tables
