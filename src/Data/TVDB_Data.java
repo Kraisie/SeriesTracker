@@ -25,10 +25,6 @@ public class TVDB_Data {
     private static String description;
     private static double rating;
 
-    public static void main(String[] args) {
-        searchFindAndGetSeries("Scrubs");
-    }
-
     public static Series searchFindAndGetSeries(String seriesName) {
         //LOGIN
         String token = logIn();
@@ -220,7 +216,7 @@ public class TVDB_Data {
     private static void getEpisodes(String token, String id) {
         String episodesJSON = requestToString("getEpisodes", token, id, false, 1);
 
-        //ToDo: Add request for all following sites
+        //request for number of pages
         int lastPage = 0;
         try {
             String lastPageString = findValues(episodesJSON, "\"last\":", "[^\\d]");
@@ -231,6 +227,7 @@ public class TVDB_Data {
             e.printStackTrace();
         }
 
+        //request for every page 1 to last
         if (lastPage != 0) {
             for (int i = 1; i <= lastPage; i++) {             //first to last site (number one to = last)
                 String episodesPageJSON = requestToString("getEpisodes", token, id, false, i);
@@ -238,11 +235,6 @@ public class TVDB_Data {
                 episodes.addAll(siteEpisodes);
             }
         }
-
-        for (Episode epi : episodes) {
-            System.out.println("\n" + epi.getSeason() + "." + epi.getEpNumberOfSeason() + ": " + epi.getName() + "\n");
-        }
-
     }
 
     private static List<Episode> searchEpisodes(String episodesJSON) {
@@ -283,14 +275,15 @@ public class TVDB_Data {
                         } else {
                             nameEpisode = "Not given!";
                         }
+                        nameEpisode = line;
                     }
-                    nameEpisode = line;
                 } else if (line.contains(valueOverviewEpisodes)) {
                     //First is language of overview, second is overview
                     foundOverview++;
                     if ((foundOverview % 2) == 0) {
                         line = line.replaceAll(".*?:\\s\"", "");
                         line = removeEndAndNewLine(line);
+
                         if (!line.contains("null")) {
                             overviewEpisode = line;
                         } else {
