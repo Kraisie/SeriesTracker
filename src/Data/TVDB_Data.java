@@ -18,26 +18,46 @@ public class TVDB_Data {
 
     //Serie
     private static String name;
-    private static List<Episode> episodes;
+    private static List<Episode> episodes = new ArrayList<>();
     private static int userState = 0;       //0=not started; 1=watching; 2=wait for new episodes; 3=finished
     private static String status;           //Continuing / Ended
     private static int runtime;
     private static String description;
     private static double rating;
 
+    public static void main(String[] args) {
+        searchFindAndGetSeries("Scrubs");
+    }
+
     public static Series searchFindAndGetSeries(String seriesName) {
         //LOGIN
         String token = logIn();
 
         //SEARCH Series
-        String id = searchSeries(seriesName, token);
+        String id = searchSeries(seriesName, token, false);
+
+        if (id.equals("")) {
+            //Did not find english series
+            System.out.println("\n\tCould not find \"" + seriesName + "\". Searching on german...");
+            id = searchSeries(seriesName, token, true);
+        }
+
+        if (id.equals("")) {
+            System.out.println("\tNothing found on german!");
+            System.out.println("\tThe series did not get added to your list. Please add it manually or check the name on TVDB.com!");
+            System.out.println("\tSome series are wrongfully saved in the Database (e.g Big Mouth, Disjointed, The end of the fucking world)");
+            System.out.println("\tThey exist, but can not be found by the API. Only solution atm is to search them yourself and add infos manually\n");
+
+            return null;
+        }
 
         //GET Series
         getSeries(token, id);
 
         //GET Episodes
-        getEpisodes(token, id);
+        getEpisodes(token, id); //get "last" of first page and iterate through every page until that page
 
+        System.out.println(seriesName + " added.");
         return new Series(name, episodes, userState, status, runtime, description, rating);
     }
 
@@ -80,9 +100,9 @@ public class TVDB_Data {
         return tokenJSON;
     }
 
-    private static String searchSeries(String search, String token) {
+    private static String searchSeries(String search, String token, boolean german) {
+        search = search.replaceAll("%", "%25");         //First, or it will change all other %
         search = search.replaceAll(" ", "%20");
-        search = search.replaceAll("%", "%25");
         search = search.replaceAll("&", "%26");
         search = search.replaceAll("ä", "%C3%A4");
         search = search.replaceAll("Ä", "%C3%84");
@@ -90,7 +110,13 @@ public class TVDB_Data {
         search = search.replaceAll("Ö", "%C3%96");
         search = search.replaceAll("ü", "%C3%BC");
         search = search.replaceAll("Ü", "%C3%9C");
-        String foundJSON = requestToString("search", token, search);
+
+        String foundJSON;
+        if (!german) {
+            foundJSON = requestToString("search", token, search, !german, 0);
+        } else {
+            foundJSON = requestToString("search", token, search, german, 0);
+        }
 
         if (!foundJSON.contains("Resource not found")) {
             try {
@@ -106,7 +132,7 @@ public class TVDB_Data {
         return "";
     }
 
-    private static String requestToString(String mode, String token, String seriesIndication) {
+    private static String requestToString(String mode, String token, String seriesIndication, boolean german, int page) {
         String stringJSON = "";
         HttpClient httpClient = HttpClientBuilder.create().build();
         try {
@@ -122,11 +148,14 @@ public class TVDB_Data {
                     break;
                 //GET Episodes
                 case "getEpisodes":
-                    request = new HttpGet("https://api.thetvdb.com/series/" + seriesIndication + "/episodes");
+                    request = new HttpGet("https://api.thetvdb.com/series/" + seriesIndication + "/episodes?page=" + page);
             }
             if (request != null) {
                 request.setHeader("Authorization", "Bearer " + token);
-                //GERMAN: request.addHeader("Accept-Language", "de");
+                if (german) {
+                    request.addHeader("Accept-Language", "de");
+                }
+
                 HttpResponse response = httpClient.execute(request);
                 HttpEntity entity = response.getEntity();
 
@@ -166,64 +195,112 @@ public class TVDB_Data {
     }
 
     private static void getSeries(String token, String id) {
-        String seriesJSON = requestToString("getSeries", token, id);
+        String seriesJSON = requestToString("getSeries", token, id, false, 0);
 
         try {
             name = findValues(seriesJSON, "\"seriesName\":", ".*?:\\s\"");
             status = findValues(seriesJSON, "\"status\":", ".*?:\\s\"");
-            runtime = Integer.valueOf(findValues(seriesJSON, "\"runtime\":", "[^\\d]"));      //minutes
+
+            String runtimeValue = findValues(seriesJSON, "\"runtime\":", "[^\\d]");
+            if (!runtimeValue.isEmpty()) {
+                runtime = Integer.valueOf(runtimeValue);            //minutes
+            }
+
             description = findValues(seriesJSON, "\"overview\":", ".*?:\\s\"");
-            rating = Double.valueOf(findValues(seriesJSON, "\"siteRating\":", "[^\\d*.\\d]"));
+
+            String ratingValue = findValues(seriesJSON, "\"siteRating\":", "[^\\d*.\\d]");
+            if (!ratingValue.isEmpty()) {
+                rating = Double.valueOf(ratingValue);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private static void getEpisodes(String token, String id) {
-        String episodesJSON = requestToString("getEpisodes", token, id);
-        System.out.println(episodesJSON);
+        String episodesJSON = requestToString("getEpisodes", token, id, false, 1);
 
-        //List of all episodes
-        episodes = searchEpisodes(episodesJSON);
+        //ToDo: Add request for all following sites
+        int lastPage = 0;
+        try {
+            String lastPageString = findValues(episodesJSON, "\"last\":", "[^\\d]");
+            if (lastPageString != null) {
+                lastPage = Integer.valueOf(lastPageString);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (lastPage != 0) {
+            for (int i = 1; i <= lastPage; i++) {             //first to last site (number one to = last)
+                String episodesPageJSON = requestToString("getEpisodes", token, id, false, i);
+                List<Episode> siteEpisodes = searchEpisodes(episodesPageJSON);
+                episodes.addAll(siteEpisodes);
+            }
+        }
+
+        for (Episode epi : episodes) {
+            System.out.println("\n" + epi.getSeason() + "." + epi.getEpNumberOfSeason() + ": " + epi.getName() + "\n");
+        }
+
     }
 
-    private static List<Episode> searchEpisodes(String episodesJSON){
+    private static List<Episode> searchEpisodes(String episodesJSON) {
         List<Episode> episodes = new ArrayList<>();
         BufferedReader br = new BufferedReader(new StringReader(episodesJSON));
         String line;
         String valueNumberEpisodes = "\"airedEpisodeNumber\":";
-        String valueNumberSeason = "\"airedEpisodeNumber\":";
-        String valueNameEpisodes = "\"airedEpisodeNumber\":";
-        String valueOverviewEpisodes = "\"airedEpisodeNumber\":";
+        String valueNumberSeason = "\"airedSeason\":";
+        String valueNameEpisodes = "\"episodeName\":";
+        String valueOverviewEpisodes = "\"overview\":";
 
         int numberEpisode = 0;
         int numberSeason = 0;
         String nameEpisode = "";
         String overviewEpisode = "";
 
-        try{
-            while((line = br.readLine()) != null){
-                if(line.contains(valueNumberEpisodes)){
+        try {
+            int foundName = 0;
+            int foundOverview = 0;
+            while ((line = br.readLine()) != null) {
+                if (line.contains(valueNumberEpisodes)) {
                     line = line.replaceAll("[^\\d]", "");
                     line = removeEndAndNewLine(line);
                     numberEpisode = Integer.valueOf(line);
-                }else if(line.contains(valueNumberSeason)){
+                } else if (line.contains(valueNumberSeason)) {
                     line = line.replaceAll("[^\\d]", "");
                     line = removeEndAndNewLine(line);
                     numberSeason = Integer.valueOf(line);
-                }else if(line.contains(valueNameEpisodes)){
-                    line = line.replaceAll(".*?:\\s\"", "");
-                    line = removeEndAndNewLine(line);
-                    nameEpisode = line;
-                }else if(line.contains(valueOverviewEpisodes)){
-                    line = line.replaceAll(".*?:\\s\"", "");
-                    line = removeEndAndNewLine(line);
-                    overviewEpisode = line;
+                } else if (line.contains(valueNameEpisodes)) {
+                    //First episodeName: is the episodeName, second is the language of the name
+                    foundName++;
+                    if ((foundName % 2) == 1) {
+                        line = line.replaceAll(".*?:\\s\"", "");
+                        line = removeEndAndNewLine(line);
 
-                    episodes.add(new Episode(numberEpisode, numberSeason, nameEpisode, overviewEpisode));
+                        if (!line.contains("null")) {
+                            nameEpisode = line;
+                        } else {
+                            nameEpisode = "Not given!";
+                        }
+                    }
+                    nameEpisode = line;
+                } else if (line.contains(valueOverviewEpisodes)) {
+                    //First is language of overview, second is overview
+                    foundOverview++;
+                    if ((foundOverview % 2) == 0) {
+                        line = line.replaceAll(".*?:\\s\"", "");
+                        line = removeEndAndNewLine(line);
+                        if (!line.contains("null")) {
+                            overviewEpisode = line;
+                        } else {
+                            overviewEpisode = "Not given!";
+                        }
+                        episodes.add(new Episode(numberEpisode, numberSeason, nameEpisode, overviewEpisode));
+                    }
                 }
             }
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

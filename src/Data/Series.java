@@ -172,7 +172,7 @@ public class Series {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Series series = (Series) o;
-        return Objects.equals(name, series.name);
+        return Objects.equals(name, series.getName());
     }
 
     @Override
