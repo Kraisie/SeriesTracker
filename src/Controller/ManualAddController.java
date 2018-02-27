@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManualAdd {
+public class ManualAddController {
 
     @FXML public Label labelNameSeries;
     @FXML public TextField nameSeries;
