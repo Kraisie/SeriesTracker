@@ -1,9 +1,12 @@
 package Data;
 
+import java.util.Comparator;
+import java.util.List;
+
 public class Episode {
 
-    private int epNumberOfSeason;
-    private int season;
+    private Integer epNumberOfSeason;
+    private Integer season;
     private String name;
     private String overview;
     private boolean current;
@@ -16,6 +19,22 @@ public class Episode {
         this.overview = overview;
         this.current = false;
         this.watched = false;
+    }
+
+    public static List<Episode> sort(List<Episode> allEpisodes){
+        //Sort list regarding the season first and after that the episodes
+        allEpisodes.sort((e1, e2) -> {
+            int value1 = e1.season.compareTo(e2.season);
+            if (value1 == 0) {
+                int value2 = e1.epNumberOfSeason.compareTo(e2.epNumberOfSeason);
+                if (value2 != 0) {
+                    return value2;
+                }
+            }
+            return value1;
+        });
+
+        return allEpisodes;
     }
 
     public int getEpNumberOfSeason() {

@@ -1,16 +1,13 @@
 package Data;
 
-import Controller.PopUp;
+import Code.PopUp;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
@@ -28,7 +25,7 @@ public class Series {
     private double rating;
 
 
-    public Series(String name, List<Episode> episodes, int userStatetate, String status, int runtime, String description, double rating){
+    public Series(String name, List<Episode> episodes, int userStatetate, String status, int runtime, String description, double rating) {
         this.name = name;
         this.episodes = episodes;
         this.userState = userState;
@@ -52,6 +49,9 @@ public class Series {
     }
 
     public static void writeData(List<Series> allEntries) {
+        for(Series series : allEntries){
+            Episode.sort(series.episodes);
+        }
         PopUp pop = new PopUp();
         Gson gson = new Gson();
         String json = gson.toJson(allEntries);
@@ -68,7 +68,7 @@ public class Series {
         writeData(list);
     }
 
-    public static boolean checkDuplicate(List<Series> allSeries, String name){
+    public static boolean checkDuplicate(List<Series> allSeries, String name) {
         boolean exists = false;
         for (Series series : allSeries) {
             if (name.equals(series.getName())) {
@@ -82,9 +82,9 @@ public class Series {
         return !exists;
     }
 
-    public Episode getCurrent(){
-        for(Episode ep : episodes){
-            if(ep.isCurrent()){
+    public Episode getCurrent() {
+        for (Episode ep : episodes) {
+            if (ep.isCurrent()) {
                 return ep;
             }
         }
@@ -93,30 +93,30 @@ public class Series {
     }
 
     //For CellValue
-    public int getCurrentSeason(){
-        if(getCurrent() == null){
+    public int getCurrentSeason() {
+        if (getCurrent() == null) {
             PopUp popUp = new PopUp();
             popUp.error("No current season for " + getName());
 
             return -1;
-        }else{
+        } else {
             return getCurrent().getSeason();
         }
     }
 
-    public int getCurrentEpisode(){
-        if(getCurrent() == null){
+    public int getCurrentEpisode() {
+        if (getCurrent() == null) {
             PopUp popUp = new PopUp();
             popUp.error("No current episode for " + getName());
 
             return -1;
-        }else{
+        } else {
             return getCurrent().getEpNumberOfSeason();
         }
     }
     //End CellValue
 
-    public int getNumberOfSeasons(){
+    public int getNumberOfSeasons() {
         Episode episode = episodes.get(episodes.size() - 1);
         return episode.getSeason();
     }

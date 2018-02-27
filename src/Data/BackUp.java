@@ -1,6 +1,6 @@
 package Data;
 
-import Controller.PopUp;
+import Code.PopUp;
 import com.google.gson.Gson;
 
 import java.io.IOException;
