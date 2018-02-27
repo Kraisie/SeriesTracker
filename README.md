@@ -6,8 +6,13 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 
 ### ToDo-List
 #### Code
+* `Inc` and `Dec` are now broken...
+    * `Inc` gives error that IndexOutOfBounds (7.19 to 7.20 even tho 7.24 exists and also 9.24)
+    * `Dec` gives error that ConcurrentModificationException (back down )
+* Add some breaks when iterating through a list and something got found (not everywhere exists a break)
+* Outsource the iterating part to the class and just call it everytime from everywhere
 * Sort series after percentage of completion
-* When a series is discontinued (TVDB) it shall switch the `userState` to discontinued too, when the user finished watching it.
+* When a series is discontinued (TVDB) it shall switch the `userState` to discontinued too, when the user finished watching it
     
 #### FXML/Code
 * Add amount of wasted time (Info-Table)
