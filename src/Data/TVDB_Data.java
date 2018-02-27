@@ -19,13 +19,12 @@ public class TVDB_Data {
     //Serie
     private static String name;
     private static List<Episode> episodes = new ArrayList<>();
-    private static int userState = 0;       //0=not started; 1=watching; 2=wait for new episodes; 3=finished
     private static String status;           //Continuing / Ended
     private static int runtime;
     private static String description;
     private static double rating;
 
-    public static Series searchFindAndGetSeries(String seriesName) {
+    public static Series searchFindAndGetSeries(String seriesName, int userState) {     //-1=no predefined Status (-1 add); 0=not started; 1=watching; 2=wait for new episodes; 3=finished (0-3 update)
         //LOGIN
         String token = logIn();
 
@@ -54,6 +53,11 @@ public class TVDB_Data {
         getEpisodes(token, id); //get "last" of first page and iterate through every page until that page
 
         System.out.println(seriesName + " added.");
+
+        //If userState is not given (-1) set it on 0 (not started)
+        if(userState == -1){
+            userState = 0;
+        }
         return new Series(name, episodes, userState, status, runtime, description, rating);
     }
 
