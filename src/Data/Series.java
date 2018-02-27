@@ -94,11 +94,25 @@ public class Series {
 
     //For CellValue
     public int getCurrentSeason(){
-        return getCurrent().getSeason();
+        if(getCurrent() == null){
+            PopUp popUp = new PopUp();
+            popUp.error("No current season for " + getName());
+
+            return -1;
+        }else{
+            return getCurrent().getSeason();
+        }
     }
 
     public int getCurrentEpisode(){
-        return getCurrent().getEpNumberOfSeason();
+        if(getCurrent() == null){
+            PopUp popUp = new PopUp();
+            popUp.error("No current episode for " + getName());
+
+            return -1;
+        }else{
+            return getCurrent().getEpNumberOfSeason();
+        }
     }
     //End CellValue
 
