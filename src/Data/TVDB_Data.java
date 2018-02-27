@@ -191,7 +191,7 @@ public class TVDB_Data {
             }
         }
 
-        return "";
+        return "Not given!";
     }
 
     private static void getSeries(String token, String id) {
@@ -207,6 +207,9 @@ public class TVDB_Data {
             }
 
             description = findValues(seriesJSON, "\"overview\":", ".*?:\\s\"");
+            if (description.contains("\"overview\": null")){
+                description = "Not given!";
+            }
 
             String ratingValue = findValues(seriesJSON, "\"siteRating\":", "[^\\d*.\\d]");
             if (!ratingValue.isEmpty()) {
@@ -279,7 +282,6 @@ public class TVDB_Data {
                         } else {
                             nameEpisode = "Not given!";
                         }
-                        nameEpisode = line;
                     }
                 } else if (line.contains(valueOverviewEpisodes)) {
                     //First is language of overview, second is overview
