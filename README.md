@@ -13,6 +13,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Outsource the iterating part to the class and just call it everytime from everywhere
 * Sort series after percentage of completion
 * When a series is discontinued (TVDB) it shall switch the `userState` to discontinued too, when the user finished watching it
+* AddController: Show all options that TVDB has, since the first is not always the right (HoC, Defenders etc.)
     
 #### FXML/Code
 * Add amount of wasted time (Info-Table)
