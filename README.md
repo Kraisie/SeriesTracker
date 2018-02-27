@@ -6,13 +6,8 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 
 ### ToDo-List
 #### Code
-* Filter every season or episode that has 0/null in its epNumber/seasonNumber
-* Sometimes last page does not exist, so check wether it has any info (catch `"Error": "No results for your query: map[tve.seriesId:76156]"`)
-* Set `current` when translating old to new `Series.json`, otherwise set it on 1.1
-    * Should have the side-effect that `getCurrent` works to fill Tables
 * Sort series after percentage of completion
 * When a series is discontinued (TVDB) it shall switch the `userState` to discontinued too, when the user finished watching it.
-* Order episodes regarding their Season and Episode (at `Episode`), since they are currently not and it would destroy `incEpisode` and `decEpisode`.  
     
 #### FXML/Code
 * Add amount of wasted time (Info-Table)
@@ -52,3 +47,6 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Implemented TVDB-API
 * Program that changes old `Series.json` to a `.json`
 * Get every page of episodes that a series has and add them all to the list
+* Set `current` when translating old to new `Series.json`, otherwise set it on 1.1
+* Order episodes regarding their Season and Episode
+* Filter every season or episode that has 0/null in its epNumber/seasonNumber

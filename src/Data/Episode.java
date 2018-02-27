@@ -1,6 +1,5 @@
 package Data;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class Episode {
@@ -21,15 +20,25 @@ public class Episode {
         this.watched = false;
     }
 
+    public static List<Episode> deleteNull(List<Episode> allEpisodes){
+        //Delete all Episodes that have epNumberOfSeason or season = null/0 since those are just specials
+        for(Episode epi : allEpisodes){
+            if(epi.getSeason() == 0 || epi.getSeason() == null){
+                allEpisodes.remove(epi);
+            }else if(epi.getEpNumberOfSeason() == 0 || epi.getEpNumberOfSeason() == null){
+                allEpisodes.remove(epi);
+            }
+        }
+
+        return allEpisodes;
+    }
+
     public static List<Episode> sort(List<Episode> allEpisodes){
         //Sort list regarding the season first and after that the episodes
         allEpisodes.sort((e1, e2) -> {
-            int value1 = e1.season.compareTo(e2.season);
+            int value1 = e1.getSeason().compareTo(e2.getSeason());
             if (value1 == 0) {
-                int value2 = e1.epNumberOfSeason.compareTo(e2.epNumberOfSeason);
-                if (value2 != 0) {
-                    return value2;
-                }
+                return e1.getEpNumberOfSeason().compareTo(e2.getEpNumberOfSeason());
             }
             return value1;
         });
@@ -37,7 +46,7 @@ public class Episode {
         return allEpisodes;
     }
 
-    public int getEpNumberOfSeason() {
+    public Integer getEpNumberOfSeason() {
         return epNumberOfSeason;
     }
 
@@ -45,7 +54,7 @@ public class Episode {
         this.epNumberOfSeason = epNumberOfSeason;
     }
 
-    public int getSeason() {
+    public Integer getSeason() {
         return season;
     }
 

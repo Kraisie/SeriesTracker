@@ -49,7 +49,10 @@ public class Series {
     }
 
     public static void writeData(List<Series> allEntries) {
+        //Delete all 0/null episodes (if season or episode = null/0)
+        //and Sort episodes
         for(Series series : allEntries){
+            Episode.deleteNull(series.episodes);
             Episode.sort(series.episodes);
         }
         PopUp pop = new PopUp();
