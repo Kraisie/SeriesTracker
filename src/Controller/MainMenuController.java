@@ -1,9 +1,8 @@
 package Controller;
 
+import Code.PopUp;
 import Data.Episode;
 import Data.Series;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
-import javax.security.auth.callback.Callback;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -28,7 +26,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 public class MainMenuController {
     @FXML

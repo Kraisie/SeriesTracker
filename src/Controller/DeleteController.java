@@ -1,5 +1,6 @@
 package Controller;
 
+import Code.PopUp;
 import Data.Series;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
