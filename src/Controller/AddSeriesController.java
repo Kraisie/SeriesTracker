@@ -1,5 +1,6 @@
 package Controller;
 
+import Code.PopUp;
 import Data.Series;
 import Data.TVDB_Data;
 import javafx.fxml.FXML;
@@ -42,11 +43,13 @@ public class AddSeriesController {
     }
 
     public void addTVDB(){
+        PopUp popUp = new PopUp();
         List<Series> allSeries = Series.readData();
         if(Series.checkDuplicate(allSeries, nameTVDB.getText())){
             Series newSeries = TVDB_Data.searchFindAndGetSeries(nameTVDB.getText(), -1);
             allSeries.add(newSeries);
             Series.writeData(allSeries);
+            popUp.show(nameTVDB.getText() + " added.");
         }
 
         back();

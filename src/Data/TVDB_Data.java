@@ -32,16 +32,13 @@ public class TVDB_Data {
         String id = searchSeries(seriesName, token, false);
 
         if (id.equals("")) {
-            //Did not find english series
-            System.out.println("\n\tCould not find \"" + seriesName + "\". Searching on german...");
+            //Did not find english series, search on german
             id = searchSeries(seriesName, token, true);
         }
 
         if (id.equals("")) {
-            System.out.println("\tNothing found on german!");
-            System.out.println("\tThe series did not get added to your list. Please add it manually or check the name on TVDB.com!");
-            System.out.println("\tSome series are wrongfully saved in the Database (e.g Big Mouth, Disjointed, The end of the fucking world)");
-            System.out.println("\tThey exist, but can not be found by the API. Only solution atm is to search them yourself and add infos manually\n");
+            PopUp popUp = new PopUp();
+            popUp.error("Could not find series. Make sure the name is correct.");
 
             return null;
         }
@@ -52,12 +49,11 @@ public class TVDB_Data {
         //GET Episodes
         getEpisodes(token, id); //get "last" of first page and iterate through every page until that page
 
-        System.out.println(seriesName + " added.");
-
         //If userState is not given (-1) set it on 0 (not started)
         if(userState == -1){
             userState = 0;
         }
+
         return new Series(name, episodes, userState, status, runtime, description, rating);
     }
 
@@ -124,9 +120,6 @@ public class TVDB_Data {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            PopUp popUp = new PopUp();
-            popUp.error("Could not find \"" + search + "\". Please make sure the name is correct.");
         }
 
         return "";
