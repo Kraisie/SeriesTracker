@@ -51,7 +51,7 @@ public class Series {
     public static void writeData(List<Series> allEntries) {
         //Delete all 0/null episodes (if season or episode = null/0)
         //and Sort episodes
-        for(Series series : allEntries){
+        for (Series series : allEntries) {
             Episode.deleteNull(series.episodes);
             Episode.sort(series.episodes);
         }
@@ -95,6 +95,15 @@ public class Series {
         return null;
     }
 
+    public void setCurrent(Episode newCurrent) {
+        for (Episode ep : episodes) {
+            if (ep.equals(newCurrent)) {
+                ep.setCurrent(true);
+                break;
+            }
+        }
+    }
+
     //For CellValue
     public int getCurrentSeason() {
         if (getCurrent() == null) {
@@ -111,11 +120,25 @@ public class Series {
             return getCurrent().getEpNumberOfSeason();
         }
     }
-    //End CellValue
 
     public int getNumberOfSeasons() {
         Episode episode = episodes.get(episodes.size() - 1);
         return episode.getSeason();
+    }
+    //End CellValue
+
+    public void setNewCurrent(Episode current, boolean direction) {         //true = ++ ; false = --
+        int pos = episodes.indexOf(current);
+        if((pos - 1) < 0 || (pos + 1) >= episodes.size()){
+            //Does not work, somehow inform user
+        }else{
+            if(direction){
+                setCurrent(episodes.get(pos + 1));
+            }else{
+                setCurrent(episodes.get(pos - 1));
+            }
+
+        }
     }
 
     public int getSumEpisodes() {
@@ -178,10 +201,10 @@ public class Series {
         this.rating = rating;
     }
 
-    public Double getCompletionRate(){
+    public Double getCompletionRate() {
         double sum = 0;
-        for(Episode epi : episodes){
-            if(epi.isWatched()){
+        for (Episode epi : episodes) {
+            if (epi.isWatched()) {
                 sum++;
             }
         }

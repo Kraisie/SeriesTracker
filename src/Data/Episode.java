@@ -2,6 +2,7 @@ package Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Episode {
 
@@ -95,6 +96,22 @@ public class Episode {
 
     public void setWatched(boolean watched) {
         this.watched = watched;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Episode episode = (Episode) o;
+        return Objects.equals(epNumberOfSeason, episode.epNumberOfSeason) &&
+                Objects.equals(season, episode.season) &&
+                Objects.equals(name, episode.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(epNumberOfSeason, season, name);
     }
 
     @Override

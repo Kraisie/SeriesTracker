@@ -126,7 +126,6 @@ public class MainMenuController {
             }
         }
 
-        //Fix getCurrent()
         columnContinueName.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnContinueSeason.setCellValueFactory(new PropertyValueFactory<>("currentSeason"));
         columnContinueEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
@@ -136,7 +135,7 @@ public class MainMenuController {
         columnWaitEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
 
         columnStartName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        columnStartSeasons.setCellValueFactory(new PropertyValueFactory<>("seasons"));
+        columnStartSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
 
         tableContinueWatching.setItems(watchingSeries);
         tableWaitEpisodes.setItems(waitNewEpisode);
@@ -398,14 +397,10 @@ public class MainMenuController {
             List<Series> allSeries = Series.readData();
             for (Series series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
-                    List<Episode> episodes = series.getEpisodes();
-                    for(int i = 0; i < episodes.size(); i++){
-                        if(episodes.get(i).isCurrent()){
-                            episodes.get(i).setCurrent(false);
-                            episodes.get(i).setWatched(true);
-                            episodes.get(i+1).setCurrent(true);
-                        }
-                    }
+                    series.getCurrent().setWatched(true);
+                    series.setNewCurrent(series.getCurrent(), true);            //true = ++ ; false = --
+                    series.getCurrent().setCurrent(false);
+
                 }
             }
 
@@ -424,13 +419,9 @@ public class MainMenuController {
             for (Series series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
                     List<Episode> episodes = series.getEpisodes();
-                    for(int i = 0; i < episodes.size(); i++){
-                        if(episodes.get(i).isCurrent()){
-                            episodes.get(i).setCurrent(false);
-                            episodes.get(i-1).setCurrent(true);
-                            episodes.get(i-1).setWatched(false);
-                        }
-                    }
+                    series.getCurrent().setWatched(true);
+                    series.setNewCurrent(series.getCurrent(), false);            //true = ++ ; false = --
+                    series.getCurrent().setCurrent(false);
                 }
             }
 
