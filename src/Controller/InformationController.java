@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,6 +26,10 @@ public class InformationController {
     public Label labelCurrentEpisode;
     @FXML
     public Label labelPercentageCompletition;
+    @FXML
+    public Label labelWastedTime;
+    @FXML
+    public TextArea descriptionTextArea;
 
     public void initialize(){
         labelNameSeries.setText(MainMenuController.toController.getName());
@@ -49,6 +54,9 @@ public class InformationController {
         double completion = (double)watchedEpisodes/sumEpisodes;
         completion *= 100;          //for percentage
         labelPercentageCompletition.setText(String.format("%.2f", completion) + "%");
+
+        labelWastedTime.setText(String.valueOf(MainMenuController.toController.getWastedTime()));
+        descriptionTextArea.setText(MainMenuController.toController.getDescription());
     }
 
     public void back(){

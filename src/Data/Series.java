@@ -141,6 +141,21 @@ public class Series {
         }
     }
 
+    public Double getCompletionRate() {
+        double sum = 0;
+        for (Episode epi : episodes) {
+            if (epi.isWatched()) {
+                sum++;
+            }
+        }
+
+        return (sum / episodes.size()) * 100;
+    }
+
+    public int getWastedTime(){
+        return episodes.size() * runtime;
+    }
+
     public int getSumEpisodes() {
         return episodes.size();
     }
@@ -199,17 +214,6 @@ public class Series {
 
     public void setRating(double rating) {
         this.rating = rating;
-    }
-
-    public Double getCompletionRate() {
-        double sum = 0;
-        for (Episode epi : episodes) {
-            if (epi.isWatched()) {
-                sum++;
-            }
-        }
-
-        return (sum / episodes.size()) * 100;
     }
 
     @Override

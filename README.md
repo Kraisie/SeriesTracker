@@ -12,9 +12,10 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * AddController: Show all options that TVDB has, since the first is not always the right (HoC, Defenders etc.)
     
 #### FXML/Code
+* `Information` not just for `continue`-table, would be a waste of the collected data
+    * Maybe one that says "Advanced Information" to also see description of episodes when you can not remember what happend (this one for all Series)
 * Consider a button for sorting by completion (and back), since by name is way more pleasant.
-* Add amount of wasted time (Info-Table)
-* Description of series to Info-Table
+    * highest to lowest: `listEntries.sort((o1, o2) -> o2.getCompletionRate().compareTo(o1.getCompletionRate()));`
 * Menubar on top to switch to movies (not implemented yet), or open the settings (not implemented)
     * Settings with path where to save the `.json`-file and maybe own background-pics
 * Check every period of time if there are new episodes/seasons of a series or an `Update All Series`-Button
@@ -55,3 +56,5 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Filter every season or episode that has 0/null in its epNumber/seasonNumber
 * Sort series after percentage of completion
 * Fixed `inc` and `dec`
+* Add amount of wasted time (Info-Table)
+* Description of series to Info-Table
