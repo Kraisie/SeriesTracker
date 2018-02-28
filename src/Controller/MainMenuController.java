@@ -456,31 +456,6 @@ public class MainMenuController {
 
     }
 
-    public void waitGotNewEpisodes() {
-        if (tableWaitEpisodes.getSelectionModel().getSelectedItem() != null) {
-            //open window to add episodes-number of new season
-            try {
-                toController = tableWaitEpisodes.getSelectionModel().getSelectedItem();
-                URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
-                Image img = new Image(resource.toString());
-
-                Stage primaryStage = (Stage) buttonAddSeries.getScene().getWindow();
-                Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/Continue.fxml"));
-                primaryStage.setTitle("Continue '" + tableWaitEpisodes.getSelectionModel().getSelectedItem().getName() + "'");
-                primaryStage.getIcons().add(img);
-                primaryStage.setScene(new Scene(root));
-                primaryStage.centerOnScreen();
-                primaryStage.setResizable(false);
-                primaryStage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            PopUp pop = new PopUp();
-            pop.error("Select a series that got continued!");
-        }
-    }
-
     public void finishedSeries() {
         //mark series as finished if it gets disontinued, or it is finished
         if (tableWaitEpisodes.getSelectionModel().getSelectedItem() != null) {
