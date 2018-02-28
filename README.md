@@ -27,6 +27,10 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Let User add or edit a series manually with the same options everywhere, fix the current ones
     * Check all given Data if they are valid
 * Label that shows that series that get found by TVDB will lose their edit when updating (in Edit Series)
+* Show series in the tables by different color based on rating
+    * if there are no ratings the rating is 0.0
+* Wasted time from minutes to hours and append unit (hours)
+    * maybe if it is more than 7 days switch to days (7 days = 168 hours)
 
 ### Think-Abouts
 * Server for Webapp (change whole programm to a Spring Webapp) and run it on server for access from everywhere on series
