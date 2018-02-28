@@ -22,11 +22,11 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Menubar on top to switch to movies (not implemented yet), or open the settings (not implemented)
     * Settings with path where to save the `.json`-file and maybe own background-pics
 * Check every period of time if there are new episodes/seasons of a series or an `Update All Series`-Button
-    * Period changeable in Settings
+    * Period changeable in Settings, or completely turn it off
     * Change interval of back-ups in settings  
 * Let User add or edit a series manually with the same options everywhere, fix the current ones
     * Check all given Data if they are valid
-* Label that shows that series that get found by TVDB will lose their edit when updating
+* Label that shows that series that get found by TVDB will lose their edit when updating (in Edit Series)
 
 #### FXML
 * FIX FUCKING EVERYTHING FXML

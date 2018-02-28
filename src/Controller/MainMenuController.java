@@ -453,24 +453,6 @@ public class MainMenuController {
 
     }
 
-    public void finishedSeries() {
-        //mark series as finished if it gets disontinued, or it is finished
-        if (tableWaitEpisodes.getSelectionModel().getSelectedItem() != null) {
-            List<Series> allSeries = Series.readData();
-            for (Series series : allSeries) {
-                if (series.equals(tableWaitEpisodes.getSelectionModel().getSelectedItem())) {
-                    series.setUserState(3);       //3 = finished
-                }
-            }
-
-            Series.writeData(allSeries);
-            initialize();
-        } else {
-            PopUp pop = new PopUp();
-            pop.error("Select a series which status you want to change to \"finished\"!");
-        }
-    }
-
     public void addSeries() {
         //open popup to add series
         try {
