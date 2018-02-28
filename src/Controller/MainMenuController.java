@@ -109,9 +109,6 @@ public class MainMenuController {
 
         //sort by completion, but highest first (elsewise o1.to(02))
         listEntries.sort((o1, o2) -> o2.getCompletionRate().compareTo(o1.getCompletionRate()));
-        for (Series series : listEntries){
-            System.out.println(series.getName() + ": " + series.getCompletionRate() + "%");
-        }
 
         if (!listEntries.isEmpty()) {
             for (Series listEntry : listEntries) {

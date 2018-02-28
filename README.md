@@ -6,6 +6,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 
 ### ToDo-List
 #### Code
+* When performing a backup on Linux (external drive that is not mounted) it will obviously fail 
 * `Inc` and `Dec` are now broken...
     * `Inc` gives error that IndexOutOfBounds (7.19 to 7.20 even tho 7.24 exists and also 9.24)
     * `Dec` gives error ConcurrentModificationException
