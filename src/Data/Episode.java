@@ -1,5 +1,6 @@
 package Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Episode {
@@ -22,14 +23,16 @@ public class Episode {
 
     public static List<Episode> deleteNull(List<Episode> allEpisodes){
         //Delete all Episodes that have epNumberOfSeason or season = null/0 since those are just specials
+        List<Episode> remove = new ArrayList<>();
         for(Episode epi : allEpisodes){
             if(epi.getSeason() == 0 || epi.getSeason() == null){
-                allEpisodes.remove(epi);
+                remove.add(epi);
             }else if(epi.getEpNumberOfSeason() == 0 || epi.getEpNumberOfSeason() == null){
-                allEpisodes.remove(epi);
+                remove.add(epi);
             }
         }
 
+        allEpisodes.removeAll(remove);
         return allEpisodes;
     }
 
