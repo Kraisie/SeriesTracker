@@ -178,6 +178,17 @@ public class Series {
         this.rating = rating;
     }
 
+    public Double getCompletionRate(){
+        double sum = 0;
+        for(Episode epi : episodes){
+            if(epi.isWatched()){
+                sum++;
+            }
+        }
+
+        return (sum / episodes.size()) * 100;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
