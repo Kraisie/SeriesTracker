@@ -65,7 +65,10 @@ public class BackUp {
         if(System.getProperty("os.name").toLowerCase().contains("win")){
             PATH = Paths.get("F:\\BACKUP-SERIEN", "/Series-backup.json");
         }else if(System.getProperty("os.name").toLowerCase().contains("nux") || System.getProperty("os.name").toLowerCase().contains("nix") || System.getProperty("os.name").toLowerCase().contains("aix")){
-            PATH = Paths.get("/media/leon/LEON-FP/BACKUP-SERIEN/Series-backup.json");
+            String user = System.getProperty("user.name");
+            StringBuilder buildPath = new StringBuilder("/media/");
+            buildPath.append(user);
+            buildPath.append("/LEON-FP/BACKUP-SERIEN/Series-backup.json");
         }else{
             PopUp popUp = new PopUp();
             popUp.error("Could not identify your OS. Too bad.");

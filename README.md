@@ -7,6 +7,8 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 ### ToDo-List
 #### Code
 * When performing a backup on Linux (external drive that is not mounted) it will obviously fail
+    * add PopUp that states the error
+    *Let the user enter a path (Settings (also see **FXML/Code**)), since otherwise you have to get the name of the drive :(
 * Add some breaks when iterating through a list and something got found (not everywhere exists a break)
 * When a series is discontinued (TVDB) it shall switch the `userState` to discontinued too, when the user finished watching it
 * AddController: Show all options that TVDB has, since the first is not always the right (HoC, Defenders etc.)
