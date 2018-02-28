@@ -18,7 +18,7 @@ public class PopUp {
 
     public void show(String text) {
         Stage popUp = new Stage();
-        URL resource = MainMenuController.class.getResource("/resources/Warning.png");
+        URL resource = MainMenuController.class.getResource("/resources/Pics/ok.png");
         Image img = new Image(resource.toString());
 
         popUp.getIcons().add(img);
