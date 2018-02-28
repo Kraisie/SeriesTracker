@@ -28,9 +28,6 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
     * Check all given Data if they are valid
 * Label that shows that series that get found by TVDB will lose their edit when updating (in Edit Series)
 
-#### FXML
-* FIX FUCKING EVERYTHING FXML
-
 ### Think-Abouts
 * Server for Webapp (change whole programm to a Spring Webapp) and run it on server for access from everywhere on series
 * BackUp of `.json` to Server, not just external drive (for me)
