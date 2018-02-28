@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainMenuController {
@@ -102,7 +103,16 @@ public class MainMenuController {
         ObservableList<Series> waitNewEpisode = FXCollections.observableArrayList();
 
         ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
-        listEntries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
+        //sort by name
+        //listEntries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
+        //sort by completion, but highest first (elsewise o1.to(02))
+        listEntries.sort((o1, o2) -> o2.getCompletionRate().compareTo(o1.getCompletionRate()));
+        for (Series series : listEntries){
+            System.out.println(series.getName() + ": " + series.getCompletionRate() + "%");
+        }
+
         if (!listEntries.isEmpty()) {
             for (Series listEntry : listEntries) {
                 switch (listEntry.getUserState()) {
