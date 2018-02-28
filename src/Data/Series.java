@@ -55,6 +55,10 @@ public class Series {
             Episode.deleteNull(series.episodes);
             Episode.sort(series.episodes);
         }
+
+        //sort series by name
+        allEntries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
         PopUp pop = new PopUp();
         Gson gson = new Gson();
         String json = gson.toJson(allEntries);

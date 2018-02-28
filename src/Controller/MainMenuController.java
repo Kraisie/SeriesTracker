@@ -104,9 +104,6 @@ public class MainMenuController {
 
         ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
 
-        //sort by name
-        listEntries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
-
         if (!listEntries.isEmpty()) {
             for (Series listEntry : listEntries) {
                 switch (listEntry.getUserState()) {
