@@ -6,18 +6,13 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 
 ### ToDo-List
 #### Code
-* When performing a backup on Linux (external drive that is not mounted) it will obviously fail 
-* `Inc` and `Dec` are now broken...
-    * `Inc` gives error that IndexOutOfBounds (7.19 to 7.20 even tho 7.24 exists and also 9.24)
-    * `Dec` gives error ConcurrentModificationException
+* When performing a backup on Linux (external drive that is not mounted) it will obviously fail
 * Add some breaks when iterating through a list and something got found (not everywhere exists a break)
-    *Isn't that bullshit since if we iterate through it we have a reason that always changes e.g. `isWatched()` or `getCurrent`. You can not put that in the same loop afaik.
-* Outsource the iterating part to the class and just call it everytime from everywhere
-* Sort series after percentage of completion
 * When a series is discontinued (TVDB) it shall switch the `userState` to discontinued too, when the user finished watching it
 * AddController: Show all options that TVDB has, since the first is not always the right (HoC, Defenders etc.)
     
 #### FXML/Code
+* Consider a button for sorting by completion (and back), since by name is way more pleasant.
 * Add amount of wasted time (Info-Table)
 * Description of series to Info-Table
 * Menubar on top to switch to movies (not implemented yet), or open the settings (not implemented)
@@ -58,3 +53,5 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Set `current` when translating old to new `Series.json`, otherwise set it on 1.1
 * Order episodes regarding their Season and Episode
 * Filter every season or episode that has 0/null in its epNumber/seasonNumber
+* Sort series after percentage of completion
+* Fixed `inc` and `dec`
