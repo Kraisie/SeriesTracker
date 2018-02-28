@@ -12,6 +12,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * AddController: Show all options that TVDB has, since the first is not always the right (HoC, Defenders etc.)
     
 #### FXML/Code
+* Progressbar/-indicator when adding a series (if possible), or add label that states that adding may take a while
 * `Information` not just for `continue`-table, would be a waste of the collected data
     * Maybe one that says "Advanced Information" to also see description of episodes when you can not remember what happend (this one for all Series)
 * Consider a button for sorting by completion (and back), since by name is way more pleasant.
@@ -21,8 +22,9 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Check every period of time if there are new episodes/seasons of a series or an `Update All Series`-Button
     * Period changeable in Settings
     * Change interval of back-ups in settings  
-* Let User add a series manually with the same options everywhere, fix the current ones
+* Let User add or edit a series manually with the same options everywhere, fix the current ones
     * Check all given Data if they are valid
+* Label that shows that series that get found by TVDB will lose their edit when updating
 
 #### FXML
 * FIX FUCKING EVERYTHING FXML
