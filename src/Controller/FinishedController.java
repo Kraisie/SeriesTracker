@@ -41,7 +41,7 @@ public class FinishedController {
         }
 
         columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        columnSeasons.setCellValueFactory(new PropertyValueFactory<>("seasons"));
+        columnSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
         columnEpisodes.setCellValueFactory(new PropertyValueFactory<>("sumEpisodes"));
 
         tableFinishedSeries.setItems(finishedSeries);
