@@ -25,7 +25,7 @@ public class Series {
     private double rating;
 
 
-    public Series(String name, List<Episode> episodes, int userStatetate, String status, int runtime, String description, double rating) {
+    public Series(String name, List<Episode> episodes, int userState, String status, int runtime, String description, double rating) {
         this.name = name;
         this.episodes = episodes;
         this.userState = userState;

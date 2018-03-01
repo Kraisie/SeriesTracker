@@ -110,7 +110,6 @@ public class Episode {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(epNumberOfSeason, season, name);
     }
 
