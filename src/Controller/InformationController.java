@@ -44,18 +44,9 @@ public class InformationController {
 
         labelCurrentSeason.setText(String.valueOf(MainMenuController.toController.getCurrent().getSeason()) + " / " + MainMenuController.toController.getNumberOfSeasons());
         labelCurrentEpisode.setText(String.valueOf(MainMenuController.toController.getCurrent().getEpNumberOfSeason()) + " / " + MainMenuController.toController.getSumEpisodes());
+        labelPercentageCompletition.setText(String.format("%.2f", MainMenuController.toController.getCompletionRate()) + "%");
 
-        int watchedEpisodes = 0;
-        for(Episode ep : episodes){
-            if(ep.isWatched()){
-                watchedEpisodes++;
-            }
-        }
-        double completion = (double)watchedEpisodes/sumEpisodes;
-        completion *= 100;          //for percentage
-        labelPercentageCompletition.setText(String.format("%.2f", completion) + "%");
-
-        labelWastedTime.setText(String.valueOf(MainMenuController.toController.getWastedTime()));
+        labelWastedTime.setText(MainMenuController.toController.getWastedTime());
         descriptionTextArea.setText(MainMenuController.toController.getDescription());
     }
 

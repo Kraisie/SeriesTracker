@@ -133,12 +133,12 @@ public class Series {
 
     public void setNewCurrent(Episode current, boolean direction) {         //true = ++ ; false = --
         int pos = episodes.indexOf(current);
-        if((pos - 1) < 0 || (pos + 1) >= episodes.size()){
+        if ((pos - 1) < 0 || (pos + 1) >= episodes.size()) {
             //Does not work, somehow inform user
-        }else{
-            if(direction){
+        } else {
+            if (direction) {
                 setCurrent(episodes.get(pos + 1));
-            }else{
+            } else {
                 setCurrent(episodes.get(pos - 1));
             }
 
@@ -156,8 +156,19 @@ public class Series {
         return (sum / episodes.size()) * 100;
     }
 
-    public int getWastedTime(){
-        return episodes.size() * runtime;
+    public String getWastedTime() {
+        int time = episodes.size() * runtime;
+
+        //if lower than 2 hours print minutes, lower than 7 days print hours, elsewise days
+        if (time < 120) {
+            return time + " minutes wasted";
+        } else if (time < (7 * 24 * 60)) {
+            String wastedTime = String.format("%.2f", ((double)time / 60));
+            return wastedTime + " hours wasted";
+        } else {
+            String wastedTime = String.format("%.2f", (((double)time / 60) / 24));
+            return wastedTime + " days wasted";
+        }
     }
 
     public int getSumEpisodes() {
