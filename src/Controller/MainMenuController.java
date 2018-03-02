@@ -9,10 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,6 +29,13 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MainMenuController {
+    @FXML
+    public MenuBar menuBar;
+    @FXML
+    public RadioMenuItem sortingRadioName;
+    @FXML
+    public RadioMenuItem sortingRadioCompletion;
+
     @FXML
     public ImageView imageBackground;
 
@@ -59,10 +66,6 @@ public class MainMenuController {
     public Button buttonIncEpisode;
     @FXML
     public Button buttonDecEpisode;
-    @FXML
-    public Button buttonNewEpisodes;
-    @FXML
-    public Button buttonSeriesDiscontinued;
     @FXML
     public Button buttonCheckFinished;
     @FXML
@@ -103,6 +106,15 @@ public class MainMenuController {
         ObservableList<Series> waitNewEpisode = FXCollections.observableArrayList();
 
         ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
+
+        //Set sorting selection default is name
+        if(sortingRadioCompletion.selectedProperty().getValue()){
+            listEntries.sort((o1, o2) -> o2.getCompletionRate().compareTo(o1.getCompletionRate()));
+            System.out.println(sortingRadioCompletion.selectedProperty().getValue());
+            System.out.println("NAME");
+        }else{
+            listEntries.sort(Comparator.comparing(Series::getName));
+        }
 
         if (!listEntries.isEmpty()) {
             for (Series listEntry : listEntries) {
@@ -412,9 +424,10 @@ public class MainMenuController {
             List<Series> allSeries = Series.readData();
             for (Series series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
-                    series.getCurrent().setWatched(true);
-                    series.setNewCurrent(series.getCurrent(), false);            //true = ++ ; false = --
+                    series.getCurrent().setWatched(false);
+                    Episode current = series.getCurrent();
                     series.getCurrent().setCurrent(false);
+                    series.setNewCurrent(current, false);                      //true = ++ ; false = --
                     break;
                 }
             }
@@ -459,7 +472,7 @@ public class MainMenuController {
             URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
             Image img = new Image(resource.toString());
 
-            Stage primaryStage = (Stage) buttonAddSeries.getScene().getWindow();
+            Stage primaryStage = (Stage) menuBar.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/AddSeries.fxml"));
             primaryStage.setTitle("Add a new series");
             primaryStage.getIcons().add(img);
@@ -497,7 +510,7 @@ public class MainMenuController {
             URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
             Image img = new Image(resource.toString());
 
-            Stage primaryStage = (Stage) buttonAddSeries.getScene().getWindow();
+            Stage primaryStage = (Stage) menuBar.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/FinishedSeries.fxml"));
             primaryStage.setTitle("All finished Series");
             primaryStage.getIcons().add(img);
@@ -516,7 +529,7 @@ public class MainMenuController {
             URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
             Image img = new Image(resource.toString());
 
-            Stage primaryStage = (Stage) buttonDelSeries.getScene().getWindow();
+            Stage primaryStage = (Stage) menuBar.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/DeleteSeries.fxml"));
             primaryStage.setTitle("Delete Series");
             primaryStage.getIcons().add(img);
@@ -535,7 +548,7 @@ public class MainMenuController {
             URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
             Image img = new Image(resource.toString());
 
-            Stage primaryStage = (Stage) buttonAddSeries.getScene().getWindow();
+            Stage primaryStage = (Stage) menuBar.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/EditSeries.fxml"));
             primaryStage.setTitle("Edit Series");
             primaryStage.getIcons().add(img);
@@ -546,5 +559,15 @@ public class MainMenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void sortByName() {
+        List<Series> allSeries = Series.readData();
+
+    }
+
+    public void close() {
+        Stage stage = (Stage) menuBar.getScene().getWindow();
+        stage.close();
     }
 }

@@ -11,6 +11,9 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
     * Let the user enter a path (Settings (also see **FXML/Code**)), since otherwise you have to get the name of the drive :(
 * When a series is discontinued (TVDB) it shall switch the `userState` to discontinued too, when the user finished watching it
 * AddController: Show all options that TVDB has, since the first is not always the right (HoC, Defenders etc.)
+* Sorting for Tables (for now) as long as session goes
+    * Store Settings and Sorting in file (later)
+* Switch from foreach to `indexOf` or something similar (maybe faster)
     
 #### FXML/Code
 * Progressbar/-indicator when adding a series (if possible), or add label that states that adding may take a while
@@ -28,8 +31,11 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Label that shows that series that get found by TVDB will lose their edit when updating (in Edit Series)
 * Show series in the tables by different color based on rating
     * if there are no ratings the rating is 0.0
+* How To for Help Window
+* Change MenuBar Color to something dark greyish
 
 ### Think-Abouts
+* Contrast Color for background better than just black and white
 * Server for Webapp (change whole programm to a Spring Webapp) and run it on server for access from everywhere on series
 * BackUp of `.json` to Server, not just external drive (for me)
 
@@ -60,3 +66,4 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Fixed `inc` and `dec`
 * Add amount of wasted time (Info-Table)
 * Description of series to Info-Table
+* Added MenuBar
