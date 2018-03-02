@@ -67,16 +67,9 @@ public class MainMenuController {
     @FXML
     public Button buttonDecEpisode;
     @FXML
-    public Button buttonCheckFinished;
-    @FXML
-    public Button buttonAddSeries;
-    @FXML
-    public Button buttonEditSeries;
+    public Button buttonFinishedSeries;
     @FXML
     public Button buttonStartedSeries;
-    @FXML
-    public Button buttonDelSeries;
-
     @FXML
     public Label labelWatching;
     @FXML
@@ -95,7 +88,7 @@ public class MainMenuController {
             backgroundSet = true;
         }
 
-        //get Pixels of background on position of TableHeaders, invert Color and set Labelcolor
+        //get Pixels of background on position of TableHeaders, choose if black or white has more contrast
         setTextfillInvColor(labelWatching);
         setTextfillInvColor(labelWaiting);
         setTextfillInvColor(labelStarting);
@@ -107,7 +100,7 @@ public class MainMenuController {
 
         ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
 
-        //Set sorting selection default is name
+        //Set sorting selection, default is name
         if(sortingRadioCompletion.selectedProperty().getValue()){
             listEntries.sort((o1, o2) -> o2.getCompletionRate().compareTo(o1.getCompletionRate()));
             System.out.println(sortingRadioCompletion.selectedProperty().getValue());
@@ -448,7 +441,7 @@ public class MainMenuController {
                 URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
                 Image img = new Image(resource.toString());
 
-                Stage primaryStage = (Stage) buttonAddSeries.getScene().getWindow();
+                Stage primaryStage = (Stage) menuBar.getScene().getWindow();
                 Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/Information.fxml"));
                 primaryStage.setTitle("Information about " + tableContinueWatching.getSelectionModel().getSelectedItem().getName());
                 primaryStage.getIcons().add(img);

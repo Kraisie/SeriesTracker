@@ -13,26 +13,25 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * AddController: Show all options that TVDB has, since the first is not always the right (HoC, Defenders etc.)
 * Sorting for Tables (for now) as long as session goes
     * Store Settings and Sorting in file (later)
-* Switch from foreach to `indexOf` or something similar (maybe faster)
+* Switch from foreach to `indexOf` or something similar (not faster but nicer code)
+* Implement all functions of menu bar
     
 #### FXML/Code
 * Progressbar/-indicator when adding a series (if possible), or add label that states that adding may take a while
 * `Information` not just for `continue`-table, would be a waste of the collected data
     * Maybe one that says "Advanced Information" to also see description of episodes when you can not remember what happend (this one for all Series)
-* Consider a button for sorting by completion (and back), since by name is way more pleasant.
-    * highest to lowest: `listEntries.sort((o1, o2) -> o2.getCompletionRate().compareTo(o1.getCompletionRate()));`
-* Menubar on top to switch to movies (not implemented yet), or open the settings (not implemented)
-    * Settings with path where to save the `.json`-file and maybe own background-pics
-* Check every period of time if there are new episodes/seasons of a series or an `Update All Series`-Button
+* Automatic updates in settings of TVDB series
     * Period changeable in Settings, or completely turn it off
     * Change interval of back-ups in settings  
-* Let User add or edit a series manually with the same options everywhere, fix the current ones
-    * Check all given Data if they are valid
+* Let User add or edit a series manually with the same options
+    * **Check all given Data if they are valid**
 * Label that shows that series that get found by TVDB will lose their edit when updating (in Edit Series)
+* "How To" for Help Window
+
+#### Asthetics
+* Change MenuBar Color to something dark greyish
 * Show series in the tables by different color based on rating
     * if there are no ratings the rating is 0.0
-* How To for Help Window
-* Change MenuBar Color to something dark greyish
 
 ### Think-Abouts
 * Contrast Color for background better than just black and white
