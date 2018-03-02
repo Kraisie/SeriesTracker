@@ -59,13 +59,12 @@ public class Series {
         //sort series by name
         allEntries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
 
-        PopUp pop = new PopUp();
         Gson gson = new Gson();
         String json = gson.toJson(allEntries);
         try {
             Files.write(PATH, json.getBytes(), TRUNCATE_EXISTING, CREATE);
         } catch (IOException e) {
-            pop.error("Trying to save data failed!");
+            PopUp.error("Trying to save data failed!");
         }
     }
 
@@ -79,8 +78,7 @@ public class Series {
         boolean exists = false;
         for (Series series : allSeries) {
             if (name.equals(series.getName())) {
-                PopUp pop = new PopUp();
-                pop.error("This series already exists in your list!");
+                PopUp.error("This series already exists in your list!");
                 exists = true;
                 break;
             }

@@ -14,6 +14,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Sorting for Tables (for now) as long as session goes
     * Store Settings and Sorting in file (later)
 * Switch from foreach to `indexOf` or something similar (not faster but nicer code)
+* PopUp static methods so you do not need a new object
 * Implement all functions of menu bar
     
 #### FXML/Code

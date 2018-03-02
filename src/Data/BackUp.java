@@ -39,13 +39,12 @@ public class BackUp {
 
     public static void writeBackUp(BackUp backUp) {
         setPath();
-        PopUp pop = new PopUp();
         Gson gson = new Gson();
         String json = gson.toJson(backUp);
         try {
             Files.write(PATH, json.getBytes(), TRUNCATE_EXISTING, CREATE);
         } catch (IOException e) {
-            pop.error("Trying to save data failed!");
+            PopUp.error("Trying to save data failed!");
         }
     }
 
@@ -68,8 +67,7 @@ public class BackUp {
             String buildPath = "/media/" + System.getProperty("user.name") + "/LEON-FP/BACKUP-SERIEN/Series-backup.json";
             PATH = Paths.get(buildPath);
         }else{
-            PopUp popUp = new PopUp();
-            popUp.error("Could not identify your OS. Too bad.");
+            PopUp.error("Could not identify your OS. Too bad.");
         }
     }
 

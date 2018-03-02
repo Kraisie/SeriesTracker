@@ -39,8 +39,7 @@ public class DeleteController {
         }
 
         Series.writeData(listEntries);
-        PopUp pop = new PopUp();
-        pop.show("Deleted!");
+        PopUp.show("Deleted!");
         back();
     }
 

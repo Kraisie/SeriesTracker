@@ -406,8 +406,7 @@ public class MainMenuController {
             Series.writeData(allSeries);
             initialize();
         } else {
-            PopUp pop = new PopUp();
-            pop.error("Select a series you want to increase the episode of!");
+            PopUp.error("Select a series you want to increase the episode of!");
         }
     }
 
@@ -428,8 +427,7 @@ public class MainMenuController {
             Series.writeData(allSeries);
             initialize();
         } else {
-            PopUp pop = new PopUp();
-            pop.error("Select a series you want to decrease the episode of!");
+            PopUp.error("Select a series you want to decrease the episode of!");
         }
     }
 
@@ -453,8 +451,7 @@ public class MainMenuController {
                 e.printStackTrace();
             }
         } else {
-            PopUp pop = new PopUp();
-            pop.error("Select a series you want to get information about!");
+            PopUp.error("Select a series you want to get information about!");
         }
 
     }
@@ -492,8 +489,7 @@ public class MainMenuController {
             Series.writeData(allSeries);
             initialize();
         } else {
-            PopUp pop = new PopUp();
-            pop.error("Select a series you want to start!");
+            PopUp.error("Select a series you want to start!");
         }
     }
 

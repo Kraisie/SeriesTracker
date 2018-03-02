@@ -37,8 +37,7 @@ public class TVDB_Data {
         }
 
         if (id.equals("")) {
-            PopUp popUp = new PopUp();
-            popUp.error("Could not find series. Make sure the name is correct.");
+            PopUp.error("Could not find series. Make sure the name is correct.");
 
             return null;
         }

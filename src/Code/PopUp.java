@@ -16,7 +16,7 @@ import java.net.URL;
 
 public class PopUp {
 
-    public void show(String text) {
+    public static void show(String text) {
         Stage popUp = new Stage();
         URL resource = MainMenuController.class.getResource("/resources/Pics/ok.png");
         Image img = new Image(resource.toString());
@@ -49,7 +49,7 @@ public class PopUp {
         popUp.showAndWait();
     }
 
-    public void error(String text){
+    public static void error(String text){
         URL resource = MainMenuController.class.getResource("/resources/Pics/Warning.png");
         Image img = new Image(resource.toString());
 
