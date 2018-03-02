@@ -106,6 +106,12 @@ public class Series {
         }
     }
 
+    public boolean hasNext() {
+        Episode current = getCurrent();
+        int index = episodes.indexOf(current);
+        return index < episodes.size();
+    }
+
     //For CellValue
     public int getCurrentSeason() {
         if (getCurrent() == null) {

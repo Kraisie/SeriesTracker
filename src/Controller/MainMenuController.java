@@ -391,15 +391,23 @@ public class MainMenuController {
     }
 
     public void incEpisode() {
-        //add episode, if end of season add season
+        //increase episode
         if (tableContinueWatching.getSelectionModel().getSelectedItem() != null) {
             List<Series> allSeries = Series.readData();
             for (Series series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
-                    series.getCurrent().setWatched(true);
-                    series.setNewCurrent(series.getCurrent(), true);            //true = ++ ; false = --
-                    series.getCurrent().setCurrent(false);
-                    break;
+                    if(series.hasNext()){
+                        series.getCurrent().setWatched(true);
+                        series.setNewCurrent(series.getCurrent(), true);            //true = ++ ; false = --
+                        series.getCurrent().setCurrent(false);
+                        break;
+                    }else{
+                        if(series.getStatus().equals("Ended")){
+                            series.setUserState(3);
+                        }else{
+                            series.setUserState(2);
+                        }
+                    }
                 }
             }
 
@@ -411,16 +419,18 @@ public class MainMenuController {
     }
 
     public void decEpisode() {
-        //decrease number of episode if start of season decrease season
+        //decrease episode
         if (tableContinueWatching.getSelectionModel().getSelectedItem() != null) {
             List<Series> allSeries = Series.readData();
             for (Series series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
-                    series.getCurrent().setWatched(false);
-                    Episode current = series.getCurrent();
-                    series.getCurrent().setCurrent(false);
-                    series.setNewCurrent(current, false);                      //true = ++ ; false = --
-                    break;
+                    if(series.getCurrent().getSeason() != 1 && series.getCurrent().getEpNumberOfSeason() != 1){
+                        series.getCurrent().setWatched(false);
+                        Episode current = series.getCurrent();
+                        series.getCurrent().setCurrent(false);
+                        series.setNewCurrent(current, false);                      //true = ++ ; false = --
+                        break;
+                    }
                 }
             }
 
