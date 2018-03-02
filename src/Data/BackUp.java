@@ -44,7 +44,7 @@ public class BackUp {
         try {
             Files.write(PATH, json.getBytes(), TRUNCATE_EXISTING, CREATE);
         } catch (IOException e) {
-            PopUp.error("Trying to save data failed!");
+            PopUp.error("BackUp failed, check the validity of your path!");
         }
     }
 
