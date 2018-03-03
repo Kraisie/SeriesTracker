@@ -1,6 +1,5 @@
 package Data;
 
-import Code.PopUp;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -25,6 +24,14 @@ public class TVDB_Data {
     private static double rating;
 
     public static Series searchFindAndGetSeries(String seriesName, int userState) {     //-1=no predefined Status (-1 add); 0=not started; 1=watching; 2=wait for new episodes; 3=finished (0-3 update)
+        //RESET VALUES
+        name = null;
+        episodes = null;
+        status = null;
+        runtime = 0;
+        description = null;
+        rating = 0;
+
         //LOGIN
         String token = logIn();
 
@@ -37,8 +44,6 @@ public class TVDB_Data {
         }
 
         if (id.equals("")) {
-            PopUp.error("Could not find series. Make sure the name is correct.");
-
             return null;
         }
 
@@ -213,6 +218,7 @@ public class TVDB_Data {
     }
 
     private static void getEpisodes(String token, String id) {
+        episodes = new ArrayList<>();
         String episodesJSON = requestToString("getEpisodes", token, id, false, 1);
 
         //request for number of pages
@@ -311,5 +317,4 @@ public class TVDB_Data {
 
         return line;
     }
-
 }

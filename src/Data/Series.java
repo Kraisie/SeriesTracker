@@ -98,11 +98,13 @@ public class Series {
     }
 
     public void setCurrent(Episode newCurrent) {
+        //just sets watched rigth for newCurrent after current, if it is before it won't change the ones behind
         for (Episode ep : episodes) {
             if (ep.equals(newCurrent)) {
                 ep.setCurrent(true);
                 break;
             }
+            ep.setWatched(true);
         }
     }
 

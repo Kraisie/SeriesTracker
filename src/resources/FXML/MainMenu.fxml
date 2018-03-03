@@ -57,7 +57,7 @@
       <Button fx:id="buttonFinishedSeries" layoutX="467.0" layoutY="592.0" mnemonicParsing="false" onAction="#displayFinishedSeries" text="All finished series" />
       <Button fx:id="buttonStartedSeries" layoutX="859.0" layoutY="592.0" mnemonicParsing="false" onAction="#startSeries" text="Started" />
       <Button layoutX="114.0" layoutY="592.0" mnemonicParsing="false" onAction="#displayInformation" text="Information" />
-      <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1052.0" style="-fx-background-color: #;">
+      <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1052.0">
         <menus>
           <Menu mnemonicParsing="false" text="Mode">
             <items>
@@ -88,7 +88,7 @@
                   <RadioMenuItem fx:id="sortingRadioCompletion" mnemonicParsing="false" text="Sort by Completion" toggleGroup="$sorting" />
                </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Update">
+            <Menu mnemonicParsing="false" onAction="#menuUpdateAll" text="Update">
               <items>
                 <MenuItem mnemonicParsing="false" text="Update all Series" />
                   <MenuItem mnemonicParsing="false" text="Update only TVDB Series" />

@@ -50,6 +50,8 @@ public class AddSeriesController {
                 allSeries.add(newSeries);
                 Series.writeData(allSeries);
                 PopUp.show(nameTVDB.getText() + " added.");
+            } else {
+                PopUp.error("Could not find \"" + nameTVDB.getText() + "\"!");
             }
         }
         PopUp.error(nameTVDB.getText() + " already exists!");

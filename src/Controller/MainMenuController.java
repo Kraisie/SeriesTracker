@@ -3,6 +3,7 @@ package Controller;
 import Code.PopUp;
 import Data.Episode;
 import Data.Series;
+import Data.TVDB_Data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -101,11 +102,11 @@ public class MainMenuController {
         ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
 
         //Set sorting selection, default is name
-        if(sortingRadioCompletion.selectedProperty().getValue()){
+        if (sortingRadioCompletion.selectedProperty().getValue()) {
             listEntries.sort((o1, o2) -> o2.getCompletionRate().compareTo(o1.getCompletionRate()));
             System.out.println(sortingRadioCompletion.selectedProperty().getValue());
             System.out.println("NAME");
-        }else{
+        } else {
             listEntries.sort(Comparator.comparing(Series::getName));
         }
 
@@ -396,15 +397,15 @@ public class MainMenuController {
             List<Series> allSeries = Series.readData();
             for (Series series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
-                    if(series.hasNext()){
+                    if (series.hasNext()) {
                         series.getCurrent().setWatched(true);
                         series.setNewCurrent(series.getCurrent(), true);            //true = ++ ; false = --
                         series.getCurrent().setCurrent(false);
                         break;
-                    }else{
-                        if(series.getStatus().equals("Ended")){
+                    } else {
+                        if (series.getStatus().equals("Ended")) {
                             series.setUserState(3);
-                        }else{
+                        } else {
                             series.setUserState(2);
                         }
                     }
@@ -424,7 +425,7 @@ public class MainMenuController {
             List<Series> allSeries = Series.readData();
             for (Series series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
-                    if(series.getCurrent().getSeason() != 1 && series.getCurrent().getEpNumberOfSeason() != 1){
+                    if (series.getCurrent().getSeason() != 1 && series.getCurrent().getEpNumberOfSeason() != 1) {
                         series.getCurrent().setWatched(false);
                         Episode current = series.getCurrent();
                         series.getCurrent().setCurrent(false);
@@ -564,6 +565,24 @@ public class MainMenuController {
         List<Series> allSeries = Series.readData();
 
     }
+
+//    public void menuUpdateAll() {
+//        //Kicks some out, freezes the app while updating and takes a really long time
+//        //Maybe add the ID to the Series so we do not have to search again
+//        List<Series> allSeries = Series.readData();
+//        List<Series> updatedAllSeries = new ArrayList<>();
+//        for (Series series : allSeries) {
+//            Series updatedSeries = TVDB_Data.searchFindAndGetSeries(series.getName(), series.getUserState());
+//            if (updatedSeries != null) {
+//                updatedSeries.setCurrent(series.getCurrent());
+//                updatedAllSeries.add(updatedSeries);
+//            } else {
+//                PopUp.error("Could not find \"" + series.getName() + "\"!");
+//            }
+//        }
+//
+//        Series.writeData(updatedAllSeries);
+//    }
 
     public void close() {
         Stage stage = (Stage) menuBar.getScene().getWindow();

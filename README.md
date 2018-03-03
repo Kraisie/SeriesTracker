@@ -8,14 +8,13 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 #### Code
 * When performing a backup on Linux (external drive that is not mounted) it will obviously fail
     * Let the user enter a path (Settings (also see **FXML/Code**)), since otherwise you have to get the name of the drive :(
-* When a series is discontinued (TVDB) it shall switch the `userState` to discontinued too, when the user finished watching it
 * AddController: Show all options that TVDB has, since the first is not always the right (HoC, Defenders etc.)
 * Sorting for Tables (for now) as long as session goes
     * Store Settings and Sorting in file (later)
 * Implement all functions of menu bar
     
 #### FXML/Code
-* Progressbar/-indicator when adding a series (if possible), or add label that states that adding may take a while
+* Progressbar/-indicator when adding/updating a/all series (if possible), or add label that states that adding/updating may take a while
 * `Information` not just for `continue`-table, would be a waste of the collected data
     * Maybe one that says "Advanced Information" to also see description of episodes when you can not remember what happend (this one for all Series)
 * Automatic updates in settings of TVDB series
@@ -25,6 +24,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
     * **Check all given Data if they are valid**
 * Label that shows that series that get found by TVDB will lose their edit when updating (in Edit Series)
 * "How To" for Help Window
+    * indication for colors of rows in the TableViews
 
 #### Asthetics
 * Change MenuBar Color to something dark greyish
