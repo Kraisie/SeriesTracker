@@ -17,9 +17,6 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Progressbar/-indicator when adding/updating a/all series (if possible), or add label that states that adding/updating may take a while
 * `Information` not just for `continue`-table, would be a waste of the collected data
     * Maybe one that says "Advanced Information" to also see description of episodes when you can not remember what happend (this one for all Series)
-* Automatic updates in settings of TVDB series
-    * Period changeable in Settings, or completely turn it off
-    * Change interval of back-ups in settings  
 * Let User add or edit a series manually with the same options
     * **Check all given Data if they are valid**
 * Label that shows that series that get found by TVDB will lose their edit when updating (in Edit Series)

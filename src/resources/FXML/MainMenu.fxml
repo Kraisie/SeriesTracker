@@ -32,31 +32,31 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="tableContinueWatching" layoutX="14.0" layoutY="78.0" opacity="0.9" prefHeight="484.0" prefWidth="300.0">
+      <TableView fx:id="tableContinueWatching" layoutX="14.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
         <columns>
           <TableColumn fx:id="columnContinueName" prefWidth="200.0" text="Name" />
           <TableColumn fx:id="columnContinueSeason" prefWidth="50.0" text="Season" />
             <TableColumn fx:id="columnContinueEpisode" prefWidth="50.0" text="Episode" />
         </columns>
       </TableView>
-      <TableView fx:id="tableWaitEpisodes" layoutX="377.0" layoutY="78.0" opacity="0.9" prefHeight="484.0" prefWidth="300.0">
+      <TableView fx:id="tableWaitEpisodes" layoutX="377.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
         <columns>
           <TableColumn fx:id="columnWaitName" prefWidth="200.0" text="Name" />
           <TableColumn fx:id="columnWaitSeason" prefWidth="50.0" text="Season" />
             <TableColumn fx:id="columnWaitEpisode" prefWidth="50.0" text="Episode" />
         </columns>
       </TableView>
-      <TableView fx:id="tableStartWatching" layoutX="739.0" layoutY="78.0" opacity="0.9" prefHeight="484.0" prefWidth="300.0">
+      <TableView fx:id="tableStartWatching" layoutX="739.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
          <columns>
             <TableColumn fx:id="columnStartName" prefWidth="200.0" text="Name" />
             <TableColumn fx:id="columnStartSeasons" prefWidth="100.0" text="Seasons" />
          </columns>
       </TableView>
-      <Button fx:id="buttonIncEpisode" layoutX="49.0" layoutY="572.0" mnemonicParsing="false" onAction="#incEpisode" prefHeight="65.0" prefWidth="65.0" text="+" />
-      <Button fx:id="buttonDecEpisode" layoutX="198.0" layoutY="572.0" mnemonicParsing="false" onAction="#decEpisode" prefHeight="65.0" prefWidth="65.0" text="-" />
-      <Button fx:id="buttonFinishedSeries" layoutX="467.0" layoutY="592.0" mnemonicParsing="false" onAction="#displayFinishedSeries" text="All finished series" />
-      <Button fx:id="buttonStartedSeries" layoutX="859.0" layoutY="592.0" mnemonicParsing="false" onAction="#startSeries" text="Started" />
-      <Button layoutX="114.0" layoutY="592.0" mnemonicParsing="false" onAction="#displayInformation" text="Information" />
+      <Button fx:id="buttonIncEpisode" layoutX="42.0" layoutY="581.0" mnemonicParsing="false" onAction="#incEpisode" prefHeight="65.0" prefWidth="65.0" text="+" />
+      <Button fx:id="buttonDecEpisode" layoutX="205.0" layoutY="581.0" mnemonicParsing="false" onAction="#decEpisode" prefHeight="65.0" prefWidth="65.0" text="-" />
+      <Button fx:id="buttonFinishedSeries" layoutX="467.0" layoutY="601.0" mnemonicParsing="false" onAction="#displayFinishedSeries" text="All finished series" />
+      <Button fx:id="buttonStartedSeries" layoutX="840.0" layoutY="601.0" mnemonicParsing="false" onAction="#startSeries" text="Started series" />
+      <Button layoutX="114.0" layoutY="601.0" mnemonicParsing="false" onAction="#displayInformation" text="Information" />
       <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1052.0">
         <menus>
           <Menu mnemonicParsing="false" text="Mode">

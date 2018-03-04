@@ -566,7 +566,7 @@ public class MainMenuController {
 
     }
 
-//    public void menuUpdateAll() {
+    public void menuUpdateAll() {
 //        //Kicks some out, freezes the app while updating and takes a really long time
 //        //Maybe add the ID to the Series so we do not have to search again
 //        List<Series> allSeries = Series.readData();
@@ -582,7 +582,7 @@ public class MainMenuController {
 //        }
 //
 //        Series.writeData(updatedAllSeries);
-//    }
+    }
 
     public void close() {
         Stage stage = (Stage) menuBar.getScene().getWindow();
