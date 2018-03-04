@@ -388,21 +388,21 @@ public class ManualAddController {
     }
 
     private void addSeries(){
-        List<Series> allSeries = Series.readData();
-
-        if(Series.checkDuplicate(allSeries, nameSeries.getText())){
-            List<Episode> episodes = new ArrayList<>();
-            for(int i = 0; i < spinnerNumberSeasons.getValue(); i++){
-                episodes.add(new Episode(0,0,"-", "-"));
-            }
-            //name, episodes, 0,  status, runtime, description, rating, 1, 1
-            Series newSeries = new Series(nameSeries.getText(), episodes, 0, nameSeries.getSelectedText(), spinnerAvgTimeEpisode.getValue(), textAreaDescription.getText(), spinnerRating.getValue());
-            allSeries.add(newSeries);
-            allSeries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));     //Ignore case since Z is in front of a (regarding cases)
-            Series.writeData(allSeries);
-        }
-
-        back();
+//        List<Series> allSeries = Series.readData();
+//
+//        if(Series.checkDuplicate(allSeries, nameSeries.getText())){
+//            List<Episode> episodes = new ArrayList<>();
+//            for(int i = 0; i < spinnerNumberSeasons.getValue(); i++){
+//                episodes.add(new Episode(0,0,"-", "-"));
+//            }
+//            //name, episodes, 0,  status, runtime, description, rating, 1, 1
+//            Series newSeries = new Series(nameSeries.getText(), episodes, 0, nameSeries.getSelectedText(), spinnerAvgTimeEpisode.getValue(), textAreaDescription.getText(), spinnerRating.getValue());
+//            allSeries.add(newSeries);
+//            allSeries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));     //Ignore case since Z is in front of a (regarding cases)
+//            Series.writeData(allSeries);
+//        }
+//
+//        back();
     }
 
     public void back(){

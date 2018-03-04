@@ -25,6 +25,33 @@ public class TVDB_Data {
     private static double rating;
     private static String banner;           //https://api.thetvdb.com/<banner>      758x140
 
+    public static Series getUpdate (String providedID, int userState) {
+        //RESET VALUES
+        name = null;
+        episodes = null;
+        status = null;
+        runtime = 0;
+        description = null;
+        rating = 0;
+        banner = null;
+
+        //LOGIN
+        String token = logIn();
+
+        //GET Series
+        getSeries(token, providedID);
+
+        //GET Episodes
+        getEpisodes(token, providedID); //get "last" of first page and iterate through every page until that page
+
+        //If userState is not given (-1) set it on 0 (not started)
+        if(userState == -1){
+            userState = 0;
+        }
+
+        return new Series(name, providedID, episodes, userState, status, runtime, description, rating, banner);
+    }
+
     public static Series searchFindAndGetSeries(String seriesName, int userState) {     //-1=no predefined Status (-1 add); 0=not started; 1=watching; 2=wait for new episodes; 3=finished (0-3 update)
         //RESET VALUES
         name = null;

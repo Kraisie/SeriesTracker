@@ -28,6 +28,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainMenuController {
     @FXML
@@ -77,6 +79,9 @@ public class MainMenuController {
     public Label labelWaiting;
     @FXML
     public Label labelStarting;
+
+    @FXML
+    public ProgressIndicator progressIndicator;
 
     private BufferedImage bufImg;
     public static Series toController;
@@ -567,21 +572,32 @@ public class MainMenuController {
     }
 
     public void menuUpdateAll() {
-//        //Kicks some out, freezes the app while updating and takes a really long time
-//        //Maybe add the ID to the Series so we do not have to search again
-//        List<Series> allSeries = Series.readData();
-//        List<Series> updatedAllSeries = new ArrayList<>();
-//        for (Series series : allSeries) {
-//            Series updatedSeries = TVDB_Data.searchFindAndGetSeries(series.getName(), series.getUserState());
-//            if (updatedSeries != null) {
-//                updatedSeries.setCurrent(series.getCurrent());
-//                updatedAllSeries.add(updatedSeries);
-//            } else {
-//                PopUp.error("Could not find \"" + series.getName() + "\"!");
-//            }
-//        }
-//
-//        Series.writeData(updatedAllSeries);
+        //TAKES A WHILE, so do it in background
+        //but idk how atm, that ProgressIndicator gets updated and so on
+        progressIndicator.setVisible(true);
+        buttonIncEpisode.setDisable(true);
+        buttonDecEpisode.setDisable(true);
+        buttonStartedSeries.setDisable(true);
+        menuBar.setDisable(true);
+
+        List<Series> allSeries = Series.readData();
+        List<Series> updatedAllSeries = new ArrayList<>();
+
+        for (Series series : allSeries) {
+            Series updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState());
+            updatedSeries.setCurrent(series.getCurrent());
+            updatedAllSeries.add(updatedSeries);
+            progressIndicator.setProgress(allSeries.size() / updatedAllSeries.size());
+        }
+        Series.writeData(updatedAllSeries);
+
+        buttonIncEpisode.setDisable(false);
+        buttonDecEpisode.setDisable(false);
+        buttonStartedSeries.setDisable(false);
+        menuBar.setDisable(false);
+        progressIndicator.setVisible(false);
+
+        initialize();
     }
 
     public void close() {
