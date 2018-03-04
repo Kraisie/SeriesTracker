@@ -17,22 +17,26 @@ public class Series {
     private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIENTRACKER/Series.json");
 
     private String name;
+    private String tvdbID;
     private List<Episode> episodes;
     private int userState;      //0=not started; 1=watching; 2=wait for new episodes; 3=finished
     private String status;      //Continuing / Ended
     private int runtime;
     private String description;
     private double rating;
+    private String banner;
 
 
-    public Series(String name, List<Episode> episodes, int userState, String status, int runtime, String description, double rating) {
+    public Series(String name, String tvdbID, List<Episode> episodes, int userState, String status, int runtime, String description, double rating, String banner) {
         this.name = name;
+        this.tvdbID = tvdbID;
         this.episodes = episodes;
         this.userState = userState;
         this.status = status;
         this.runtime = runtime;
         this.description = description;
         this.rating = rating;
+        this.banner = banner;
     }
 
     public static List<Series> readData() {
@@ -189,6 +193,14 @@ public class Series {
         this.name = name;
     }
 
+    public String getTvdbID() {
+        return tvdbID;
+    }
+
+    public void setTvdbID(String tvdbID) {
+        this.tvdbID = tvdbID;
+    }
+
     public List<Episode> getEpisodes() {
         return episodes;
     }
@@ -235,6 +247,14 @@ public class Series {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
     }
 
     @Override

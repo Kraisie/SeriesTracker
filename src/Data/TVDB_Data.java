@@ -17,26 +17,30 @@ public class TVDB_Data {
 
     //Serie
     private static String name;
+    private static String id;
     private static List<Episode> episodes = new ArrayList<>();
     private static String status;           //Continuing / Ended
     private static int runtime;
     private static String description;
     private static double rating;
+    private static String banner;           //https://api.thetvdb.com/<banner>      758x140
 
     public static Series searchFindAndGetSeries(String seriesName, int userState) {     //-1=no predefined Status (-1 add); 0=not started; 1=watching; 2=wait for new episodes; 3=finished (0-3 update)
         //RESET VALUES
         name = null;
+        id = null;
         episodes = null;
         status = null;
         runtime = 0;
         description = null;
         rating = 0;
+        banner = null;
 
         //LOGIN
         String token = logIn();
 
         //SEARCH Series
-        String id = searchSeries(seriesName, token, false);
+        id = searchSeries(seriesName, token, false);
 
         if (id.equals("")) {
             //Did not find english series, search on german
@@ -58,7 +62,7 @@ public class TVDB_Data {
             userState = 0;
         }
 
-        return new Series(name, episodes, userState, status, runtime, description, rating);
+        return new Series(name, id, episodes, userState, status, runtime, description, rating, banner);
     }
 
     private static String logIn() {
@@ -211,6 +215,11 @@ public class TVDB_Data {
             String ratingValue = findValues(seriesJSON, "\"siteRating\":", "[^\\d*.\\d]");
             if (!ratingValue.isEmpty()) {
                 rating = Double.valueOf(ratingValue);
+            }
+
+            String bannerValue= findValues(seriesJSON, "\"banner\":", ".*?:\\s\"");
+            if(!bannerValue.contains("\"banner:\" null")) {
+                banner = bannerValue;
             }
         } catch (IOException e) {
             e.printStackTrace();
