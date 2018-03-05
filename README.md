@@ -8,11 +8,11 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 #### Code
 * When performing a backup on Linux (external drive that is not mounted) it will obviously fail
     * Let the user enter a path (Settings (also see **FXML/Code**)), since otherwise you have to get the name of the drive :(
-* AddController: Show all options that TVDB has, since the first is not always the right (HoC, Defenders etc.)
 * Sorting for Tables (for now) as long as session goes
     * Store Settings and Sorting in file (later)
 * Implement all functions of menu bar
 * Show progress while updating in background
+* Get Banners from TVDB to show them while User selects series
     
 #### FXML/Code
 * `Information` not just for `continue`-table, would be a waste of the collected data
@@ -30,8 +30,6 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 
 ### Think-Abouts
 * Contrast Color for background better than just black and white
-* Server for Webapp (change whole programm to a Spring Webapp) and run it on server for access from everywhere on series
-* BackUp of `.json` to Server, not just external drive (for me)
 
 ### Done!
 * Add Series
