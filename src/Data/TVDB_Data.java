@@ -1,5 +1,7 @@
 package Data;
 
+import Code.PopUp;
+import javafx.scene.image.Image;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -9,6 +11,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,12 +21,55 @@ public class TVDB_Data {
     //Serie
     private static String name;
     private static String id;
-    private static List<Episode> episodes = new ArrayList<>();
+    private static List<Episode> episodes;
     private static String status;           //Continuing / Ended
     private static int runtime;
     private static String description;
     private static double rating;
     private static String banner;           //https://api.thetvdb.com/<banner>      758x140
+
+    public static void main(String[] args) {
+        getSeriesBanner("76107" ,"graphical/74897-g6.jpg");
+    }
+
+    public static Image getSeriesBanner(String id, String banner) {
+        String token = logIn();
+
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        //NOPE
+        //HttpGet request = new HttpGet("https://api.thetvdb.com/series/" + id + "/images");
+        //NOPE
+
+        if (request != null) {
+            request.setHeader("Authorization", "Bearer " + token);
+        }
+
+        try {
+            HttpResponse response = httpClient.execute(request);
+            HttpEntity entity = response.getEntity();
+
+            if (entity != null) {
+                InputStream instream = entity.getContent();
+                System.out.println(convertStreamToString(instream));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static List<Series> searchSeries(String seriesName) {
+        String token = logIn();
+        List<Series> possibleSeries = searchPossibleSeries(seriesName, token, false);
+
+        if(possibleSeries.size() == 0) {
+            PopUp.error("Could not find \"" + seriesName + "\"!");
+            return null;
+        }
+
+        return possibleSeries;
+    }
 
     public static Series getUpdate (String providedID, int userState) {
         //RESET VALUES
@@ -50,46 +96,6 @@ public class TVDB_Data {
         }
 
         return new Series(name, providedID, episodes, userState, status, runtime, description, rating, banner);
-    }
-
-    public static Series searchFindAndGetSeries(String seriesName, int userState) {     //-1=no predefined Status (-1 add); 0=not started; 1=watching; 2=wait for new episodes; 3=finished (0-3 update)
-        //RESET VALUES
-        name = null;
-        id = null;
-        episodes = null;
-        status = null;
-        runtime = 0;
-        description = null;
-        rating = 0;
-        banner = null;
-
-        //LOGIN
-        String token = logIn();
-
-        //SEARCH Series
-        id = searchSeries(seriesName, token, false);
-
-        if (id.equals("")) {
-            //Did not find english series, search on german
-            id = searchSeries(seriesName, token, true);
-        }
-
-        if (id.equals("")) {
-            return null;
-        }
-
-        //GET Series
-        getSeries(token, id);
-
-        //GET Episodes
-        getEpisodes(token, id); //get "last" of first page and iterate through every page until that page
-
-        //If userState is not given (-1) set it on 0 (not started)
-        if(userState == -1){
-            userState = 0;
-        }
-
-        return new Series(name, id, episodes, userState, status, runtime, description, rating, banner);
     }
 
     private static String logIn() {
@@ -131,33 +137,17 @@ public class TVDB_Data {
         return tokenJSON;
     }
 
-    private static String searchSeries(String search, String token, boolean german) {
-        search = search.replaceAll("%", "%25");         //First, or it will change all other %
-        search = search.replaceAll(" ", "%20");
-        search = search.replaceAll("&", "%26");
-        search = search.replaceAll("ä", "%C3%A4");
-        search = search.replaceAll("Ä", "%C3%84");
-        search = search.replaceAll("ö", "%C3%B6");
-        search = search.replaceAll("Ö", "%C3%96");
-        search = search.replaceAll("ü", "%C3%BC");
-        search = search.replaceAll("Ü", "%C3%9C");
-
-        String foundJSON;
-        if (!german) {
-            foundJSON = requestToString("search", token, search, !german, 0);
-        } else {
-            foundJSON = requestToString("search", token, search, german, 0);
+    private static List<Series> searchPossibleSeries(String seriesName, String token, boolean german) {
+        //search Series
+        String urlEncodedSeries = null;
+        try {
+            urlEncodedSeries = URLEncoder.encode(seriesName, java.nio.charset.StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
+        String foundJSON = requestToString("search", token, urlEncodedSeries, german, 0);
 
-        if (!foundJSON.contains("Resource not found")) {
-            try {
-                return findValues(foundJSON, "\"id\":", "[^\\d]");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return "";
+        return extractSeries(foundJSON);
     }
 
     private static String requestToString(String mode, String token, String seriesIndication, boolean german, int page) {
@@ -182,6 +172,8 @@ public class TVDB_Data {
                 request.setHeader("Authorization", "Bearer " + token);
                 if (german) {
                     request.addHeader("Accept-Language", "de");
+                } else {
+                    request.addHeader("Accept-Language", "en");
                 }
 
                 HttpResponse response = httpClient.execute(request);
@@ -197,6 +189,78 @@ public class TVDB_Data {
         }
 
         return stringJSON;
+    }
+
+    private static List<Series> extractSeries(String foundJSON) {
+        BufferedReader br = new BufferedReader(new StringReader(foundJSON));
+        List<Series> foundSeries = new ArrayList<>();
+        String line;
+
+        try {
+            while ((line = br.readLine()) != null) {
+                //MAX 5 SERIES!!!
+                if(foundSeries.size() == 5){
+                    break;
+                }
+                //id, has to be set, so no check
+                if (line.contains("\"id\":")) {
+                    line = line.replaceAll("[^\\d]", "");
+                    foundSeries.add(getUpdate(line, 0));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return foundSeries;
+    }
+
+    private static String removeEndAndNewLine(String line) {
+        if (line.charAt(line.length() - 1) == ',') {
+            line = line.substring(0, line.length() - 1);
+        }
+        if (line.charAt(line.length() - 1) == '\"') {
+            line = line.substring(0, line.length() - 1);
+        }
+
+        line = line.replaceAll("\r", "");
+        line = line.replaceAll("\n", "");
+
+        return line;
+    }
+
+    private static void getSeries(String token, String id) {
+        String seriesJSON = requestToString("getSeries", token, id, false, 0);
+
+        try {
+            name = findValues(seriesJSON, "\"seriesName\":", ".*?:\\s\"");
+            status = findValues(seriesJSON, "\"status\":", ".*?:\\s\"");
+
+            String runtimeValue = findValues(seriesJSON, "\"runtime\":", "[^\\d]");
+            if (!runtimeValue.isEmpty()) {
+                runtime = Integer.valueOf(runtimeValue);            //minutes
+            }
+
+            description = findValues(seriesJSON, "\"overview\":", ".*?:\\s\"");
+            description = description.replaceAll("\n", "");
+            description = description.replaceAll("\r", "");
+            description = description.replaceAll("\\\"", "\"");
+            if (description.contains("\"overview\": null")) {
+                description = "Not given!";
+            }
+
+            String ratingValue = findValues(seriesJSON, "\"siteRating\":", "[^\\d*.\\d]");
+            if (!ratingValue.isEmpty()) {
+                rating = Double.valueOf(ratingValue);
+            }
+
+            String bannerValue = findValues(seriesJSON, "\"banner\":", ".*?:\\s\"");
+            if (!bannerValue.contains("\"banner\": null")) {
+                banner = bannerValue;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static String findValues(String foundJSON, String value, String regex) throws IOException {
@@ -220,37 +284,6 @@ public class TVDB_Data {
         }
 
         return "Not given!";
-    }
-
-    private static void getSeries(String token, String id) {
-        String seriesJSON = requestToString("getSeries", token, id, false, 0);
-
-        try {
-            name = findValues(seriesJSON, "\"seriesName\":", ".*?:\\s\"");
-            status = findValues(seriesJSON, "\"status\":", ".*?:\\s\"");
-
-            String runtimeValue = findValues(seriesJSON, "\"runtime\":", "[^\\d]");
-            if (!runtimeValue.isEmpty()) {
-                runtime = Integer.valueOf(runtimeValue);            //minutes
-            }
-
-            description = findValues(seriesJSON, "\"overview\":", ".*?:\\s\"");
-            if (description.contains("\"overview\": null")){
-                description = "Not given!";
-            }
-
-            String ratingValue = findValues(seriesJSON, "\"siteRating\":", "[^\\d*.\\d]");
-            if (!ratingValue.isEmpty()) {
-                rating = Double.valueOf(ratingValue);
-            }
-
-            String bannerValue= findValues(seriesJSON, "\"banner\":", ".*?:\\s\"");
-            if(!bannerValue.contains("\"banner:\" null")) {
-                banner = bannerValue;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private static void getEpisodes(String token, String id) {
@@ -339,18 +372,5 @@ public class TVDB_Data {
 
         return episodes;
     }
-
-    private static String removeEndAndNewLine(String line) {
-        if (line.charAt(line.length() - 1) == ',') {
-            line = line.substring(0, line.length() - 1);
-        }
-        if (line.charAt(line.length() - 1) == '\"') {
-            line = line.substring(0, line.length() - 1);
-        }
-
-        line = line.replaceAll("\r", "");
-        line = line.replaceAll("\n", "");
-
-        return line;
-    }
 }
+

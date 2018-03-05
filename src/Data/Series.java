@@ -88,7 +88,7 @@ public class Series {
             }
         }
 
-        return !exists;
+        return exists;
     }
 
     public Episode getCurrent() {

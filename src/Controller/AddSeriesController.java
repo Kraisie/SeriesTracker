@@ -24,6 +24,8 @@ public class AddSeriesController {
     @FXML
     public Button manualAddButton;
 
+    public static List<Series> foundSeries;
+
     public void manualAdd(){
         try {
             URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
@@ -44,14 +46,34 @@ public class AddSeriesController {
 
     public void addTVDB(){
         List<Series> allSeries = Series.readData();
-        if(Series.checkDuplicate(allSeries, nameTVDB.getText())){
-            Series newSeries = TVDB_Data.searchFindAndGetSeries(nameTVDB.getText(), -1);
-            if(newSeries != null) {
-                allSeries.add(newSeries);
-                Series.writeData(allSeries);
-                PopUp.show(nameTVDB.getText() + " added.");
-            } else {
-                PopUp.error("Could not find \"" + nameTVDB.getText() + "\"!");
+        if(!Series.checkDuplicate(allSeries, nameTVDB.getText())){
+            List<Series> possibleSeries = TVDB_Data.searchSeries(nameTVDB.getText());
+            //max 3 series
+            if(possibleSeries != null && possibleSeries.size() != 0){
+                if(possibleSeries.size() != 1) {
+                    foundSeries = possibleSeries;
+
+                    try {
+                        Stage primaryStage = (Stage) buttonBack.getScene().getWindow();
+                        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/SelectFoundSeries.fxml"));
+                        primaryStage.setTitle("Series Control Panel");
+                        primaryStage.setScene(new Scene(root));
+                        primaryStage.centerOnScreen();
+                        primaryStage.setResizable(false);
+                        primaryStage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    Series newSeries = TVDB_Data.getUpdate(String.valueOf(possibleSeries.get(1)), 0);
+                    if(newSeries != null) {
+                        allSeries.add(newSeries);
+                        Series.writeData(allSeries);
+                        PopUp.show(nameTVDB.getText() + " added.");
+                    } else {
+                        PopUp.error("Could not find \"" + nameTVDB.getText() + "\"!");
+                    }
+                }
             }
         }
         PopUp.error(nameTVDB.getText() + " already exists!");

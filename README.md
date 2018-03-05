@@ -12,9 +12,9 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Sorting for Tables (for now) as long as session goes
     * Store Settings and Sorting in file (later)
 * Implement all functions of menu bar
+* Show progress while updating in background
     
 #### FXML/Code
-* Progressbar/-indicator when adding/updating a/all series (if possible), or add label that states that adding/updating may take a while
 * `Information` not just for `continue`-table, would be a waste of the collected data
     * Maybe one that says "Advanced Information" to also see description of episodes when you can not remember what happend (this one for all Series)
 * Let User add or edit a series manually with the same options
