@@ -65,7 +65,7 @@ public class AddSeriesController {
                         e.printStackTrace();
                     }
                 }else{
-                    Series newSeries = TVDB_Data.getUpdate(String.valueOf(possibleSeries.get(1)), 0);
+                    Series newSeries = TVDB_Data.getUpdate(String.valueOf(possibleSeries.get(0)), 0);   //1 is ID
                     if(newSeries != null) {
                         allSeries.add(newSeries);
                         Series.writeData(allSeries);
@@ -75,10 +75,9 @@ public class AddSeriesController {
                     }
                 }
             }
+        }else {
+            PopUp.error(nameTVDB.getText() + " already exists!");
         }
-        PopUp.error(nameTVDB.getText() + " already exists!");
-
-        back();
     }
 
     public void back(){

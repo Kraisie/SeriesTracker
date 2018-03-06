@@ -29,16 +29,15 @@ public class TVDB_Data {
     private static String banner;           //https://api.thetvdb.com/<banner>      758x140
 
     public static void main(String[] args) {
-        getSeriesBanner("76107" ,"graphical/74897-g6.jpg");
+        getSeriesBanner("262980" ,"graphical/262980-g5.jpg");
     }
 
     public static Image getSeriesBanner(String id, String banner) {
         String token = logIn();
 
         HttpClient httpClient = HttpClientBuilder.create().build();
-        //NOPE
-        //HttpGet request = new HttpGet("https://api.thetvdb.com/series/" + id + "/images");
-        //NOPE
+        //HttpGet request = new HttpGet("https://api.thetvdb.com/series/" + id + "/images/query?keyType=series");
+        HttpGet request = new HttpGet("https://api.thetvdb.com/series/" + id + "/_cache/graphical/262980-g.jpg");
 
         if (request != null) {
             request.setHeader("Authorization", "Bearer " + token);
@@ -237,7 +236,7 @@ public class TVDB_Data {
             status = findValues(seriesJSON, "\"status\":", ".*?:\\s\"");
 
             String runtimeValue = findValues(seriesJSON, "\"runtime\":", "[^\\d]");
-            if (!runtimeValue.isEmpty()) {
+            if (!runtimeValue.equals("Not given!") && !runtimeValue.isEmpty()) {
                 runtime = Integer.valueOf(runtimeValue);            //minutes
             }
 
@@ -250,12 +249,12 @@ public class TVDB_Data {
             }
 
             String ratingValue = findValues(seriesJSON, "\"siteRating\":", "[^\\d*.\\d]");
-            if (!ratingValue.isEmpty()) {
+            if (!ratingValue.equals("Not given!") && !ratingValue.isEmpty()) {
                 rating = Double.valueOf(ratingValue);
             }
 
             String bannerValue = findValues(seriesJSON, "\"banner\":", ".*?:\\s\"");
-            if (!bannerValue.contains("\"banner\": null")) {
+            if (!bannerValue.equals("Not given!") && !bannerValue.isEmpty()) {
                 banner = bannerValue;
             }
         } catch (IOException e) {
@@ -294,7 +293,7 @@ public class TVDB_Data {
         int lastPage = 0;
         try {
             String lastPageString = findValues(episodesJSON, "\"last\":", "[^\\d]");
-            if (lastPageString != null) {
+            if (!lastPageString.equals("Not given!")) {
                 lastPage = Integer.valueOf(lastPageString);
             }
         } catch (IOException e) {
