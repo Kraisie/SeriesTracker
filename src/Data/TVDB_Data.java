@@ -63,7 +63,9 @@ public class TVDB_Data {
         List<Series> possibleSeries = searchPossibleSeries(seriesName, token, false);
 
         if(possibleSeries.size() == 0) {
-            PopUp.error("Could not find \"" + seriesName + "\"!");
+            searchPossibleSeries(seriesName, token, false);
+        }
+        if(possibleSeries.size() == 0) {
             return null;
         }
 

@@ -48,7 +48,7 @@ public class AddSeriesController {
         List<Series> allSeries = Series.readData();
         if(!Series.checkDuplicate(allSeries, nameTVDB.getText())){
             List<Series> possibleSeries = TVDB_Data.searchSeries(nameTVDB.getText());
-            //max 3 series
+            //max 5 series
             if(possibleSeries != null && possibleSeries.size() != 0){
                 if(possibleSeries.size() != 1) {
                     foundSeries = possibleSeries;
@@ -65,15 +65,13 @@ public class AddSeriesController {
                         e.printStackTrace();
                     }
                 }else{
-                    Series newSeries = TVDB_Data.getUpdate(String.valueOf(possibleSeries.get(0)), 0);   //1 is ID
-                    if(newSeries != null) {
-                        allSeries.add(newSeries);
-                        Series.writeData(allSeries);
-                        PopUp.show(nameTVDB.getText() + " added.");
-                    } else {
-                        PopUp.error("Could not find \"" + nameTVDB.getText() + "\"!");
-                    }
+                    allSeries.add(possibleSeries.get(0));
+                    Series.writeData(allSeries);
+                    PopUp.show(nameTVDB.getText() + " added.");
+                    back();
                 }
+            }else {
+                PopUp.error("Could not find \"" + nameTVDB.getText() + "\"!");
             }
         }else {
             PopUp.error(nameTVDB.getText() + " already exists!");

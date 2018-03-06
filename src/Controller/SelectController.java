@@ -149,20 +149,6 @@ public class SelectController {
         backToMain();
     }
 
-    private void back() {
-        try{
-            Stage primaryStage = (Stage) labelStatus1.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/AddSeries.fxml"));
-            primaryStage.setTitle("Series Control Panel");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.centerOnScreen();
-            primaryStage.setResizable(false);
-            primaryStage.show();
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void backToMain() {
         try{
             Stage primaryStage = (Stage) labelStatus1.getScene().getWindow();
