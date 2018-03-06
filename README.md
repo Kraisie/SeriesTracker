@@ -29,6 +29,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Change MenuBar Color to something dark greyish
 * Show series in the tables by different color based on rating
     * if there are no ratings the rating is 0.0
+* Add css for FXML (Nicer Buttons/TableView, dark MenuBar)
 
 ### Think-Abouts
 * Contrast Color for background better than just black and white
