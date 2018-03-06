@@ -1,6 +1,6 @@
 # Serien-Tracker
 
-## Track your series.
+## Track your series!
 
 You can convert your old `.json` to the new `.json` here: https://github.com/leonfrisch/SeriesJSONtoNew
 
@@ -11,16 +11,18 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Sorting for Tables (for now) as long as session goes
     * Store Settings and Sorting in file (later)
 * Implement all functions of menu bar
-* Show progress while updating in background
-* Get Banners from TVDB to show them while User selects series
+* Show progress while updating in background (runnable, but can't update UI out of it)
+* Get Banners from TVDB to show them while User selects series (easy, just don't know what's the link in the API)
     
 #### FXML/Code
 * `Information` not just for `continue`-table, would be a waste of the collected data
     * Maybe one that says "Advanced Information" to also see description of episodes when you can not remember what happend (this one for all Series)
+    * Episodes shows info one at a time with counter at top to in/decrease season or episode, button for go to current, every button click calls initialize that gets the number of the field to search the equivalent episode
 * Let User add or edit a series manually with the same options
     * **Check all given Data if they are valid**
-* Label that shows that series that get found by TVDB will lose their edit when updating (in Edit Series)
+    * Label that shows that series that get found by TVDB will lose their edit when updating (in Edit Series)
 * "How To" for Help Window
+    * Description of all Functions
     * indication for colors of rows in the TableViews
 
 #### Asthetics
@@ -59,3 +61,5 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Add amount of wasted time (Info-Table)
 * Description of series to Info-Table
 * Added MenuBar
+* Add a series with TVDB
+* Get to choose between 5 possible series of TVDB to add

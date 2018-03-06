@@ -36,6 +36,11 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
+                        <Label layoutX="152.0" layoutY="174.0" text="This process may take some time, please do not close this window!" textFill="RED">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content></Tab>
