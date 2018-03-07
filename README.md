@@ -16,9 +16,6 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * When converting/updating a series with `UserStatus` of 2 (waiting)) you can not get it back to 1 (watching)
     
 #### FXML/Code
-* `Information` not just for `continue`-table, would be a waste of the collected data
-    * Maybe one that says "Advanced Information" to also see description of episodes when you can not remember what happend (this one for all Series)
-    * Episodes shows info one at a time with counter at top to in/decrease season or episode, button for go to current, every button click calls initialize that gets the number of the field to search the equivalent episode
 * Let User add or edit a series manually with the same options
     * **Check all given Data if they are valid**
     * Label that shows that series that get found by TVDB will lose their edit when updating (in Edit Series)
@@ -65,3 +62,4 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Added MenuBar
 * Add a series with TVDB
 * Get to choose between 5 possible series of TVDB to add
+* Added Advanced Information

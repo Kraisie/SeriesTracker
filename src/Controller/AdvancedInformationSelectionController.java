@@ -49,7 +49,7 @@ public class AdvancedInformationSelectionController {
 
             Stage primaryStage = (Stage) buttonBack.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformation.fxml"));
-            primaryStage.setTitle("Advanced information for \"" + toController + "\"");
+            primaryStage.setTitle("Advanced information for \"" + toController.getName() + "\"");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
