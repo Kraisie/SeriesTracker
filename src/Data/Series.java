@@ -72,7 +72,7 @@ public class Series {
         }
     }
 
-    public static void addData(Series data) throws IOException {
+    public static void addData(Series data) {
         List<Series> list = readData();
         list.add(data);
         writeData(list);
