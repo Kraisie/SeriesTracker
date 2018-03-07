@@ -13,6 +13,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Implement all functions of menu bar
 * Show progress while updating in background (runnable, but can't update UI out of it)
 * Get Banners from TVDB to show them while User selects series (easy, just don't know what's the link in the API)
+* When converting/updating a series with `UserStatus` of 2 (waiting)) you can not get it back to 1 (watching)
     
 #### FXML/Code
 * `Information` not just for `continue`-table, would be a waste of the collected data
