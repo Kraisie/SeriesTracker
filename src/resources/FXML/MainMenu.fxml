@@ -62,6 +62,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Mode">
             <items>
+                  <MenuItem mnemonicParsing="false" onAction="#displayAdvancedInformation" text="Advanced Information" />
                   <Menu mnemonicParsing="false" text="Switch to Movies/Series">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Movies" />
@@ -89,10 +90,9 @@
                   <RadioMenuItem fx:id="sortingRadioCompletion" mnemonicParsing="false" text="Sort by Completion" toggleGroup="$sorting" />
                </items>
           </Menu>
-            <Menu mnemonicParsing="false" onAction="#menuUpdateAll" text="Update">
+            <Menu mnemonicParsing="false" text="Update">
               <items>
-                <MenuItem mnemonicParsing="false" text="Update all Series" />
-                  <MenuItem mnemonicParsing="false" text="Update only TVDB Series" />
+                <MenuItem mnemonicParsing="false" onAction="#menuUpdateAll" text="Update all Series" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Settings">

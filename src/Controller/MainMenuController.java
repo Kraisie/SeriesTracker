@@ -470,25 +470,6 @@ public class MainMenuController {
 
     }
 
-    public void addSeries() {
-        //open popup to add series
-        try {
-            URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
-            Image img = new Image(resource.toString());
-
-            Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/AddSeries.fxml"));
-            primaryStage.setTitle("Add a new series");
-            primaryStage.getIcons().add(img);
-            primaryStage.setScene(new Scene(root));
-            primaryStage.centerOnScreen();
-            primaryStage.setResizable(false);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void startSeries() {
         //set state of series to 1 ("watching")
         if (tableStartWatching.getSelectionModel().getSelectedItem() != null) {
@@ -526,15 +507,34 @@ public class MainMenuController {
         }
     }
 
-    public void deleteSeries() {
-        //open popup to delete a series
+    public void displayAdvancedInformation() {
+        //open popup to select a series
         try {
             URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/DeleteSeries.fxml"));
-            primaryStage.setTitle("Delete Series");
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformationSelector.fxml"));
+            primaryStage.setTitle("Advanced Information");
+            primaryStage.getIcons().add(img);
+            primaryStage.setScene(new Scene(root));
+            primaryStage.centerOnScreen();
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addSeries() {
+        //open popup to add series
+        try {
+            URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
+            Image img = new Image(resource.toString());
+
+            Stage primaryStage = (Stage) menuBar.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/AddSeries.fxml"));
+            primaryStage.setTitle("Add a new series");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
@@ -554,6 +554,25 @@ public class MainMenuController {
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/EditSeries.fxml"));
             primaryStage.setTitle("Edit Series");
+            primaryStage.getIcons().add(img);
+            primaryStage.setScene(new Scene(root));
+            primaryStage.centerOnScreen();
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteSeries() {
+        //open popup to delete a series
+        try {
+            URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
+            Image img = new Image(resource.toString());
+
+            Stage primaryStage = (Stage) menuBar.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/DeleteSeries.fxml"));
+            primaryStage.setTitle("Delete Series");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
