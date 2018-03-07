@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="464.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditASeriesController">
+<AnchorPane prefHeight="464.0" prefWidth="600.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditASeriesController">
    <children>
       <TextField fx:id="seriesName" alignment="CENTER" layoutX="96.0" layoutY="17.0" prefHeight="25.0" prefWidth="181.0" />
       <Spinner fx:id="numberSeasons" editable="true" layoutX="437.0" layoutY="15.0" />

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="432.0" prefWidth="227.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdvancedInformationSelectionController">
+<AnchorPane prefHeight="432.0" prefWidth="227.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdvancedInformationSelectionController">
     <children>
         <ListView fx:id="listViewSeries" layoutX="14.0" layoutY="14.0" prefHeight="358.0" prefWidth="200.0" />
         <Button layoutX="14.0" layoutY="386.0" mnemonicParsing="false" onAction="#select" text="Select Series" />

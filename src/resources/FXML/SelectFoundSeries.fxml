@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="881.0" prefWidth="1072.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SelectController">
+<AnchorPane prefHeight="881.0" prefWidth="1072.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SelectController">
    <children>
       <RadioButton fx:id="radio1" layoutX="38.0" layoutY="85.0" mnemonicParsing="false">
          <toggleGroup>

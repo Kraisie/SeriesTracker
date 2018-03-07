@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1052.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1052.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainMenuController">
    <children>
       <ImageView fx:id="imageBackground" fitHeight="632.0" fitWidth="1052.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="labelWatching" layoutX="81.0" layoutY="42.0" prefHeight="27.0" prefWidth="149.0" text="Continue watching" textAlignment="CENTER" textFill="LIME" underline="true">
@@ -28,16 +28,16 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="labelWaiting" layoutX="438.0" layoutY="42.0" prefHeight="27.0" prefWidth="177.0" text="Wait for new episodes" textFill="LIME" underline="true">
+      <Label fx:id="labelWaiting" layoutX="436.0" layoutY="42.0" prefHeight="27.0" prefWidth="182.0" text="Wait for new episodes" textFill="LIME" underline="true">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <TableView fx:id="tableContinueWatching" layoutX="14.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
         <columns>
-          <TableColumn fx:id="columnContinueName" prefWidth="200.0" text="Name" />
-          <TableColumn fx:id="columnContinueSeason" prefWidth="50.0" text="Season" />
-            <TableColumn fx:id="columnContinueEpisode" prefWidth="50.0" text="Episode" />
+          <TableColumn fx:id="columnContinueName" prefWidth="173.0" text="Name" />
+          <TableColumn fx:id="columnContinueSeason" prefWidth="59.0" text="Season" />
+            <TableColumn fx:id="columnContinueEpisode" prefWidth="68.0" text="Episode" />
         </columns>
       </TableView>
       <TableView fx:id="tableWaitEpisodes" layoutX="377.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
