@@ -400,8 +400,8 @@ public class MainMenuController {
             List<Series> allSeries = Series.readData();
             for (Series series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
+                    series.getCurrent().setWatched(true);
                     if (series.hasNext()) {
-                        series.getCurrent().setWatched(true);
                         series.setNewCurrent(series.getCurrent(), true);            //true = ++ ; false = --
                         series.getCurrent().setCurrent(false);
                         break;
@@ -429,10 +429,10 @@ public class MainMenuController {
             for (Series series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
                     if (series.getCurrent().getSeason() != 1 && series.getCurrent().getEpNumberOfSeason() != 1) {
-                        series.getCurrent().setWatched(false);
                         Episode current = series.getCurrent();
                         series.getCurrent().setCurrent(false);
                         series.setNewCurrent(current, false);                      //true = ++ ; false = --
+                        series.getCurrent().setWatched(false);
                         break;
                     }
                 }
