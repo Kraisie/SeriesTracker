@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,6 +19,12 @@ import java.util.List;
 public class AddSeriesController {
 
     @FXML
+    public AnchorPane anchorPane1;
+    @FXML
+    public AnchorPane anchorPane2;
+    @FXML
+    public AnchorPane anchorPane3;
+    @FXML
     public TextField nameTVDB;
     @FXML
     public Button buttonBack;
@@ -25,6 +32,12 @@ public class AddSeriesController {
     public Button manualAddButton;
 
     public static List<Series> foundSeries;
+
+    public void initialize() {
+        anchorPane1.getStyleClass().add("paneBack");
+        anchorPane2.getStyleClass().add("pane");
+        anchorPane3.getStyleClass().add("pane");
+    }
 
     public void manualAdd(){
         try {

@@ -8,62 +8,58 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="458.0" prefWidth="601.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddSeriesController">
+<AnchorPane fx:id="anchorPane1" prefHeight="458.0" prefWidth="601.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddSeriesController">
    <children>
       <TabPane layoutY="-1.0" prefHeight="458.0" prefWidth="601.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Use TVDB Info to add a series">
                <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="anchorPane2" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="60.0" layoutY="46.0" text="You can automatically add a series with data ">
+                        <Label layoutX="60.0" layoutY="46.0" text="You can automatically add a series with data " textFill="WHITE">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="41.0" layoutY="93.0" text="from TVDB. Just type the name of the series and">
+                        <Label layoutX="41.0" layoutY="93.0" text="from TVDB. Just type the name of the series and" textFill="WHITE">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
                         <TextField fx:id="nameTVDB" layoutX="57.0" layoutY="200.0" prefHeight="25.0" prefWidth="487.0" promptText="Name of a series (english)" />
-                        <Label layoutX="65.0" layoutY="225.0" prefHeight="25.0" prefWidth="475.0" text="If it gives you an error stating that the series could not be found please check your" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
-                        <Label layoutX="149.0" layoutY="250.0" text="spelling and also make sure you have the right name." />
+                        <Label layoutX="65.0" layoutY="225.0" prefHeight="25.0" prefWidth="475.0" text="If it gives you an error stating that the series could not be found please check your" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" />
+                        <Label layoutX="149.0" layoutY="250.0" text="spelling and also make sure you have the right name." textFill="WHITE" />
                         <Button layoutX="260.0" layoutY="329.0" mnemonicParsing="false" onAction="#addTVDB" text="Add Series" />
                         <Button fx:id="buttonBack1" layoutX="416.0" layoutY="386.0" mnemonicParsing="false" onAction="#back" text="Go back to the Main Menu" />
-                        <Label layoutX="201.0" layoutY="139.0" text="press 'Add Series':">
+                        <Label layoutX="201.0" layoutY="139.0" text="press 'Add Series':" textFill="WHITE">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="152.0" layoutY="174.0" text="This process may take some time, please do not close this window!" textFill="RED">
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                        </Label>
+                        <Label layoutX="109.0" layoutY="174.0" text="This process may take some time, please do not close this window!" textFill="RED" />
                      </children>
                   </AnchorPane>
                </content></Tab>
           <Tab text="Manually add a series">
                <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="anchorPane3" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="108.0" layoutY="46.0" text="You can also add a series manually,">
+                        <Label layoutX="108.0" layoutY="46.0" text="You can also add a series manually," textFill="WHITE">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="31.0" layoutY="94.0" text="if TVDB does not find your series, or if you want to ">
+                        <Label layoutX="31.0" layoutY="94.0" text="if TVDB does not find your series, or if you want to " textFill="WHITE">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="125.0" layoutY="147.0" text="personalise the info of the series:">
+                        <Label layoutX="125.0" layoutY="147.0" text="personalise the info of the series:" textFill="WHITE">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="104.0" layoutY="205.0" text="!Just keep in mind that it may be a lot of work in comparison to TVDB!" textFill="#c30000" />
+                        <Label layoutX="104.0" layoutY="205.0" text="!Just keep in mind that it may be a lot of work in comparison to TVDB!" textFill="RED" />
                         <Button fx:id="manualAddButton" layoutX="228.0" layoutY="284.0" mnemonicParsing="false" onAction="#manualAdd" text="Add a series manually" />
                         <Button fx:id="buttonBack" layoutX="421.0" layoutY="386.0" mnemonicParsing="false" onAction="#back" text="Go back to the Main Menu" />
                      </children>
