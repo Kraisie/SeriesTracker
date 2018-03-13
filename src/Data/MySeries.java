@@ -166,9 +166,11 @@ public class MySeries {
         return (sum / episodes.size()) * 100;
     }
 
-    public String getWastedTime() {
-        int time = episodes.size() * runtime;
+    public int getWastedTime() {
+        return episodes.size() * runtime;
+    }
 
+    public static String wastedMinutesToString (int time) {
         //if lower than 2 hours print minutes, lower than 7 days print hours, elsewise days
         if (time < 120) {
             return time + " minutes wasted";

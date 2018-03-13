@@ -1,6 +1,7 @@
 package Controller;
 
 import Data.Episode;
+import Data.MySeries;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,7 +47,7 @@ public class InformationController {
         labelCurrentEpisode.setText(String.valueOf(MainMenuController.toController.getCurrent().getEpNumberOfSeason()) + " / " + MainMenuController.toController.getSumEpisodesOfSeason(MainMenuController.toController.getCurrent()));
         labelPercentageCompletition.setText(String.format("%.2f", MainMenuController.toController.getCompletionRate()) + "%");
 
-        labelWastedTime.setText(MainMenuController.toController.getWastedTime());
+        labelWastedTime.setText(MySeries.wastedMinutesToString(MainMenuController.toController.getWastedTime()));
         descriptionTextArea.setText(MainMenuController.toController.getDescription());
     }
 

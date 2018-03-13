@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,6 +28,8 @@ public class FinishedController {
     @FXML
     public TableColumn<MySeries, Integer> columnEpisodes;
     @FXML
+    public Label labelWasted;
+    @FXML
     public Button buttonBack;
 
     public void initialize() {
@@ -43,8 +46,14 @@ public class FinishedController {
         columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
         columnEpisodes.setCellValueFactory(new PropertyValueFactory<>("sumEpisodes"));
-
         tableFinishedSeries.setItems(finishedSeries);
+
+        int sum = 0;
+        for(MySeries series : finishedSeries) {
+            sum += series.getWastedTime();
+        }
+        labelWasted.setText(MySeries.wastedMinutesToString(sum));
+
     }
 
     public void back(){
