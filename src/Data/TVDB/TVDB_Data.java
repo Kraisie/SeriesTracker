@@ -155,9 +155,8 @@ public class TVDB_Data {
         if(series.getData().getBanner() == null || series.getData().getBanner().equals("")) {
             banner = "Not given!";
         }else {
-            banner = series.getData().getOverview();
+            banner = series.getData().getBanner();
         }
-
 
         return new MySeries(
                 series.getData().getSeriesName(),
@@ -328,7 +327,7 @@ public class TVDB_Data {
 
         List<Episode> allEpisodes = new ArrayList<>();
         for(int i = 0; i < episodes.getData().length; i++) {
-            if(episodes.getData()[i].getEpisodeName() == null || episodes.getData()[i].getEpisodeName().equals("") || episodes.getData()[i].getOverview() == null || episodes.getData()[i].getOverview().equals("")) {
+            if(episodes.getData()[i].getEpisodeName() != null && !episodes.getData()[i].getEpisodeName().equals("")) {
                 allEpisodes.add(new Episode(
                         Integer.valueOf(episodes.getData()[i].getAiredEpisodeNumber()),
                         Integer.valueOf(episodes.getData()[i].getAiredSeason()),
@@ -336,12 +335,21 @@ public class TVDB_Data {
                         episodes.getData()[i].getOverview()
                 ));
             }else {
-                allEpisodes.add(new Episode(
-                        Integer.valueOf(episodes.getData()[i].getAiredEpisodeNumber()),
-                        Integer.valueOf(episodes.getData()[i].getAiredSeason()),
-                        "Not given",
-                        "Not given!"
-                ));
+                if(episodes.getData()[i].getOverview() != null && !episodes.getData()[i].getOverview().equals("")) {
+                    allEpisodes.add(new Episode(
+                            Integer.valueOf(episodes.getData()[i].getAiredEpisodeNumber()),
+                            Integer.valueOf(episodes.getData()[i].getAiredSeason()),
+                            episodes.getData()[i].getEpisodeName(),
+                            episodes.getData()[i].getOverview()
+                    ));
+                } else {
+                    allEpisodes.add(new Episode(
+                            Integer.valueOf(episodes.getData()[i].getAiredEpisodeNumber()),
+                            Integer.valueOf(episodes.getData()[i].getAiredSeason()),
+                            "Not given",
+                            "Not given!"
+                    ));
+                }
             }
         }
 

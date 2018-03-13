@@ -140,7 +140,8 @@ public class SelectController {
 
         if(selectedSeries != null) {
             List<MySeries> allSeries = MySeries.readData();
-            allSeries.add(TVDB_Data.getUpdate(selectedSeries.getTvdbID(), 0, 1, 1));
+            MySeries series = TVDB_Data.getUpdate(selectedSeries.getTvdbID(), 0, 1, 1);
+            allSeries.add(series);
             MySeries.writeData(allSeries);
             PopUp.show(selectedSeries.getName() + " added.");
         } else {
