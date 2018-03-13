@@ -43,7 +43,7 @@ public class InformationController {
         labelNumberEpisodes.setText(String.valueOf(sumEpisodes));
 
         labelCurrentSeason.setText(String.valueOf(MainMenuController.toController.getCurrent().getSeason()) + " / " + MainMenuController.toController.getNumberOfSeasons());
-        labelCurrentEpisode.setText(String.valueOf(MainMenuController.toController.getCurrent().getEpNumberOfSeason()) + " / " + MainMenuController.toController.getSumEpisodes());
+        labelCurrentEpisode.setText(String.valueOf(MainMenuController.toController.getCurrent().getEpNumberOfSeason()) + " / " + MainMenuController.toController.getSumEpisodesOfSeason(MainMenuController.toController.getCurrent()));
         labelPercentageCompletition.setText(String.format("%.2f", MainMenuController.toController.getCompletionRate()) + "%");
 
         labelWastedTime.setText(MainMenuController.toController.getWastedTime());

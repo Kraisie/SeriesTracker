@@ -181,6 +181,18 @@ public class MySeries {
         }
     }
 
+    public int getSumEpisodesOfSeason (Episode current) {
+        int sum = 0;
+        List<Episode> allEpisodes = this.getEpisodes();
+        for(Episode episode : allEpisodes) {
+            if(episode.getSeason() == current.getSeason()) {
+                sum++;
+            }
+        }
+
+        return sum;
+    }
+
     public int getSumEpisodes() {
         return episodes.size();
     }

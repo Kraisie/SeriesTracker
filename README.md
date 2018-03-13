@@ -7,14 +7,13 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 ### ToDo-List
 #### Code
 * When performing a backup on Linux (external drive that is not mounted) it will obviously fail
-    * Let the user enter a path (Settings (also see **FXML/Code**)), since otherwise you have to get the name of the drive :(
+    * Let the user enter a path (Settings (also see **FXML/Code**)), since otherwise you have to get the name of the drive
 * Sorting for Tables (for now) as long as session goes
     * Store Settings and Sorting in file (later)
 * Implement all functions of menu bar
 * Show progress while updating in background (runnable, but can't update UI out of it)
 * Get Banners from TVDB to show them while User selects series (easy, just don't know what's the link in the API)
-* When converting/updating a series with `UserStatus` of 2 (waiting)) you can not get it back to 1 (watching)
-* Fix CurrentEpisode in InfoScreen (not current / sumEpisodes)
+* When converting/updating a series with `UserStatus` of 2 (waiting) you can not get it back to 1 (watching)
     
 #### FXML/Code
 * Let User add or edit a series manually with the same options

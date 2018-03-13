@@ -78,7 +78,7 @@ public class AdvancedInformationController {
         labelWastedInfo.setText(AdvancedInformationSelectionController.toController.getWastedTime());
         labelRatingInfo.setText(String.valueOf(series.getRating()) + " / " + "10");
         labelCSeasonInfo.setText(String.valueOf(AdvancedInformationSelectionController.toController.getCurrent().getSeason()) + " / " + series.getNumberOfSeasons());
-        labelCEpisodeInfo.setText(String.valueOf(AdvancedInformationSelectionController.toController.getCurrent().getEpNumberOfSeason()) + " / " + series.getSumEpisodes());
+        labelCEpisodeInfo.setText(String.valueOf(AdvancedInformationSelectionController.toController.getCurrent().getEpNumberOfSeason()) + " / " + series.getSumEpisodesOfSeason(AdvancedInformationSelectionController.toController.getCurrent()));
         labelNrSeasonInfo.setText(String.valueOf(series.getNumberOfSeasons()));
         labelNrEpisodeInfo.setText(String.valueOf(series.getSumEpisodes()));
         labelCompletionInfo.setText(String.format("%.2f", AdvancedInformationSelectionController.toController.getCompletionRate()) + "%");
