@@ -1,7 +1,7 @@
 package Controller;
 
 import Data.Episode;
-import Data.Series;
+import Data.MySeries;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -58,7 +58,7 @@ public class AdvancedInformationController {
     private String tmp;
     private int cS;
     private int cE;
-    private Series series;
+    private MySeries series;
     private boolean first = true;
 
     public void initialize() {

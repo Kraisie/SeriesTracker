@@ -1,6 +1,6 @@
 package Controller;
 
-import Data.Series;
+import Data.MySeries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,21 +19,21 @@ import java.io.IOException;
 public class FinishedController {
 
     @FXML
-    public TableView<Series> tableFinishedSeries;
+    public TableView<MySeries> tableFinishedSeries;
     @FXML
-    public TableColumn<Series, String> columnName;
+    public TableColumn<MySeries, String> columnName;
     @FXML
-    public TableColumn<Series, Integer> columnSeasons;
+    public TableColumn<MySeries, Integer> columnSeasons;
     @FXML
-    public TableColumn<Series, Integer> columnEpisodes;
+    public TableColumn<MySeries, Integer> columnEpisodes;
     @FXML
     public Button buttonBack;
 
     public void initialize() {
-        ObservableList<Series> finishedSeries = FXCollections.observableArrayList();
-        ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
+        ObservableList<MySeries> finishedSeries = FXCollections.observableArrayList();
+        ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
         if (!listEntries.isEmpty()) {
-            for (Series listEntry : listEntries) {
+            for (MySeries listEntry : listEntries) {
                 if(listEntry.getUserState() == 3){
                     finishedSeries.add(listEntry);
                 }

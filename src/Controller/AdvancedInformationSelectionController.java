@@ -1,6 +1,6 @@
 package Controller;
 
-import Data.Series;
+import Data.MySeries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,12 +22,12 @@ public class AdvancedInformationSelectionController {
     @FXML
     public Button buttonBack;
 
-    public static Series toController;
+    public static MySeries toController;
 
     public void initialize() {
         toController = null;
-        ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
-        for (Series listEntry : listEntries) {
+        ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
+        for (MySeries listEntry : listEntries) {
             listViewSeries.getItems().add(listEntry.getName());
         }
     }
@@ -35,8 +35,8 @@ public class AdvancedInformationSelectionController {
     public void select() {
         //edit series like number of seasons, number of episodes in a season, the name and the state
         String name = listViewSeries.getSelectionModel().getSelectedItem();
-        ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
-        for (Series listEntry : listEntries) {
+        ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
+        for (MySeries listEntry : listEntries) {
             if (listEntry.getName().equals(name)) {
                 toController = listEntry;
                 break;

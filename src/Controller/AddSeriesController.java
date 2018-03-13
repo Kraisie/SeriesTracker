@@ -1,8 +1,8 @@
 package Controller;
 
 import Code.PopUp;
-import Data.Series;
-import Data.TVDB_Data;
+import Data.MySeries;
+import Data.TVDB.TVDB_Data;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,7 +31,7 @@ public class AddSeriesController {
     @FXML
     public Button manualAddButton;
 
-    public static List<Series> foundSeries;
+    public static List<MySeries> foundSeries;
 
     public void initialize() {
         anchorPane1.getStyleClass().add("paneBack");
@@ -58,9 +58,9 @@ public class AddSeriesController {
     }
 
     public void addTVDB(){
-        List<Series> allSeries = Series.readData();
-        if(!Series.checkDuplicate(allSeries, nameTVDB.getText())){
-            List<Series> possibleSeries = TVDB_Data.searchSeries(nameTVDB.getText());
+        List<MySeries> allSeries = MySeries.readData();
+        if(!MySeries.checkDuplicate(allSeries, nameTVDB.getText())){
+            List<MySeries> possibleSeries = TVDB_Data.searchPossibleSeries(nameTVDB.getText(), 1, 1, 0);
             //max 5 series
             if(possibleSeries != null && possibleSeries.size() != 0){
                 if(possibleSeries.size() != 1) {
@@ -79,7 +79,7 @@ public class AddSeriesController {
                     }
                 }else{
                     allSeries.add(possibleSeries.get(0));
-                    Series.writeData(allSeries);
+                    MySeries.writeData(allSeries);
                     PopUp.show(nameTVDB.getText() + " added.");
                     back();
                 }

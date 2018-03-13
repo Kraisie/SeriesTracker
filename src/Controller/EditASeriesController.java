@@ -1,7 +1,7 @@
 package Controller;
 
 import Data.Episode;
-import Data.Series;
+import Data.MySeries;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -234,8 +234,8 @@ public class EditASeriesController {
 
 
     public void editSeries() {
-        List<Series> allSeries = Series.readData();
-        for (Series series : allSeries) {
+        List<MySeries> allSeries = MySeries.readData();
+        for (MySeries series : allSeries) {
             if (EditController.toController.getName().equals(series.getName())) {
                 series.setName(seriesName.getText());
 
@@ -287,7 +287,7 @@ public class EditASeriesController {
         }
 
         allSeries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
-        Series.writeData(allSeries);
+        MySeries.writeData(allSeries);
         backMainMenu();
     }
 

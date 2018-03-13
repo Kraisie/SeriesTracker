@@ -14,6 +14,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Show progress while updating in background (runnable, but can't update UI out of it)
 * Get Banners from TVDB to show them while User selects series (easy, just don't know what's the link in the API)
 * When converting/updating a series with `UserStatus` of 2 (waiting)) you can not get it back to 1 (watching)
+* Fix CurrentEpisode in InfoScreen (not current / sumEpisodes)
     
 #### FXML/Code
 * Let User add or edit a series manually with the same options
@@ -24,10 +25,8 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
     * indication for colors of rows in the TableViews
 
 #### Asthetics
-* Change MenuBar Color to something dark greyish
 * Show series in the tables by different color based on rating
     * if there are no ratings the rating is 0.0
-* Add css for FXML (Nicer Buttons/TableView, dark MenuBar)
 
 ### Think-Abouts
 * Contrast Color for background better than just black and white

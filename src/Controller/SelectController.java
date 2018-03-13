@@ -1,7 +1,7 @@
 package Controller;
 
 import Code.PopUp;
-import Data.Series;
+import Data.MySeries;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -63,7 +63,7 @@ public class SelectController {
     @FXML
     public Label labelStatus5;
 
-    public static Series selectedSeries;
+    public static MySeries selectedSeries;
 
     public void initialize() {
         try {
@@ -138,9 +138,9 @@ public class SelectController {
         }
 
         if(selectedSeries != null) {
-            List<Series> allSeries = Series.readData();
+            List<MySeries> allSeries = MySeries.readData();
             allSeries.add(SelectController.selectedSeries);
-            Series.writeData(allSeries);
+            MySeries.writeData(allSeries);
             PopUp.show(selectedSeries.getName() + " added.");
         } else {
             PopUp.error("Could not find \"" + selectedSeries.getName() + "\"!");

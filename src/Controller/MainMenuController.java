@@ -2,8 +2,8 @@ package Controller;
 
 import Code.PopUp;
 import Data.Episode;
-import Data.Series;
-import Data.TVDB_Data;
+import Data.MySeries;
+import Data.TVDB.TVDB_Data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,27 +41,27 @@ public class MainMenuController {
     public ImageView imageBackground;
 
     @FXML
-    public TableView<Series> tableContinueWatching;
+    public TableView<MySeries> tableContinueWatching;
     @FXML
-    public TableView<Series> tableWaitEpisodes;
+    public TableView<MySeries> tableWaitEpisodes;
     @FXML
-    public TableView<Series> tableStartWatching;
+    public TableView<MySeries> tableStartWatching;
     @FXML
-    public TableColumn<Series, String> columnContinueName;
+    public TableColumn<MySeries, String> columnContinueName;
     @FXML
-    public TableColumn<Series, Integer> columnContinueSeason;
+    public TableColumn<MySeries, Integer> columnContinueSeason;
     @FXML
-    public TableColumn<Series, Integer> columnContinueEpisode;
+    public TableColumn<MySeries, Integer> columnContinueEpisode;
     @FXML
-    public TableColumn<Series, String> columnWaitName;
+    public TableColumn<MySeries, String> columnWaitName;
     @FXML
-    public TableColumn<Series, Integer> columnWaitSeason;
+    public TableColumn<MySeries, Integer> columnWaitSeason;
     @FXML
-    public TableColumn<Series, Integer> columnWaitEpisode;
+    public TableColumn<MySeries, Integer> columnWaitEpisode;
     @FXML
-    public TableColumn<Series, String> columnStartName;
+    public TableColumn<MySeries, String> columnStartName;
     @FXML
-    public TableColumn<Series, Integer> columnStartSeasons;
+    public TableColumn<MySeries, Integer> columnStartSeasons;
 
     @FXML
     public Button buttonIncEpisode;
@@ -82,7 +82,7 @@ public class MainMenuController {
     public ProgressIndicator progressIndicator;
 
     private BufferedImage bufImg;
-    public static Series toController;
+    public static MySeries toController;
     private boolean backgroundSet = false;
 
     public void initialize() {
@@ -98,11 +98,11 @@ public class MainMenuController {
         setTextfillInvColor(labelStarting);
 
         toController = null;
-        ObservableList<Series> notStartedSeries = FXCollections.observableArrayList();
-        ObservableList<Series> watchingSeries = FXCollections.observableArrayList();
-        ObservableList<Series> waitNewEpisode = FXCollections.observableArrayList();
+        ObservableList<MySeries> notStartedSeries = FXCollections.observableArrayList();
+        ObservableList<MySeries> watchingSeries = FXCollections.observableArrayList();
+        ObservableList<MySeries> waitNewEpisode = FXCollections.observableArrayList();
 
-        ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
+        ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
 
         //Set sorting selection, default is name
         if (sortingRadioCompletion.selectedProperty().getValue()) {
@@ -110,11 +110,11 @@ public class MainMenuController {
             System.out.println(sortingRadioCompletion.selectedProperty().getValue());
             System.out.println("NAME");
         } else {
-            listEntries.sort(Comparator.comparing(Series::getName));
+            listEntries.sort(Comparator.comparing(MySeries::getName));
         }
 
         if (!listEntries.isEmpty()) {
-            for (Series listEntry : listEntries) {
+            for (MySeries listEntry : listEntries) {
                 switch (listEntry.getUserState()) {
                     case 0:
                         notStartedSeries.add(listEntry);
@@ -397,8 +397,8 @@ public class MainMenuController {
     public void incEpisode() {
         //increase episode
         if (tableContinueWatching.getSelectionModel().getSelectedItem() != null) {
-            List<Series> allSeries = Series.readData();
-            for (Series series : allSeries) {
+            List<MySeries> allSeries = MySeries.readData();
+            for (MySeries series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
                     series.getCurrent().setWatched(true);
                     if (series.hasNext()) {
@@ -415,7 +415,7 @@ public class MainMenuController {
                 }
             }
 
-            Series.writeData(allSeries);
+            MySeries.writeData(allSeries);
             initialize();
         } else {
             PopUp.error("Select a series you want to increase the episode of!");
@@ -425,10 +425,10 @@ public class MainMenuController {
     public void decEpisode() {
         //decrease episode
         if (tableContinueWatching.getSelectionModel().getSelectedItem() != null) {
-            List<Series> allSeries = Series.readData();
-            for (Series series : allSeries) {
+            List<MySeries> allSeries = MySeries.readData();
+            for (MySeries series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
-                    if (series.getCurrent().getSeason() != 1 && series.getCurrent().getEpNumberOfSeason() != 1) {
+                    if (series.getCurrent().getSeason() != 1 || series.getCurrent().getEpNumberOfSeason() != 1) {
                         Episode current = series.getCurrent();
                         series.getCurrent().setCurrent(false);
                         series.setNewCurrent(current, false);                      //true = ++ ; false = --
@@ -438,7 +438,7 @@ public class MainMenuController {
                 }
             }
 
-            Series.writeData(allSeries);
+            MySeries.writeData(allSeries);
             initialize();
         } else {
             PopUp.error("Select a series you want to decrease the episode of!");
@@ -473,15 +473,15 @@ public class MainMenuController {
     public void startSeries() {
         //set state of series to 1 ("watching")
         if (tableStartWatching.getSelectionModel().getSelectedItem() != null) {
-            List<Series> allSeries = Series.readData();
-            for (Series allSery : allSeries) {
+            List<MySeries> allSeries = MySeries.readData();
+            for (MySeries allSery : allSeries) {
                 if (allSery.equals(tableStartWatching.getSelectionModel().getSelectedItem())) {
                     allSery.setUserState(1);
                     break;
                 }
             }
 
-            Series.writeData(allSeries);
+            MySeries.writeData(allSeries);
             initialize();
         } else {
             PopUp.error("Select a series you want to start!");
@@ -584,7 +584,7 @@ public class MainMenuController {
     }
 
     public void sortByName() {
-        List<Series> allSeries = Series.readData();
+        List<MySeries> allSeries = MySeries.readData();
 
     }
 
@@ -597,16 +597,16 @@ public class MainMenuController {
         buttonStartedSeries.setDisable(true);
         menuBar.setDisable(true);
 
-        List<Series> allSeries = Series.readData();
-        List<Series> updatedAllSeries = new ArrayList<>();
+        List<MySeries> allSeries = MySeries.readData();
+        List<MySeries> updatedAllSeries = new ArrayList<>();
 
-        for (Series series : allSeries) {
-            Series updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState());
+        for (MySeries series : allSeries) {
+            MySeries updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
             updatedSeries.setCurrent(series.getCurrent());
             updatedAllSeries.add(updatedSeries);
             progressIndicator.setProgress(allSeries.size() / updatedAllSeries.size());
         }
-        Series.writeData(updatedAllSeries);
+        MySeries.writeData(updatedAllSeries);
 
         buttonIncEpisode.setDisable(false);
         buttonDecEpisode.setDisable(false);

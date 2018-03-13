@@ -1,7 +1,7 @@
 package Controller;
 
 import Code.PopUp;
-import Data.Series;
+import Data.MySeries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,23 +22,23 @@ public class DeleteController {
     public Button buttonBack;
 
     public void initialize(){
-        ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
-        for (Series listEntry : listEntries) {
+        ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
+        for (MySeries listEntry : listEntries) {
             listViewSeries.getItems().add(listEntry.getName());
         }
     }
 
     public void delete(){
         String name = listViewSeries.getSelectionModel().getSelectedItem();
-        ObservableList<Series> listEntries = FXCollections.observableArrayList(Series.readData());
-        for (Series listEntry : listEntries) {
+        ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
+        for (MySeries listEntry : listEntries) {
             if(listEntry.getName().equals(name)){
                 listEntries.remove(listEntry);
                 break;
             }
         }
 
-        Series.writeData(listEntries);
+        MySeries.writeData(listEntries);
         PopUp.show("Deleted!");
         back();
     }
