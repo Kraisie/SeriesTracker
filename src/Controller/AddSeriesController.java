@@ -78,7 +78,7 @@ public class AddSeriesController {
                         e.printStackTrace();
                     }
                 }else{
-                    allSeries.add(possibleSeries.get(0));
+                    allSeries.add(TVDB_Data.getUpdate(possibleSeries.get(0).getTvdbID(), 0, 1, 1));
                     MySeries.writeData(allSeries);
                     PopUp.show(nameTVDB.getText() + " added.");
                     back();

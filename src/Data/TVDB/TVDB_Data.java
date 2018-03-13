@@ -137,7 +137,7 @@ public class TVDB_Data {
         SeriesData series = getSeries(token, Integer.valueOf(providedID));
 
         //GET Episodes
-        List<Episode> episodes = getEpisodes(token, Integer.valueOf(providedID), currentSeason, currentEpisode); //get "last" of first page and iterate through every page until that page
+        List<Episode> episodes = getEpisodes(token, Integer.valueOf(providedID), currentSeason, currentEpisode);
 
         //If userState is not given (-1) set it on 0 (not started)
         if(userState == -1){

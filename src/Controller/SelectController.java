@@ -2,6 +2,7 @@ package Controller;
 
 import Code.PopUp;
 import Data.MySeries;
+import Data.TVDB.TVDB_Data;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -139,7 +140,7 @@ public class SelectController {
 
         if(selectedSeries != null) {
             List<MySeries> allSeries = MySeries.readData();
-            allSeries.add(SelectController.selectedSeries);
+            allSeries.add(TVDB_Data.getUpdate(selectedSeries.getTvdbID(), 0, 1, 1));
             MySeries.writeData(allSeries);
             PopUp.show(selectedSeries.getName() + " added.");
         } else {
