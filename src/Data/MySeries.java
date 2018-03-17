@@ -167,7 +167,14 @@ public class MySeries {
     }
 
     public int getWastedTime() {
-        return episodes.size() * runtime;
+        int sum = 0;
+        for (Episode epi : episodes) {
+            if (epi.isWatched()) {
+                sum++;
+            }
+        }
+
+        return sum * runtime;
     }
 
     public static String wastedMinutesToString (int time) {

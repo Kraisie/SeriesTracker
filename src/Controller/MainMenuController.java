@@ -463,6 +463,8 @@ public class MainMenuController {
                 primaryStage.show();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (NullPointerException n) {
+                //when switching the scene MenuBar is null
             }
         } else {
             PopUp.error("Select a series you want to get information about!");
@@ -504,6 +506,8 @@ public class MainMenuController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException n) {
+            //when switching the scene MenuBar is null
         }
     }
 
@@ -523,6 +527,8 @@ public class MainMenuController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException n) {
+            //when switching the scene MenuBar is null
         }
     }
 
@@ -542,6 +548,8 @@ public class MainMenuController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException n) {
+            //when switching the scene MenuBar is null
         }
     }
 
@@ -561,6 +569,8 @@ public class MainMenuController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException n) {
+            //when switching the scene MenuBar is null
         }
     }
 
@@ -580,6 +590,8 @@ public class MainMenuController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException n) {
+            //when switching the scene MenuBar is null
         }
     }
 
