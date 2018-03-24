@@ -143,7 +143,7 @@ public class MySeries {
 
     public void setNewCurrent(Episode current, boolean direction) {         //true = ++ ; false = --
         int pos = episodes.indexOf(current);
-        if ((pos - 1) < 0 || (pos + 1) >= episodes.size()) {
+        if (pos  < 0 || (pos + 1) >= episodes.size()) {
             //Does not work, somehow inform user
         } else {
             if (direction) {
@@ -151,7 +151,7 @@ public class MySeries {
             } else {
                 setCurrent(episodes.get(pos - 1));
             }
-
+            episodes.get(pos).setCurrent(false);
         }
     }
 

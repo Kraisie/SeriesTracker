@@ -403,7 +403,6 @@ public class MainMenuController {
                     series.getCurrent().setWatched(true);
                     if (series.hasNext()) {
                         series.setNewCurrent(series.getCurrent(), true);            //true = ++ ; false = --
-                        series.getCurrent().setCurrent(false);
                         break;
                     } else {
                         if (series.getStatus().equals("Ended")) {
