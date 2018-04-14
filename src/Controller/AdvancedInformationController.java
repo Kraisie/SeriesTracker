@@ -2,6 +2,7 @@ package Controller;
 
 import Data.Episode;
 import Data.MySeries;
+import Data.TVDB.TVDB_Data;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -70,7 +71,11 @@ public class AdvancedInformationController {
             first = false;
         }
 
-        //ToDo: Set banner (API Link)
+        if(series.getUserState() == 3) {
+            labelIsCurrent.setText("\tSeries finished");
+        }
+
+        imgSeriesBanner.setImage(TVDB_Data.getBannerImage(series.getBanner()));
 
         labelSeriesName.setText(series.getName());
         labelStatusInfo.setText(series.getStatus());

@@ -80,7 +80,7 @@
 .list-view *.scroll-bar:horizontal *.decrement-button {
     -fx-max-width: 1px;
     -fx-max-height: 1px;
-    -fx-background-color: transparent;
+    -fx-background-color: rgba(255,255,255,0);
     -fx-background-radius: 0;
     -fx-background-insets: 0;
     -fx-padding: 0;
@@ -92,7 +92,7 @@
 .list-view *.scroll-bar:horizontal *.decrement-arrow {
     -fx-max-width: 1px;
     -fx-max-height: 1px;
-    -fx-background-color: transparent;
+    -fx-background-color: rgba(255,255,255,0);
     -fx-background-radius: 0;
     -fx-background-insets: 0;
     -fx-padding: 0;
@@ -105,7 +105,7 @@
 .list-view > .virtual-flow > .scroll-bar:vertical,
 .list-view > .virtual-flow > .scroll-bar:vertical > .track,
 .list-view > .virtual-flow > .scroll-bar:vertical > .track-background {
-    -fx-background-color: transparent;
+    -fx-background-color: rgba(255,255,255,0);
     -fx-background-radius: 0 0 5 5;
     -fx-border-radius: 0 0 5 5;
 }

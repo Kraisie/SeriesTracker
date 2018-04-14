@@ -37,10 +37,7 @@ public class InformationController {
         labelNumberSeasons.setText(String.valueOf(MainMenuController.toController.getNumberOfSeasons()));
 
         List<Episode> episodes = MainMenuController.toController.getEpisodes();
-        int sumEpisodes = 0;
-        for(Episode epi : episodes){
-            sumEpisodes++;
-        }
+        int sumEpisodes = episodes.size();
         labelNumberEpisodes.setText(String.valueOf(sumEpisodes));
 
         labelCurrentSeason.setText(String.valueOf(MainMenuController.toController.getCurrent().getSeason()) + " / " + MainMenuController.toController.getNumberOfSeasons());

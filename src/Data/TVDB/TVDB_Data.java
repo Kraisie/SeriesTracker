@@ -3,6 +3,8 @@ package Data.TVDB;
 import Data.Episode;
 import Data.MySeries;
 import com.google.gson.Gson;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -11,8 +13,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URLEncoder;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,72 +24,25 @@ import java.util.Scanner;
 public class TVDB_Data {
 
     //-1=no predefined Status (-1 add); 0=not started; 1=watching; 2=wait for new episodes; 3=finished (0-3 update)
-    public static MySeries searchFindAndGetSeries(String seriesName, int currentSeason, int currentEpisode, int userState) {
-        //LOGIN
-        String token = logIn();
 
-        //SEARCH possible Data.Series
-        SeriesSearchData suggestions = searchPossibleSeries(seriesName, token, false);
+    public static Image getBannerImage(String banner) {
+        try {
+            URL urlImage1 = new URL("https://thetvdb.com/banners/" + banner);
+            HttpURLConnection conn1 = (HttpURLConnection) urlImage1.openConnection();
+            conn1.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
 
-        if (suggestions == null) {
-            System.out.println("\n\tCould not find \"" + seriesName + "\". Searching on german...");
-            suggestions = searchPossibleSeries(seriesName, token, true);
+            InputStream img1Input = conn1.getInputStream();
+            BufferedImage img1 = ImageIO.read(img1Input);
+            img1Input.close();
+            conn1.disconnect();
+
+
+            return SwingFXUtils.toFXImage(img1, null);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        if (suggestions == null) {
-            System.out.println("\tNothing found on german!");
-            System.out.println("\tThe series did not get added to your list. Please add it manually or check the name on TVDB.com!");
-            System.out.println("\tThe series might exists, but may have wrong values in the Database.");
-
-            return null;
-        }
-
-        //SELECT from possible series
-        int id = selectSeries(suggestions, seriesName);
-
-        //Should never happen, but just to be safe
-        if (id == 0) {
-            System.out.println("\nID not found!");
-            return null;
-        }
-
-        //GET series with ID
-        SeriesData series = getSeries(token, id);
-
-        //GET Episodes
-        List<Episode> episodes = getEpisodes(token, id, currentSeason, currentEpisode);
-
-        //If userState is not given (-1) set it on 0 (not started)
-        if (userState == -1) {
-            userState = 0;
-        }
-
-        String overview;
-        if(series.getData().getOverview() == null || series.getData().getOverview().equals("")) {
-            overview = "Not given!";
-        }else {
-            overview = series.getData().getOverview();
-        }
-
-        String banner;
-        if(series.getData().getBanner() == null || series.getData().getBanner().equals("")) {
-            banner = "Not given!";
-        }else {
-            banner = series.getData().getOverview();
-        }
-
-
-        return new MySeries(
-                series.getData().getSeriesName(),
-                String.valueOf(series.getData().getId()),
-                episodes,
-                userState,
-                series.getData().getStatus(),
-                Integer.valueOf(series.getData().getRuntime()),
-                overview,
-                Double.valueOf(series.getData().getSiteRating()),
-                banner                        //banner = 758x140
-        );
+        return null;
     }
 
     public static List<MySeries> searchPossibleSeries(String seriesName, int currentSeason, int currentEpisode, int userState) {
@@ -122,7 +79,6 @@ public class TVDB_Data {
                     0.0,
                     suggestions.getData()[i].getBanner()
             ));
-
         }
 
         return suggestedSeries;
@@ -220,7 +176,7 @@ public class TVDB_Data {
         }
         String foundJSON = requestToString("search", token, urlEncodedSeries, german, 0);
 
-        if(foundJSON.contains("\"Error\":")) {
+        if(foundJSON.contains("\"Alert\":")) {
             return null;
         }
 
@@ -273,45 +229,6 @@ public class TVDB_Data {
         return gson.fromJson(foundJSON, SeriesSearchData.class);
     }
 
-    private static int selectSeries(SeriesSearchData suggestions, String seriesName) {
-        if (suggestions.getData().length > 1) {             // > because 4 Strings define 1 series info package
-            System.out.println("\nThere are more than one series by the name \"" + seriesName + "\". Please type in the number of the following series you want to track:");
-            //Maximum of 5 series to display
-            int max = 5;
-            if(suggestions.getData().length < max) {
-                max = suggestions.getData().length;
-            }
-
-            for (int i = 0; i < max; i++) {
-                System.out.println("\nNumber " + i + ":");
-                System.out.println("\tFirst aired: " + suggestions.getData()[i].getFirstAired());
-                System.out.println("\tID: " + suggestions.getData()[i].getId());
-                System.out.println("\tPublisher: " + suggestions.getData()[i].getNetwork());
-                System.out.println("\tDescription: " + suggestions.getData()[i].getOverview());
-                System.out.println("\tStatus: " + suggestions.getData()[i].getStatus());
-            }
-
-            Scanner scanner = new Scanner(System.in);
-
-            while(true){
-                System.out.print("\n\n\tPlease select a number: ");
-                try{
-                    int pick = Integer.valueOf(scanner.nextLine());
-
-                    if(pick >= 0 && pick < max){
-                        return suggestions.getData()[pick].getId();
-                    } else {
-                        throw new NumberFormatException();
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Please pick a number between 0 and " + (max - 1) + "!");
-                }
-            }
-        } else {
-            return suggestions.getData()[0].getId();
-        }
-    }
-
     private static SeriesData getSeries(String token, int id) {
         String seriesJSON = requestToString("getSeries", token, String.valueOf(id), false, 0);
 
@@ -358,17 +275,17 @@ public class TVDB_Data {
             episodes = gson.fromJson(episodesJSON, SeriesEpisodes.class);
 
             for(int j = 0; j < episodes.getData().length; j++) {
-                if(episodes.getData()[i].getEpisodeName() == null || episodes.getData()[i].getEpisodeName().equals("") || episodes.getData()[i].getOverview() == null || episodes.getData()[i].getOverview().equals("")) {
+                if(episodes.getData()[j].getEpisodeName() == null || episodes.getData()[j].getEpisodeName().equals("") || episodes.getData()[j].getOverview() == null || episodes.getData()[j].getOverview().equals("")) {
                     allEpisodes.add(new Episode(
-                            Integer.valueOf(episodes.getData()[i].getAiredEpisodeNumber()),
-                            Integer.valueOf(episodes.getData()[i].getAiredSeason()),
-                            episodes.getData()[i].getEpisodeName(),
-                            episodes.getData()[i].getOverview()
+                            Integer.valueOf(episodes.getData()[j].getAiredEpisodeNumber()),
+                            Integer.valueOf(episodes.getData()[j].getAiredSeason()),
+                            episodes.getData()[j].getEpisodeName(),
+                            episodes.getData()[j].getOverview()
                     ));
                 }else {
                     allEpisodes.add(new Episode(
-                            Integer.valueOf(episodes.getData()[i].getAiredEpisodeNumber()),
-                            Integer.valueOf(episodes.getData()[i].getAiredSeason()),
+                            Integer.valueOf(episodes.getData()[j].getAiredEpisodeNumber()),
+                            Integer.valueOf(episodes.getData()[j].getAiredSeason()),
                             "Not given",
                             "Not given!"
                     ));

@@ -79,16 +79,13 @@ public class MySeries {
     }
 
     public static boolean checkDuplicate(List<MySeries> allSeries, String name) {
-        boolean exists = false;
         for (MySeries series : allSeries) {
             if (name.equals(series.getName())) {
-                PopUp.error("This series already exists in your list!");
-                exists = true;
-                break;
+                return true;
             }
         }
 
-        return exists;
+        return false;
     }
 
     public Episode getCurrent() {
@@ -102,7 +99,7 @@ public class MySeries {
     }
 
     public void setCurrent(Episode newCurrent) {
-        //just sets watched rigth for newCurrent after current, if it is before it won't change the ones behind
+        //just sets watched right for newCurrent after current, if it is before it won't change the ones behind
         for (Episode ep : episodes) {
             if (ep.equals(newCurrent)) {
                 ep.setCurrent(true);
@@ -143,7 +140,7 @@ public class MySeries {
 
     public void setNewCurrent(Episode current, boolean direction) {         //true = ++ ; false = --
         int pos = episodes.indexOf(current);
-        if (pos  < 0 || (pos + 1) >= episodes.size()) {
+        if (pos  < 0 || (pos + 1) > episodes.size()) {
             //Does not work, somehow inform user
         } else {
             if (direction) {
