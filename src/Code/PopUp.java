@@ -18,7 +18,7 @@ public class PopUp {
 
     public static void show(String text) {
         Stage popUp = new Stage();
-        URL resource = MainMenuController.class.getResource("/resources/Pics/ok.png");
+        URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/ok.png");
         Image img = new Image(resource.toString());
 
         popUp.getIcons().add(img);
@@ -50,7 +50,7 @@ public class PopUp {
     }
 
     public static void error(String text){
-        URL resource = MainMenuController.class.getResource("/resources/Pics/Warning.png");
+        URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/Warning.png");
         Image img = new Image(resource.toString());
 
         Stage popUp = new Stage();

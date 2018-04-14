@@ -41,7 +41,7 @@ public class AddSeriesController {
 
     public void manualAdd(){
         try {
-            URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
+            URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/series.png");
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) manualAddButton.getScene().getWindow();
@@ -80,7 +80,7 @@ public class AddSeriesController {
                 }else{
                     allSeries.add(TVDB_Data.getUpdate(possibleSeries.get(0).getTvdbID(), 0, 1, 1));
                     MySeries.writeData(allSeries);
-                    PopUp.show(nameTVDB.getText() + " added.");
+                    PopUp.show(possibleSeries.get(0).getName() + " added.");
                     back();
                 }
             }else {

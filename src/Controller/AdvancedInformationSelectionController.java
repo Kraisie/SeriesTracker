@@ -44,7 +44,7 @@ public class AdvancedInformationSelectionController {
         }
 
         try {
-            URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
+            URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/series.png");
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) buttonBack.getScene().getWindow();

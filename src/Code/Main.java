@@ -23,7 +23,7 @@ public class Main extends Application {
             writeBackUp(new BackUp());
         }
 
-        URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
+        URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/series.png");
         Image img = new Image(resource.toString());
 
         Parent root = FXMLLoader.load(getClass().getResource("/resources/FXML/MainMenu.fxml"));

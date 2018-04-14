@@ -1,7 +1,6 @@
 package Controller;
 
 import Code.PopUp;
-import Data.Episode;
 import Data.MySeries;
 import Data.TVDB.TVDB_Data;
 import javafx.collections.FXCollections;
@@ -26,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class MainMenuController {
@@ -110,7 +108,7 @@ public class MainMenuController {
             System.out.println(sortingRadioCompletion.selectedProperty().getValue());
             System.out.println("NAME");
         } else {
-            listEntries.sort(Comparator.comparing(MySeries::getName));
+            listEntries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
         }
 
         if (!listEntries.isEmpty()) {
@@ -152,37 +150,37 @@ public class MainMenuController {
 
     private void setBackground() {
         //Images have to be 1052x632 for perfect fit
-        URL resource0 = MainMenuController.class.getResource("/resources/Pics/dexter.jpg");
+        URL resource0 = MainMenuController.class.getResource("/resources/Pics/Background/dexter.jpg");
         Image img0 = new Image(resource0.toString());
 
-        URL resource1 = MainMenuController.class.getResource("/resources/Pics/GoT.jpg");
+        URL resource1 = MainMenuController.class.getResource("/resources/Pics/Background/GoT.jpg");
         Image img1 = new Image(resource1.toString());
 
-        URL resource2 = MainMenuController.class.getResource("/resources/Pics/Lucifer.jpg");
+        URL resource2 = MainMenuController.class.getResource("/resources/Pics/Background/Lucifer.jpg");
         Image img2 = new Image(resource2.toString());
 
-        URL resource3 = MainMenuController.class.getResource("/resources/Pics/mrRobot.jpg");
+        URL resource3 = MainMenuController.class.getResource("/resources/Pics/Background/mrRobot.jpg");
         Image img3 = new Image(resource3.toString());
 
-        URL resource4 = MainMenuController.class.getResource("/resources/Pics/scrubs.jpg");
+        URL resource4 = MainMenuController.class.getResource("/resources/Pics/Background/scrubs.jpg");
         Image img4 = new Image(resource4.toString());
 
-        URL resource5 = MainMenuController.class.getResource("/resources/Pics/better-call-saul.jpg");
+        URL resource5 = MainMenuController.class.getResource("/resources/Pics/Background/better-call-saul.jpg");
         Image img5 = new Image(resource5.toString());
 
-        URL resource6 = MainMenuController.class.getResource("/resources/Pics/Supernatural.jpg");
+        URL resource6 = MainMenuController.class.getResource("/resources/Pics/Background/Supernatural.jpg");
         Image img6 = new Image(resource6.toString());
 
-        URL resource7 = MainMenuController.class.getResource("/resources/Pics/breakingBad.jpg");
+        URL resource7 = MainMenuController.class.getResource("/resources/Pics/Background/breakingBad.jpg");
         Image img7 = new Image(resource7.toString());
 
-        URL resource8 = MainMenuController.class.getResource("/resources/Pics/StrangerThings.jpg");
+        URL resource8 = MainMenuController.class.getResource("/resources/Pics/Background/StrangerThings.jpg");
         Image img8 = new Image(resource8.toString());
 
-        URL resource9 = MainMenuController.class.getResource("/resources/Pics/suits.jpg");
+        URL resource9 = MainMenuController.class.getResource("/resources/Pics/Background/suits.jpg");
         Image img9 = new Image(resource9.toString());
 
-        URL resource10 = MainMenuController.class.getResource("/resources/Pics/prisonBreak.jpg");
+        URL resource10 = MainMenuController.class.getResource("/resources/Pics/Background/prisonBreak.jpg");
         Image img10 = new Image(resource10.toString());
 
         int numberImages = 11;
@@ -193,7 +191,7 @@ public class MainMenuController {
             case 0:
                 imageBackground.setImage(img0);
                 try {
-                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/dexter.jpg");
+                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Background/dexter.jpg");
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -202,7 +200,7 @@ public class MainMenuController {
             case 1:
                 imageBackground.setImage(img1);
                 try {
-                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/GoT.jpg");
+                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Background/GoT.jpg");
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -211,7 +209,7 @@ public class MainMenuController {
             case 2:
                 imageBackground.setImage(img2);
                 try {
-                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Lucifer.jpg");
+                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Background/Lucifer.jpg");
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -220,7 +218,7 @@ public class MainMenuController {
             case 3:
                 imageBackground.setImage(img3);
                 try {
-                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/mrRobot.jpg");
+                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Background/mrRobot.jpg");
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -229,7 +227,7 @@ public class MainMenuController {
             case 4:
                 imageBackground.setImage(img4);
                 try {
-                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/scrubs.jpg");
+                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Background/scrubs.jpg");
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -238,7 +236,7 @@ public class MainMenuController {
             case 5:
                 imageBackground.setImage(img5);
                 try {
-                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/better-call-saul.jpg");
+                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Background/better-call-saul.jpg");
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -247,7 +245,7 @@ public class MainMenuController {
             case 6:
                 imageBackground.setImage(img6);
                 try {
-                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Supernatural.jpg");
+                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Background/Supernatural.jpg");
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -256,7 +254,7 @@ public class MainMenuController {
             case 7:
                 imageBackground.setImage(img7);
                 try {
-                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/breakingBad.jpg");
+                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Background/breakingBad.jpg");
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -265,7 +263,7 @@ public class MainMenuController {
             case 8:
                 imageBackground.setImage(img8);
                 try {
-                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/StrangerThings.jpg");
+                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Background/StrangerThings.jpg");
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -274,7 +272,7 @@ public class MainMenuController {
             case 9:
                 imageBackground.setImage(img9);
                 try {
-                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/suits.jpg");
+                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Background/suits.jpg");
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -283,7 +281,7 @@ public class MainMenuController {
             case 10:
                 imageBackground.setImage(img10);
                 try {
-                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/prisonBreak.jpg");
+                    InputStream is = MainMenuController.class.getResourceAsStream("/resources/Pics/Background/prisonBreak.jpg");
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -428,9 +426,7 @@ public class MainMenuController {
             for (MySeries series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
                     if (series.getCurrent().getSeason() != 1 || series.getCurrent().getEpNumberOfSeason() != 1) {
-                        Episode current = series.getCurrent();
-                        series.getCurrent().setCurrent(false);
-                        series.setNewCurrent(current, false);                      //true = ++ ; false = --
+                        series.setNewCurrent(series.getCurrent(), false);                      //true = ++ ; false = --
                         series.getCurrent().setWatched(false);
                         break;
                     }
@@ -449,7 +445,7 @@ public class MainMenuController {
         if (tableContinueWatching.getSelectionModel().getSelectedItem() != null) {
             try {
                 toController = tableContinueWatching.getSelectionModel().getSelectedItem();
-                URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
+                URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/series.png");
                 Image img = new Image(resource.toString());
 
                 Stage primaryStage = (Stage) menuBar.getScene().getWindow();
@@ -492,7 +488,7 @@ public class MainMenuController {
     public void displayFinishedSeries() {
         //open popup to show all finished series (state=3)
         try {
-            URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
+            URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/series.png");
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
@@ -513,7 +509,7 @@ public class MainMenuController {
     public void displayAdvancedInformation() {
         //open popup to select a series
         try {
-            URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
+            URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/series.png");
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
@@ -534,7 +530,7 @@ public class MainMenuController {
     public void addSeries() {
         //open popup to add series
         try {
-            URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
+            URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/series.png");
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
@@ -555,7 +551,7 @@ public class MainMenuController {
     public void editSeries() {
         //open popup to edit all series
         try {
-            URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
+            URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/series.png");
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
@@ -576,7 +572,7 @@ public class MainMenuController {
     public void deleteSeries() {
         //open popup to delete a series
         try {
-            URL resource = MainMenuController.class.getResource("/resources/Pics/series.png");
+            URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/series.png");
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
