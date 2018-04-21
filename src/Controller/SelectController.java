@@ -65,7 +65,7 @@ public class SelectController {
     public static MySeries selectedSeries;
 
     public void initialize() {
-        URL noImage = MainMenuController.class.getResource("/resources/Pics/Alert/NoImageAvailable.png");
+        URL noImage = MainSeriesController.class.getResource("/resources/Pics/Alert/NoImageAvailable.png");
         Image noImg = new Image(noImage.toString());
 
         if (AddSeriesController.foundSeries.size() >= 2) {
@@ -174,7 +174,7 @@ public class SelectController {
     public void backToMain() {
         try {
             Stage primaryStage = (Stage) labelStatus1.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
             primaryStage.setTitle("Series Control Panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();

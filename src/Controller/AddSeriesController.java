@@ -41,7 +41,7 @@ public class AddSeriesController {
 
     public void manualAdd(){
         try {
-            URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/series.png");
+            URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) manualAddButton.getScene().getWindow();
@@ -94,7 +94,7 @@ public class AddSeriesController {
     public void back(){
         try {
             Stage primaryStage = (Stage) buttonBack.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
             primaryStage.setTitle("Series Control Panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();

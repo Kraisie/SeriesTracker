@@ -1,6 +1,6 @@
 package Code;
 
-import Controller.MainMenuController;
+import Controller.MainSeriesController;
 import Data.BackUp;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,10 +23,10 @@ public class Main extends Application {
             writeBackUp(new BackUp());
         }
 
-        URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/series.png");
+        URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
         Image img = new Image(resource.toString());
 
-        Parent root = FXMLLoader.load(getClass().getResource("/resources/FXML/MainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/resources/FXML/MainSeries.fxml"));
         primaryStage.setTitle("Series Control Panel");
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(img);

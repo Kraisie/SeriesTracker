@@ -14,19 +14,18 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class BackUp {
     private long lastSave;
-    private List<MySeries> series;
 
     private static Path PATH;
 
     public BackUp(){
         this.lastSave = System.currentTimeMillis();
-        series = MySeries.readData();
+        List<MySeries> series = MySeries.readData();
     }
 
     private static BackUp readBackUp() {
         setPath();
 
-        String json = "";
+        String json;
         try {
             json = new String(Files.readAllBytes(PATH));
         } catch (IOException e) {

@@ -8,7 +8,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 #### Code
 * Implement all functions of menu bar
     * Movies
-    * Manual Add
+        * API or manually? If API which?
     * Edit Series
     * Settings (get stored in file)
         * Sorting
@@ -18,21 +18,21 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
             * Description of all Functions
             * indication for colors of rows in the TableViews
 * Show progress while updating in background (runnable, but can't update UI out of it)
-* Get Banners from TVDB to show them while User selects series (easy, just don't know what's the link in the API)
 * When converting/updating a series with `UserStatus` of 2 (waiting) you can not get it back to 1 (watching)
-    * Would be retarded to do, since TVDB users add episodes that did not even air jet, or won't even air this year...
+    * Would be retarded to do, since TVDB users add episodes that did not even air yet, or won't even air this year...
     
 #### FXML/Code
-* Let User add or edit a series manually with the same options
-    * **Check all given Data if they are valid**
-    * Label that shows that series that get found by TVDB will lose their edit when updating (in Edit Series)
-
+* Label that shows that series that get updated by TVDB will lose their edit when updating (in Edit Series)
 
 #### Asthetics
 * Show series in the tables by different color based on rating or status
     * if there are no ratings the rating is 0.0
 
 ### Think-Abouts
+* Manual adding of series
+    * All same options as with TVDB? Like overview for every single episode?!
+    * **Check all given Data if they are valid**
+    * Search again for manually added series when updating?
 * Contrast Color for background better than just black and white
     * Machine Learning?!
 
@@ -54,7 +54,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Added average Time of an episode to get wasted time on a series
 * Added Description of a series
 * Implemented TVDB-API
-* Program that changes old `Series.json` to a `.json`
+* Program that changes old `Series.json` to a new `Series.json`
 * Get every page of episodes that a series has and add them all to the list
 * Set `current` when translating old to new `Series.json`, otherwise set it on 1.1
 * Order episodes regarding their Season and Episode
@@ -67,3 +67,4 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Add a series with TVDB
 * Get to choose between 5 possible series of TVDB to add
 * Added Advanced Information
+* Added banner to Advance Information and Selection

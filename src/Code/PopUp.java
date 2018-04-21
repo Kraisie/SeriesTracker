@@ -1,6 +1,6 @@
 package Code;
 
-import Controller.MainMenuController;
+import Controller.MainSeriesController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,7 +18,7 @@ public class PopUp {
 
     public static void show(String text) {
         Stage popUp = new Stage();
-        URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/ok.png");
+        URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/ok.png");
         Image img = new Image(resource.toString());
 
         popUp.getIcons().add(img);
@@ -30,9 +30,7 @@ public class PopUp {
         Label label = new Label(text);
 
         Button close = new Button("Okay");
-        close.setOnAction(e -> {
-            popUp.close();
-        });
+        close.setOnAction(e -> popUp.close());
         close.setPadding(new Insets(5, 5, 5, 5));
 
         close.setOnKeyPressed((javafx.scene.input.KeyEvent event) -> {
@@ -50,7 +48,7 @@ public class PopUp {
     }
 
     public static void error(String text){
-        URL resource = MainMenuController.class.getResource("/resources/Pics/Icon/Warning.png");
+        URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/Warning.png");
         Image img = new Image(resource.toString());
 
         Stage popUp = new Stage();
@@ -64,9 +62,7 @@ public class PopUp {
         Label label = new Label(text);
 
         Button close = new Button("Okay");
-        close.setOnAction(e -> {
-            popUp.close();
-        });
+        close.setOnAction(e -> popUp.close());
         close.setPadding(new Insets(5, 5, 5, 5));
 
         close.setOnKeyPressed((javafx.scene.input.KeyEvent event) -> {

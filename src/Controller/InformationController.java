@@ -33,25 +33,25 @@ public class InformationController {
     public TextArea descriptionTextArea;
 
     public void initialize(){
-        labelNameSeries.setText(MainMenuController.toController.getName());
-        labelNumberSeasons.setText(String.valueOf(MainMenuController.toController.getNumberOfSeasons()));
+        labelNameSeries.setText(MainSeriesController.toController.getName());
+        labelNumberSeasons.setText(String.valueOf(MainSeriesController.toController.getNumberOfSeasons()));
 
-        List<Episode> episodes = MainMenuController.toController.getEpisodes();
+        List<Episode> episodes = MainSeriesController.toController.getEpisodes();
         int sumEpisodes = episodes.size();
         labelNumberEpisodes.setText(String.valueOf(sumEpisodes));
 
-        labelCurrentSeason.setText(String.valueOf(MainMenuController.toController.getCurrent().getSeason()) + " / " + MainMenuController.toController.getNumberOfSeasons());
-        labelCurrentEpisode.setText(String.valueOf(MainMenuController.toController.getCurrent().getEpNumberOfSeason()) + " / " + MainMenuController.toController.getSumEpisodesOfSeason(MainMenuController.toController.getCurrent()));
-        labelPercentageCompletition.setText(String.format("%.2f", MainMenuController.toController.getCompletionRate()) + "%");
+        labelCurrentSeason.setText(String.valueOf(MainSeriesController.toController.getCurrent().getSeason()) + " / " + MainSeriesController.toController.getNumberOfSeasons());
+        labelCurrentEpisode.setText(String.valueOf(MainSeriesController.toController.getCurrent().getEpNumberOfSeason()) + " / " + MainSeriesController.toController.getSumEpisodesOfSeason(MainSeriesController.toController.getCurrent()));
+        labelPercentageCompletition.setText(String.format("%.2f", MainSeriesController.toController.getCompletionRate()) + "%");
 
-        labelWastedTime.setText(MySeries.wastedMinutesToString(MainMenuController.toController.getWastedTime()));
-        descriptionTextArea.setText(MainMenuController.toController.getDescription());
+        labelWastedTime.setText(MySeries.wastedMinutesToString(MainSeriesController.toController.getWastedTime()));
+        descriptionTextArea.setText(MainSeriesController.toController.getDescription());
     }
 
     public void back(){
         try {
             Stage primaryStage = (Stage) labelNameSeries.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
             primaryStage.setTitle("Series Control Panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();

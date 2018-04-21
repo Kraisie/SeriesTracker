@@ -40,7 +40,7 @@ public class MySeries {
     }
 
     public static List<MySeries> readData() {
-        String json = "";
+        String json;
         try {
             json = new String(Files.readAllBytes(PATH));
         } catch (IOException e) {
@@ -79,9 +79,11 @@ public class MySeries {
     }
 
     public static boolean checkDuplicate(List<MySeries> allSeries, String name) {
-        for (MySeries series : allSeries) {
-            if (name.equals(series.getName())) {
-                return true;
+        if(!allSeries.isEmpty()) {
+            for (MySeries series : allSeries) {
+                if (name.equals(series.getName())) {
+                    return true;
+                }
             }
         }
 
@@ -191,7 +193,7 @@ public class MySeries {
         int sum = 0;
         List<Episode> allEpisodes = this.getEpisodes();
         for(Episode episode : allEpisodes) {
-            if(episode.getSeason() == current.getSeason()) {
+            if(episode.getSeason().equals(current.getSeason())) {
                 sum++;
             }
         }
