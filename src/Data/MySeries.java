@@ -58,6 +58,13 @@ public class MySeries {
         for (MySeries series : allEntries) {
             Episode.deleteNull(series.episodes);
             Episode.sort(series.episodes);
+
+            //if there are episodes after current in a series with userState 2 set UserState to 1 even though TVDB is shit for that
+            if(series.getUserState() == 2) {
+                if(series.hasNext()) {
+                    series.setUserState(1);
+                }
+            }
         }
 
         //sort series by name

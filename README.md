@@ -7,9 +7,6 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 ### ToDo-List
 #### Code
 * Implement all functions of menu bar
-    * Movies
-        * API or manually? If API which?
-    * Edit Series
     * Settings (get stored in file)
         * Sorting
         * Path for BackUp and cyle in that BackUps gets created 
@@ -20,21 +17,16 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Show progress while updating in background (runnable, but can't update UI out of it)
 * When converting/updating a series with `UserStatus` of 2 (waiting) you can not get it back to 1 (watching)
     * Would be retarded to do, since TVDB users add episodes that did not even air yet, or won't even air this year...
-    
-#### FXML/Code
-* Label that shows that series that get updated by TVDB will lose their edit when updating (in Edit Series)
+        * CHECK AIR DATE :D
 
 #### Asthetics
 * Show series in the tables by different color based on rating or status
     * if there are no ratings the rating is 0.0
 
 ### Think-Abouts
-* Manual adding of series
-    * All same options as with TVDB? Like overview for every single episode?!
-    * **Check all given Data if they are valid**
-    * Search again for manually added series when updating?
 * Contrast Color for background better than just black and white
     * Machine Learning?!
+* API for movies
 
 ### Done!
 * Add Series
@@ -68,3 +60,4 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Get to choose between 5 possible series of TVDB to add
 * Added Advanced Information
 * Added banner to Advance Information and Selection
+* Added basic movie support

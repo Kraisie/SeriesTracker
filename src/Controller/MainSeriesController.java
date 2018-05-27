@@ -570,27 +570,6 @@ public class MainSeriesController {
         }
     }
 
-    public void editSeries() {
-        //open popup to edit all series
-        try {
-            URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
-            Image img = new Image(resource.toString());
-
-            Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/EditSeries.fxml"));
-            primaryStage.setTitle("Edit Series");
-            primaryStage.getIcons().add(img);
-            primaryStage.setScene(new Scene(root));
-            primaryStage.centerOnScreen();
-            primaryStage.setResizable(false);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NullPointerException n) {
-            //when switching the scene MenuBar is null
-        }
-    }
-
     public void deleteSeries() {
         //open popup to delete a series
         try {

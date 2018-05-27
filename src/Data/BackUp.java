@@ -13,13 +13,15 @@ import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class BackUp {
+
     private long lastSave;
+    private List<MySeries> series;
 
     private static Path PATH;
 
     public BackUp(){
         this.lastSave = System.currentTimeMillis();
-        List<MySeries> series = MySeries.readData();
+        this.series = MySeries.readData();
     }
 
     private static BackUp readBackUp() {
