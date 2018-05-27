@@ -10,34 +10,35 @@ public class Episode {
     private Integer season;
     private String name;
     private String overview;
+    private String firstAired;
     private boolean current;
     private boolean watched;
 
-    public Episode(int epNumberOfSeason, int season, String name, String overview){
+    public Episode(int epNumberOfSeason, int season, String name, String overview, String firstAired) {
         this.epNumberOfSeason = epNumberOfSeason;
         this.season = season;
         this.name = name;
         this.overview = overview;
+        this.firstAired = firstAired;
         this.current = false;
         this.watched = false;
     }
 
-    public static List<Episode> deleteNull(List<Episode> allEpisodes){
+    public static void deleteNull(List<Episode> allEpisodes) {
         //Delete all Episodes that have epNumberOfSeason or season = null/0 since those are just specials
         List<Episode> remove = new ArrayList<>();
-        for(Episode epi : allEpisodes){
-            if(epi.getSeason() == 0 || epi.getSeason() == null){
+        for (Episode epi : allEpisodes) {
+            if (epi.getSeason() == 0 || epi.getSeason() == null) {
                 remove.add(epi);
-            }else if(epi.getEpNumberOfSeason() == 0 || epi.getEpNumberOfSeason() == null){
+            } else if (epi.getEpNumberOfSeason() == 0 || epi.getEpNumberOfSeason() == null) {
                 remove.add(epi);
             }
         }
 
         allEpisodes.removeAll(remove);
-        return allEpisodes;
     }
 
-    public static List<Episode> sort(List<Episode> allEpisodes){
+    public static void sort(List<Episode> allEpisodes) {
         //Sort list regarding the season first and after that the episodes
         allEpisodes.sort((e1, e2) -> {
             int value1 = e1.getSeason().compareTo(e2.getSeason());
@@ -46,8 +47,6 @@ public class Episode {
             }
             return value1;
         });
-
-        return allEpisodes;
     }
 
     public Integer getEpNumberOfSeason() {
@@ -80,6 +79,14 @@ public class Episode {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public String getFirstAired() {
+        return firstAired;
+    }
+
+    public void setFirstAired(String firstAired) {
+        this.firstAired = firstAired;
     }
 
     public boolean isCurrent() {

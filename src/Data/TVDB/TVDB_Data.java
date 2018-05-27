@@ -61,12 +61,12 @@ public class TVDB_Data {
 
         //max 5 series
         int max = 5;
-        if(suggestions.getData().length < max) {
+        if (suggestions.getData().length < max) {
             max = suggestions.getData().length;
         }
 
         List<MySeries> suggestedSeries = new ArrayList<>();
-        for(int i = 0; i < max; i++) {
+        for (int i = 0; i < max; i++) {
             //Needs banner, name and status
             suggestedSeries.add(new MySeries(
                     suggestions.getData()[i].getSeriesName(),
@@ -84,7 +84,7 @@ public class TVDB_Data {
         return suggestedSeries;
     }
 
-    public static MySeries getUpdate (String providedID, int userState, int currentSeason, int currentEpisode) {
+    public static MySeries getUpdate(String providedID, int userState, int currentSeason, int currentEpisode) {
 
         //LOGIN
         String token = logIn();
@@ -95,22 +95,22 @@ public class TVDB_Data {
         //GET Episodes
         List<Episode> episodes = getEpisodes(token, Integer.valueOf(providedID), currentSeason, currentEpisode);
 
-        //If userState is not given (-1) set it on 0 (not started)
-        if(userState == -1){
+        //If userState is not given (-1) set it to 0 (not started)
+        if (userState == -1) {
             userState = 0;
         }
 
         String overview;
-        if(series.getData().getOverview() == null || series.getData().getOverview().equals("")) {
+        if (series.getData().getOverview() == null || series.getData().getOverview().equals("")) {
             overview = "Not given!";
-        }else {
+        } else {
             overview = series.getData().getOverview();
         }
 
         String banner;
-        if(series.getData().getBanner() == null || series.getData().getBanner().equals("")) {
+        if (series.getData().getBanner() == null || series.getData().getBanner().equals("")) {
             banner = "Not given!";
-        }else {
+        } else {
             banner = series.getData().getBanner();
         }
 
@@ -176,7 +176,7 @@ public class TVDB_Data {
         }
         String foundJSON = requestToString("search", token, urlEncodedSeries, german, 0);
 
-        if(foundJSON.contains("\"Alert\":")) {
+        if (foundJSON.contains("\"Alert\":")) {
             return null;
         }
 
@@ -241,62 +241,52 @@ public class TVDB_Data {
 
         Gson gson = new Gson();
         SeriesEpisodes episodes = gson.fromJson(episodesJSON, SeriesEpisodes.class);
+        List<Episode> allEpisodes = setFields(episodes);
 
-        List<Episode> allEpisodes = new ArrayList<>();
-        for(int i = 0; i < episodes.getData().length; i++) {
-            if(episodes.getData()[i].getEpisodeName() != null && !episodes.getData()[i].getEpisodeName().equals("")) {
-                allEpisodes.add(new Episode(
-                        Integer.valueOf(episodes.getData()[i].getAiredEpisodeNumber()),
-                        Integer.valueOf(episodes.getData()[i].getAiredSeason()),
-                        episodes.getData()[i].getEpisodeName(),
-                        episodes.getData()[i].getOverview()
-                ));
-            }else {
-                if(episodes.getData()[i].getOverview() != null && !episodes.getData()[i].getOverview().equals("")) {
-                    allEpisodes.add(new Episode(
-                            Integer.valueOf(episodes.getData()[i].getAiredEpisodeNumber()),
-                            Integer.valueOf(episodes.getData()[i].getAiredSeason()),
-                            episodes.getData()[i].getEpisodeName(),
-                            episodes.getData()[i].getOverview()
-                    ));
-                } else {
-                    allEpisodes.add(new Episode(
-                            Integer.valueOf(episodes.getData()[i].getAiredEpisodeNumber()),
-                            Integer.valueOf(episodes.getData()[i].getAiredSeason()),
-                            "Not given",
-                            "Not given!"
-                    ));
-                }
-            }
-        }
-
-        for(int i = 2; i <= episodes.getLinks().getLast(); i++) {
+        for (int i = 2; i <= episodes.getLinks().getLast(); i++) {
             episodesJSON = requestToString("getEpisodes", token, String.valueOf(id), false, i);
             episodes = gson.fromJson(episodesJSON, SeriesEpisodes.class);
-
-            for(int j = 0; j < episodes.getData().length; j++) {
-                if(episodes.getData()[j].getEpisodeName() == null || episodes.getData()[j].getEpisodeName().equals("") || episodes.getData()[j].getOverview() == null || episodes.getData()[j].getOverview().equals("")) {
-                    allEpisodes.add(new Episode(
-                            Integer.valueOf(episodes.getData()[j].getAiredEpisodeNumber()),
-                            Integer.valueOf(episodes.getData()[j].getAiredSeason()),
-                            episodes.getData()[j].getEpisodeName(),
-                            episodes.getData()[j].getOverview()
-                    ));
-                }else {
-                    allEpisodes.add(new Episode(
-                            Integer.valueOf(episodes.getData()[j].getAiredEpisodeNumber()),
-                            Integer.valueOf(episodes.getData()[j].getAiredSeason()),
-                            "Not given",
-                            "Not given!"
-                    ));
-                }
-            }
+            allEpisodes.addAll(setFields(episodes));
         }
 
         for (Episode epi : allEpisodes) {
             if (epi.getSeason() == currentSeason && epi.getEpNumberOfSeason() == currentEpisode) {
                 epi.setCurrent(true);
             }
+        }
+
+        return allEpisodes;
+    }
+
+    private static List<Episode> setFields(SeriesEpisodes episodes) {
+        List<Episode> allEpisodes = new ArrayList<>();
+
+        for (int i = 0; i < episodes.getData().length; i++) {
+            //if sth not given set the String as not given
+            Episode e = new Episode(0, 0, null, null, null);
+            e.setEpNumberOfSeason(Integer.valueOf(episodes.getData()[i].getAiredEpisodeNumber()));
+            e.setSeason(Integer.valueOf(episodes.getData()[i].getAiredSeason()));
+
+
+            if (episodes.getData()[i].getEpisodeName() != null && !episodes.getData()[i].getEpisodeName().equals("")) {
+                e.setName(episodes.getData()[i].getEpisodeName());
+            } else {
+                e.setName("Not given!");
+            }
+
+            if (episodes.getData()[i].getOverview() != null && !episodes.getData()[i].getOverview().equals("")) {
+                e.setOverview(episodes.getData()[i].getOverview());
+            } else {
+                e.setOverview("Not given!");
+            }
+
+            if (episodes.getData()[i].getFirstAired() != null && !episodes.getData()[i].getFirstAired().equals("")) {
+                e.setFirstAired(episodes.getData()[i].getFirstAired());
+            } else {
+                e.setFirstAired("Not given!");
+            }
+
+            allEpisodes.add(e);
         }
 
         return allEpisodes;

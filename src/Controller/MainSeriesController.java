@@ -1,6 +1,7 @@
 package Controller;
 
 import Code.PopUp;
+import Data.Episode;
 import Data.MySeries;
 import Data.TVDB.TVDB_Data;
 import javafx.collections.FXCollections;
@@ -402,6 +403,12 @@ public class MainSeriesController {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
                     series.getCurrent().setWatched(true);
                     if (series.hasNext()) {
+                        int index = series.getEpisodes().indexOf(series.getCurrent());
+                        if (series.getEpisodes().get(index + 1).getFirstAired().equals("Not given!")) {
+                            series.setUserState(2);
+                            break;
+                        }
+
                         series.setNewCurrent(series.getCurrent(), true);            //true = ++ ; false = --
                         break;
                     } else {
@@ -414,6 +421,7 @@ public class MainSeriesController {
                 }
             }
 
+            //allSeries.get()
             MySeries.writeData(allSeries);
             initialize();
         } else {
@@ -610,8 +618,11 @@ public class MainSeriesController {
 
         for (MySeries series : allSeries) {
             MySeries updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
+            Episode.sort(updatedSeries.getEpisodes());
+
             updatedSeries.setCurrent(series.getCurrent());
             updatedAllSeries.add(updatedSeries);
+            System.out.println("Updated \"" + series.getName() + "\" that is number " + updatedAllSeries.size() + " of " + allSeries.size());
             progressIndicator.setProgress(allSeries.size() / updatedAllSeries.size());
         }
         MySeries.writeData(updatedAllSeries);

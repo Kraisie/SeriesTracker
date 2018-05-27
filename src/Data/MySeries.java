@@ -59,9 +59,10 @@ public class MySeries {
             Episode.deleteNull(series.episodes);
             Episode.sort(series.episodes);
 
-            //if there are episodes after current in a series with userState 2 set UserState to 1 even though TVDB is shit for that
-            if(series.getUserState() == 2) {
-                if(series.hasNext()) {
+            //if there are episodes after current in a series with userState 2 and a date set UserState to 1 even
+            if (series.getUserState() == 2) {
+                int index = series.getEpisodes().indexOf(series.getCurrent());
+                if (series.hasNext() && !series.getEpisodes().get(index + 1).getFirstAired().equals("Not given!")) {
                     series.setUserState(1);
                 }
             }
@@ -86,7 +87,7 @@ public class MySeries {
     }
 
     public static boolean checkDuplicate(List<MySeries> allSeries, String name) {
-        if(!allSeries.isEmpty()) {
+        if (!allSeries.isEmpty()) {
             for (MySeries series : allSeries) {
                 if (name.equals(series.getName())) {
                     return true;
@@ -149,7 +150,7 @@ public class MySeries {
 
     public void setNewCurrent(Episode current, boolean direction) {         //true = ++ ; false = --
         int pos = episodes.indexOf(current);
-        if (pos  < 0 || (pos + 1) > episodes.size()) {
+        if (pos < 0 || (pos + 1) > episodes.size()) {
             //Does not work, somehow inform user
         } else {
             if (direction) {
@@ -183,24 +184,24 @@ public class MySeries {
         return sum * runtime;
     }
 
-    public static String wastedMinutesToString (int time) {
+    public static String wastedMinutesToString(int time) {
         //if lower than 2 hours print minutes, lower than 7 days print hours, elsewise days
         if (time < 120) {
             return time + " minutes wasted";
         } else if (time < (7 * 24 * 60)) {
-            String wastedTime = String.format("%.2f", ((double)time / 60));
+            String wastedTime = String.format("%.2f", ((double) time / 60));
             return wastedTime + " hours wasted";
         } else {
-            String wastedTime = String.format("%.2f", (((double)time / 60) / 24));
+            String wastedTime = String.format("%.2f", (((double) time / 60) / 24));
             return wastedTime + " days wasted";
         }
     }
 
-    public int getSumEpisodesOfSeason (Episode current) {
+    public int getSumEpisodesOfSeason(Episode current) {
         int sum = 0;
         List<Episode> allEpisodes = this.getEpisodes();
-        for(Episode episode : allEpisodes) {
-            if(episode.getSeason().equals(current.getSeason())) {
+        for (Episode episode : allEpisodes) {
+            if (episode.getSeason().equals(current.getSeason())) {
                 sum++;
             }
         }

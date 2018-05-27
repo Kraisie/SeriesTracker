@@ -9,15 +9,13 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Implement all functions of menu bar
     * Settings (get stored in file)
         * Sorting
-        * Path for BackUp and cyle in that BackUps gets created 
+        * Path for BackUp and cycle in that BackUps gets created 
     * Help
         * "How To"/Tutorial
             * Description of all Functions
-            * indication for colors of rows in the TableViews
+            * Indication for colors of rows in the TableViews
 * Show progress while updating in background (runnable, but can't update UI out of it)
-* When converting/updating a series with `UserStatus` of 2 (waiting) you can not get it back to 1 (watching)
-    * Would be retarded to do, since TVDB users add episodes that did not even air yet, or won't even air this year...
-        * CHECK AIR DATE :D
+* AirDate to only change UserState when AirDate is before or equal to current Date
 
 #### Asthetics
 * Show series in the tables by different color based on rating or status
@@ -25,7 +23,6 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 
 ### Think-Abouts
 * Contrast Color for background better than just black and white
-    * Machine Learning?!
 * API for movies
 
 ### Done!
@@ -39,6 +36,11 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Added Information-button to get informations like number of episodes, completion rate etc.
 * Added "Discontinued"-button to change a series with no more new episodes from "waiting" to "ended"
 * Added "New Episodes"-Button to add a new season to a series that had no more new episodes to watch
+
++++++++++++++++++++++++
++ FIRST KINDA RELEASE +
++++++++++++++++++++++++
+
 * Added background pictures that change randomly when opening/going back to the MainMenu
 * Function to get high contrast for labels regarding the background pic (not thaaat good on some pictures)
 * Linux-Support regarding `Paths` etc.
@@ -61,3 +63,4 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Added Advanced Information
 * Added banner to Advance Information and Selection
 * Added basic movie support
+* Added support for waiting series when there are empty seasons (now require an air date to get back into continue table and if not given they get from watching to waiting)
