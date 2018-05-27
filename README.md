@@ -1,14 +1,10 @@
 # Series-Tracker
 
-## Track your series!
-
-You can convert your old `.json` to the new `.json` here: https://github.com/leonfrisch/SeriesJSONtoNew
-
 ### ToDo-List
 #### Code
 * Implement all functions of menu bar
     * Settings (get stored in file)
-        * Sorting
+    * Sorting
         * Path for BackUp and cycle in that BackUps gets created 
     * Help
         * "How To"/Tutorial
@@ -37,9 +33,7 @@ You can convert your old `.json` to the new `.json` here: https://github.com/leo
 * Added "Discontinued"-button to change a series with no more new episodes from "waiting" to "ended"
 * Added "New Episodes"-Button to add a new season to a series that had no more new episodes to watch
 
-+++++++++++++++++++++++
-+ FIRST KINDA RELEASE +
-+++++++++++++++++++++++
+* **FIRST KINDA RELEASE**
 
 * Added background pictures that change randomly when opening/going back to the MainMenu
 * Function to get high contrast for labels regarding the background pic (not thaaat good on some pictures)
