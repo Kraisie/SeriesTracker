@@ -12,9 +12,6 @@
             * Indication for colors of rows in the TableViews
 * Show progress while updating in background (runnable, but can't update UI out of it)
 * AirDate to only change UserState when AirDate is before or equal to current Date
-* Import BackUp
-* Exclude ended series from "update all", since there won't change much
-    * Add an option to update them
 * Add queries to search series that fulfill a specific dataset
     * Duration, Rating and number of Seasons
         * Duration: Set a number and adjust offset -> e.g 20 minutes duration +- 5 minutes results in all series that have a duration of 15 to 25 minutes per episode
@@ -29,6 +26,7 @@
 ### Think-Abouts
 * Contrast Color for background better than just black and white
 * API for movies
+* Remove manual series completely (Add)
 
 ### Done!
 * Add Series
@@ -41,9 +39,7 @@
 * Added Information-button to get informations like number of episodes, completion rate etc.
 * Added "Discontinued"-button to change a series with no more new episodes from "waiting" to "ended"
 * Added "New Episodes"-Button to add a new season to a series that had no more new episodes to watch
-
 * **FIRST KINDA RELEASE**
-
 * Added background pictures that change randomly when opening/going back to the MainMenu
 * Function to get high contrast for labels regarding the background pic (not thaaat good on some pictures)
 * Linux-Support regarding `Paths` etc.
@@ -67,3 +63,5 @@
 * Added banner to Advance Information and Selection
 * Added basic movie support
 * Added support for waiting series when there are empty seasons (now require an air date to get back into continue table and if not given they get from watching to waiting)
+* Ended series do not get updated, you have to update them explicitly now
+* BackUp can now get imported

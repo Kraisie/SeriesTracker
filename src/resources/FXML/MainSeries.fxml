@@ -77,6 +77,8 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#addSeries" text="Add a new Series" />
                   <MenuItem mnemonicParsing="false" onAction="#deleteSeries" text="Delete a series" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#importBackUp" text="Import BackUp" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Sorting">
@@ -91,7 +93,8 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Update">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#menuUpdateAll" text="Update all Series" />
+                <MenuItem mnemonicParsing="false" onAction="#menuUpdateAll" text="Update Series" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuUpdateEnded" text="Update ended Series" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Settings">

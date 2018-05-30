@@ -181,7 +181,7 @@ public class TVDB_Data {
         }
         String foundJSON = requestToString("search", token, urlEncodedSeries, german, 0);
 
-        if (foundJSON.contains("\"Alert\":")) {
+        if (foundJSON.contains("\"Alert\":") || foundJSON.isEmpty()) {
             return null;
         }
 

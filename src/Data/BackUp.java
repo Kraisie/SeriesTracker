@@ -24,7 +24,7 @@ public class BackUp {
         this.series = MySeries.readData();
     }
 
-    private static BackUp readBackUp() {
+    public static BackUp readBackUp() {
         setPath();
 
         String json;
@@ -72,5 +72,7 @@ public class BackUp {
         }
     }
 
-
+    public List<MySeries> getSeries() {
+        return series;
+    }
 }

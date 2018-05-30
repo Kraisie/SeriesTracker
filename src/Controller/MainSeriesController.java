@@ -1,6 +1,7 @@
 package Controller;
 
 import Code.PopUp;
+import Data.BackUp;
 import Data.Episode;
 import Data.MySeries;
 import Data.TVDB.TVDB_Data;
@@ -604,6 +605,20 @@ public class MainSeriesController {
 
     }
 
+    public void importBackUp() {
+        PopUp.alert("Are you sure you want to load the BackUp?");
+        if(PopUp.isChoice()) {
+            BackUp backup = BackUp.readBackUp();
+
+            if(backup != null) {
+                List<MySeries> series = backup.getSeries();
+                MySeries.writeData(series);
+            }
+        }
+
+        initialize();
+    }
+
     public void menuUpdateAll() {
         //TAKES A WHILE, so do it in background
         //but idk how atm, that ProgressIndicator gets updated and so on
@@ -613,19 +628,7 @@ public class MainSeriesController {
         buttonStartedSeries.setDisable(true);
         menuBar.setDisable(true);
 
-        List<MySeries> allSeries = MySeries.readData();
-        List<MySeries> updatedAllSeries = new ArrayList<>();
-
-        for (MySeries series : allSeries) {
-            MySeries updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
-            Episode.sort(updatedSeries.getEpisodes());
-
-            updatedSeries.setCurrent(series.getCurrent());
-            updatedAllSeries.add(updatedSeries);
-            System.out.println("Updated \"" + series.getName() + "\" that is number " + updatedAllSeries.size() + " of " + allSeries.size());
-            progressIndicator.setProgress(allSeries.size() / updatedAllSeries.size());
-        }
-        MySeries.writeData(updatedAllSeries);
+        update("Continuing");
 
         buttonIncEpisode.setDisable(false);
         buttonDecEpisode.setDisable(false);
@@ -634,6 +637,45 @@ public class MainSeriesController {
         progressIndicator.setVisible(false);
 
         initialize();
+    }
+
+    public void menuUpdateEnded() {
+        progressIndicator.setVisible(true);
+        buttonIncEpisode.setDisable(true);
+        buttonDecEpisode.setDisable(true);
+        buttonStartedSeries.setDisable(true);
+        menuBar.setDisable(true);
+
+        update("Ended");
+
+        buttonIncEpisode.setDisable(false);
+        buttonDecEpisode.setDisable(false);
+        buttonStartedSeries.setDisable(false);
+        menuBar.setDisable(false);
+        progressIndicator.setVisible(false);
+
+        initialize();
+    }
+
+    private void update(String mode) {
+        List<MySeries> allSeries = MySeries.readData();
+        List<MySeries> updatedAllSeries = new ArrayList<>();
+
+        for (MySeries series : allSeries) {
+            if(series.getStatus().equals(mode)) {
+                MySeries updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
+                Episode.sort(updatedSeries.getEpisodes());
+
+                updatedSeries.setCurrent(series.getCurrent());
+                updatedAllSeries.add(updatedSeries);
+                progressIndicator.setProgress(allSeries.size() / updatedAllSeries.size());
+            } else {
+                updatedAllSeries.add(series);
+            }
+        }
+
+        System.out.println(updatedAllSeries.size());
+        //MySeries.writeData(updatedAllSeries);
     }
 
     public void close() {
