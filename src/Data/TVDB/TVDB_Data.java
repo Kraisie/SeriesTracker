@@ -61,9 +61,14 @@ public class TVDB_Data {
 
         //max 5 series
         int max = 5;
-        if (suggestions.getData().length < max) {
-            max = suggestions.getData().length;
+        if(suggestions.getData() != null) {
+            if (suggestions.getData().length < max) {
+                max = suggestions.getData().length;
+            }
+        } else {
+            return null;
         }
+
 
         List<MySeries> suggestedSeries = new ArrayList<>();
         for (int i = 0; i < max; i++) {

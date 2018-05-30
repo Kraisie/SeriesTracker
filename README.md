@@ -12,6 +12,15 @@
             * Indication for colors of rows in the TableViews
 * Show progress while updating in background (runnable, but can't update UI out of it)
 * AirDate to only change UserState when AirDate is before or equal to current Date
+* Import BackUp
+* Exclude ended series from "update all", since there won't change much
+    * Add an option to update them
+* Add queries to search series that fulfill a specific dataset
+    * Duration, Rating and number of Seasons
+        * Duration: Set a number and adjust offset -> e.g 20 minutes duration +- 5 minutes results in all series that have a duration of 15 to 25 minutes per episode
+        * Rating: Search for series with a rating above X. Option to ignore series with lower than Y Votes
+            * Include SiteRaitingCount to Object MySeries
+        * Number of seasons: selfexplaining
 
 #### Asthetics
 * Show series in the tables by different color based on rating or status
