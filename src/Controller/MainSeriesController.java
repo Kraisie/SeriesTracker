@@ -26,6 +26,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -408,6 +410,14 @@ public class MainSeriesController {
                         if (series.getEpisodes().get(index + 1).getFirstAired().equals("Not given!")) {
                             series.setUserState(2);
                             break;
+                        } else {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            LocalDate date = LocalDate.parse(series.getEpisodes().get(index + 1).getFirstAired(), formatter);
+
+                            if(!date.isBefore(LocalDate.now())) {
+                                series.setUserState(2);
+                                break;
+                            }
                         }
 
                         series.setNewCurrent(series.getCurrent(), true);            //true = ++ ; false = --
@@ -422,7 +432,6 @@ public class MainSeriesController {
                 }
             }
 
-            //allSeries.get()
             MySeries.writeData(allSeries);
             initialize();
         } else {

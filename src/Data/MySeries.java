@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static java.nio.file.StandardOpenOption.CREATE;
@@ -59,11 +61,17 @@ public class MySeries {
             Episode.deleteNull(series.episodes);
             Episode.sort(series.episodes);
 
-            //if there are episodes after current in a series with userState 2 and a date set UserState to 1 even
+            //if there are episodes after current in a series with userState 2 and a date before today set UserState to 1
             if (series.getUserState() == 2) {
                 int index = series.getEpisodes().indexOf(series.getCurrent());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
                 if (series.hasNext() && !series.getEpisodes().get(index + 1).getFirstAired().equals("Not given!")) {
-                    series.setUserState(1);
+                    LocalDate date = LocalDate.parse(series.getEpisodes().get(index + 1).getFirstAired(), formatter);
+                    if(date.isBefore(LocalDate.now())) {
+                        series.setUserState(1);
+                        break;
+                    }
                 }
             }
         }
