@@ -19,7 +19,7 @@ public class BackUp {
 
     private static Path PATH;
 
-    public BackUp(){
+    public BackUp() {
         this.lastSave = System.currentTimeMillis();
         this.series = MySeries.readData();
     }
@@ -49,25 +49,25 @@ public class BackUp {
         }
     }
 
-    public static boolean checkOldBackUp(){
+    public static boolean checkOldBackUp() {
         setPath();
-        if(Files.exists(PATH)){
+        if (Files.exists(PATH)) {
             BackUp backUp = readBackUp();
             return (System.currentTimeMillis() - backUp.lastSave) >= 86400000L;
-        }else{
+        } else {
             writeBackUp(new BackUp());
             return false;
         }
     }
 
-    private static void setPath(){
+    private static void setPath() {
         //Detect Windows or Linux and fuck Mac
-        if(System.getProperty("os.name").toLowerCase().contains("win")){
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
             PATH = Paths.get("F:\\BACKUP-SERIEN", "/Series-backup.json");
-        }else if(System.getProperty("os.name").toLowerCase().contains("nux") || System.getProperty("os.name").toLowerCase().contains("nix") || System.getProperty("os.name").toLowerCase().contains("aix")){
+        } else if (System.getProperty("os.name").toLowerCase().contains("nux") || System.getProperty("os.name").toLowerCase().contains("nix") || System.getProperty("os.name").toLowerCase().contains("aix")) {
             String buildPath = "/media/" + System.getProperty("user.name") + "/LEON-FP/BACKUP-SERIEN/Series-backup.json";
             PATH = Paths.get(buildPath);
-        }else{
+        } else {
             PopUp.error("Could not identify your OS. Too bad.");
         }
     }

@@ -17,9 +17,9 @@ import static Data.BackUp.writeBackUp;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         //Create BackUp if last BackUp is older than 24 hours
-        if(checkOldBackUp()){
+        if (checkOldBackUp()) {
             writeBackUp(new BackUp());
         }
 

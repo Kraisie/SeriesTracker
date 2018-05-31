@@ -414,7 +414,7 @@ public class MainSeriesController {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                             LocalDate date = LocalDate.parse(series.getEpisodes().get(index + 1).getFirstAired(), formatter);
 
-                            if(!date.isBefore(LocalDate.now())) {
+                            if (!date.isBefore(LocalDate.now())) {
                                 series.setUserState(2);
                                 break;
                             }
@@ -616,10 +616,10 @@ public class MainSeriesController {
 
     public void importBackUp() {
         PopUp.alert("Are you sure you want to load the BackUp?");
-        if(PopUp.isChoice()) {
+        if (PopUp.isChoice()) {
             BackUp backup = BackUp.readBackUp();
 
-            if(backup != null) {
+            if (backup != null) {
                 List<MySeries> series = backup.getSeries();
                 MySeries.writeData(series);
             }
@@ -671,7 +671,7 @@ public class MainSeriesController {
         List<MySeries> updatedAllSeries = new ArrayList<>();
 
         for (MySeries series : allSeries) {
-            if(series.getStatus().equals(mode)) {
+            if (series.getStatus().equals(mode)) {
                 MySeries updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
                 Episode.sort(updatedSeries.getEpisodes());
 

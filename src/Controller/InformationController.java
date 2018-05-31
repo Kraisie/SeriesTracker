@@ -32,7 +32,7 @@ public class InformationController {
     @FXML
     public TextArea descriptionTextArea;
 
-    public void initialize(){
+    public void initialize() {
         labelNameSeries.setText(MainSeriesController.toController.getName());
         labelNumberSeasons.setText(String.valueOf(MainSeriesController.toController.getNumberOfSeasons()));
 
@@ -48,7 +48,7 @@ public class InformationController {
         descriptionTextArea.setText(MainSeriesController.toController.getDescription());
     }
 
-    public void back(){
+    public void back() {
         try {
             Stage primaryStage = (Stage) labelNameSeries.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));

@@ -6,28 +6,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="447.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.InformationController">
-   <children>
-      <Label layoutX="14.0" layoutY="25.0" text="Name of the series:" />
-      <Label layoutX="14.0" layoutY="55.0" text="Number of seasons:" />
-      <Label layoutX="14.0" layoutY="85.0" text="Complete number of episodes:" />
-      <Label layoutX="14.0" layoutY="145.0" text="Current Season:" />
-      <Label layoutX="14.0" layoutY="175.0" text="Current Episode:" />
-      <Label layoutX="14.0" layoutY="235.0" text="Completion:" />
-      <Label fx:id="labelNameSeries" layoutX="225.0" layoutY="25.0" />
-      <Label fx:id="labelNumberSeasons" layoutX="225.0" layoutY="55.0" />
-      <Label fx:id="labelNumberEpisodes" layoutX="225.0" layoutY="85.0" />
-      <Label fx:id="labelCurrentSeason" layoutX="225.0" layoutY="145.0" />
-      <Label fx:id="labelCurrentEpisode" layoutX="225.0" layoutY="175.0" />
-      <Label fx:id="labelPercentageCompletition" layoutX="225.0" layoutY="235.0" />
-      <Button layoutX="149.0" layoutY="485.0" mnemonicParsing="false" onAction="#back" text="Go back to Main Menu" />
-      <Label layoutX="14.0" layoutY="265.0" text="'Wasted' time:" />
-      <Label layoutX="14.0" layoutY="325.0" text="Description:" />
-      <TextArea fx:id="descriptionTextArea" editable="false" layoutX="15.0" layoutY="340.0" prefHeight="134.0" prefWidth="417.0" wrapText="true">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </TextArea>
-      <Label fx:id="labelWastedTime" layoutX="225.0" layoutY="265.0" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0"
+            prefWidth="447.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.InformationController">
+    <children>
+        <Label layoutX="14.0" layoutY="25.0" text="Name of the series:"/>
+        <Label layoutX="14.0" layoutY="55.0" text="Number of seasons:"/>
+        <Label layoutX="14.0" layoutY="85.0" text="Complete number of episodes:"/>
+        <Label layoutX="14.0" layoutY="145.0" text="Current Season:"/>
+        <Label layoutX="14.0" layoutY="175.0" text="Current Episode:"/>
+        <Label layoutX="14.0" layoutY="235.0" text="Completion:"/>
+        <Label fx:id="labelNameSeries" layoutX="225.0" layoutY="25.0"/>
+        <Label fx:id="labelNumberSeasons" layoutX="225.0" layoutY="55.0"/>
+        <Label fx:id="labelNumberEpisodes" layoutX="225.0" layoutY="85.0"/>
+        <Label fx:id="labelCurrentSeason" layoutX="225.0" layoutY="145.0"/>
+        <Label fx:id="labelCurrentEpisode" layoutX="225.0" layoutY="175.0"/>
+        <Label fx:id="labelPercentageCompletition" layoutX="225.0" layoutY="235.0"/>
+        <Button layoutX="149.0" layoutY="485.0" mnemonicParsing="false" onAction="#back" text="Go back to Main Menu"/>
+        <Label layoutX="14.0" layoutY="265.0" text="'Wasted' time:"/>
+        <Label layoutX="14.0" layoutY="325.0" text="Description:"/>
+        <TextArea fx:id="descriptionTextArea" editable="false" layoutX="15.0" layoutY="340.0" prefHeight="134.0"
+                  prefWidth="417.0" wrapText="true">
+            <font>
+                <Font size="11.0"/>
+            </font>
+        </TextArea>
+        <Label fx:id="labelWastedTime" layoutX="225.0" layoutY="265.0"/>
+    </children>
 </AnchorPane>

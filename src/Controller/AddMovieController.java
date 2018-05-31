@@ -20,7 +20,7 @@ public class AddMovieController {
     public Button buttonBack1;
 
     public void addMovie() {
-        if(!MyMovie.checkDuplicate(MyMovie.readData(), nameMovie.getText())) {
+        if (!MyMovie.checkDuplicate(MyMovie.readData(), nameMovie.getText())) {
             MyMovie.addData(new MyMovie(nameMovie.getText(), 0));
             PopUp.show("New movie added!");
             back();

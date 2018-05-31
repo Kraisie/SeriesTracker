@@ -60,7 +60,7 @@ public class MyMovie {
     }
 
     public static boolean checkDuplicate(List<MyMovie> allEntries, String name) {
-        if(!allEntries.isEmpty()) {
+        if (!allEntries.isEmpty()) {
             for (MyMovie movie : allEntries) {
                 if (name.equals(movie.getName())) {
                     return true;

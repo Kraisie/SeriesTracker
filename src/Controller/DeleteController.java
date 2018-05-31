@@ -21,18 +21,18 @@ public class DeleteController {
     @FXML
     public Button buttonBack;
 
-    public void initialize(){
+    public void initialize() {
         ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
         for (MySeries listEntry : listEntries) {
             listViewSeries.getItems().add(listEntry.getName());
         }
     }
 
-    public void delete(){
+    public void delete() {
         String name = listViewSeries.getSelectionModel().getSelectedItem();
         ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
         for (MySeries listEntry : listEntries) {
-            if(listEntry.getName().equals(name)){
+            if (listEntry.getName().equals(name)) {
                 listEntries.remove(listEntry);
                 break;
             }
@@ -43,7 +43,7 @@ public class DeleteController {
         back();
     }
 
-    public void back(){
+    public void back() {
         try {
             Stage primaryStage = (Stage) buttonBack.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));

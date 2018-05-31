@@ -5,10 +5,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="432.0" prefWidth="227.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DeleteController">
-   <children>
-      <ListView fx:id="listViewSeries" layoutX="14.0" layoutY="14.0" prefHeight="358.0" prefWidth="200.0" />
-      <Button layoutX="14.0" layoutY="386.0" mnemonicParsing="false" onAction="#delete" text="Delete Series" />
-      <Button fx:id="buttonBack" layoutX="153.0" layoutY="386.0" mnemonicParsing="false" onAction="#back" text="Go back" />
-   </children>
+<AnchorPane prefHeight="432.0" prefWidth="227.0" stylesheets="@../css/myStyle.css"
+            xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.DeleteController">
+    <children>
+        <ListView fx:id="listViewSeries" layoutX="14.0" layoutY="14.0" prefHeight="358.0" prefWidth="200.0"/>
+        <Button layoutX="14.0" layoutY="386.0" mnemonicParsing="false" onAction="#delete" text="Delete Series"/>
+        <Button fx:id="buttonBack" layoutX="153.0" layoutY="386.0" mnemonicParsing="false" onAction="#back"
+                text="Go back"/>
+    </children>
 </AnchorPane>

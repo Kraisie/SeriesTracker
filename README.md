@@ -4,11 +4,10 @@
 * Implement all functions of menu bar
     * Settings (get stored in file)
     * Sorting
-        * Path for BackUp and cycle in that BackUps gets created 
+    * Path for BackUp and cycle in that BackUps gets created 
     * Help
         * "How To"/Tutorial
             * Description of all Functions
-            * Indication for colors of rows in the TableViews
 * Show progress while updating in background (runnable, but can't update UI out of it)
 * Add queries to search series that fulfill a specific dataset
     * Duration, Rating and number of Seasons

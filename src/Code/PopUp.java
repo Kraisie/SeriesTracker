@@ -38,7 +38,7 @@ public class PopUp {
         close.setPadding(new Insets(5, 5, 5, 5));
 
         close.setOnKeyPressed((javafx.scene.input.KeyEvent event) -> {
-            if(event.getCode() == KeyCode.ENTER){
+            if (event.getCode() == KeyCode.ENTER) {
                 popUp.close();
             }
         });
@@ -51,7 +51,7 @@ public class PopUp {
         popUp.showAndWait();
     }
 
-    public static void error(String text){
+    public static void error(String text) {
         URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/Warning.png");
         Image img = new Image(resource.toString());
 
@@ -70,7 +70,7 @@ public class PopUp {
         close.setPadding(new Insets(5, 5, 5, 5));
 
         close.setOnKeyPressed((javafx.scene.input.KeyEvent event) -> {
-            if(event.getCode() == KeyCode.ENTER){
+            if (event.getCode() == KeyCode.ENTER) {
                 popUp.close();
             }
         });
@@ -105,7 +105,7 @@ public class PopUp {
         });
         accept.setPadding(new Insets(5, 5, 5, 5));
         accept.setOnKeyPressed((javafx.scene.input.KeyEvent event) -> {
-            if(event.getCode() == KeyCode.ENTER){
+            if (event.getCode() == KeyCode.ENTER) {
                 popUp.close();
             }
         });
@@ -113,7 +113,7 @@ public class PopUp {
         deny.setOnAction(e -> popUp.close());
         deny.setPadding(new Insets(5, 5, 5, 5));
         deny.setOnKeyPressed((javafx.scene.input.KeyEvent event) -> {
-            if(event.getCode() == KeyCode.ENTER){
+            if (event.getCode() == KeyCode.ENTER) {
                 popUp.close();
                 choiceAlert(false);
             }

@@ -11,77 +11,130 @@ import java.io.IOException;
 
 public class ManualAddController {
 
-    @FXML public Label labelNameSeries;
-    @FXML public TextField nameSeries;
-    @FXML public Label labelDiscontinued;
-    @FXML public ChoiceBox<String> choiceDiscontinued;
-    @FXML public Label labelAvgTime;
-    @FXML public Label labelInMinutes;
-    @FXML public Spinner<Integer> spinnerAvgTimeEpisode;
-    @FXML public Label labelRating;
-    @FXML public Label labelPoints;
-    @FXML public Spinner<Double> spinnerRating;
-    @FXML public Label labelDescription;
-    @FXML public TextArea textAreaDescription;
+    @FXML
+    public Label labelNameSeries;
+    @FXML
+    public TextField nameSeries;
+    @FXML
+    public Label labelDiscontinued;
+    @FXML
+    public ChoiceBox<String> choiceDiscontinued;
+    @FXML
+    public Label labelAvgTime;
+    @FXML
+    public Label labelInMinutes;
+    @FXML
+    public Spinner<Integer> spinnerAvgTimeEpisode;
+    @FXML
+    public Label labelRating;
+    @FXML
+    public Label labelPoints;
+    @FXML
+    public Spinner<Double> spinnerRating;
+    @FXML
+    public Label labelDescription;
+    @FXML
+    public TextArea textAreaDescription;
 
-    @FXML public Label labelNumberSeasons;
-    @FXML public Label labelEpisodesSeason1;
-    @FXML public Label labelEpisodesSeason2;
-    @FXML public Label labelEpisodesSeason3;
-    @FXML public Label labelEpisodesSeason4;
-    @FXML public Label labelEpisodesSeason5;
-    @FXML public Label labelEpisodesSeason6;
-    @FXML public Label labelEpisodesSeason7;
-    @FXML public Label labelEpisodesSeason8;
-    @FXML public Label labelEpisodesSeason9;
-    @FXML public Label labelEpisodesSeason10;
-    @FXML public Label labelEpisodesSeason11;
-    @FXML public Label labelEpisodesSeason12;
-    @FXML public Label labelEpisodesSeason13;
-    @FXML public Label labelEpisodesSeason14;
-    @FXML public Label labelEpisodesSeason15;
-    @FXML public Label labelEpisodesSeason16;
-    @FXML public Label labelEpisodesSeason17;
-    @FXML public Label labelEpisodesSeason18;
-    @FXML public Spinner<Integer> spinnerNumberSeasons;
-    @FXML public Spinner<Integer> numberEpisodesSeason1;
-    @FXML public Spinner<Integer> numberEpisodesSeason2;
-    @FXML public Spinner<Integer> numberEpisodesSeason3;
-    @FXML public Spinner<Integer> numberEpisodesSeason4;
-    @FXML public Spinner<Integer> numberEpisodesSeason5;
-    @FXML public Spinner<Integer> numberEpisodesSeason6;
-    @FXML public Spinner<Integer> numberEpisodesSeason7;
-    @FXML public Spinner<Integer> numberEpisodesSeason8;
-    @FXML public Spinner<Integer> numberEpisodesSeason9;
-    @FXML public Spinner<Integer> numberEpisodesSeason10;
-    @FXML public Spinner<Integer> numberEpisodesSeason11;
-    @FXML public Spinner<Integer> numberEpisodesSeason12;
-    @FXML public Spinner<Integer> numberEpisodesSeason13;
-    @FXML public Spinner<Integer> numberEpisodesSeason14;
-    @FXML public Spinner<Integer> numberEpisodesSeason15;
-    @FXML public Spinner<Integer> numberEpisodesSeason16;
-    @FXML public Spinner<Integer> numberEpisodesSeason17;
-    @FXML public Spinner<Integer> numberEpisodesSeason18;
+    @FXML
+    public Label labelNumberSeasons;
+    @FXML
+    public Label labelEpisodesSeason1;
+    @FXML
+    public Label labelEpisodesSeason2;
+    @FXML
+    public Label labelEpisodesSeason3;
+    @FXML
+    public Label labelEpisodesSeason4;
+    @FXML
+    public Label labelEpisodesSeason5;
+    @FXML
+    public Label labelEpisodesSeason6;
+    @FXML
+    public Label labelEpisodesSeason7;
+    @FXML
+    public Label labelEpisodesSeason8;
+    @FXML
+    public Label labelEpisodesSeason9;
+    @FXML
+    public Label labelEpisodesSeason10;
+    @FXML
+    public Label labelEpisodesSeason11;
+    @FXML
+    public Label labelEpisodesSeason12;
+    @FXML
+    public Label labelEpisodesSeason13;
+    @FXML
+    public Label labelEpisodesSeason14;
+    @FXML
+    public Label labelEpisodesSeason15;
+    @FXML
+    public Label labelEpisodesSeason16;
+    @FXML
+    public Label labelEpisodesSeason17;
+    @FXML
+    public Label labelEpisodesSeason18;
+    @FXML
+    public Spinner<Integer> spinnerNumberSeasons;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason1;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason2;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason3;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason4;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason5;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason6;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason7;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason8;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason9;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason10;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason11;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason12;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason13;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason14;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason15;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason16;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason17;
+    @FXML
+    public Spinner<Integer> numberEpisodesSeason18;
 
-    @FXML public Button nextButton;
+    @FXML
+    public Button nextButton;
 
     private int page = 0;
 
-    public void initialize(){
+    public void initialize() {
         setSpinnerFactory();
         choiceDiscontinued.getItems().addAll("Continuing", "Discontinued");
         choiceDiscontinued.getSelectionModel().select(0);
         page++;
 
-        switch(page){
-            case 1: page1();
-                    break;
-            case 2: page2();
-                    break;
+        switch (page) {
+            case 1:
+                page1();
+                break;
+            case 2:
+                page2();
+                break;
         }
     }
 
-    private void page1(){
+    private void page1() {
         nextButton.setText("Next");
         //VIS
         labelNameSeries.setVisible(true);
@@ -164,7 +217,7 @@ public class ManualAddController {
         numberEpisodesSeason18.setDisable(true);
     }
 
-    private void page2(){
+    private void page2() {
         nextButton.setText("Add");
         //VIS
         labelNumberSeasons.setVisible(true);
@@ -248,7 +301,7 @@ public class ManualAddController {
 
     }
 
-    private void setSpinnerFactory(){
+    private void setSpinnerFactory() {
         //avg Time
         SpinnerValueFactory<Integer> valueFactory0 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000);
         TextFormatter formatter0 = new TextFormatter(valueFactory0.getConverter(), valueFactory0.getValue());
@@ -376,14 +429,14 @@ public class ManualAddController {
         numberEpisodesSeason18.setValueFactory(valueFactory19);
     }
 
-    public void nextOrAdd(){
-        if(page == 0)
+    public void nextOrAdd() {
+        if (page == 0)
             initialize();
-        if(page == 1)
+        if (page == 1)
             addSeries();
     }
 
-    private void addSeries(){
+    private void addSeries() {
 //        List<Series> allSeries = Series.readData();
 //
 //        if(Series.checkDuplicate(allSeries, nameSeries.getText())){
@@ -401,7 +454,7 @@ public class ManualAddController {
 //        back();
     }
 
-    public void back(){
+    public void back() {
         try {
             Stage primaryStage = (Stage) nextButton.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));

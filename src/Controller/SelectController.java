@@ -72,15 +72,15 @@ public class SelectController {
             image1.setImage(noImg);
             image2.setImage(noImg);
 
-            if(!AddSeriesController.foundSeries.get(0).getBanner().isEmpty()) {
+            if (!AddSeriesController.foundSeries.get(0).getBanner().isEmpty()) {
                 Image img1 = TVDB_Data.getBannerImage(AddSeriesController.foundSeries.get(0).getBanner());
-                if(img1 != null) {
+                if (img1 != null) {
                     image1.setImage(img1);
                 }
             }
-            if(!AddSeriesController.foundSeries.get(1).getBanner().isEmpty()) {
+            if (!AddSeriesController.foundSeries.get(1).getBanner().isEmpty()) {
                 Image img2 = TVDB_Data.getBannerImage(AddSeriesController.foundSeries.get(1).getBanner());
-                if(img2 != null) {
+                if (img2 != null) {
                     image2.setImage(img2);
                 }
             }
@@ -98,9 +98,9 @@ public class SelectController {
         if (AddSeriesController.foundSeries.size() >= 3) {
             image3.setImage(noImg);
 
-            if(!AddSeriesController.foundSeries.get(2).getBanner().isEmpty()) {
+            if (!AddSeriesController.foundSeries.get(2).getBanner().isEmpty()) {
                 Image img3 = TVDB_Data.getBannerImage(AddSeriesController.foundSeries.get(2).getBanner());
-                if(img3 != null) {
+                if (img3 != null) {
                     image3.setImage(img3);
                 }
             }
@@ -113,9 +113,9 @@ public class SelectController {
         if (AddSeriesController.foundSeries.size() >= 4) {
             image4.setImage(noImg);
 
-            if(!AddSeriesController.foundSeries.get(3).getBanner().isEmpty()) {
+            if (!AddSeriesController.foundSeries.get(3).getBanner().isEmpty()) {
                 Image img4 = TVDB_Data.getBannerImage(AddSeriesController.foundSeries.get(3).getBanner());
-                if(img4 != null) {
+                if (img4 != null) {
                     image4.setImage(img4);
                 }
             }
@@ -128,9 +128,9 @@ public class SelectController {
         if (AddSeriesController.foundSeries.size() >= 5) {
             image5.setImage(noImg);
 
-            if(!AddSeriesController.foundSeries.get(4).getBanner().isEmpty()) {
+            if (!AddSeriesController.foundSeries.get(4).getBanner().isEmpty()) {
                 Image img5 = TVDB_Data.getBannerImage(AddSeriesController.foundSeries.get(4).getBanner());
-                if(img5 != null) {
+                if (img5 != null) {
                     image5.setImage(img5);
                 }
             }

@@ -68,7 +68,7 @@ public class MySeries {
 
                 if (series.hasNext() && !series.getEpisodes().get(index + 1).getFirstAired().equals("Not given!")) {
                     LocalDate date = LocalDate.parse(series.getEpisodes().get(index + 1).getFirstAired(), formatter);
-                    if(date.isBefore(LocalDate.now())) {
+                    if (date.isBefore(LocalDate.now())) {
                         series.setUserState(1);
                         break;
                     }

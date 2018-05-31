@@ -39,7 +39,7 @@ public class AddSeriesController {
         anchorPane3.getStyleClass().add("pane");
     }
 
-    public void manualAdd(){
+    public void manualAdd() {
         try {
             URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
             Image img = new Image(resource.toString());
@@ -57,13 +57,13 @@ public class AddSeriesController {
         }
     }
 
-    public void addTVDB(){
+    public void addTVDB() {
         List<MySeries> allSeries = MySeries.readData();
-        if(!MySeries.checkDuplicate(allSeries, nameTVDB.getText())){
+        if (!MySeries.checkDuplicate(allSeries, nameTVDB.getText())) {
             List<MySeries> possibleSeries = TVDB_Data.searchPossibleSeries(nameTVDB.getText(), 1, 1, 0);
             //max 5 series
-            if(possibleSeries != null && possibleSeries.size() != 0){
-                if(possibleSeries.size() != 1) {
+            if (possibleSeries != null && possibleSeries.size() != 0) {
+                if (possibleSeries.size() != 1) {
                     foundSeries = possibleSeries;
 
                     try {
@@ -77,21 +77,21 @@ public class AddSeriesController {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }else{
+                } else {
                     allSeries.add(TVDB_Data.getUpdate(possibleSeries.get(0).getTvdbID(), 0, 1, 1));
                     MySeries.writeData(allSeries);
                     PopUp.show(possibleSeries.get(0).getName() + " added.");
                     back();
                 }
-            }else {
+            } else {
                 PopUp.error("Could not find \"" + nameTVDB.getText() + "\"!");
             }
-        }else {
+        } else {
             PopUp.error(nameTVDB.getText() + " already exists!");
         }
     }
 
-    public void back(){
+    public void back() {
         try {
             Stage primaryStage = (Stage) buttonBack.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));

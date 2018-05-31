@@ -37,7 +37,7 @@ public class FinishedController {
         ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
         if (!listEntries.isEmpty()) {
             for (MySeries listEntry : listEntries) {
-                if(listEntry.getUserState() == 3){
+                if (listEntry.getUserState() == 3) {
                     finishedSeries.add(listEntry);
                 }
             }
@@ -49,14 +49,14 @@ public class FinishedController {
         tableFinishedSeries.setItems(finishedSeries);
 
         int sum = 0;
-        for(MySeries series : finishedSeries) {
+        for (MySeries series : finishedSeries) {
             sum += series.getWastedTime();
         }
         labelWasted.setText(MySeries.wastedMinutesToString(sum));
 
     }
 
-    public void back(){
+    public void back() {
         try {
             Stage primaryStage = (Stage) buttonBack.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));

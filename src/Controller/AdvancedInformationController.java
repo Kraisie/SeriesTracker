@@ -71,7 +71,7 @@ public class AdvancedInformationController {
             first = false;
         }
 
-        if(series.getUserState() == 3) {
+        if (series.getUserState() == 3) {
             labelIsCurrent.setText("\tSeries finished");
         }
 
@@ -129,8 +129,8 @@ public class AdvancedInformationController {
 
     public void selectCurrentEpisode() {
         List<Episode> allEpisodes = series.getEpisodes();
-        for(Episode episode : allEpisodes) {
-            if(episode.getSeason() == cS && episode.getEpNumberOfSeason() == cE) {
+        for (Episode episode : allEpisodes) {
+            if (episode.getSeason() == cS && episode.getEpNumberOfSeason() == cE) {
                 int pos = allEpisodes.indexOf(series.getCurrent());
                 series.getEpisodes().get(pos).setCurrent(false);
                 episode.setCurrent(true);
