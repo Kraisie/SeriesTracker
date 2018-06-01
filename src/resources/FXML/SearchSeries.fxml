@@ -68,5 +68,6 @@
       </RadioButton>
       <RadioButton fx:id="radioEnded" layoutX="399.0" layoutY="436.0" mnemonicParsing="false" text="Ended" toggleGroup="$state" />
       <ListView fx:id="foundMatches" disable="true" layoutX="120.0" layoutY="136.0" prefHeight="345.0" prefWidth="411.0" />
+      <Button fx:id="infoButton" layoutX="14.0" layoutY="497.0" mnemonicParsing="false" onAction="#showInformation" text="Information" />
    </children>
 </AnchorPane>

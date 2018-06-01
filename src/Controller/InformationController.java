@@ -32,31 +32,58 @@ public class InformationController {
     @FXML
     public TextArea descriptionTextArea;
 
+    private boolean main;
+    public static List<MySeries> tmpMatches;
+
     public void initialize() {
-        labelNameSeries.setText(MainSeriesController.toController.getName());
-        labelNumberSeasons.setText(String.valueOf(MainSeriesController.toController.getNumberOfSeasons()));
+        MySeries tmp = null;
+        if (MainSeriesController.toController != null) {
+            tmp = MainSeriesController.toController;
+            main = true;
+        } else if (SearchController.toController != null) {
+            tmp = SearchController.toController;
+            tmpMatches = SearchController.tmpMatches;
+            main = false;
+        }
 
-        List<Episode> episodes = MainSeriesController.toController.getEpisodes();
-        int sumEpisodes = episodes.size();
-        labelNumberEpisodes.setText(String.valueOf(sumEpisodes));
+        if (tmp != null) {
+            labelNameSeries.setText(tmp.getName());
+            labelNumberSeasons.setText(String.valueOf(tmp.getNumberOfSeasons()));
 
-        labelCurrentSeason.setText(String.valueOf(MainSeriesController.toController.getCurrent().getSeason()) + " / " + MainSeriesController.toController.getNumberOfSeasons());
-        labelCurrentEpisode.setText(String.valueOf(MainSeriesController.toController.getCurrent().getEpNumberOfSeason()) + " / " + MainSeriesController.toController.getSumEpisodesOfSeason(MainSeriesController.toController.getCurrent()));
-        labelPercentageCompletition.setText(String.format("%.2f", MainSeriesController.toController.getCompletionRate()) + "%");
+            List<Episode> episodes = tmp.getEpisodes();
+            int sumEpisodes = episodes.size();
+            labelNumberEpisodes.setText(String.valueOf(sumEpisodes));
 
-        labelWastedTime.setText(MySeries.wastedMinutesToString(MainSeriesController.toController.getWastedTime()));
-        descriptionTextArea.setText(MainSeriesController.toController.getDescription());
+            labelCurrentSeason.setText(String.valueOf(tmp.getCurrent().getSeason()) + " / " + tmp.getNumberOfSeasons());
+            labelCurrentEpisode.setText(String.valueOf(tmp.getCurrent().getEpNumberOfSeason()) + " / " + tmp.getSumEpisodesOfSeason(tmp.getCurrent()));
+            labelPercentageCompletition.setText(String.format("%.2f", tmp.getCompletionRate()) + "%");
+
+            labelWastedTime.setText(MySeries.wastedMinutesToString(tmp.getWastedTime()));
+            descriptionTextArea.setText(tmp.getDescription());
+        }
     }
 
     public void back() {
         try {
-            Stage primaryStage = (Stage) labelNameSeries.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
-            primaryStage.setTitle("Series Control Panel");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.centerOnScreen();
-            primaryStage.setResizable(false);
-            primaryStage.show();
+            if (main) {
+                Stage primaryStage = (Stage) labelNameSeries.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
+                primaryStage.setTitle("Series Control Panel");
+                primaryStage.setScene(new Scene(root));
+                primaryStage.centerOnScreen();
+                primaryStage.setResizable(false);
+                primaryStage.show();
+            } else {
+                Stage primaryStage = (Stage) labelNameSeries.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/SearchSeries.fxml"));
+                primaryStage.setTitle("Search one of your series by attributes");
+                primaryStage.setScene(new Scene(root));
+                primaryStage.centerOnScreen();
+                primaryStage.setResizable(false);
+                primaryStage.show();
+            }
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

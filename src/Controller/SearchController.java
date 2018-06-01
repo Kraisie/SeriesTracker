@@ -9,9 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,8 @@ public class SearchController {
     @FXML
     public RadioButton radioEnded;
     @FXML
+    public Button infoButton;
+    @FXML
     public Button closeButton;
     @FXML
     public Button researchButton;
@@ -45,8 +49,19 @@ public class SearchController {
     public ListView<String> foundMatches;
 
     private boolean mode = false;
+    public static MySeries toController;
+    public static List<MySeries> tmpMatches;
 
     public void initialize() {
+        if(InformationController.tmpMatches != null) {
+            tmpMatches = InformationController.tmpMatches;
+
+            for(MySeries series : tmpMatches) {
+                foundMatches.getItems().add(series.getName());
+                mode = true;
+            }
+        }
+
         if (!mode) {
             invert(true);
 
@@ -108,6 +123,8 @@ public class SearchController {
         foundMatches.setDisable(mode);
         researchButton.setVisible(!mode);
         researchButton.setDisable(mode);
+        infoButton.setVisible(!mode);
+        infoButton.setDisable(mode);
     }
 
     public void search() {
@@ -139,22 +156,26 @@ public class SearchController {
             }
 
             switch (series.getUserState()) {
-                case 0: if(!checkStarted.isSelected()) {
-                            continue;
-                        }
-                        break;
-                case 1: if(!checkWatching.isSelected()) {
-                            continue;
-                        }
-                        break;
-                case 2: if(!checkWaiting.isSelected()) {
-                            continue;
-                        }
-                        break;
-                case 3: if(!checkFinished.isSelected()) {
-                            continue;
-                        }
-                        break;
+                case 0:
+                    if (!checkStarted.isSelected()) {
+                        continue;
+                    }
+                    break;
+                case 1:
+                    if (!checkWatching.isSelected()) {
+                        continue;
+                    }
+                    break;
+                case 2:
+                    if (!checkWaiting.isSelected()) {
+                        continue;
+                    }
+                    break;
+                case 3:
+                    if (!checkFinished.isSelected()) {
+                        continue;
+                    }
+                    break;
             }
 
             if (radioContinuing.isSelected() && !series.getStatus().equals("Continuing")) {
@@ -173,7 +194,7 @@ public class SearchController {
             for (MySeries series : matches) {
                 foundMatches.getItems().add(series.getName());
             }
-
+            tmpMatches = matches;
         } else {
             PopUp.error("No matches found for your search!");
         }
@@ -185,6 +206,37 @@ public class SearchController {
         foundMatches.getItems().clear();
         mode = false;
         initialize();
+    }
+
+    public void showInformation() {
+        //Display information like seasons, episodes and current
+        if (foundMatches.getSelectionModel().getSelectedItem() != null) {
+            try {
+                List<MySeries> allSeries = MySeries.readData();
+                for (MySeries series : allSeries) {
+                    if (series.getName().equals(foundMatches.getSelectionModel().getSelectedItem())) {
+                        toController = series;
+                        break;
+                    }
+                }
+
+                URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
+                Image img = new Image(resource.toString());
+
+                Stage primaryStage = (Stage) infoButton.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/Information.fxml"));
+                primaryStage.setTitle("Information about " + foundMatches.getSelectionModel().getSelectedItem());
+                primaryStage.getIcons().add(img);
+                primaryStage.setScene(new Scene(root));
+                primaryStage.centerOnScreen();
+                primaryStage.setResizable(false);
+                primaryStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            PopUp.error("Select a series you want to get information about!");
+        }
     }
 
     public void close() {
