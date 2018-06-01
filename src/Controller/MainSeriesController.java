@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -88,7 +89,7 @@ public class MainSeriesController {
     private boolean updating = false;
 
     public void initialize() {
-        if(!updating) {
+        if (!updating) {
             //Write series to TableView and set background
             if (!backgroundSet) {
                 setBackground();
@@ -317,70 +318,64 @@ public class MainSeriesController {
         label.setTextFill(javafx.scene.paint.Color.web(hexColor));
     }
 
-//    private String getContrastColor(Color color) {
-//        //kinda gud method:
-//        //avg R/G/B to binary                                                   --> 22 = 0001 0110
-//        //1,2 & 3,4 & 5,6 & 7,8 with XOR (00 = 0; 01 = 1; 10 = 1; 11 = 0)       --> 0111
-//        //4-digit xor reverse and append right order                            --> 1110 0111
-//        //new binary to hex                                                     --> 1110 0111 = E7
-//        //NVM WORKS FOR PIXEL VS PIXEL BUT SHIT FOR AREAS -______-
-//        //AND GREY IS STILL SHIT
-//        //FFFAAAAACCCCCKKKKKKK!!!!!!!!
-//
-//        int red = colorChannelToBinary(color.getRed());
-//        int green = colorChannelToBinary(color.getGreen());
-//        int blue = colorChannelToBinary(color.getBlue());
-//
-//        Color invColor = new Color(red, green, blue);
-//
-//        String hexColor = Integer.toHexString(invColor.getRGB() & 0xffffff);
-//        if (hexColor.length() < 6) {
-//            hexColor = "000000".substring(0, 6 - hexColor.length()) + hexColor;
-//        }
-//
-//        return "#" + hexColor;
-//    }
-
-//    private int colorChannelToBinary(int channelValue) {
-//        //binary of value
-//        String binaryString = String.format("%8s", Integer.toBinaryString(channelValue)).replace(' ', '0');
-//
-//        //xor
-//        char[] xor = new char[4];
-//        char[] binaryChars = new char[8];
-//        binaryString.getChars(0, 8, binaryChars, 0);        //8 is the end and won't get copied anymore
-//        for(int i = 0; i < binaryChars.length; i+=2){
-//            if(binaryChars[i] != binaryChars[i+1]){
-//                xor[i/2] = '1';
-//            }else{
-//                xor[i/2] = '0';
-//            }
-//        }
-//
-//        //reverse and not reverse back in binary
-//        char[] newBinaryChars = new char[8];
-//        for(int i = 0; i < xor.length; i++){
-//            newBinaryChars[i] = xor[3-i];
-//        }
-//        for(int i = 0; i < xor.length; i++){
-//            newBinaryChars[i+4] = xor[i];
-//        }
-//
-//        //binary to int
-//        String newBinary = new String(newBinaryChars);
-//
-//        return Integer.parseInt(newBinary, 2);
-//    }
-
     private String getContrastColor(Color color) {
-        //get black or white regarding the background for most contrast (not another color)
-        double yiq = ((color.getRed() * 299) + (color.getGreen() * 587) + (color.getBlue() * 114)) / 1000;
-        Color invColor = new Color(255, 255, 255);
-        if (yiq >= 128) {
-            invColor = new Color(0, 0, 0);
+        ColorSpace space = ColorSpace.getInstance(ColorSpace.CS_sRGB);
+        float[] rgb = {color.getRed(), color.getGreen(), color.getBlue()};
+        float[] sRGB = space.fromRGB(rgb);
+
+        double hue;
+        float max;
+        float min;
+        if(sRGB[0] >= sRGB[1] && sRGB[0] >= sRGB[2]) {
+            max = sRGB[0];
+            if(sRGB[1] >= sRGB[2]) {
+                min = sRGB[2];
+            } else {
+                min = sRGB[0];
+            }
+        } else if(sRGB[1] >= sRGB[0] && sRGB[1] >= sRGB[2]) {
+            max = sRGB[1];
+            if(sRGB[0] >= sRGB[2]) {
+                min = sRGB[2];
+            } else {
+                min = sRGB[0];
+            }
+        } else {
+            max = sRGB[2];
+            if(sRGB[0] >= sRGB[1]) {
+                min = sRGB[1];
+            } else {
+                min = sRGB[0];
+            }
         }
 
-        //to hex
+        if(max == sRGB[0]) {
+            hue = (sRGB[1] - sRGB[2]) / (max - min);
+        } else if(max == sRGB[1]) {
+            hue = 2 + (sRGB[2] - sRGB[0]) / (max - min);
+        } else {
+            hue = 4 + (sRGB[0] - sRGB[1]) / (max - min);
+        }
+
+        hue = (60 * hue) % 360;
+
+        System.out.println(hue);
+
+        Color invColor;
+        if (hue > 5 && hue <= 90) {                 //normal 46-90
+            invColor = Color.yellow;
+        } else if (hue > 90 && hue <= 176) {        //normal 91-135
+            invColor = Color.green;
+        } else if (hue > 177 && hue <= 225) {       //normal 136-225
+            invColor = Color.cyan;
+        } else if (hue > 225 && hue <= 239) {       //normal 226-270
+            invColor = Color.blue;
+        } else if (hue > 239 && hue <= 315) {       //normal 271-315
+            invColor = Color.magenta;
+        } else {                                    //normal 316-45
+            invColor = Color.red;
+        }
+
         String hexColor = Integer.toHexString(invColor.getRGB() & 0xffffff);
         if (hexColor.length() < 6) {
             hexColor = "000000".substring(0, 6 - hexColor.length()) + hexColor;

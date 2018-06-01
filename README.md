@@ -10,5 +10,5 @@
             * Description of all Functions
 
 ## Think-Abouts
-* Contrast Color for background better than just black and white
-* API for movies
+* API for movies or remove movies as it gets far too chaotic when adding every single movie (even when it is me who does not watch a lot of movies)
+    * Maybe just add Movies that you want to see in the future and delete them after you saw them
