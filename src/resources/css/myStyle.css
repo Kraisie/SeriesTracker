@@ -223,4 +223,10 @@
     -fx-body-color: #00bb00;
 }
 
-/* ToDo: PopUp, Pics where it is now white*/
+.progress-indicator {
+    -fx-progress-color: #00ff00;
+}
+
+.progress-indicator .percentage {
+    -fx-fill: #00ff00;
+}

@@ -7,6 +7,7 @@ import Data.MySeries;
 import Data.TVDB.TVDB_Data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -62,6 +63,8 @@ public class MainSeriesController {
     public TableColumn<MySeries, Integer> columnStartSeasons;
 
     @FXML
+    public Button infoButton;
+    @FXML
     public Button buttonIncEpisode;
     @FXML
     public Button buttonDecEpisode;
@@ -82,61 +85,64 @@ public class MainSeriesController {
     private BufferedImage bufImg;
     public static MySeries toController;
     private boolean backgroundSet = false;
+    private boolean updating = false;
 
     public void initialize() {
-        //Write series to TableView and set background
-        if (!backgroundSet) {
-            setBackground();
-            backgroundSet = true;
-        }
+        if(!updating) {
+            //Write series to TableView and set background
+            if (!backgroundSet) {
+                setBackground();
+                backgroundSet = true;
+            }
 
-        //get Pixels of background on position of TableHeaders, choose if black or white has more contrast
-        setTextfillInvColor(labelWatching);
-        setTextfillInvColor(labelWaiting);
-        setTextfillInvColor(labelStarting);
+            //get Pixels of background on position of TableHeaders, choose if black or white has more contrast
+            setTextfillInvColor(labelWatching);
+            setTextfillInvColor(labelWaiting);
+            setTextfillInvColor(labelStarting);
 
-        toController = null;
-        ObservableList<MySeries> notStartedSeries = FXCollections.observableArrayList();
-        ObservableList<MySeries> watchingSeries = FXCollections.observableArrayList();
-        ObservableList<MySeries> waitNewEpisode = FXCollections.observableArrayList();
-        ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
+            toController = null;
+            ObservableList<MySeries> notStartedSeries = FXCollections.observableArrayList();
+            ObservableList<MySeries> watchingSeries = FXCollections.observableArrayList();
+            ObservableList<MySeries> waitNewEpisode = FXCollections.observableArrayList();
+            ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
 
-        if (!listEntries.isEmpty()) {
-            for (MySeries listEntry : listEntries) {
-                switch (listEntry.getUserState()) {
-                    case 0:
-                        notStartedSeries.add(listEntry);
-                        break;
-                    case 1:
-                        watchingSeries.add(listEntry);
-                        break;
-                    case 2:
-                        waitNewEpisode.add(listEntry);
-                        break;
+            if (!listEntries.isEmpty()) {
+                for (MySeries listEntry : listEntries) {
+                    switch (listEntry.getUserState()) {
+                        case 0:
+                            notStartedSeries.add(listEntry);
+                            break;
+                        case 1:
+                            watchingSeries.add(listEntry);
+                            break;
+                        case 2:
+                            waitNewEpisode.add(listEntry);
+                            break;
+                    }
                 }
             }
+
+            columnContinueName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            columnContinueSeason.setCellValueFactory(new PropertyValueFactory<>("currentSeason"));
+            columnContinueEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
+
+            columnWaitName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            columnWaitSeason.setCellValueFactory(new PropertyValueFactory<>("currentSeason"));
+            columnWaitEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
+
+            columnStartName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            columnStartSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
+
+            tableContinueWatching.setItems(watchingSeries);
+            tableWaitEpisodes.setItems(waitNewEpisode);
+            tableStartWatching.setItems(notStartedSeries);
+
+            //Force Update
+            tableContinueWatching.getColumns().get(0).setVisible(false);
+            tableContinueWatching.getColumns().get(0).setVisible(true);
+            tableWaitEpisodes.getColumns().get(0).setVisible(false);
+            tableWaitEpisodes.getColumns().get(0).setVisible(true);
         }
-
-        columnContinueName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        columnContinueSeason.setCellValueFactory(new PropertyValueFactory<>("currentSeason"));
-        columnContinueEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
-
-        columnWaitName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        columnWaitSeason.setCellValueFactory(new PropertyValueFactory<>("currentSeason"));
-        columnWaitEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
-
-        columnStartName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        columnStartSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
-
-        tableContinueWatching.setItems(watchingSeries);
-        tableWaitEpisodes.setItems(waitNewEpisode);
-        tableStartWatching.setItems(notStartedSeries);
-
-        //Force Update
-        tableContinueWatching.getColumns().get(0).setVisible(false);
-        tableContinueWatching.getColumns().get(0).setVisible(true);
-        tableWaitEpisodes.getColumns().get(0).setVisible(false);
-        tableWaitEpisodes.getColumns().get(0).setVisible(true);
     }
 
     private void setBackground() {
@@ -614,11 +620,6 @@ public class MainSeriesController {
         }
     }
 
-    public void sortByName() {
-        List<MySeries> allSeries = MySeries.readData();
-
-    }
-
     public void importBackUp() {
         PopUp popUp = new PopUp();
         popUp.alert("Are you sure you want to load the BackUp?");
@@ -635,62 +636,71 @@ public class MainSeriesController {
     }
 
     public void menuUpdateAll() {
-        //TAKES A WHILE, so do it in background
-        //but idk how atm, that ProgressIndicator gets updated and so on
-        progressIndicator.setVisible(true);
-        buttonIncEpisode.setDisable(true);
-        buttonDecEpisode.setDisable(true);
-        buttonStartedSeries.setDisable(true);
-        menuBar.setDisable(true);
-
+        startUpdate();
         update("Continuing");
-
-        buttonIncEpisode.setDisable(false);
-        buttonDecEpisode.setDisable(false);
-        buttonStartedSeries.setDisable(false);
-        menuBar.setDisable(false);
-        progressIndicator.setVisible(false);
-
         initialize();
     }
 
     public void menuUpdateEnded() {
-        progressIndicator.setVisible(true);
-        buttonIncEpisode.setDisable(true);
-        buttonDecEpisode.setDisable(true);
-        buttonStartedSeries.setDisable(true);
-        menuBar.setDisable(true);
-
+        startUpdate();
         update("Ended");
-
-        buttonIncEpisode.setDisable(false);
-        buttonDecEpisode.setDisable(false);
-        buttonStartedSeries.setDisable(false);
-        menuBar.setDisable(false);
-        progressIndicator.setVisible(false);
-
         initialize();
     }
 
     private void update(String mode) {
         List<MySeries> allSeries = MySeries.readData();
         List<MySeries> updatedAllSeries = new ArrayList<>();
+        updating = true;
 
-        for (MySeries series : allSeries) {
-            if (series.getStatus().equals(mode)) {
-                MySeries updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
-                Episode.sort(updatedSeries.getEpisodes());
+        final Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                for (MySeries series : allSeries) {
+                    if (series.getStatus().equals(mode)) {
+                        MySeries updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
+                        Episode.sort(updatedSeries.getEpisodes());
 
-                updatedSeries.setCurrent(series.getCurrent());
-                updatedAllSeries.add(updatedSeries);
-                progressIndicator.setProgress(allSeries.size() / updatedAllSeries.size());
-            } else {
-                updatedAllSeries.add(series);
+                        updatedSeries.setCurrent(series.getCurrent());
+                        updatedAllSeries.add(updatedSeries);
+                        updateProgress(updatedAllSeries.size(), allSeries.size());
+                    } else {
+                        updatedAllSeries.add(series);
+                    }
+                }
+
+                MySeries.writeData(updatedAllSeries);
+                finishedUpdate();
+                updating = false;
+                return null;
             }
-        }
+        };
 
-        System.out.println(updatedAllSeries.size());
-        //MySeries.writeData(updatedAllSeries);
+        progressIndicator.progressProperty().unbind();
+        progressIndicator.progressProperty().bind(task.progressProperty());
+
+        final Thread thread = new Thread(task, "task-thread");
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    private void startUpdate() {
+        progressIndicator.setVisible(true);
+        buttonIncEpisode.setDisable(true);
+        buttonDecEpisode.setDisable(true);
+        buttonStartedSeries.setDisable(true);
+        infoButton.setDisable(true);
+        buttonFinishedSeries.setDisable(true);
+        menuBar.setDisable(true);
+    }
+
+    private void finishedUpdate() {
+        progressIndicator.setVisible(false);
+        buttonIncEpisode.setDisable(false);
+        buttonDecEpisode.setDisable(false);
+        buttonStartedSeries.setDisable(false);
+        infoButton.setDisable(false);
+        buttonFinishedSeries.setDisable(false);
+        menuBar.setDisable(false);
     }
 
     public void close() {

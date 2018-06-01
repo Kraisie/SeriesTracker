@@ -55,7 +55,7 @@
         <Button fx:id="buttonDecEpisode" layoutX="205.0" layoutY="581.0" mnemonicParsing="false" onAction="#decEpisode" prefHeight="65.0" prefWidth="65.0" text="-" />
         <Button fx:id="buttonFinishedSeries" layoutX="467.0" layoutY="601.0" mnemonicParsing="false" onAction="#displayFinishedSeries" text="All finished series" />
         <Button fx:id="buttonStartedSeries" layoutX="840.0" layoutY="601.0" mnemonicParsing="false" onAction="#startSeries" text="Started series" />
-        <Button layoutX="114.0" layoutY="601.0" mnemonicParsing="false" onAction="#displayInformation" text="Information" />
+        <Button fx:id="infoButton" layoutX="114.0" layoutY="601.0" mnemonicParsing="false" onAction="#displayInformation" text="Information" />
         <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1052.0">
             <menus>
                 <Menu mnemonicParsing="false" text="Mode">
@@ -98,6 +98,6 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <ProgressIndicator fx:id="progressIndicator" layoutX="1007.0" layoutY="604.0" progress="0.0" visible="false" />
+        <ProgressIndicator fx:id="progressIndicator" layoutX="993.0" layoutY="604.0" progress="0.0" visible="false" />
     </children>
 </AnchorPane>
