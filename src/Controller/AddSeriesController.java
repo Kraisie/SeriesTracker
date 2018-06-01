@@ -8,54 +8,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 public class AddSeriesController {
 
     @FXML
-    public AnchorPane anchorPane1;
-    @FXML
-    public AnchorPane anchorPane2;
-    @FXML
-    public AnchorPane anchorPane3;
-    @FXML
     public TextField nameTVDB;
     @FXML
     public Button buttonBack;
-    @FXML
-    public Button manualAddButton;
 
     public static List<MySeries> foundSeries;
-
-    public void initialize() {
-        anchorPane1.getStyleClass().add("paneBack");
-        anchorPane2.getStyleClass().add("pane");
-        anchorPane3.getStyleClass().add("pane");
-    }
-
-    public void manualAdd() {
-        try {
-            URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
-            Image img = new Image(resource.toString());
-
-            Stage primaryStage = (Stage) manualAddButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/ManualAddSeries.fxml"));
-            primaryStage.setTitle("Add a series manually");
-            primaryStage.getIcons().add(img);
-            primaryStage.setScene(new Scene(root));
-            primaryStage.centerOnScreen();
-            primaryStage.setResizable(false);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void addTVDB() {
         List<MySeries> allSeries = MySeries.readData();

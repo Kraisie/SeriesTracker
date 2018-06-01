@@ -34,10 +34,6 @@ import java.util.List;
 public class MainSeriesController {
     @FXML
     public MenuBar menuBar;
-    @FXML
-    public RadioMenuItem sortingRadioName;
-    @FXML
-    public RadioMenuItem sortingRadioCompletion;
 
     @FXML
     public ImageView imageBackground;
@@ -103,18 +99,7 @@ public class MainSeriesController {
         ObservableList<MySeries> notStartedSeries = FXCollections.observableArrayList();
         ObservableList<MySeries> watchingSeries = FXCollections.observableArrayList();
         ObservableList<MySeries> waitNewEpisode = FXCollections.observableArrayList();
-
         ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
-
-        //Sorting should be Deprecated since it always sort when saving as long as there are no settings to change
-        //Set sorting selection, default is name
-        if (sortingRadioCompletion.selectedProperty().getValue()) {
-            listEntries.sort((o1, o2) -> o2.getCompletionRate().compareTo(o1.getCompletionRate()));
-            System.out.println(sortingRadioCompletion.selectedProperty().getValue());
-            System.out.println("NAME");
-        } else {
-            listEntries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
-        }
 
         if (!listEntries.isEmpty()) {
             for (MySeries listEntry : listEntries) {
@@ -484,7 +469,6 @@ public class MainSeriesController {
         } else {
             PopUp.error("Select a series you want to get information about!");
         }
-
     }
 
     public void startSeries() {

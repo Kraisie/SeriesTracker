@@ -6,11 +6,9 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressIndicator?>
-<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -80,16 +78,6 @@
                         <MenuItem mnemonicParsing="false" onAction="#deleteSeries" text="Delete a series" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#importBackUp" text="Import BackUp" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Sorting">
-                    <items>
-                        <RadioMenuItem fx:id="sortingRadioName" mnemonicParsing="false" text="Sort by Name">
-                            <toggleGroup>
-                                <ToggleGroup fx:id="sorting" />
-                            </toggleGroup>
-                        </RadioMenuItem>
-                        <RadioMenuItem fx:id="sortingRadioCompletion" mnemonicParsing="false" text="Sort by Completion" toggleGroup="$sorting" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Update">
