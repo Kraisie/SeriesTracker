@@ -547,6 +547,27 @@ public class MainSeriesController {
         }
     }
 
+    public void searchSeries() {
+        //open popup to search a series
+        try {
+            URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
+            Image img = new Image(resource.toString());
+
+            Stage primaryStage = (Stage) menuBar.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/SearchSeries.fxml"));
+            primaryStage.setTitle("Search one of your series by attributes");
+            primaryStage.getIcons().add(img);
+            primaryStage.setScene(new Scene(root));
+            primaryStage.centerOnScreen();
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException n) {
+            //when switching the scene MenuBar is null
+        }
+    }
+
     public void switchMode() {
         try {
             URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
@@ -615,8 +636,9 @@ public class MainSeriesController {
     }
 
     public void importBackUp() {
-        PopUp.alert("Are you sure you want to load the BackUp?");
-        if (PopUp.isChoice()) {
+        PopUp popUp = new PopUp();
+        popUp.alert("Are you sure you want to load the BackUp?");
+        if (popUp.isChoice()) {
             BackUp backup = BackUp.readBackUp();
 
             if (backup != null) {

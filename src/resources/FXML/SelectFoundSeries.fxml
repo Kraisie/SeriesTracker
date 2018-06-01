@@ -7,41 +7,33 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="881.0" prefWidth="1072.0" stylesheets="@../css/myStyle.css"
-            xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Controller.SelectController">
+<AnchorPane prefHeight="781.0" prefWidth="1072.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SelectController">
     <children>
-        <RadioButton fx:id="radio1" layoutX="38.0" layoutY="85.0" mnemonicParsing="false">
+        <ImageView fx:id="image1" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+        <RadioButton fx:id="radio1" layoutX="38.0" layoutY="14.0" mnemonicParsing="false" prefHeight="140.0" prefWidth="782.0">
             <toggleGroup>
-                <ToggleGroup fx:id="series"/>
+                <ToggleGroup fx:id="series" />
             </toggleGroup>
         </RadioButton>
-        <ImageView fx:id="image1" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="25.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <Label fx:id="labelName1" layoutX="837.0" layoutY="57.0"/>
-        <Label fx:id="labelStatus1" layoutX="837.0" layoutY="116.0"/>
-        <RadioButton fx:id="radio2" layoutX="38.0" layoutY="235.0" mnemonicParsing="false" toggleGroup="$series"/>
-        <ImageView fx:id="image2" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="174.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <Label fx:id="labelName2" layoutX="837.0" layoutY="206.0"/>
-        <Label fx:id="labelStatus2" layoutX="837.0" layoutY="268.0"/>
-        <RadioButton fx:id="radio3" layoutX="38.0" layoutY="385.0" mnemonicParsing="false" toggleGroup="$series"/>
-        <ImageView fx:id="image3" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="324.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <Label fx:id="labelName3" layoutX="837.0" layoutY="356.0"/>
-        <Label fx:id="labelStatus3" layoutX="837.0" layoutY="418.0"/>
-        <RadioButton fx:id="radio4" layoutX="38.0" layoutY="535.0" mnemonicParsing="false" toggleGroup="$series"/>
-        <ImageView fx:id="image4" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="474.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <Label fx:id="labelName4" layoutX="837.0" layoutY="506.0"/>
-        <Label fx:id="labelStatus4" layoutX="837.0" layoutY="568.0"/>
-        <RadioButton fx:id="radio5" layoutX="38.0" layoutY="685.0" mnemonicParsing="false" toggleGroup="$series"/>
-        <ImageView fx:id="image5" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="624.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <Label fx:id="labelName5" layoutX="837.0" layoutY="656.0"/>
-        <Label fx:id="labelStatus5" layoutX="837.0" layoutY="718.0"/>
-        <Button layoutX="399.0" layoutY="828.0" mnemonicParsing="false" onAction="#select" text="Select series"/>
-        <Button layoutX="600.0" layoutY="828.0" mnemonicParsing="false" onAction="#backToMain"
-                text="Back to Main Menu"/>
+        <Label fx:id="labelName1" layoutX="837.0" layoutY="46.0" />
+        <Label fx:id="labelStatus1" layoutX="837.0" layoutY="105.0" />
+        <ImageView fx:id="image2" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true" />
+        <RadioButton fx:id="radio2" layoutX="38.0" layoutY="154.0" mnemonicParsing="false" prefHeight="140.0" prefWidth="782.0" toggleGroup="$series" />
+        <Label fx:id="labelName2" layoutX="837.0" layoutY="186.0" />
+        <Label fx:id="labelStatus2" layoutX="837.0" layoutY="248.0" />
+        <ImageView fx:id="image3" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true" />
+        <RadioButton fx:id="radio3" layoutX="38.0" layoutY="294.0" mnemonicParsing="false" prefHeight="140.0" prefWidth="782.0" toggleGroup="$series" />
+        <Label fx:id="labelName3" layoutX="837.0" layoutY="326.0" />
+        <Label fx:id="labelStatus3" layoutX="837.0" layoutY="388.0" />
+        <ImageView fx:id="image4" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="434.0" pickOnBounds="true" preserveRatio="true" />
+        <RadioButton fx:id="radio4" layoutX="38.0" layoutY="434.0" mnemonicParsing="false" prefHeight="140.0" prefWidth="782.0" toggleGroup="$series" />
+        <Label fx:id="labelName4" layoutX="837.0" layoutY="466.0" />
+        <Label fx:id="labelStatus4" layoutX="837.0" layoutY="528.0" />
+        <ImageView fx:id="image5" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="574.0" pickOnBounds="true" preserveRatio="true" />
+        <RadioButton fx:id="radio5" layoutX="38.0" layoutY="574.0" mnemonicParsing="false" prefHeight="140.0" prefWidth="782.0" toggleGroup="$series" />
+        <Label fx:id="labelName5" layoutX="837.0" layoutY="606.0" />
+        <Label fx:id="labelStatus5" layoutX="837.0" layoutY="668.0" />
+        <Button layoutX="395.0" layoutY="738.0" mnemonicParsing="false" onAction="#select" text="Select series" />
+        <Button layoutX="590.0" layoutY="738.0" mnemonicParsing="false" onAction="#backToMain" text="Back to Main Menu" />
     </children>
 </AnchorPane>

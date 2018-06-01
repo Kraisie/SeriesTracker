@@ -27,15 +27,21 @@ public class BackUp {
     public static BackUp readBackUp() {
         setPath();
 
-        String json;
-        try {
-            json = new String(Files.readAllBytes(PATH));
-        } catch (IOException e) {
-            return new BackUp();
-        }
-        Gson gson = new Gson();
+        if(PATH.toFile().exists()) {
+            String json;
+            try {
+                json = new String(Files.readAllBytes(PATH));
+            } catch (IOException e) {
+                return new BackUp();
+            }
+            Gson gson = new Gson();
 
-        return gson.fromJson(json, BackUp.class);
+            return gson.fromJson(json, BackUp.class);
+        } else {
+            PopUp.error("You do not have a BackUp to import!");
+        }
+
+        return null;
     }
 
     public static void writeBackUp(BackUp backUp) {

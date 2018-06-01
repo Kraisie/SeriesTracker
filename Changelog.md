@@ -34,3 +34,4 @@
 * Added support for waiting series when there are empty seasons (now require an air date to get back into continue table and if not given they get from watching to waiting)
 * Ended series do not get updated, you have to update them explicitly now
 * BackUp can now get imported
+* Added search for series (in already added series)

@@ -18,7 +18,7 @@ import java.net.URL;
 
 public class PopUp {
 
-    private static boolean choice;
+    private boolean choice;
 
     public static void show(String text) {
         Stage popUp = new Stage();
@@ -83,13 +83,14 @@ public class PopUp {
         popUp.showAndWait();
     }
 
-    public static void alert(String text) {
+    public void alert(String text) {
         Stage popUp = new Stage();
         URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/ok.png");
         Image img = new Image(resource.toString());
 
         popUp.getIcons().add(img);
         popUp.initModality(Modality.APPLICATION_MODAL);
+        popUp.setTitle("WARNING!");
         popUp.setWidth(350);
         popUp.setHeight(150);
         popUp.setResizable(false);
@@ -121,6 +122,7 @@ public class PopUp {
 
         VBox layout = new VBox(15);
         HBox choices = new HBox(15);
+        choices.setAlignment(Pos.CENTER);
         choices.getChildren().addAll(accept, deny);
         layout.setAlignment(Pos.CENTER);
         layout.getChildren().addAll(label, choices);
@@ -129,11 +131,11 @@ public class PopUp {
         popUp.showAndWait();
     }
 
-    private static void choiceAlert(boolean answer) {
+    private void choiceAlert(boolean answer) {
         choice = answer;
     }
 
-    public static boolean isChoice() {
+    public boolean isChoice() {
         return choice;
     }
 }
