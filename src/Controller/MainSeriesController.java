@@ -359,8 +359,6 @@ public class MainSeriesController {
 
         hue = (60 * hue) % 360;
 
-        System.out.println(hue);
-
         Color invColor;
         if (hue > 5 && hue <= 90) {                 //normal 46-90
             invColor = Color.yellow;
@@ -696,6 +694,27 @@ public class MainSeriesController {
         infoButton.setDisable(false);
         buttonFinishedSeries.setDisable(false);
         menuBar.setDisable(false);
+    }
+
+    public void showSettings() {
+        //open settings
+        try {
+            URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
+            Image img = new Image(resource.toString());
+
+            Stage primaryStage = (Stage) menuBar.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/Settings.fxml"));
+            primaryStage.setTitle("Settings");
+            primaryStage.getIcons().add(img);
+            primaryStage.setScene(new Scene(root));
+            primaryStage.centerOnScreen();
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException n) {
+            //when switching the scene MenuBar is null
+        }
     }
 
     public void close() {

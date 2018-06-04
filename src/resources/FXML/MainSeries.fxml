@@ -16,19 +16,19 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1052.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainSeriesController">
     <children>
         <ImageView fx:id="imageBackground" fitHeight="632.0" fitWidth="1052.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-        <Label fx:id="labelWatching" layoutX="81.0" layoutY="42.0" prefHeight="27.0" prefWidth="149.0" text="Continue watching" textAlignment="CENTER" textFill="LIME" underline="true">
+        <Label fx:id="labelWatching" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0" text="Continue watching" textAlignment="CENTER" textFill="LIME" underline="true">
             <font>
-                <Font size="18.0" />
+                <Font size="24.0" />
             </font>
         </Label>
-        <Label fx:id="labelStarting" layoutX="831.0" layoutY="42.0" prefHeight="27.0" prefWidth="115.0" text="Start watching" textFill="LIME" underline="true">
+        <Label fx:id="labelStarting" alignment="CENTER" layoutX="739.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0" text="Start watching" textFill="LIME" underline="true">
             <font>
-                <Font size="18.0" />
+                <Font size="24.0" />
             </font>
         </Label>
-        <Label fx:id="labelWaiting" layoutX="436.0" layoutY="42.0" prefHeight="27.0" prefWidth="182.0" text="Wait for new episodes" textFill="LIME" underline="true">
+        <Label fx:id="labelWaiting" alignment="CENTER" layoutX="377.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0" text="Wait for new episodes" textFill="LIME" underline="true">
             <font>
-                <Font size="18.0" />
+                <Font size="24.0" />
             </font>
         </Label>
         <TableView fx:id="tableContinueWatching" layoutX="14.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
@@ -88,7 +88,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Settings">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Open Settings" />
+                        <MenuItem mnemonicParsing="false" onAction="#showSettings" text="Open Settings" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

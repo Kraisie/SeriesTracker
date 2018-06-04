@@ -26,7 +26,7 @@ public class InformationController {
     @FXML
     public Label labelCurrentEpisode;
     @FXML
-    public Label labelPercentageCompletition;
+    public Label labelPercentageCompletion;
     @FXML
     public Label labelWastedTime;
     @FXML
@@ -56,7 +56,7 @@ public class InformationController {
 
             labelCurrentSeason.setText(String.valueOf(tmp.getCurrent().getSeason()) + " / " + tmp.getNumberOfSeasons());
             labelCurrentEpisode.setText(String.valueOf(tmp.getCurrent().getEpNumberOfSeason()) + " / " + tmp.getSumEpisodesOfSeason(tmp.getCurrent()));
-            labelPercentageCompletition.setText(String.format("%.2f", tmp.getCompletionRate()) + "%");
+            labelPercentageCompletion.setText(String.format("%.2f", tmp.getCompletionRate()) + "%");
 
             labelWastedTime.setText(MySeries.wastedMinutesToString(tmp.getWastedTime()));
             descriptionTextArea.setText(tmp.getDescription());

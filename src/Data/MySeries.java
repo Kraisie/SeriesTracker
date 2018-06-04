@@ -16,8 +16,6 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class MySeries {
 
-    private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIENTRACKER/Series.json");
-
     private String name;
     private String tvdbID;
     private List<Episode> episodes;
@@ -43,8 +41,9 @@ public class MySeries {
 
     public static List<MySeries> readData() {
         String json;
+        Settings setting = Settings.readData();
         try {
-            json = new String(Files.readAllBytes(PATH));
+            json = new String(Files.readAllBytes(setting.getPathSave()));
         } catch (IOException e) {
             return new ArrayList<>();
         }
@@ -81,8 +80,9 @@ public class MySeries {
 
         Gson gson = new Gson();
         String json = gson.toJson(allEntries);
+        Settings setting = Settings.readData();
         try {
-            Files.write(PATH, json.getBytes(), TRUNCATE_EXISTING, CREATE);
+            Files.write(setting.getPathSave(), json.getBytes(), TRUNCATE_EXISTING, CREATE);
         } catch (IOException e) {
             PopUp.error("Trying to save data failed!");
         }
@@ -158,9 +158,7 @@ public class MySeries {
 
     public void setNewCurrent(Episode current, boolean direction) {         //true = ++ ; false = --
         int pos = episodes.indexOf(current);
-        if (pos < 0 || (pos + 1) > episodes.size()) {
-            //Does not work, somehow inform user
-        } else {
+        if (pos > 0 || (pos + 1) < episodes.size()) {
             if (direction) {
                 setCurrent(episodes.get(pos + 1));
             } else {

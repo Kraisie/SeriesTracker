@@ -2,6 +2,7 @@ package Code;
 
 import Controller.MainSeriesController;
 import Data.BackUp;
+import Data.Settings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //Check if there are Settings
+        if(Settings.readData() == null) {
+            Settings settings = new Settings();
+            settings.setStandardSettings();
+            Settings.writeData(settings);
+        }
+
         //Create BackUp if last BackUp is older than 24 hours
         if (checkOldBackUp()) {
             writeBackUp(new BackUp());
