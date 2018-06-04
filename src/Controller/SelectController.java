@@ -165,7 +165,7 @@ public class SelectController {
             MySeries.writeData(allSeries);
             PopUp.show(selectedSeries.getName() + " added.");
         } else {
-            PopUp.error("Could not find \"" + selectedSeries.getName() + "\"!");
+            PopUp.error("Could not find your series!");
         }
 
         backToMain();
