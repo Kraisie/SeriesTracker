@@ -27,6 +27,8 @@ import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -714,6 +716,35 @@ public class MainSeriesController {
             e.printStackTrace();
         } catch (NullPointerException n) {
             //when switching the scene MenuBar is null
+        }
+    }
+
+    public void showHowTo() {
+        String url = "https://github.com/leonfrisch/SeriesTracker/blob/master/README.md";
+        String os = System.getProperty("os.name").toLowerCase();
+        Runtime runtime = Runtime.getRuntime();
+
+        try {
+            if (os.contains("win")) {
+                runtime.exec("rundll32 url.dll,FileProtocolHandler " + url);
+            } else if (os.contains("mac")) {
+                runtime.exec("open " + url);
+            } else if (os.contains("nux") || os.contains("nix")) {
+                String[] browsers = {"firefox", "google-chrome", "chromium-browser", "opera", "konqueror", "epiphany", "mozilla", "netscape"};
+                String browser = null;
+                for (int count = 0; count < browsers.length && browser == null; count++) {
+                    if (Runtime.getRuntime().exec(new String[]{"which", browsers[count]}).waitFor() == 0) {
+                        browser = browsers[count];
+                    }
+                }
+                if (browser == null) {
+                    throw new Exception("Could not find web browser");
+                } else {
+                    Runtime.getRuntime().exec(new String[]{browser, url});
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
