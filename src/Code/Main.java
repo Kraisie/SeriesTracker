@@ -20,7 +20,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Check if there are Settings
-        if(Settings.readData() == null) {
+        if (Settings.readData() == null) {
             Settings settings = new Settings();
             settings.setStandardSettings();
             Settings.writeData(settings);

@@ -18,19 +18,20 @@ public class Settings {
     private static Path pathBackUp;
     private int backUpCycle;      //every x days BackUp
 
-    public Settings (Path pathS, Path pathSav, Path pathB,  int backUpCycle) {
+    public Settings(Path pathS, Path pathSav, Path pathB, int backUpCycle) {
         pathSettings = pathS;
         pathSave = pathSav;
         pathBackUp = pathB;
         this.backUpCycle = backUpCycle;
     }
 
-    public Settings () {}
+    public Settings() {
+    }
 
     public static Settings readData() {
         String json;
-        if(pathSettings != null) {
-            if(pathSettings.toFile().exists()) {
+        if (pathSettings != null) {
+            if (pathSettings.toFile().exists()) {
                 try {
                     json = new String(Files.readAllBytes(pathSettings));
                 } catch (IOException e) {
@@ -87,7 +88,7 @@ public class Settings {
         backUpCycle = cycle;
     }
 
-    public void setStandardSettings () {
+    public void setStandardSettings() {
         pathSettings = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
         pathSave = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Series.json");
         pathBackUp = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/BackUp.json");

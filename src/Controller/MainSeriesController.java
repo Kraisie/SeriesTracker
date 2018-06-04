@@ -326,32 +326,32 @@ public class MainSeriesController {
         double hue;
         float max;
         float min;
-        if(sRGB[0] >= sRGB[1] && sRGB[0] >= sRGB[2]) {
+        if (sRGB[0] >= sRGB[1] && sRGB[0] >= sRGB[2]) {
             max = sRGB[0];
-            if(sRGB[1] >= sRGB[2]) {
+            if (sRGB[1] >= sRGB[2]) {
                 min = sRGB[2];
             } else {
                 min = sRGB[0];
             }
-        } else if(sRGB[1] >= sRGB[0] && sRGB[1] >= sRGB[2]) {
+        } else if (sRGB[1] >= sRGB[0] && sRGB[1] >= sRGB[2]) {
             max = sRGB[1];
-            if(sRGB[0] >= sRGB[2]) {
+            if (sRGB[0] >= sRGB[2]) {
                 min = sRGB[2];
             } else {
                 min = sRGB[0];
             }
         } else {
             max = sRGB[2];
-            if(sRGB[0] >= sRGB[1]) {
+            if (sRGB[0] >= sRGB[1]) {
                 min = sRGB[1];
             } else {
                 min = sRGB[0];
             }
         }
 
-        if(max == sRGB[0]) {
+        if (max == sRGB[0]) {
             hue = (sRGB[1] - sRGB[2]) / (max - min);
-        } else if(max == sRGB[1]) {
+        } else if (max == sRGB[1]) {
             hue = 2 + (sRGB[2] - sRGB[0]) / (max - min);
         } else {
             hue = 4 + (sRGB[0] - sRGB[1]) / (max - min);

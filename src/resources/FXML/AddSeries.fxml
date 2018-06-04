@@ -6,28 +6,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="458.0" prefWidth="601.0" style="-fx-background-color: #777777;" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddSeriesController">
+<AnchorPane prefHeight="458.0" prefWidth="601.0" style="-fx-background-color: #777777;"
+            stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddSeriesController">
     <children>
-      <Label layoutX="70.0" layoutY="56.0" text="You can automatically add a series with data " textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="51.0" layoutY="103.0" text="from TVDB. Just type the name of the series and" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <TextField fx:id="nameTVDB" layoutX="67.0" layoutY="210.0" prefHeight="25.0" prefWidth="487.0" promptText="Name of a series (english)" />
-      <Label layoutX="75.0" layoutY="235.0" prefHeight="25.0" prefWidth="475.0" text="If it gives you an error stating that the series could not be found please check your" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" />
-      <Label layoutX="159.0" layoutY="260.0" text="spelling and also make sure you have the right name." textFill="WHITE" />
-      <Button layoutX="270.0" layoutY="339.0" mnemonicParsing="false" onAction="#addTVDB" text="Add Series" />
-      <Button fx:id="buttonBack" layoutX="426.0" layoutY="396.0" mnemonicParsing="false" onAction="#back" text="Go back to the Main Menu" />
-      <Label layoutX="211.0" layoutY="149.0" text="press 'Add Series':" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="119.0" layoutY="184.0" text="This process may take some time, please do not close this window!" textFill="RED" />
+        <Label layoutX="70.0" layoutY="56.0" text="You can automatically add a series with data " textFill="WHITE">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
+        <Label layoutX="51.0" layoutY="103.0" text="from TVDB. Just type the name of the series and" textFill="WHITE">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="nameTVDB" layoutX="67.0" layoutY="210.0" prefHeight="25.0" prefWidth="487.0"
+                   promptText="Name of a series (english)"/>
+        <Label layoutX="75.0" layoutY="235.0" prefHeight="25.0" prefWidth="475.0"
+               text="If it gives you an error stating that the series could not be found please check your"
+               textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true"/>
+        <Label layoutX="159.0" layoutY="260.0" text="spelling and also make sure you have the right name."
+               textFill="WHITE"/>
+        <Button layoutX="270.0" layoutY="339.0" mnemonicParsing="false" onAction="#addTVDB" text="Add Series"/>
+        <Button fx:id="buttonBack" layoutX="426.0" layoutY="396.0" mnemonicParsing="false" onAction="#back"
+                text="Go back to the Main Menu"/>
+        <Label layoutX="211.0" layoutY="149.0" text="press 'Add Series':" textFill="WHITE">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
+        <Label layoutX="119.0" layoutY="184.0" text="This process may take some time, please do not close this window!"
+               textFill="RED"/>
     </children>
 </AnchorPane>

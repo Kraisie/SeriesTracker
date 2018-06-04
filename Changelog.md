@@ -35,3 +35,5 @@
 * Ended series do not get updated, you have to update them explicitly now
 * BackUp can now get imported
 * Added search for series (in already added series)
+* Added Settings
+* **VERSION 1.0**

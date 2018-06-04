@@ -42,7 +42,7 @@ public class SettingsController {
         frequencySpinner.setValueFactory(valueFactory);
 
         //check for json modification
-        if(settings.getBackUpCycle() > 0 && settings.getBackUpCycle() < 15) {
+        if (settings.getBackUpCycle() > 0 && settings.getBackUpCycle() < 15) {
             frequencySpinner.getValueFactory().setValue(settings.getBackUpCycle());
         } else {
             settings.setBackUpCycle(1);
@@ -56,7 +56,7 @@ public class SettingsController {
         fileChooser.setTitle("Set path for your settings file...");
         File file = fileChooser.showOpenDialog(backButton.getScene().getWindow());
 
-        if(file != null) {
+        if (file != null) {
             try {
                 Path path = Paths.get(file.getCanonicalPath());
                 settings.setPathSettings(path);
@@ -73,7 +73,7 @@ public class SettingsController {
         fileChooser.setTitle("Set path for your save file...");
         File file = fileChooser.showOpenDialog(backButton.getScene().getWindow());
 
-        if(file != null) {
+        if (file != null) {
             try {
                 Path path = Paths.get(file.getCanonicalPath());
                 settings.setPathSave(path);
@@ -90,7 +90,7 @@ public class SettingsController {
         fileChooser.setTitle("Set path for your BackUp file...");
         File file = fileChooser.showOpenDialog(backButton.getScene().getWindow());
 
-        if(file != null) {
+        if (file != null) {
             try {
                 Path path = Paths.get(file.getCanonicalPath());
                 settings.setPathBackUp(path);

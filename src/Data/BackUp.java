@@ -5,8 +5,6 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static java.nio.file.StandardOpenOption.CREATE;
@@ -24,7 +22,7 @@ public class BackUp {
 
     public static BackUp readBackUp() {
         Settings settings = Settings.readData();
-        if(settings.getPathBackUp().toFile().exists()) {
+        if (settings.getPathBackUp().toFile().exists()) {
             String json;
             try {
                 json = new String(Files.readAllBytes(settings.getPathBackUp()));

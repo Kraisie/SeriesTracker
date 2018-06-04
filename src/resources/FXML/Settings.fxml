@@ -7,26 +7,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="346.0" prefWidth="600.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SettingsController">
-   <children>
-      <Button layoutX="252.0" layoutY="307.0" mnemonicParsing="false" onAction="#save" text="Save Settings" />
-      <Button fx:id="backButton" layoutX="540.0" layoutY="307.0" mnemonicParsing="false" onAction="#back" text="Back" />
-      <Button layoutX="493.0" layoutY="129.0" mnemonicParsing="false" onAction="#changePathSave" text="Change Path" />
-      <Label layoutX="15.0" layoutY="134.0" text="Folder to save your series in:" />
-      <Label layoutX="15.0" layoutY="189.0" text="Folder to save your BackUp in:" />
-      <Label layoutX="15.0" layoutY="244.0" text="Frequency of BackUps in days:" />
-      <Label layoutX="238.0" layoutY="14.0" text="SETTINGS" textAlignment="CENTER" underline="true">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Button layoutX="493.0" layoutY="184.0" mnemonicParsing="false" onAction="#changePathBackUp" text="Change Path" />
-      <Spinner fx:id="frequencySpinner" layoutX="294.0" layoutY="239.0" prefHeight="25.0" prefWidth="94.0" />
-      <TextField fx:id="textPathSave" editable="false" layoutX="201.0" layoutY="129.0" prefHeight="25.0" prefWidth="279.0" />
-      <TextField fx:id="textPathBackUp" layoutX="201.0" layoutY="184.0" prefHeight="25.0" prefWidth="279.0" />
-      <Button layoutX="15.0" layoutY="307.0" mnemonicParsing="false" onAction="#standard" text="Standard Settings" />
-      <Label layoutX="15.0" layoutY="79.0" text="Folder to save your settings in:" />
-      <TextField fx:id="textPathSettings" layoutX="201.0" layoutY="74.0" prefHeight="25.0" prefWidth="279.0" />
-      <Button layoutX="493.0" layoutY="74.0" mnemonicParsing="false" onAction="#changePathSettings" prefHeight="25.0" prefWidth="94.0" text="Change Path" />
-   </children>
+<AnchorPane prefHeight="346.0" prefWidth="600.0" stylesheets="@../css/myStyle.css"
+            xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.SettingsController">
+    <children>
+        <Button layoutX="252.0" layoutY="307.0" mnemonicParsing="false" onAction="#save" text="Save Settings"/>
+        <Button fx:id="backButton" layoutX="540.0" layoutY="307.0" mnemonicParsing="false" onAction="#back"
+                text="Back"/>
+        <Button layoutX="493.0" layoutY="129.0" mnemonicParsing="false" onAction="#changePathSave" text="Change Path"/>
+        <Label layoutX="15.0" layoutY="134.0" text="Folder to save your series in:"/>
+        <Label layoutX="15.0" layoutY="189.0" text="Folder to save your BackUp in:"/>
+        <Label layoutX="15.0" layoutY="244.0" text="Frequency of BackUps in days:"/>
+        <Label layoutX="238.0" layoutY="14.0" text="SETTINGS" textAlignment="CENTER" underline="true">
+            <font>
+                <Font size="25.0"/>
+            </font>
+        </Label>
+        <Button layoutX="493.0" layoutY="184.0" mnemonicParsing="false" onAction="#changePathBackUp"
+                text="Change Path"/>
+        <Spinner fx:id="frequencySpinner" layoutX="294.0" layoutY="239.0" prefHeight="25.0" prefWidth="94.0"/>
+        <TextField fx:id="textPathSave" editable="false" layoutX="201.0" layoutY="129.0" prefHeight="25.0"
+                   prefWidth="279.0"/>
+        <TextField fx:id="textPathBackUp" layoutX="201.0" layoutY="184.0" prefHeight="25.0" prefWidth="279.0"/>
+        <Button layoutX="15.0" layoutY="307.0" mnemonicParsing="false" onAction="#standard" text="Standard Settings"/>
+        <Label layoutX="15.0" layoutY="79.0" text="Folder to save your settings in:"/>
+        <TextField fx:id="textPathSettings" layoutX="201.0" layoutY="74.0" prefHeight="25.0" prefWidth="279.0"/>
+        <Button layoutX="493.0" layoutY="74.0" mnemonicParsing="false" onAction="#changePathSettings" prefHeight="25.0"
+                prefWidth="94.0" text="Change Path"/>
+    </children>
 </AnchorPane>

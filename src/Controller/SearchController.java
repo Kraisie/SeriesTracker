@@ -53,10 +53,10 @@ public class SearchController {
     public static List<MySeries> tmpMatches;
 
     public void initialize() {
-        if(InformationController.tmpMatches != null) {
+        if (InformationController.tmpMatches != null) {
             tmpMatches = InformationController.tmpMatches;
 
-            for(MySeries series : tmpMatches) {
+            for (MySeries series : tmpMatches) {
                 foundMatches.getItems().add(series.getName());
                 mode = true;
             }
