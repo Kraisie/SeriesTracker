@@ -1,23 +1,29 @@
 package Controller;
 
+import Code.PopUp;
 import Data.Settings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class SettingsController {
 
     @FXML
-    public TextField textPathSettings;
+    public TextField textPathMovies;
     @FXML
     public TextField textPathSave;
     @FXML
@@ -31,8 +37,8 @@ public class SettingsController {
 
     public void initialize() {
         settings = Settings.readData();
-        textPathSettings.setText(settings.getPathSettings().toString());
-        textPathSave.setText(settings.getPathSave().toString());
+        textPathMovies.setText(settings.getPathMovies().toString());
+        textPathSave.setText(settings.getPathSeries().toString());
         textPathBackUp.setText(settings.getPathBackUp().toString());
 
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 14);
@@ -51,46 +57,52 @@ public class SettingsController {
         }
     }
 
-    public void changePathSettings() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Set path for your settings file...");
-        File file = fileChooser.showOpenDialog(backButton.getScene().getWindow());
+    public void changePathMovies() {
+        DirectoryChooser fileChooser = new DirectoryChooser();
+        fileChooser.setTitle("Set path for your movies file...");
+        File dir = fileChooser.showDialog(backButton.getScene().getWindow());
 
-        if (file != null) {
+        if (dir != null) {
+            File file = new File(dir, "Movies.json");
+
             try {
                 Path path = Paths.get(file.getCanonicalPath());
-                settings.setPathSettings(path);
+                settings.setPathMovies(path);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        textPathSettings.setText(settings.getPathSettings().toString());
+        textPathMovies.setText(settings.getPathMovies().toString());
     }
 
     public void changePathSave() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Set path for your save file...");
-        File file = fileChooser.showOpenDialog(backButton.getScene().getWindow());
+        DirectoryChooser fileChooser = new DirectoryChooser();
+        fileChooser.setTitle("Set path for your movies file...");
+        File dir = fileChooser.showDialog(backButton.getScene().getWindow());
 
-        if (file != null) {
+        if (dir != null) {
+            File file = new File(dir, "Series.json");
+
             try {
                 Path path = Paths.get(file.getCanonicalPath());
-                settings.setPathSave(path);
+                settings.setPathSeries(path);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        textPathSave.setText(settings.getPathSave().toString());
+        textPathSave.setText(settings.getPathSeries().toString());
     }
 
     public void changePathBackUp() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Set path for your BackUp file...");
-        File file = fileChooser.showOpenDialog(backButton.getScene().getWindow());
+        File dir = fileChooser.showOpenDialog(backButton.getScene().getWindow());
 
-        if (file != null) {
+        if (dir != null) {
+            File file = new File(dir, "BackUp.json");
+
             try {
                 Path path = Paths.get(file.getCanonicalPath());
                 settings.setPathBackUp(path);
@@ -103,6 +115,31 @@ public class SettingsController {
     }
 
     public void save() {
+        Settings oldSettings = Settings.readData();
+        if(!oldSettings.getPathSeries().equals(settings.getPathSeries())) {
+            try {
+                Files.move(oldSettings.getPathSeries(), settings.getPathSeries(), REPLACE_EXISTING);
+            } catch (IOException e) {
+                PopUp.error("Trying to move old save files failed.");
+            }
+        }
+
+        if(!oldSettings.getPathMovies().equals(settings.getPathMovies())) {
+            try {
+                Files.move(oldSettings.getPathMovies(), settings.getPathMovies(), REPLACE_EXISTING);
+            } catch (IOException e) {
+                PopUp.error("Trying to move old save files failed.");
+            }
+        }
+
+        if(!oldSettings.getPathBackUp().equals(settings.getPathBackUp())) {
+            try {
+                Files.move(oldSettings.getPathBackUp(), settings.getPathBackUp(), REPLACE_EXISTING);
+            } catch (IOException e) {
+                PopUp.error("Trying to move old save files failed.");
+            }
+        }
+
         Settings.writeData(settings);
         back();
     }

@@ -41,7 +41,7 @@ public class MySeries {
         String json;
         Settings setting = Settings.readData();
         try {
-            json = new String(Files.readAllBytes(setting.getPathSave()));
+            json = new String(Files.readAllBytes(setting.getPathSeries()));
         } catch (IOException e) {
             return new ArrayList<>();
         }
@@ -80,7 +80,7 @@ public class MySeries {
         String json = gson.toJson(allEntries);
         Settings setting = Settings.readData();
         try {
-            Files.write(setting.getPathSave(), json.getBytes(), TRUNCATE_EXISTING, CREATE);
+            Files.write(setting.getPathSeries(), json.getBytes(), TRUNCATE_EXISTING, CREATE);
         } catch (IOException e) {
             PopUp.error("Trying to save data failed!");
         }

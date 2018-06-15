@@ -52,12 +52,17 @@ public class BackUp {
 
     public static boolean checkOldBackUp() {
         Settings settings = Settings.readData();
-        if (Files.exists(settings.getPathBackUp())) {
-            BackUp backUp = readBackUp();
-            return (System.currentTimeMillis() - backUp.lastSave) >= 86400000L;
+
+        if(settings != null) {
+            if (Files.exists(settings.getPathBackUp())) {
+                BackUp backUp = readBackUp();
+                return (System.currentTimeMillis() - backUp.lastSave) >= 86400000L;
+            } else {
+                writeBackUp(new BackUp());
+                return false;
+            }
         } else {
-            writeBackUp(new BackUp());
-            return false;
+            return false;   //CHANGE
         }
     }
 

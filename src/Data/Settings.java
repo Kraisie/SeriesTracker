@@ -13,15 +13,24 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class Settings {
 
-    private static Path pathSettings;
-    private static Path pathSave;
-    private static Path pathBackUp;
+    private String pathMovies;
+    private String pathSeries;
+    private String pathBackUp;
     private int backUpCycle;      //every x days BackUp
 
-    public Settings(Path pathS, Path pathSav, Path pathB, int backUpCycle) {
-        pathSettings = pathS;
-        pathSave = pathSav;
-        pathBackUp = pathB;
+    private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
+
+    /*
+    * GSON CAN NOT SAVE A PATH AS IT HAS CYCLIC REFERENCE IN IT!
+    * fs -> WindowsFileSystem -> provider -> WindowsFileSystem -> provider -> ...
+    * THAT'S WHY WE SAVE THE PATH AS STRING AND RETURN THEM AS PATH IN THE GETTER
+    * AND SAVE THEM AS PATH IN THE SETTER
+    */
+
+    public Settings(Path pathM, Path pathS, Path pathB, int backUpCycle) {
+        pathMovies = pathM.toString();
+        pathSeries = pathS.toString();
+        pathBackUp = pathB.toString();
         this.backUpCycle = backUpCycle;
     }
 
@@ -30,54 +39,57 @@ public class Settings {
 
     public static Settings readData() {
         String json;
-        if (pathSettings != null) {
-            if (pathSettings.toFile().exists()) {
-                try {
-                    json = new String(Files.readAllBytes(pathSettings));
-                } catch (IOException e) {
-                    json = null;
-                }
-                Gson gson = new Gson();
-
-                return gson.fromJson(json, Settings.class);
+        if (!PATH.toFile().exists()) {
+            try {
+                Files.createDirectories(PATH.getParent());
+                Files.createFile(PATH);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 
-        return null;
+        try {
+            json = new String(Files.readAllBytes(PATH));
+        } catch (IOException e) {
+            json = null;
+        }
+        Gson gson = new Gson();
+
+        return gson.fromJson(json, Settings.class);
     }
 
     public static void writeData(Settings settings) {
         Gson gson = new Gson();
         String json = gson.toJson(settings);
         try {
-            Files.write(pathSettings, json.getBytes(), TRUNCATE_EXISTING, CREATE);
+            Files.write(PATH, json.getBytes(), TRUNCATE_EXISTING, CREATE);
         } catch (IOException e) {
             PopUp.error("Trying to save data failed!");
         }
     }
 
-    public Path getPathSettings() {
-        return pathSettings;
+    public Path getPathMovies() {
+        return Paths.get(pathMovies);
     }
 
-    public void setPathSettings(Path path) {
-        pathSettings = path;
+    public void setPathMovies(Path path) {
+        pathMovies = path.toString();
     }
 
-    public Path getPathSave() {
-        return pathSave;
+    public Path getPathSeries() {
+        return Paths.get(pathSeries);
     }
 
-    public void setPathSave(Path path) {
-        pathSave = path;
+    public void setPathSeries(Path path) {
+        pathSeries = path.toString();
     }
 
     public Path getPathBackUp() {
-        return pathBackUp;
+        return Paths.get(pathBackUp);
     }
 
     public void setPathBackUp(Path path) {
-        pathBackUp = path;
+        pathBackUp = path.toString();
     }
 
     public int getBackUpCycle() {
@@ -89,9 +101,9 @@ public class Settings {
     }
 
     public void setStandardSettings() {
-        pathSettings = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
-        pathSave = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Series.json");
-        pathBackUp = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/BackUp.json");
+        pathMovies = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json").toString();
+        pathSeries = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Series.json").toString();
+        pathBackUp = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/BackUp.json").toString();
         backUpCycle = 1;
     }
 }
