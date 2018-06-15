@@ -631,6 +631,8 @@ public class MainSeriesController {
     public void createBackUp() {
         BackUp backUp = new BackUp();
         BackUp.writeBackUp(backUp);
+
+        PopUp.show("New BackUp created!");
     }
 
     public void menuUpdateAll() {

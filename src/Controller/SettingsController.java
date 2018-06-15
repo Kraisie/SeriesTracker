@@ -96,9 +96,9 @@ public class SettingsController {
     }
 
     public void changePathBackUp() {
-        FileChooser fileChooser = new FileChooser();
+        DirectoryChooser fileChooser = new DirectoryChooser();
         fileChooser.setTitle("Set path for your BackUp file...");
-        File dir = fileChooser.showOpenDialog(backButton.getScene().getWindow());
+        File dir = fileChooser.showDialog(backButton.getScene().getWindow());
 
         if (dir != null) {
             File file = new File(dir, "BackUp.json");
@@ -120,6 +120,7 @@ public class SettingsController {
             try {
                 Files.move(oldSettings.getPathSeries(), settings.getPathSeries(), REPLACE_EXISTING);
             } catch (IOException e) {
+                e.printStackTrace();
                 PopUp.error("Trying to move old save files failed.");
             }
         }
@@ -128,6 +129,7 @@ public class SettingsController {
             try {
                 Files.move(oldSettings.getPathMovies(), settings.getPathMovies(), REPLACE_EXISTING);
             } catch (IOException e) {
+                e.printStackTrace();
                 PopUp.error("Trying to move old save files failed.");
             }
         }
@@ -136,6 +138,7 @@ public class SettingsController {
             try {
                 Files.move(oldSettings.getPathBackUp(), settings.getPathBackUp(), REPLACE_EXISTING);
             } catch (IOException e) {
+                e.printStackTrace();
                 PopUp.error("Trying to move old save files failed.");
             }
         }
@@ -146,6 +149,7 @@ public class SettingsController {
 
     public void standard() {
         settings.setStandardSettings();
+        Settings.writeData(settings);
         back();
     }
 
