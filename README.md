@@ -38,9 +38,7 @@ java -jar SeriesTracker.jar
 * "Help" > "How to use this program" will bring you to this site
 
 ## Known Bugs
-* Returning to SearchSeries from Information can not click on search another series
-* SearchSeries starts black
-* If no folder called SERIESTRACKER exists the program won't create one
+* SearchSeries/AddSeries starts black
 
 ## Think-Abouts
 * API for movies

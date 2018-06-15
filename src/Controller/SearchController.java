@@ -44,6 +44,8 @@ public class SearchController {
     @FXML
     public Button closeButton;
     @FXML
+    public Button searchButton;
+    @FXML
     public Button researchButton;
     @FXML
     public ListView<String> foundMatches;
@@ -124,6 +126,8 @@ public class SearchController {
 
         foundMatches.setVisible(!mode);
         foundMatches.setDisable(mode);
+        searchButton.setVisible(mode);
+        searchButton.setDisable(!mode);
         researchButton.setVisible(!mode);
         researchButton.setDisable(mode);
         infoButton.setVisible(!mode);
@@ -206,6 +210,7 @@ public class SearchController {
     }
 
     public void reSearch() {
+        InformationController.tmpMatches = null;
         foundMatches.getItems().clear();
         mode = false;
         initialize();
