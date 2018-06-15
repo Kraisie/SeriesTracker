@@ -37,3 +37,4 @@
 * Added search for series (in already added series)
 * Added Settings
 * **VERSION 1.0**
+* Added option to force a BackUp

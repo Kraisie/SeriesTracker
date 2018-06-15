@@ -628,6 +628,11 @@ public class MainSeriesController {
         initialize();
     }
 
+    public void createBackUp() {
+        BackUp backUp = new BackUp();
+        BackUp.writeBackUp(backUp);
+    }
+
     public void menuUpdateAll() {
         startUpdate();
         update("Continuing");

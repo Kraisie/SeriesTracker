@@ -78,6 +78,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#deleteSeries" text="Delete a series" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#importBackUp" text="Import BackUp" />
+                  <MenuItem mnemonicParsing="false" onAction="#createBackUp" text="Create new BackUp" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Update">
