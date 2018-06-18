@@ -24,10 +24,11 @@ public class Settings {
     * GSON CAN NOT SAVE A PATH AS IT HAS CYCLIC REFERENCE IN IT!
     * fs -> WindowsFileSystem -> provider -> WindowsFileSystem -> provider -> ...
     * THAT'S WHY WE SAVE THE PATH AS STRING AND RETURN THEM AS PATH IN THE GETTER
-    * AND SAVE THEM AS PATH IN THE SETTER
+    * AND GET THEM AS PATH IN THE SETTER WHILST SAVING THEM AS STRINGS
     */
 
-    public Settings(Path pathM, Path pathS, Path pathB, int backUpCycle) {
+    //not used, can probably get deleted
+    private Settings(Path pathM, Path pathS, Path pathB, int backUpCycle) {
         pathMovies = pathM.toString();
         pathSeries = pathS.toString();
         pathBackUp = pathB.toString();

@@ -1,6 +1,6 @@
 package Data.TVDB;
 
-public class SeriesEpisodes {
+class SeriesEpisodes {
 
     private BasicEpisode[] data;
     private JSONErrors errors;

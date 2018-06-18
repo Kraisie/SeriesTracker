@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class AdvancedInformationController {
 
@@ -143,7 +144,7 @@ public class AdvancedInformationController {
     public void back() {
         try {
             Stage primaryStage = (Stage) backButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformationSelector.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformationSelector.fxml")));
             primaryStage.setTitle("Series Control Panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
@@ -157,7 +158,7 @@ public class AdvancedInformationController {
     public void backToMain() {
         try {
             Stage primaryStage = (Stage) backMenuButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml")));
             primaryStage.setTitle("Series Control Panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();

@@ -6,23 +6,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane1" prefHeight="200.0" prefWidth="522.0" stylesheets="@../css/myStyle.css"
-            xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Controller.AddMovieController">
-    <children>
-        <AnchorPane fx:id="anchorPane2" prefHeight="200.0" prefWidth="200.0">
-            <children>
-                <TextField fx:id="nameMovie" layoutX="19.0" layoutY="88.0" prefHeight="25.0" prefWidth="487.0"
-                           promptText="Name of a movie"/>
-                <Button layoutX="222.0" layoutY="161.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie"/>
-                <Button fx:id="buttonBack1" layoutX="334.0" layoutY="161.0" mnemonicParsing="false" onAction="#back"
-                        text="Go back to the Main Menu"/>
-                <Label layoutX="184.0" layoutY="33.0" text="Add a movie">
-                    <font>
-                        <Font size="28.0"/>
-                    </font>
-                </Label>
-            </children>
-        </AnchorPane>
-    </children>
+<AnchorPane prefHeight="200.0" prefWidth="522.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddMovieController">
+     <TextField fx:id="nameMovie" layoutX="18.0" layoutY="100.0" prefHeight="25.0" prefWidth="487.0" promptText="Name of a movie" />
+     <Button layoutX="221.0" layoutY="161.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
+     <Button fx:id="buttonBack1" layoutX="339.0" layoutY="161.0" mnemonicParsing="false" onAction="#back" text="Go back to the Main Menu" />
+     <Label layoutX="183.0" layoutY="25.0" text="Add a movie">
+         <font>
+             <Font size="28.0" />
+         </font>
+     </Label>
 </AnchorPane>

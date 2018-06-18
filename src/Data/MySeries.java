@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
@@ -84,12 +87,6 @@ public class MySeries {
         } catch (IOException e) {
             PopUp.error("Trying to save data failed!");
         }
-    }
-
-    public static void addData(MySeries data) {
-        List<MySeries> list = readData();
-        list.add(data);
-        writeData(list);
     }
 
     public static boolean checkDuplicate(List<MySeries> allSeries, String name) {
@@ -189,7 +186,7 @@ public class MySeries {
     }
 
     public static String wastedMinutesToString(int time) {
-        //if lower than 2 hours print minutes, lower than 7 days print hours, elsewise days
+        //if lower than 2 hours print minutes, lower than 7 days print hours, else use days
         if (time < 120) {
             return time + " minutes wasted";
         } else if (time < (7 * 24 * 60)) {

@@ -1,6 +1,6 @@
 package Data.TVDB;
 
-public class SeriesSearchData {
+class SeriesSearchData {
 
     private SearchData[] data;
 

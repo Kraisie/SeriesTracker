@@ -14,91 +14,75 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1052.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainSeriesController">
-    <children>
-        <ImageView fx:id="imageBackground" fitHeight="632.0" fitWidth="1052.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-        <Label fx:id="labelWatching" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0" text="Continue watching" textAlignment="CENTER" textFill="LIME" underline="true">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Label>
-        <Label fx:id="labelStarting" alignment="CENTER" layoutX="739.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0" text="Start watching" textFill="LIME" underline="true">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Label>
-        <Label fx:id="labelWaiting" alignment="CENTER" layoutX="377.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0" text="Wait for new episodes" textFill="LIME" underline="true">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Label>
-        <TableView fx:id="tableContinueWatching" layoutX="14.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
-            <columns>
-                <TableColumn fx:id="columnContinueName" prefWidth="173.0" text="Name" />
-                <TableColumn fx:id="columnContinueSeason" prefWidth="59.0" text="Season" />
-                <TableColumn fx:id="columnContinueEpisode" prefWidth="68.0" text="Episode" />
-            </columns>
-        </TableView>
-        <TableView fx:id="tableWaitEpisodes" layoutX="377.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
-            <columns>
-                <TableColumn fx:id="columnWaitName" prefWidth="200.0" text="Name" />
-                <TableColumn fx:id="columnWaitSeason" prefWidth="50.0" text="Season" />
-                <TableColumn fx:id="columnWaitEpisode" prefWidth="50.0" text="Episode" />
-            </columns>
-        </TableView>
-        <TableView fx:id="tableStartWatching" layoutX="739.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
-            <columns>
-                <TableColumn fx:id="columnStartName" prefWidth="200.0" text="Name" />
-                <TableColumn fx:id="columnStartSeasons" prefWidth="100.0" text="Seasons" />
-            </columns>
-        </TableView>
-        <Button fx:id="buttonIncEpisode" layoutX="42.0" layoutY="581.0" mnemonicParsing="false" onAction="#incEpisode" prefHeight="65.0" prefWidth="65.0" text="+" />
-        <Button fx:id="buttonDecEpisode" layoutX="205.0" layoutY="581.0" mnemonicParsing="false" onAction="#decEpisode" prefHeight="65.0" prefWidth="65.0" text="-" />
-        <Button fx:id="buttonFinishedSeries" layoutX="467.0" layoutY="601.0" mnemonicParsing="false" onAction="#displayFinishedSeries" text="All finished series" />
-        <Button fx:id="buttonStartedSeries" layoutX="840.0" layoutY="601.0" mnemonicParsing="false" onAction="#startSeries" text="Started series" />
-        <Button fx:id="infoButton" layoutX="114.0" layoutY="601.0" mnemonicParsing="false" onAction="#displayInformation" text="Information" />
-        <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1052.0">
-            <menus>
-                <Menu mnemonicParsing="false" text="Mode">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#displayAdvancedInformation" text="Advanced Information" />
-                        <MenuItem mnemonicParsing="false" onAction="#searchSeries" text="Search Series" />
-                        <Menu mnemonicParsing="false" text="Switch to Movies/Series">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#switchMode" text="Movies" />
-                                <MenuItem mnemonicParsing="false" text="Series" />
-                            </items>
-                        </Menu>
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#addSeries" text="Add a new Series" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteSeries" text="Delete a series" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#importBackUp" text="Import BackUp" />
-                  <MenuItem mnemonicParsing="false" onAction="#createBackUp" text="Create new BackUp" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Update">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#menuUpdateAll" text="Update Series" />
-                        <MenuItem mnemonicParsing="false" onAction="#menuUpdateEnded" text="Update ended Series" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Settings">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showSettings" text="Open Settings" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showHowTo" text="How to use this programm" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-        <ProgressIndicator fx:id="progressIndicator" layoutX="993.0" layoutY="604.0" progress="0.0" visible="false" />
-    </children>
+    <ImageView fx:id="imageBackground" fitHeight="632.0" fitWidth="1052.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+    <Label fx:id="labelWatching" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0" text="Continue watching" textAlignment="CENTER" textFill="LIME" underline="true">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Label>
+    <Label fx:id="labelStarting" alignment="CENTER" layoutX="739.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0" text="Start watching" textFill="LIME" underline="true">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Label>
+    <Label fx:id="labelWaiting" alignment="CENTER" layoutX="377.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0" text="Wait for new episodes" textFill="LIME" underline="true">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Label>
+    <TableView fx:id="tableContinueWatching" layoutX="14.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
+        <columns>
+            <TableColumn fx:id="columnContinueName" prefWidth="173.0" text="Name" />
+            <TableColumn fx:id="columnContinueSeason" prefWidth="59.0" text="Season" />
+            <TableColumn fx:id="columnContinueEpisode" prefWidth="68.0" text="Episode" />
+        </columns>
+    </TableView>
+    <TableView fx:id="tableWaitEpisodes" layoutX="377.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
+        <columns>
+            <TableColumn fx:id="columnWaitName" prefWidth="200.0" text="Name" />
+            <TableColumn fx:id="columnWaitSeason" prefWidth="50.0" text="Season" />
+            <TableColumn fx:id="columnWaitEpisode" prefWidth="50.0" text="Episode" />
+        </columns>
+    </TableView>
+    <TableView fx:id="tableStartWatching" layoutX="739.0" layoutY="78.0" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
+        <columns>
+            <TableColumn fx:id="columnStartName" prefWidth="200.0" text="Name" />
+            <TableColumn fx:id="columnStartSeasons" prefWidth="100.0" text="Seasons" />
+        </columns>
+    </TableView>
+    <Button fx:id="buttonIncEpisode" layoutX="42.0" layoutY="581.0" mnemonicParsing="false" onAction="#incEpisode" prefHeight="65.0" prefWidth="65.0" text="+" />
+    <Button fx:id="buttonDecEpisode" layoutX="205.0" layoutY="581.0" mnemonicParsing="false" onAction="#decEpisode" prefHeight="65.0" prefWidth="65.0" text="-" />
+    <Button fx:id="buttonFinishedSeries" layoutX="467.0" layoutY="601.0" mnemonicParsing="false" onAction="#displayFinishedSeries" text="All finished series" />
+    <Button fx:id="buttonStartedSeries" layoutX="840.0" layoutY="601.0" mnemonicParsing="false" onAction="#startSeries" text="Started series" />
+    <Button fx:id="infoButton" layoutX="114.0" layoutY="601.0" mnemonicParsing="false" onAction="#displayInformation" text="Information" />
+    <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1052.0">
+        <Menu mnemonicParsing="false" text="Mode">
+            <MenuItem mnemonicParsing="false" onAction="#displayAdvancedInformation" text="Advanced Information" />
+            <MenuItem mnemonicParsing="false" onAction="#searchSeries" text="Search Series" />
+            <Menu mnemonicParsing="false" text="Switch to Movies/Series">
+                <MenuItem mnemonicParsing="false" onAction="#switchMode" text="Movies" />
+                <MenuItem mnemonicParsing="false" text="Series" />
+            </Menu>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+            <MenuItem mnemonicParsing="false" onAction="#addSeries" text="Add a new Series" />
+            <MenuItem mnemonicParsing="false" onAction="#deleteSeries" text="Delete a series" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#importBackUp" text="Import BackUp" />
+            <MenuItem mnemonicParsing="false" onAction="#createBackUp" text="Create new BackUp" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Update">
+            <MenuItem mnemonicParsing="false" onAction="#menuUpdateAll" text="Update Series" />
+            <MenuItem mnemonicParsing="false" onAction="#menuUpdateEnded" text="Update ended Series" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Settings">
+            <MenuItem mnemonicParsing="false" onAction="#showSettings" text="Open Settings" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <MenuItem mnemonicParsing="false" onAction="#showHowTo" text="How to use this program" />
+        </Menu>
+    </MenuBar>
+    <ProgressIndicator fx:id="progressIndicator" layoutX="993.0" layoutY="604.0" progress="0.0" visible="false" />
 </AnchorPane>

@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 
 public class MainMovieController {
 
@@ -96,7 +97,7 @@ public class MainMovieController {
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml")));
             primaryStage.setTitle("Series Control Panel");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
@@ -117,7 +118,7 @@ public class MainMovieController {
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/AddMovie.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/AddMovie.fxml")));
             primaryStage.setTitle("Add a new movie...");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));

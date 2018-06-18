@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 public class AdvancedInformationSelectionController {
 
@@ -48,7 +49,7 @@ public class AdvancedInformationSelectionController {
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) buttonBack.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformation.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformation.fxml")));
             primaryStage.setTitle("Advanced information for \"" + toController.getName() + "\"");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
@@ -63,7 +64,7 @@ public class AdvancedInformationSelectionController {
     public void back() {
         try {
             Stage primaryStage = (Stage) buttonBack.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml")));
             primaryStage.setTitle("Series Control Panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();

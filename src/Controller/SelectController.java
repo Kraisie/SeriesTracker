@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 
 public class SelectController {
 
@@ -29,6 +31,8 @@ public class SelectController {
     public RadioButton radio4;
     @FXML
     public RadioButton radio5;
+    @FXML
+    public ToggleGroup series;
 
     @FXML
     public ImageView image1;
@@ -62,7 +66,7 @@ public class SelectController {
     @FXML
     public Label labelStatus5;
 
-    public static MySeries selectedSeries;
+    private MySeries selectedSeries;
 
     public void initialize() {
         URL noImage = MainSeriesController.class.getResource("/resources/Pics/Alert/NoImageAvailable.png");
@@ -174,7 +178,7 @@ public class SelectController {
     public void backToMain() {
         try {
             Stage primaryStage = (Stage) labelStatus1.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml")));
             primaryStage.setTitle("Series Control Panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();

@@ -12,10 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,6 +32,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainSeriesController {
     @FXML
@@ -97,9 +98,9 @@ public class MainSeriesController {
             }
 
             //get Pixels of background on position of TableHeaders, choose if black or white has more contrast
-            setTextfillInvColor(labelWatching);
-            setTextfillInvColor(labelWaiting);
-            setTextfillInvColor(labelStarting);
+            setTextFillInvColor(labelWatching);
+            setTextFillInvColor(labelWaiting);
+            setTextFillInvColor(labelStarting);
 
             toController = null;
             ObservableList<MySeries> notStartedSeries = FXCollections.observableArrayList();
@@ -288,7 +289,7 @@ public class MainSeriesController {
         }
     }
 
-    private void setTextfillInvColor(Label label) {
+    private void setTextFillInvColor(Label label) {
         //get Pos (x is the far most left point; y the most far up point; not middle)
         List<Color> pixels = new ArrayList<>();
         for (int x = (int) label.getLayoutX(); x < (int) (label.getLayoutX() + label.getPrefWidth()); x++) {
@@ -311,7 +312,7 @@ public class MainSeriesController {
         int avgGreen = green / pixels.size();
         int avgBlue = blue / pixels.size();
 
-        //invert Color and set Textfill
+        //invert Color and set text fill
         Color color = new Color(avgRed, avgGreen, avgBlue);
         //String hexColor = getContrastBlackOrWhiteHex(color);
         String hexColor = getContrastColor(color);
@@ -453,7 +454,7 @@ public class MainSeriesController {
                 Image img = new Image(resource.toString());
 
                 Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-                Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/Information.fxml"));
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/Information.fxml")));
                 primaryStage.setTitle("Information about " + tableContinueWatching.getSelectionModel().getSelectedItem().getName());
                 primaryStage.getIcons().add(img);
                 primaryStage.setScene(new Scene(root));
@@ -474,9 +475,9 @@ public class MainSeriesController {
         //set state of series to 1 ("watching")
         if (tableStartWatching.getSelectionModel().getSelectedItem() != null) {
             List<MySeries> allSeries = MySeries.readData();
-            for (MySeries allSery : allSeries) {
-                if (allSery.equals(tableStartWatching.getSelectionModel().getSelectedItem())) {
-                    allSery.setUserState(1);
+            for (MySeries series : allSeries) {
+                if (series.equals(tableStartWatching.getSelectionModel().getSelectedItem())) {
+                    series.setUserState(1);
                     break;
                 }
             }
@@ -495,7 +496,7 @@ public class MainSeriesController {
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/FinishedSeries.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/FinishedSeries.fxml")));
             primaryStage.setTitle("All finished Series");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
@@ -516,7 +517,7 @@ public class MainSeriesController {
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformationSelector.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformationSelector.fxml")));
             primaryStage.setTitle("Advanced Information");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
@@ -537,7 +538,7 @@ public class MainSeriesController {
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/SearchSeries.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/SearchSeries.fxml")));
             primaryStage.setTitle("Search one of your series by attributes");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
@@ -557,7 +558,7 @@ public class MainSeriesController {
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainMovie.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/MainMovie.fxml")));
             primaryStage.setTitle("Movies Control Panel");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
@@ -578,7 +579,7 @@ public class MainSeriesController {
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/AddSeries.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/AddSeries.fxml")));
             primaryStage.setTitle("Add a new series");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
@@ -599,7 +600,7 @@ public class MainSeriesController {
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/DeleteSeries.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/DeleteSeries.fxml")));
             primaryStage.setTitle("Delete Series");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
@@ -654,7 +655,7 @@ public class MainSeriesController {
 
         final Task<Void> task = new Task<Void>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 for (MySeries series : allSeries) {
                     if (series.getStatus().equals(mode)) {
                         MySeries updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
@@ -710,7 +711,7 @@ public class MainSeriesController {
             Image img = new Image(resource.toString());
 
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/Settings.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/Settings.fxml")));
             primaryStage.setTitle("Settings");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));

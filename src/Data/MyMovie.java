@@ -5,7 +5,10 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
@@ -66,7 +69,8 @@ public class MyMovie {
         return false;
     }
 
-    public String getName() {
+    //as Movies are just Strings atm no method needs to get the name
+    private String getName() {
         return name;
     }
 

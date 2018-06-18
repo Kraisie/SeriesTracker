@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class AddMovieController {
 
@@ -32,7 +33,7 @@ public class AddMovieController {
     public void back() {
         try {
             Stage primaryStage = (Stage) buttonBack1.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainMovie.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/MainMovie.fxml")));
             primaryStage.setTitle("Movie Control Panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();

@@ -8,15 +8,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -156,7 +155,7 @@ public class SettingsController {
     public void back() {
         try {
             Stage primaryStage = (Stage) backButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml")));
             primaryStage.setTitle("Series Control Panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();

@@ -5,12 +5,12 @@
 * Added "Started"-Button to switch status of Series to "watching"
 * Added + and - buttons to increase or decrease the episode number (switches to next season episode 1 when highest episode reached of current season)
 * Added "All finished Series"-button to see a list of all series that got discontinued and that you watched all episodes of
-* Added Information-button to get informations like number of episodes, completion rate etc.
+* Added Information-button to get information like number of episodes, completion rate etc.
 * Added "Discontinued"-button to change a series with no more new episodes from "waiting" to "ended"
 * Added "New Episodes"-Button to add a new season to a series that had no more new episodes to watch
 * **FIRST KINDA RELEASE**
 * Added background pictures that change randomly when opening/going back to the MainMenu
-* Function to get high contrast for labels regarding the background pic (not thaaat good on some pictures)
+* Function to get high contrast for labels regarding the background pic (not that good on some pictures)
 * Linux-Support regarding `Paths` etc.
 * BackUp every 24 hours for example on an external drive (Path at the moment not changeable)
 * Added average Time of an episode to get wasted time on a series

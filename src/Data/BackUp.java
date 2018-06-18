@@ -6,14 +6,15 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Objects;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class BackUp {
 
-    private long lastSave;
-    private List<MySeries> series;
+    private final long lastSave;
+    private final List<MySeries> series;
 
     public BackUp() {
         this.lastSave = System.currentTimeMillis();
@@ -56,7 +57,7 @@ public class BackUp {
         if(settings != null) {
             if (Files.exists(settings.getPathBackUp())) {
                 BackUp backUp = readBackUp();
-                return (System.currentTimeMillis() - backUp.lastSave) >= 86400000L;
+                return (System.currentTimeMillis() - Objects.requireNonNull(backUp).lastSave) >= 86400000L;
             } else {
                 writeBackUp(new BackUp());
                 return false;

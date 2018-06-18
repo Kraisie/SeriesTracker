@@ -1,6 +1,6 @@
 package Data.TVDB;
 
-public class SeriesData {
+class SeriesData {
 
     private Series data;
     private JSONErrors errors;

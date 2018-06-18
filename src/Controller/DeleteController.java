@@ -13,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class DeleteController {
 
@@ -46,7 +47,7 @@ public class DeleteController {
     public void back() {
         try {
             Stage primaryStage = (Stage) buttonBack.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml")));
             primaryStage.setTitle("Series Control Panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();

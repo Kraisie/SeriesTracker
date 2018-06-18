@@ -7,11 +7,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class AddSeriesController {
 
@@ -33,7 +35,7 @@ public class AddSeriesController {
 
                     try {
                         Stage primaryStage = (Stage) buttonBack.getScene().getWindow();
-                        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/SelectFoundSeries.fxml"));
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/SelectFoundSeries.fxml")));
                         primaryStage.setTitle("Series Control Panel");
                         primaryStage.setScene(new Scene(root));
                         primaryStage.centerOnScreen();
@@ -59,7 +61,7 @@ public class AddSeriesController {
     public void back() {
         try {
             Stage primaryStage = (Stage) buttonBack.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml")));
             primaryStage.setTitle("Series Control Panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
