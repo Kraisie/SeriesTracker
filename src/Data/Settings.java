@@ -27,16 +27,7 @@ public class Settings {
     * AND GET THEM AS PATH IN THE SETTER WHILST SAVING THEM AS STRINGS
     */
 
-    //not used, can probably get deleted
-    private Settings(Path pathM, Path pathS, Path pathB, int backUpCycle) {
-        pathMovies = pathM.toString();
-        pathSeries = pathS.toString();
-        pathBackUp = pathB.toString();
-        this.backUpCycle = backUpCycle;
-    }
-
-    public Settings() {
-    }
+    public Settings() {}
 
     public static Settings readData() {
         String json;
@@ -102,7 +93,7 @@ public class Settings {
     }
 
     public void setStandardSettings() {
-        pathMovies = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json").toString();
+        pathMovies = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Movies.json").toString();
         pathSeries = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Series.json").toString();
         pathBackUp = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/BackUp.json").toString();
         backUpCycle = 1;

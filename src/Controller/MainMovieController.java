@@ -25,7 +25,7 @@ import java.util.Objects;
 public class MainMovieController {
 
     @FXML
-    MenuBar menuBar;
+    public MenuBar menuBar;
     @FXML
     public ImageView imageBackground;
     @FXML

@@ -39,6 +39,8 @@ java -jar SeriesTracker.jar
 
 ## Known Bugs
 * SearchSeries/AddSeries starts black
+* Switching from mainMenu to another Stage causes NPE for the MenuBar
+* CSS errors
 
 ## Think-Abouts
 * API for movies

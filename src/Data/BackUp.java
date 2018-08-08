@@ -54,17 +54,23 @@ public class BackUp {
     public static boolean checkOldBackUp() {
         Settings settings = Settings.readData();
 
-        if(settings != null) {
-            if (Files.exists(settings.getPathBackUp())) {
-                BackUp backUp = readBackUp();
-                return (System.currentTimeMillis() - Objects.requireNonNull(backUp).lastSave) >= 86400000L;
-            } else {
-                writeBackUp(new BackUp());
-                return false;
-            }
-        } else {
-            return false;   //CHANGE
+        if(settings == null) {
+            //shouldn't get here since Settings get created on start, but maybe the cheeky user deletes his settings
+            settings = new Settings();
+            settings.setStandardSettings();
+            Settings.writeData(settings);
         }
+
+        BackUp backUp = readBackUp();
+
+        //check if backUp exists
+        if(backUp == null) {
+            backUp = new BackUp();
+            BackUp.writeBackUp(backUp);
+        }
+
+        //return true if backUp is older than backUpCycle * 24 hours (ms) = x days
+        return (System.currentTimeMillis() - backUp.lastSave) >= settings.getBackUpCycle() * 86400000L;
     }
 
     public List<MySeries> getSeries() {

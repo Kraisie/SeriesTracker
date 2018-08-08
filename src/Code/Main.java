@@ -26,11 +26,12 @@ public class Main extends Application {
             Settings.writeData(settings);
         }
 
-        //Create BackUp if last BackUp is older than 24 hours
+        //Create BackUp if last BackUp is older than 24 hours/back up cycle in settings
         if (checkOldBackUp()) {
             writeBackUp(new BackUp());
         }
 
+        //open window
         URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
         Image img = new Image(resource.toString());
 

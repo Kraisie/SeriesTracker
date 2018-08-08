@@ -69,8 +69,8 @@ public class MyMovie {
         return false;
     }
 
-    //as Movies are just Strings atm no method needs to get the name
-    private String getName() {
+    //for Tables
+    public String getName() {
         return name;
     }
 

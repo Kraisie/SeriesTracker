@@ -97,7 +97,7 @@ public class MainSeriesController {
                 backgroundSet = true;
             }
 
-            //get Pixels of background on position of TableHeaders, choose if black or white has more contrast
+            //get Pixels of background on position of TableHeaders, choose background color
             setTextFillInvColor(labelWatching);
             setTextFillInvColor(labelWaiting);
             setTextFillInvColor(labelStarting);
@@ -106,8 +106,9 @@ public class MainSeriesController {
             ObservableList<MySeries> notStartedSeries = FXCollections.observableArrayList();
             ObservableList<MySeries> watchingSeries = FXCollections.observableArrayList();
             ObservableList<MySeries> waitNewEpisode = FXCollections.observableArrayList();
-            ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
+            List<MySeries> listEntries = MySeries.readData();
 
+            //Fill lists of series according to their Userstate, finished ones get ignored
             if (!listEntries.isEmpty()) {
                 for (MySeries listEntry : listEntries) {
                     switch (listEntry.getUserState()) {
@@ -149,46 +150,16 @@ public class MainSeriesController {
 
     private void setBackground() {
         //Images have to be 1052x632 for perfect fit
-        URL resource0 = MainSeriesController.class.getResource("/resources/Pics/Background/dexter.jpg");
-        Image img0 = new Image(resource0.toString());
-
-        URL resource1 = MainSeriesController.class.getResource("/resources/Pics/Background/GoT.jpg");
-        Image img1 = new Image(resource1.toString());
-
-        URL resource2 = MainSeriesController.class.getResource("/resources/Pics/Background/Lucifer.jpg");
-        Image img2 = new Image(resource2.toString());
-
-        URL resource3 = MainSeriesController.class.getResource("/resources/Pics/Background/mrRobot.jpg");
-        Image img3 = new Image(resource3.toString());
-
-        URL resource4 = MainSeriesController.class.getResource("/resources/Pics/Background/scrubs.jpg");
-        Image img4 = new Image(resource4.toString());
-
-        URL resource5 = MainSeriesController.class.getResource("/resources/Pics/Background/better-call-saul.jpg");
-        Image img5 = new Image(resource5.toString());
-
-        URL resource6 = MainSeriesController.class.getResource("/resources/Pics/Background/Supernatural.jpg");
-        Image img6 = new Image(resource6.toString());
-
-        URL resource7 = MainSeriesController.class.getResource("/resources/Pics/Background/breakingBad.jpg");
-        Image img7 = new Image(resource7.toString());
-
-        URL resource8 = MainSeriesController.class.getResource("/resources/Pics/Background/StrangerThings.jpg");
-        Image img8 = new Image(resource8.toString());
-
-        URL resource9 = MainSeriesController.class.getResource("/resources/Pics/Background/suits.jpg");
-        Image img9 = new Image(resource9.toString());
-
-        URL resource10 = MainSeriesController.class.getResource("/resources/Pics/Background/prisonBreak.jpg");
-        Image img10 = new Image(resource10.toString());
-
         int numberImages = 11;
         double random = Math.random() * numberImages;
         int rdm = (int) random;
 
         switch (rdm) {
             case 0:
+                URL resource0 = MainSeriesController.class.getResource("/resources/Pics/Background/dexter.jpg");
+                Image img0 = new Image(resource0.toString());
                 imageBackground.setImage(img0);
+
                 try {
                     InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/dexter.jpg");
                     bufImg = ImageIO.read(is);
@@ -197,7 +168,10 @@ public class MainSeriesController {
                 }
                 break;
             case 1:
+                URL resource1 = MainSeriesController.class.getResource("/resources/Pics/Background/GoT.jpg");
+                Image img1 = new Image(resource1.toString());
                 imageBackground.setImage(img1);
+
                 try {
                     InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/GoT.jpg");
                     bufImg = ImageIO.read(is);
@@ -206,7 +180,10 @@ public class MainSeriesController {
                 }
                 break;
             case 2:
+                URL resource2 = MainSeriesController.class.getResource("/resources/Pics/Background/Lucifer.jpg");
+                Image img2 = new Image(resource2.toString());
                 imageBackground.setImage(img2);
+
                 try {
                     InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/Lucifer.jpg");
                     bufImg = ImageIO.read(is);
@@ -215,7 +192,10 @@ public class MainSeriesController {
                 }
                 break;
             case 3:
+                URL resource3 = MainSeriesController.class.getResource("/resources/Pics/Background/mrRobot.jpg");
+                Image img3 = new Image(resource3.toString());
                 imageBackground.setImage(img3);
+
                 try {
                     InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/mrRobot.jpg");
                     bufImg = ImageIO.read(is);
@@ -224,7 +204,10 @@ public class MainSeriesController {
                 }
                 break;
             case 4:
+                URL resource4 = MainSeriesController.class.getResource("/resources/Pics/Background/scrubs.jpg");
+                Image img4 = new Image(resource4.toString());
                 imageBackground.setImage(img4);
+
                 try {
                     InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/scrubs.jpg");
                     bufImg = ImageIO.read(is);
@@ -233,7 +216,10 @@ public class MainSeriesController {
                 }
                 break;
             case 5:
+                URL resource5 = MainSeriesController.class.getResource("/resources/Pics/Background/better-call-saul.jpg");
+                Image img5 = new Image(resource5.toString());
                 imageBackground.setImage(img5);
+
                 try {
                     InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/better-call-saul.jpg");
                     bufImg = ImageIO.read(is);
@@ -242,7 +228,10 @@ public class MainSeriesController {
                 }
                 break;
             case 6:
+                URL resource6 = MainSeriesController.class.getResource("/resources/Pics/Background/Supernatural.jpg");
+                Image img6 = new Image(resource6.toString());
                 imageBackground.setImage(img6);
+
                 try {
                     InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/Supernatural.jpg");
                     bufImg = ImageIO.read(is);
@@ -251,7 +240,10 @@ public class MainSeriesController {
                 }
                 break;
             case 7:
+                URL resource7 = MainSeriesController.class.getResource("/resources/Pics/Background/breakingBad.jpg");
+                Image img7 = new Image(resource7.toString());
                 imageBackground.setImage(img7);
+
                 try {
                     InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/breakingBad.jpg");
                     bufImg = ImageIO.read(is);
@@ -260,7 +252,10 @@ public class MainSeriesController {
                 }
                 break;
             case 8:
+                URL resource8 = MainSeriesController.class.getResource("/resources/Pics/Background/StrangerThings.jpg");
+                Image img8 = new Image(resource8.toString());
                 imageBackground.setImage(img8);
+
                 try {
                     InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/StrangerThings.jpg");
                     bufImg = ImageIO.read(is);
@@ -269,7 +264,10 @@ public class MainSeriesController {
                 }
                 break;
             case 9:
+                URL resource9 = MainSeriesController.class.getResource("/resources/Pics/Background/suits.jpg");
+                Image img9 = new Image(resource9.toString());
                 imageBackground.setImage(img9);
+
                 try {
                     InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/suits.jpg");
                     bufImg = ImageIO.read(is);
@@ -278,7 +276,10 @@ public class MainSeriesController {
                 }
                 break;
             case 10:
+                URL resource10 = MainSeriesController.class.getResource("/resources/Pics/Background/prisonBreak.jpg");
+                Image img10 = new Image(resource10.toString());
                 imageBackground.setImage(img10);
+
                 try {
                     InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/prisonBreak.jpg");
                     bufImg = ImageIO.read(is);
@@ -327,6 +328,8 @@ public class MainSeriesController {
         double hue;
         float max;
         float min;
+
+        //get min and max of sRGB
         if (sRGB[0] >= sRGB[1] && sRGB[0] >= sRGB[2]) {
             max = sRGB[0];
             if (sRGB[1] >= sRGB[2]) {
@@ -350,6 +353,7 @@ public class MainSeriesController {
             }
         }
 
+        //use formula according to max value
         if (max == sRGB[0]) {
             hue = (sRGB[1] - sRGB[2]) / (max - min);
         } else if (max == sRGB[1]) {
@@ -360,6 +364,7 @@ public class MainSeriesController {
 
         hue = (60 * hue) % 360;
 
+        //Select color with highest contrast (values edited for default pictures)
         Color invColor;
         if (hue > 5 && hue <= 90) {                 //normal 46-90
             invColor = Color.yellow;
@@ -375,6 +380,7 @@ public class MainSeriesController {
             invColor = Color.red;
         }
 
+        //rgb to hex color
         String hexColor = Integer.toHexString(invColor.getRGB() & 0xffffff);
         if (hexColor.length() < 6) {
             hexColor = "000000".substring(0, 6 - hexColor.length()) + hexColor;
@@ -388,23 +394,29 @@ public class MainSeriesController {
         if (tableContinueWatching.getSelectionModel().getSelectedItem() != null) {
             List<MySeries> allSeries = MySeries.readData();
             for (MySeries series : allSeries) {
+                //selected Series found so set current episode to watched
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
                     series.getCurrent().setWatched(true);
+
                     if (series.hasNext()) {
+                        //if there is an episode after the current one check if it already aired
                         int index = series.getEpisodes().indexOf(series.getCurrent());
                         if (series.getEpisodes().get(index + 1).getFirstAired().equals("Not given!")) {
+                            //if next episode does not have an air date it is probably not released yet, so we need to wait for that
                             series.setUserState(2);
                             break;
                         } else {
+                            //if there is a date check if it is before today so it aired already. If not we have to wait for the episode to air
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                             LocalDate date = LocalDate.parse(series.getEpisodes().get(index + 1).getFirstAired(), formatter);
 
-                            if (!date.isBefore(LocalDate.now())) {
+                            if (date.isAfter(LocalDate.now())) {
                                 series.setUserState(2);
                                 break;
                             }
                         }
 
+                        //set current to next episode
                         series.setNewCurrent(series.getCurrent(), true);            //true = ++ ; false = --
                         break;
                     } else {
@@ -430,6 +442,7 @@ public class MainSeriesController {
             List<MySeries> allSeries = MySeries.readData();
             for (MySeries series : allSeries) {
                 if (series.equals(tableContinueWatching.getSelectionModel().getSelectedItem())) {
+                    //we can not go below 1.1, because of obvious reasons
                     if (series.getCurrent().getSeason() != 1 || series.getCurrent().getEpNumberOfSeason() != 1) {
                         series.setNewCurrent(series.getCurrent(), false);                      //true = ++ ; false = --
                         series.getCurrent().setWatched(false);
@@ -463,8 +476,6 @@ public class MainSeriesController {
                 primaryStage.show();
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (NullPointerException n) {
-                //when switching the scene MenuBar is null
             }
         } else {
             PopUp.error("Select a series you want to get information about!");
@@ -505,8 +516,6 @@ public class MainSeriesController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NullPointerException n) {
-            //when switching the scene MenuBar is null
         }
     }
 
@@ -526,8 +535,6 @@ public class MainSeriesController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NullPointerException n) {
-            //when switching the scene MenuBar is null
         }
     }
 
@@ -547,12 +554,11 @@ public class MainSeriesController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NullPointerException n) {
-            //when switching the scene MenuBar is null
         }
     }
 
     public void switchMode() {
+        //switch to movie mode
         try {
             URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
             Image img = new Image(resource.toString());
@@ -567,8 +573,6 @@ public class MainSeriesController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NullPointerException n) {
-            //when switching the scene MenuBar is null
         }
     }
 
@@ -588,8 +592,6 @@ public class MainSeriesController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NullPointerException n) {
-            //when switching the scene MenuBar is null
         }
     }
 
@@ -609,8 +611,6 @@ public class MainSeriesController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NullPointerException n) {
-            //when switching the scene MenuBar is null
         }
     }
 
@@ -720,13 +720,11 @@ public class MainSeriesController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NullPointerException n) {
-            //when switching the scene MenuBar is null
         }
     }
 
     public void showHowTo() {
-        String url = "https://github.com/leonfrisch/SeriesTracker/blob/master/README.md";
+        String url = "https://github.com/Kraisie/SeriesTracker/blob/master/README.md";
         String os = System.getProperty("os.name").toLowerCase();
         Runtime runtime = Runtime.getRuntime();
 
