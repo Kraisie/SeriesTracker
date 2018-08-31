@@ -38,9 +38,8 @@ java -jar SeriesTracker.jar
 * "Help" > "How to use this program" will bring you to this site
 
 ## Known Bugs
-* SearchSeries/AddSeries starts black
-* Switching from mainMenu to another Stage causes NPE for the MenuBar
-* CSS errors
+* SearchSeries/AddSeries starts black (Linux)
+* CSS errors (`java.lang.String cannot be cast to javafx.scene.paint.Color' while converting value for '-fx-background-color' from rule '*.scroll-bar:vertical' in stylesheet jar:file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jfxrt.jar!/com/sun/javafx/scene/control/skin/modena/modena.bss`)
 
 ## Think-Abouts
 * API for movies

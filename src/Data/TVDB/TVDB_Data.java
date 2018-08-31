@@ -165,14 +165,10 @@ public class TVDB_Data {
     }
 
     private static String getToken(String tokenJSON) {
-        tokenJSON = tokenJSON.replaceAll("\\{", "");
-        tokenJSON = tokenJSON.replaceAll("}", "");
-        tokenJSON = tokenJSON.replaceAll("\"", "");
-        tokenJSON = tokenJSON.replaceAll("token:", "");
-        tokenJSON = tokenJSON.replaceAll(" ", "");
-        tokenJSON = tokenJSON.replaceAll("\n", "");
+        Gson gson = new Gson();
+        Token token = gson.fromJson(tokenJSON, Token.class);
 
-        return tokenJSON;
+        return token.getToken();
     }
 
     private static SeriesSearchData searchPossibleSeries(String seriesName, String token, boolean german) {

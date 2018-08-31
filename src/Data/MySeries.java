@@ -70,6 +70,7 @@ public class MySeries {
                     LocalDate date = LocalDate.parse(series.getEpisodes().get(index + 1).getFirstAired(), formatter);
                     if (date.isBefore(LocalDate.now())) {
                         series.setUserState(1);
+                        series.setNewCurrent(series.getCurrent(), true);    //add 1 episode as we are changing from lat episode of a season to the first episode of a new season
                         break;
                     }
                 }
