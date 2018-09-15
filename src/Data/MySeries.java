@@ -5,8 +5,6 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,11 +41,13 @@ public class MySeries {
     public static List<MySeries> readData() {
         String json;
         Settings setting = Settings.readData();
+
         try {
             json = new String(Files.readAllBytes(setting.getPathSeries()));
         } catch (IOException e) {
             return new ArrayList<>();
         }
+
         Gson gson = new Gson();
         MySeries[] entries = gson.fromJson(json, MySeries[].class);
 
@@ -55,26 +55,10 @@ public class MySeries {
     }
 
     public static void writeData(List<MySeries> allEntries) {
-        //Delete all 0/null episodes (if season or episode = null/0)
-        //and Sort episodes
+        //Delete all 0/null episodes (if season or episode = null/0) and sort episodes by season and episode number
         for (MySeries series : allEntries) {
             Episode.deleteNull(series.episodes);
             Episode.sort(series.episodes);
-
-            //if there are episodes after current in a series with userState 2 and a date before today set UserState to 1
-            if (series.getUserState() == 2) {
-                int index = series.getEpisodes().indexOf(series.getCurrent());
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-                if (series.hasNext() && !series.getEpisodes().get(index + 1).getFirstAired().equals("Not given!")) {
-                    LocalDate date = LocalDate.parse(series.getEpisodes().get(index + 1).getFirstAired(), formatter);
-                    if (date.isBefore(LocalDate.now())) {
-                        series.setUserState(1);
-                        series.setNewCurrent(series.getCurrent(), true);    //add 1 episode as we are changing from lat episode of a season to the first episode of a new season
-                        break;
-                    }
-                }
-            }
         }
 
         //sort series by name
@@ -83,6 +67,7 @@ public class MySeries {
         Gson gson = new Gson();
         String json = gson.toJson(allEntries);
         Settings setting = Settings.readData();
+
         try {
             Files.write(setting.getPathSeries(), json.getBytes(), TRUNCATE_EXISTING, CREATE);
         } catch (IOException e) {

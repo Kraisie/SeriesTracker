@@ -2,6 +2,7 @@ package Code;
 
 import Controller.MainSeriesController;
 import Data.BackUp;
+import Data.MySeries;
 import Data.Settings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static Data.BackUp.checkOldBackUp;
 import static Data.BackUp.writeBackUp;
@@ -31,7 +35,34 @@ public class Main extends Application {
             writeBackUp(new BackUp());
         }
 
-        //open window
+        //check for newly aired episodes
+        List<MySeries> allEntries = MySeries.readData();
+        boolean updated = false;
+
+        for (MySeries series : allEntries) {
+            //if there are episodes after current in a series with userState 2 and a date before today or today set UserState to 1
+            if (series.getUserState() == 2) {
+                int index = series.getEpisodes().indexOf(series.getCurrent());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+                if (series.hasNext() && !series.getEpisodes().get(index + 1).getFirstAired().equals("Not given!")) {
+                    LocalDate date = LocalDate.parse(series.getEpisodes().get(index + 1).getFirstAired(), formatter);
+                    if (date.isBefore(LocalDate.now())) {
+                        series.setUserState(1);
+                        series.setNewCurrent(series.getCurrent(), true);    //add 1 episode as we are changing from last episode of a season to the first episode of a new season
+                        updated = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        //save changes if necessary
+        if(updated) {
+            MySeries.writeData(allEntries);
+        }
+
+        //open stage
         URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
         Image img = new Image(resource.toString());
 
