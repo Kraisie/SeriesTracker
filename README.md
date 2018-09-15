@@ -5,7 +5,7 @@ All data is provided by TheTvdb.com, a database of series.
 
 ### Installation
 * You just need Java 8 or higher for this program: https://java.com/de/download/manual.jsp
-* And the `.jar`-File of the SeriesTracker: https://zabastinkt.tk/download/SeriesTracker.jar
+* And the `.jar`-File of the SeriesTracker: https://github.com/Kraisie/SeriesTracker/releases
 
 ### Start
 Start the `.jar` via Commandline, or via double-click / right-click "Open with"
