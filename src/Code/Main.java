@@ -44,6 +44,7 @@ public class Main extends Application {
                 //check if the TVDB state changed to 'Continuing'
                 if(series.getStatus().equals("Continuing")) {
                     series.setUserState(2);
+                    updated = true;
                 }
             }
 
