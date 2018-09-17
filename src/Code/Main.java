@@ -40,6 +40,13 @@ public class Main extends Application {
         boolean updated = false;
 
         for (MySeries series : allEntries) {
+            if(series.getUserState() == 3) {
+                //check if the TVDB state changed to 'Continuing'
+                if(series.getStatus().equals("Continuing")) {
+                    series.setUserState(2);
+                }
+            }
+
             //if there are episodes after current in a series with userState 2 and a date before today or today set UserState to 1
             if (series.getUserState() == 2) {
                 int index = series.getEpisodes().indexOf(series.getCurrent());
