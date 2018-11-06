@@ -25,9 +25,13 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -150,143 +154,41 @@ public class MainSeriesController {
 
     private void setBackground() {
         //Images have to be 1052x632 for perfect fit
-        int numberImages = 11;
-        double random = Math.random() * numberImages;
-        int rdm = (int) random;
+        File[] files = new File[0];
+        double random;
 
-        switch (rdm) {
-            case 0:
-                URL resource0 = MainSeriesController.class.getResource("/resources/Pics/Background/dexter.jpg");
-                Image img0 = new Image(resource0.toString());
-                imageBackground.setImage(img0);
+        //get all png/jpg files of resource folder
+        File folder = null;
+        try {
+            //TODO: Fix crash when no files in Backgrounds folder
+            folder = new File(MainSeriesController.class.getResource("/resources/Pics/Background/").toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+
+        if (folder != null) {
+            files = folder.listFiles((dir, name) -> (name.toLowerCase().endsWith(".png") || name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".jpeg")));
+        }
+
+        if (files != null) {
+            try {
+                URL resource;
+                random = Math.random() * files.length;
+                resource = files[(int) random].toURI().toURL();
+
+                Image img = new Image(resource.toString());
+                imageBackground.setImage(img);
 
                 try {
-                    InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/dexter.jpg");
+                    InputStream is = new FileInputStream(files[(int) random]);
                     bufImg = ImageIO.read(is);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                break;
-            case 1:
-                URL resource1 = MainSeriesController.class.getResource("/resources/Pics/Background/GoT.jpg");
-                Image img1 = new Image(resource1.toString());
-                imageBackground.setImage(img1);
-
-                try {
-                    InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/GoT.jpg");
-                    bufImg = ImageIO.read(is);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 2:
-                URL resource2 = MainSeriesController.class.getResource("/resources/Pics/Background/Lucifer.jpg");
-                Image img2 = new Image(resource2.toString());
-                imageBackground.setImage(img2);
-
-                try {
-                    InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/Lucifer.jpg");
-                    bufImg = ImageIO.read(is);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 3:
-                URL resource3 = MainSeriesController.class.getResource("/resources/Pics/Background/mrRobot.jpg");
-                Image img3 = new Image(resource3.toString());
-                imageBackground.setImage(img3);
-
-                try {
-                    InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/mrRobot.jpg");
-                    bufImg = ImageIO.read(is);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 4:
-                URL resource4 = MainSeriesController.class.getResource("/resources/Pics/Background/scrubs.jpg");
-                Image img4 = new Image(resource4.toString());
-                imageBackground.setImage(img4);
-
-                try {
-                    InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/scrubs.jpg");
-                    bufImg = ImageIO.read(is);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 5:
-                URL resource5 = MainSeriesController.class.getResource("/resources/Pics/Background/better-call-saul.jpg");
-                Image img5 = new Image(resource5.toString());
-                imageBackground.setImage(img5);
-
-                try {
-                    InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/better-call-saul.jpg");
-                    bufImg = ImageIO.read(is);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 6:
-                URL resource6 = MainSeriesController.class.getResource("/resources/Pics/Background/Supernatural.jpg");
-                Image img6 = new Image(resource6.toString());
-                imageBackground.setImage(img6);
-
-                try {
-                    InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/Supernatural.jpg");
-                    bufImg = ImageIO.read(is);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 7:
-                URL resource7 = MainSeriesController.class.getResource("/resources/Pics/Background/breakingBad.jpg");
-                Image img7 = new Image(resource7.toString());
-                imageBackground.setImage(img7);
-
-                try {
-                    InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/breakingBad.jpg");
-                    bufImg = ImageIO.read(is);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 8:
-                URL resource8 = MainSeriesController.class.getResource("/resources/Pics/Background/StrangerThings.jpg");
-                Image img8 = new Image(resource8.toString());
-                imageBackground.setImage(img8);
-
-                try {
-                    InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/StrangerThings.jpg");
-                    bufImg = ImageIO.read(is);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 9:
-                URL resource9 = MainSeriesController.class.getResource("/resources/Pics/Background/suits.jpg");
-                Image img9 = new Image(resource9.toString());
-                imageBackground.setImage(img9);
-
-                try {
-                    InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/suits.jpg");
-                    bufImg = ImageIO.read(is);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 10:
-                URL resource10 = MainSeriesController.class.getResource("/resources/Pics/Background/prisonBreak.jpg");
-                Image img10 = new Image(resource10.toString());
-                imageBackground.setImage(img10);
-
-                try {
-                    InputStream is = MainSeriesController.class.getResourceAsStream("/resources/Pics/Background/prisonBreak.jpg");
-                    bufImg = ImageIO.read(is);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
