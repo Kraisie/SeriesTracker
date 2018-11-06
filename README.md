@@ -35,10 +35,12 @@ java -jar SeriesTracker.jar
     * You can still update the discontinued series explicitly with "Update" > "Update ended Series"
 * "Settings" > "Open Settings" will open the settings to choose the file locations and BackUp frequency 
 * "Help" > "How to use this program" will bring you to this site
+* You can use custom backgrounds in the main menu. Just open the `.jar` with an archive manager like WinRAR or 7zip and place your `png`, `jpg`, or `jpeg` in `/src/resources/Backgrounds`. The recommended size is 1052x632px due to the fixed window size.
 
 ## Known Bugs
 * SearchSeries/AddSeries starts black (Linux)
 * CSS errors (`java.lang.String cannot be cast to javafx.scene.paint.Color' while converting value for '-fx-background-color' from rule '*.scroll-bar:vertical' in stylesheet jar:file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jfxrt.jar!/com/sun/javafx/scene/control/skin/modena/modena.bss`)
+* Crash if no pictures in background folder
 
 ## Think-Abouts
 * Remove movies as it gets far too chaotic when adding every single movie (even when it is me who does not watch a lot of movies)
@@ -46,3 +48,8 @@ java -jar SeriesTracker.jar
     * If movies stay implement settings for movies file location and maybe an API
 * Custom Pictures in MainMenu
 * Beautify some scenes
+* Last update label or automatic updates
+    * Automatic updates may take a while as TVDB servers are not that fast
+* Center popups and new scenes depending on the old scenes and not on the screen itself
+* Scroll through lists using keys (e.g. jump to first series that starts with a "T" when pressing 'T' on the keyboard)
+* Sort series regarding the amount of episodes to watch until finished/waiting
