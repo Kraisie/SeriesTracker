@@ -467,7 +467,7 @@ public class MainSeriesController {
                 Image img = new Image(resource.toString());
 
                 Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/Information.fxml")));
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformation.fxml")));
                 primaryStage.setTitle("Information about " + tableContinueWatching.getSelectionModel().getSelectedItem().getName());
                 primaryStage.getIcons().add(img);
                 primaryStage.setScene(new Scene(root));
@@ -509,25 +509,6 @@ public class MainSeriesController {
             Stage primaryStage = (Stage) menuBar.getScene().getWindow();
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/FinishedSeries.fxml")));
             primaryStage.setTitle("All finished Series");
-            primaryStage.getIcons().add(img);
-            primaryStage.setScene(new Scene(root));
-            primaryStage.centerOnScreen();
-            primaryStage.setResizable(false);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void displayAdvancedInformation() {
-        //open popup to select a series
-        try {
-            URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
-            Image img = new Image(resource.toString());
-
-            Stage primaryStage = (Stage) menuBar.getScene().getWindow();
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformationSelector.fxml")));
-            primaryStage.setTitle("Advanced Information");
             primaryStage.getIcons().add(img);
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();

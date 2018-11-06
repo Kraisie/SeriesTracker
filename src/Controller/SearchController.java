@@ -58,8 +58,8 @@ public class SearchController {
     public static List<MySeries> tmpMatches;
 
     public void initialize() {
-        if (InformationController.tmpMatches != null) {
-            tmpMatches = InformationController.tmpMatches;
+        if (AdvancedInformationController.tmpMatches != null) {
+            tmpMatches = AdvancedInformationController.tmpMatches;
 
             for (MySeries series : tmpMatches) {
                 foundMatches.getItems().add(series.getName());
@@ -213,7 +213,7 @@ public class SearchController {
     }
 
     public void reSearch() {
-        InformationController.tmpMatches = null;
+        AdvancedInformationController.tmpMatches = null;
         foundMatches.getItems().clear();
         mode = false;
         initialize();
@@ -235,7 +235,7 @@ public class SearchController {
                 Image img = new Image(resource.toString());
 
                 Stage primaryStage = (Stage) infoButton.getScene().getWindow();
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/Information.fxml")));
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformation.fxml")));
                 primaryStage.setTitle("Information about " + foundMatches.getSelectionModel().getSelectedItem());
                 primaryStage.getIcons().add(img);
                 primaryStage.setScene(new Scene(root));
@@ -251,6 +251,8 @@ public class SearchController {
     }
 
     public void close() {
+        AdvancedInformationController.tmpMatches = null;
+
         try {
             Stage primaryStage = (Stage) closeButton.getScene().getWindow();
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml")));

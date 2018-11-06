@@ -62,13 +62,25 @@ public class AdvancedInformationController {
     private int cE;
     private MySeries series;
     private boolean first = true;
+    private boolean main;
+    public static List<MySeries> tmpMatches;
 
     public void initialize() {
-        if (first) {
-            tmp = AdvancedInformationSelectionController.toController.getCurrent().getSeason() + "." + AdvancedInformationSelectionController.toController.getCurrent().getEpNumberOfSeason();
-            cS = AdvancedInformationSelectionController.toController.getCurrent().getSeason();
-            cE = AdvancedInformationSelectionController.toController.getCurrent().getEpNumberOfSeason();
-            series = AdvancedInformationSelectionController.toController;
+        MySeries tmpSeries = null;
+        if (MainSeriesController.toController != null) {
+            tmpSeries = MainSeriesController.toController;
+            main = true;
+        } else if (SearchController.toController != null) {
+            tmpSeries = SearchController.toController;
+            tmpMatches = SearchController.tmpMatches;
+            main = false;
+        }
+
+        if (first && tmpSeries != null) {
+            tmp = tmpSeries.getCurrent().getSeason() + "." + tmpSeries.getCurrent().getEpNumberOfSeason();
+            cS = tmpSeries.getCurrent().getSeason();
+            cE = tmpSeries.getCurrent().getEpNumberOfSeason();
+            series = tmpSeries;
             first = false;
         }
 
@@ -81,13 +93,13 @@ public class AdvancedInformationController {
         labelSeriesName.setText(series.getName());
         labelStatusInfo.setText(series.getStatus());
         labelRuntimeInfo.setText(String.valueOf(series.getRuntime()) + " minutes");
-        labelWastedInfo.setText(MySeries.wastedMinutesToString(AdvancedInformationSelectionController.toController.getWastedTime()));
+        labelWastedInfo.setText(MySeries.wastedMinutesToString(tmpSeries.getWastedTime()));
         labelRatingInfo.setText(String.valueOf(series.getRating()) + " / " + "10");
-        labelCSeasonInfo.setText(String.valueOf(AdvancedInformationSelectionController.toController.getCurrent().getSeason()) + " / " + series.getNumberOfSeasons());
-        labelCEpisodeInfo.setText(String.valueOf(AdvancedInformationSelectionController.toController.getCurrent().getEpNumberOfSeason()) + " / " + series.getSumEpisodesOfSeason(AdvancedInformationSelectionController.toController.getCurrent()));
+        labelCSeasonInfo.setText(String.valueOf(tmpSeries.getCurrent().getSeason()) + " / " + series.getNumberOfSeasons());
+        labelCEpisodeInfo.setText(String.valueOf(tmpSeries.getCurrent().getEpNumberOfSeason()) + " / " + series.getSumEpisodesOfSeason(tmpSeries.getCurrent()));
         labelNrSeasonInfo.setText(String.valueOf(series.getNumberOfSeasons()));
         labelNrEpisodeInfo.setText(String.valueOf(series.getSumEpisodes()));
-        labelCompletionInfo.setText(String.format("%.2f", AdvancedInformationSelectionController.toController.getCompletionRate()) + "%");
+        labelCompletionInfo.setText(String.format("%.2f", tmpSeries.getCompletionRate()) + "%");
         overviewSeries.setText(series.getDescription());
 
         labelEpOfSeason.setText(series.getCurrent().getSeason() + "." + series.getCurrent().getEpNumberOfSeason());
@@ -143,13 +155,19 @@ public class AdvancedInformationController {
 
     public void back() {
         try {
-            Stage primaryStage = (Stage) backButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/AdvancedInformationSelector.fxml")));
-            primaryStage.setTitle("Series Control Panel");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.centerOnScreen();
-            primaryStage.setResizable(false);
-            primaryStage.show();
+            if (main) {
+                backToMain();
+            } else {
+                Stage primaryStage = (Stage) backButton.getScene().getWindow();
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/SearchSeries.fxml")));
+                primaryStage.setTitle("Search one of your series by attributes");
+                primaryStage.setScene(new Scene(root));
+                primaryStage.centerOnScreen();
+                primaryStage.setResizable(false);
+                primaryStage.show();
+            }
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -157,6 +175,7 @@ public class AdvancedInformationController {
 
     public void backToMain() {
         try {
+            tmpMatches = null;
             Stage primaryStage = (Stage) backMenuButton.getScene().getWindow();
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/FXML/MainSeries.fxml")));
             primaryStage.setTitle("Series Control Panel");

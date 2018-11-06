@@ -26,7 +26,6 @@ java -jar SeriesTracker.jar
 * "Mode" > "Close", or the OS specific close button will close the program
 
 ##### Advanced
-* Click on "Mode" > "Advanced Information" and select a series to display advanced information
 * Click on "Mode" > "Search Series" to search for a series in your data by some parameters.
     * Derivation means that if the duration you want to search for is 20 minutes and you select a derivation of 5 minutes the search will include series with a duration per episode of 15 to 25 minutes.
     * Userstates are symbolised by the tables of the main menu
