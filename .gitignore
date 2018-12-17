@@ -70,7 +70,7 @@ local.properties
 # Scala IDE specific (Scala & Java development for Eclipse)
 .cache-main
 .scala_dependencies
-.worksheet
+.worksheetCatch empty series (no episodes on TVDB)
 
 ### IntelliJ IDEA ###
 .idea
@@ -98,3 +98,6 @@ nbdist/
 
 ### pictures ###
 Background/
+
+### fallback image ###
+fallback.jpg

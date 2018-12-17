@@ -8,6 +8,7 @@ import Data.TVDB.TVDB_Data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,7 +31,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -156,41 +156,49 @@ public class MainSeriesController {
 
     private void setBackground() {
         //Images have to be 1052x632 for perfect fit
-        File[] files = new File[0];
+        File[] files;
         double random;
 
         //get all png/jpg files of resource folder
         File folder = null;
         try {
-            //TODO: Fix crash when no files in Backgrounds folder
+            //if the Background folder does not exist create a new one, if it does nothing happens
+            File picsFolder = new File(MainSeriesController.class.getResource("/resources/Pics/").toURI());
+            boolean createdDir = new File(picsFolder.getAbsolutePath() + "/Background/").mkdir();
+
+            //if we created the directory there is no picture in it and if it exists there should be pictures in it
+            if(createdDir || (Objects.requireNonNull(new File(MainSeriesController.class.getResource("/resources/Pics/Background/").toURI()).listFiles())).length == 0) {
+                throw new Exception();
+            }
+
             folder = new File(MainSeriesController.class.getResource("/resources/Pics/Background/").toURI());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-
-        if (folder != null) {
             files = folder.listFiles((dir, name) -> (name.toLowerCase().endsWith(".png") || name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".jpeg")));
-        }
 
-        if (files != null) {
-            try {
-                URL resource;
+            if (files != null && files.length != 0) {
                 random = Math.random() * files.length;
-                resource = files[(int) random].toURI().toURL();
-
-                Image img = new Image(resource.toString());
-                imageBackground.setImage(img);
-
                 try {
                     InputStream is = new FileInputStream(files[(int) random]);
                     bufImg = ImageIO.read(is);
+                    imageBackground.setImage(SwingFXUtils.toFXImage(bufImg, null));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            //Fallback Image, hope it stays online for a while
+            setFallbackImage();
+        }
+    }
+
+    private void setFallbackImage() {
+        try {
+            URL url = new URL("https://i.imgur.com/bzUtL9e.jpg");
+            bufImg = ImageIO.read(url);
+            File file = new File("fallback.jpg");
+            ImageIO.write(bufImg, "jpg", file);
+            imageBackground.setImage(SwingFXUtils.toFXImage(bufImg, null));
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
     }
 

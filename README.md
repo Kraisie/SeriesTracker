@@ -40,13 +40,11 @@ java -jar SeriesTracker.jar
 ## Known Bugs
 * SearchSeries/AddSeries starts black (Linux)
 * CSS errors (`java.lang.String cannot be cast to javafx.scene.paint.Color' while converting value for '-fx-background-color' from rule '*.scroll-bar:vertical' in stylesheet jar:file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jfxrt.jar!/com/sun/javafx/scene/control/skin/modena/modena.bss`)
-* Crash if no pictures in background folder
 
 ## Think-Abouts
 * Remove movies as it gets far too chaotic when adding every single movie (even when it is me who does not watch a lot of movies)
     * Maybe just add Movies that you want to see in the future and delete them after you saw them (keep them in json?)
     * If movies stay implement settings for movies file location and maybe an API
-* Custom Pictures in MainMenu
 * Beautify some scenes
 * Last update label or automatic updates
     * Automatic updates may take a while as TVDB servers are not that fast
