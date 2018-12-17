@@ -244,9 +244,17 @@ public class TVDB_Data {
     private static List<Episode> getEpisodes(String token, int id, int currentSeason, int currentEpisode) {
         String episodesJSON = requestToString("getEpisodes", token, String.valueOf(id), false, 1);
 
-        Gson gson = new Gson();
-        SeriesEpisodes episodes = gson.fromJson(episodesJSON, SeriesEpisodes.class);
-        List<Episode> allEpisodes = setFields(episodes);
+        //{"Error":"No results for your query: map[...]} = No episodes listed in database --> NPE
+        Gson gson = null;
+        SeriesEpisodes episodes = null;
+        List<Episode> allEpisodes = null;
+        if (!episodesJSON.startsWith("{\"Error\":\"No results for your query:")) {
+            gson = new Gson();
+            episodes = gson.fromJson(episodesJSON, SeriesEpisodes.class);
+            allEpisodes = setFields(episodes);
+        } else {
+            return new ArrayList<>();
+        }
 
         for (int i = 2; i <= episodes.getLinks().getLast(); i++) {
             episodesJSON = requestToString("getEpisodes", token, String.valueOf(id), false, i);

@@ -45,10 +45,16 @@ public class AddSeriesController {
                         e.printStackTrace();
                     }
                 } else {
-                    allSeries.add(TVDB_Data.getUpdate(possibleSeries.get(0).getTvdbID(), 0, 1, 1));
-                    MySeries.writeData(allSeries);
-                    PopUp.show(possibleSeries.get(0).getName() + " added.");
-                    back();
+                    //might be an empty series (uncommon but happens)
+                    possibleSeries.set(0, TVDB_Data.getUpdate(possibleSeries.get(0).getTvdbID(), 0, 1, 1));
+                    if (possibleSeries.get(0).getEpisodes().size() >= 1) {
+                        allSeries.add(possibleSeries.get(0));
+                        MySeries.writeData(allSeries);
+                        PopUp.show(possibleSeries.get(0).getName() + " added.");
+                        back();
+                    } else {
+                        PopUp.error("Major error! Contact @Kraisie with the series name.");
+                    }
                 }
             } else {
                 PopUp.error("Could not find \"" + nameTVDB.getText() + "\"!");
