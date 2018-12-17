@@ -73,20 +73,20 @@ public class SelectController {
         Image noImg = new Image(noImage.toString());
 
         if (AddSeriesController.foundSeries.size() >= 2) {
-            image1.setImage(noImg);
-            image2.setImage(noImg);
-
             if (!AddSeriesController.foundSeries.get(0).getBanner().isEmpty()) {
                 Image img1 = TVDB_Data.getBannerImage(AddSeriesController.foundSeries.get(0).getBanner());
-                if (img1 != null) {
-                    image1.setImage(img1);
-                }
+                image1.setImage(img1);
+            } else {
+                image1.setImage(noImg);
+                centerImage(image1);
             }
+
             if (!AddSeriesController.foundSeries.get(1).getBanner().isEmpty()) {
                 Image img2 = TVDB_Data.getBannerImage(AddSeriesController.foundSeries.get(1).getBanner());
-                if (img2 != null) {
-                    image2.setImage(img2);
-                }
+                image2.setImage(img2);
+            } else {
+                image2.setImage(noImg);
+                centerImage(image2);
             }
 
             labelName1.setText(AddSeriesController.foundSeries.get(0).getName());
@@ -99,14 +99,14 @@ public class SelectController {
             radio4.setDisable(true);
             radio5.setDisable(true);
         }
-        if (AddSeriesController.foundSeries.size() >= 3) {
-            image3.setImage(noImg);
 
+        if (AddSeriesController.foundSeries.size() >= 3) {
             if (!AddSeriesController.foundSeries.get(2).getBanner().isEmpty()) {
                 Image img3 = TVDB_Data.getBannerImage(AddSeriesController.foundSeries.get(2).getBanner());
-                if (img3 != null) {
-                    image3.setImage(img3);
-                }
+                image3.setImage(img3);
+            } else {
+                image3.setImage(noImg);
+                centerImage(image3);
             }
 
             labelName3.setText(AddSeriesController.foundSeries.get(2).getName());
@@ -114,14 +114,14 @@ public class SelectController {
 
             radio3.setDisable(false);
         }
-        if (AddSeriesController.foundSeries.size() >= 4) {
-            image4.setImage(noImg);
 
+        if (AddSeriesController.foundSeries.size() >= 4) {
             if (!AddSeriesController.foundSeries.get(3).getBanner().isEmpty()) {
                 Image img4 = TVDB_Data.getBannerImage(AddSeriesController.foundSeries.get(3).getBanner());
-                if (img4 != null) {
-                    image4.setImage(img4);
-                }
+                image4.setImage(img4);
+            } else {
+                image4.setImage(noImg);
+                centerImage(image4);
             }
 
             labelName4.setText(AddSeriesController.foundSeries.get(3).getName());
@@ -129,14 +129,14 @@ public class SelectController {
 
             radio4.setDisable(false);
         }
-        if (AddSeriesController.foundSeries.size() >= 5) {
-            image5.setImage(noImg);
 
+        if (AddSeriesController.foundSeries.size() >= 5) {
             if (!AddSeriesController.foundSeries.get(4).getBanner().isEmpty()) {
                 Image img5 = TVDB_Data.getBannerImage(AddSeriesController.foundSeries.get(4).getBanner());
-                if (img5 != null) {
-                    image5.setImage(img5);
-                }
+                image5.setImage(img5);
+            } else {
+                image5.setImage(noImg);
+                centerImage(image5);
             }
 
             labelName5.setText(AddSeriesController.foundSeries.get(4).getName());
@@ -173,6 +173,28 @@ public class SelectController {
         }
 
         backToMain();
+    }
+
+    private void centerImage(ImageView imageView) {
+        Image img = imageView.getImage();
+
+        if (img != null) {
+            double ratioX = imageView.getFitWidth() / img.getWidth();
+            double ratioY = imageView.getFitHeight() / img.getHeight();
+
+            double reducCoeff = 0;
+            if (ratioX >= ratioY) {
+                reducCoeff = ratioY;
+            } else {
+                reducCoeff = ratioX;
+            }
+
+            double width = img.getWidth() * reducCoeff;
+            double height = img.getHeight() * reducCoeff;
+
+            imageView.setX((imageView.getFitWidth() - width) / 2);
+            imageView.setY((imageView.getFitHeight() - height) / 2);
+        }
     }
 
     public void backToMain() {
