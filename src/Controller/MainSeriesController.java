@@ -25,18 +25,20 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static Code.Main.checkAirDates;
 
 public class MainSeriesController {
     @FXML
@@ -89,7 +91,7 @@ public class MainSeriesController {
     public ProgressIndicator progressIndicator;
 
     private BufferedImage bufImg;
-    public static MySeries toController;
+    static MySeries toController;
     private boolean backgroundSet = false;
     private boolean updating = false;
 
@@ -553,6 +555,10 @@ public class MainSeriesController {
                 }
 
                 MySeries.writeData(updatedAllSeries);
+
+                //recheck dates as they may updated
+                checkAirDates();
+
                 finishedUpdate();
                 updating = false;
                 return null;

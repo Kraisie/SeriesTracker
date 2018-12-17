@@ -36,13 +36,28 @@ public class Main extends Application {
         }
 
         //check for newly aired episodes
+        checkAirDates();
+
+        //open stage
+        URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
+        Image img = new Image(resource.toString());
+
+        Parent root = FXMLLoader.load(getClass().getResource("/resources/FXML/MainSeries.fxml"));
+        primaryStage.setTitle("Series Control Panel");
+        primaryStage.setResizable(false);
+        primaryStage.getIcons().add(img);
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
+    public static void checkAirDates() {
         List<MySeries> allEntries = MySeries.readData();
         boolean updated = false;
 
         for (MySeries series : allEntries) {
-            if(series.getUserState() == 3) {
+            if (series.getUserState() == 3) {
                 //check if the TVDB state changed to 'Continuing'
-                if(series.getStatus().equals("Continuing")) {
+                if (series.getStatus().equals("Continuing")) {
                     series.setUserState(2);
                     updated = true;
                 }
@@ -66,20 +81,9 @@ public class Main extends Application {
         }
 
         //save changes if necessary
-        if(updated) {
+        if (updated) {
             MySeries.writeData(allEntries);
         }
-
-        //open stage
-        URL resource = MainSeriesController.class.getResource("/resources/Pics/Icon/series.png");
-        Image img = new Image(resource.toString());
-
-        Parent root = FXMLLoader.load(getClass().getResource("/resources/FXML/MainSeries.fxml"));
-        primaryStage.setTitle("Series Control Panel");
-        primaryStage.setResizable(false);
-        primaryStage.getIcons().add(img);
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
     }
 
 
