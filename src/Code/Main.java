@@ -60,6 +60,8 @@ public class Main extends Application {
                 if (series.getStatus().equals("Continuing")) {
                     series.setUserState(2);
                     updated = true;
+
+                    PopUp.show(series.getName() + " got some new content!");
                 }
             }
 
