@@ -4,7 +4,7 @@ A program to keep track of all your series you are currently watching, you plan 
 All data is provided by TheTvdb.com, a database of series.
 
 ### Installation
-* You just need Java 8 or higher for this program: https://java.com/de/download/manual.jsp
+* You just need Java 8 for this program: https://java.com/de/download/manual.jsp
 * And the `.jar`-File of the SeriesTracker: https://github.com/Kraisie/SeriesTracker/releases
 
 ### Start
@@ -18,11 +18,11 @@ java -jar SeriesTracker.jar
 ##### Basic
 * Click on "Edit" > "Add a new Series" and type in the series name. If you can choose between multiple series select the one that is your desired one. It should bring you back to the MainMenu and show that series in the right table
 * To start watching a series select the series in the right table and click on the button "Started series". The series will now be displayed in the left table and show you which episode you are currently at (season 1, episode 1)
-* After you watched an episode you can select the series in the left table and click on the "+" button to increment the episode of the season. If you have misclicked you can also press the "-" button do decrease the episode you are currently at. If you saw the last episode of a season the season number will increase and the episode will be at 1 again
+* After you watched an episode you can select the series in the left table and click on the "+" button to increment the episode of the season. If you have misclicked you can also press the "-" button to decrease the episode you are currently at. If you saw the last episode of a season the season number will increase and the episode will be at 1 again
 * If you want to see how many seasons or episodes there are and how close you are to the end, or even how much time you invested in watching the series just select the series in the left table and click on the "Information" button.
 * When there are no new episodes anymore the series will now be displayed in the middle as long as there are no new episodes. They will get back into the left table when there are new ones
 * When you finished the series and there won't be any new episodes the series will not be displayed anymore in those three tables. Instead it will just be shown when you click on the "All finished series" button
-* If you do not like a series and do not want to have it in your tracker just click on "Edit" > "Delete a series" and select the on you want to delete
+* If you do not like a series and do not want to have it in your tracker just click on "Edit" > "Delete a series" and select the one you want to delete
 * "Mode" > "Close", or the OS specific close button will close the program
 
 ##### Advanced

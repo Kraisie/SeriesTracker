@@ -50,4 +50,5 @@
     * Enhancement of the selection screen
     * Fixed crash when no background picture is available
     * Main menu now uses a fallback image if there are none in the folder
+    * Series not available on TVDB are now not failing the update anymore
 

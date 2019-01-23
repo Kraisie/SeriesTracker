@@ -101,39 +101,43 @@ public class TVDB_Data {
         //GET Series
         SeriesData series = getSeries(token, Integer.valueOf(providedID));
 
-        //GET Episodes
-        List<Episode> episodes = getEpisodes(token, Integer.valueOf(providedID), currentSeason, currentEpisode);
+        if(series != null) {
+            //GET Episodes
+            List<Episode> episodes = getEpisodes(token, Integer.valueOf(providedID), currentSeason, currentEpisode);
 
-        //If userState is not given (-1) set it to 0 (not started)
-        if (userState == -1) {
-            userState = 0;
+            //If userState is not given (-1) set it to 0 (not started)
+            if (userState == -1) {
+                userState = 0;
+            }
+
+            String overview;
+            if (series.getData().getOverview() == null || series.getData().getOverview().equals("")) {
+                overview = "Not given!";
+            } else {
+                overview = series.getData().getOverview();
+            }
+
+            String banner;
+            if (series.getData().getBanner() == null || series.getData().getBanner().equals("")) {
+                banner = "Not given!";
+            } else {
+                banner = series.getData().getBanner();
+            }
+
+            return new MySeries(
+                    series.getData().getSeriesName(),
+                    String.valueOf(series.getData().getId()),
+                    episodes,
+                    userState,
+                    series.getData().getStatus(),
+                    Integer.valueOf(series.getData().getRuntime()),
+                    overview,
+                    Double.valueOf(series.getData().getSiteRating()),
+                    banner                        //banner = 758x140
+            );
         }
 
-        String overview;
-        if (series.getData().getOverview() == null || series.getData().getOverview().equals("")) {
-            overview = "Not given!";
-        } else {
-            overview = series.getData().getOverview();
-        }
-
-        String banner;
-        if (series.getData().getBanner() == null || series.getData().getBanner().equals("")) {
-            banner = "Not given!";
-        } else {
-            banner = series.getData().getBanner();
-        }
-
-        return new MySeries(
-                series.getData().getSeriesName(),
-                String.valueOf(series.getData().getId()),
-                episodes,
-                userState,
-                series.getData().getStatus(),
-                Integer.valueOf(series.getData().getRuntime()),
-                overview,
-                Double.valueOf(series.getData().getSiteRating()),
-                banner                        //banner = 758x140
-        );
+        return null;
     }
 
     private static String logIn() {
@@ -220,6 +224,10 @@ public class TVDB_Data {
                 if (entity != null) {
                     InputStream instream = entity.getContent();
                     stringJSON = convertStreamToString(instream);
+
+                    if(stringJSON.startsWith("{\"Error\":\"ID: ") && stringJSON.endsWith(" not found\"}")) {
+                        return null;
+                    }
                 }
             }
         } catch (Exception e) {
@@ -237,8 +245,12 @@ public class TVDB_Data {
     private static SeriesData getSeries(String token, int id) {
         String seriesJSON = requestToString("getSeries", token, String.valueOf(id), false, 0);
 
-        Gson gson = new Gson();
-        return gson.fromJson(seriesJSON, SeriesData.class);
+        if(seriesJSON != null) {
+            Gson gson = new Gson();
+            return gson.fromJson(seriesJSON, SeriesData.class);
+        }
+
+        return null;
     }
 
     private static List<Episode> getEpisodes(String token, int id, int currentSeason, int currentEpisode) {

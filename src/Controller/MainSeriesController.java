@@ -552,8 +552,12 @@ public class MainSeriesController {
                 for (MySeries series : allSeries) {
                     if (series.getStatus().equals(mode)) {
                         MySeries updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
-                        Episode.sort(updatedSeries.getEpisodes());
 
+                        if(updatedSeries == null) {
+                            updatedSeries = series;
+                        }
+
+                        Episode.sort(updatedSeries.getEpisodes());
                         updatedSeries.setCurrent(series.getCurrent());
                         updatedAllSeries.add(updatedSeries);
                         updateProgress(updatedAllSeries.size(), allSeries.size());
@@ -564,8 +568,11 @@ public class MainSeriesController {
 
                 MySeries.writeData(updatedAllSeries);
 
+                //TODO: this thread can't access the JavaFX/PopUp stuff so any alerts won't get shown to the user!
                 //recheck dates as they may updated
                 checkAirDates();
+                //update tables
+                initialize();
 
                 finishedUpdate();
                 updating = false;
