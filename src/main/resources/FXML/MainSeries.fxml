@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0"
+            prefWidth="1124.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="SceneController.MainSeriesController">
+    <ImageView fx:id="imageBackground" fitHeight="632.0" fitWidth="1124.0" layoutY="28.0" pickOnBounds="true"
+               preserveRatio="true"/>
+    <Label fx:id="labelWatching" alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="42.0"
+           prefHeight="27.0" prefWidth="300.0" text="Continue watching" textAlignment="CENTER" textFill="LIME"
+           underline="true">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+    <Label fx:id="labelStarting" alignment="CENTER" layoutX="763.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0"
+           text="Start watching" textFill="LIME" underline="true">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+    <Label fx:id="labelWaiting" alignment="CENTER" layoutX="401.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0"
+           text="Wait for new episodes" textFill="LIME" underline="true">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+    <TableView fx:id="tableContinueWatching" layoutX="38.0" layoutY="78.0" onKeyPressed="#scrollToKeyWatching"
+               onMouseClicked="#clickOnTableWatching" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
+        <columns>
+            <TableColumn fx:id="columnContinueName" prefWidth="173.0" text="Name"/>
+            <TableColumn id="centeredColumn" fx:id="columnContinueSeason" prefWidth="59.0" text="Season"/>
+            <TableColumn id="centeredColumn" fx:id="columnContinueEpisode" prefWidth="68.0" text="Episode"/>
+        </columns>
+    </TableView>
+    <TableView fx:id="tableWaiting" layoutX="401.0" layoutY="78.0" onKeyPressed="#scrollToKeyWaiting"
+               onMouseClicked="#clickOnTableWaiting" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
+        <columns>
+            <TableColumn fx:id="columnWaitName" prefWidth="173.0" text="Name"/>
+            <TableColumn id="centeredColumn" fx:id="columnWaitSeason" prefWidth="59.0" text="Season"/>
+            <TableColumn id="centeredColumn" fx:id="columnWaitEpisode" prefWidth="68.0" text="Episode"/>
+        </columns>
+    </TableView>
+    <TableView fx:id="tableStartWatching" layoutX="763.0" layoutY="78.0" onKeyPressed="#scrollToKeyNotStarted"
+               onMouseClicked="#clickOnTableUnstarted" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
+        <columns>
+            <TableColumn fx:id="columnStartName" prefWidth="200.0" text="Name"/>
+            <TableColumn id="centeredColumn" fx:id="columnStartSeasons" prefWidth="100.0" text="Seasons"/>
+        </columns>
+    </TableView>
+
+    <Button fx:id="buttonIncEpisode" layoutX="88.0" layoutY="581.0" mnemonicParsing="false" onAction="#incEpisodeButton"
+            prefHeight="65.0" prefWidth="65.0" text="+"/>
+    <Button fx:id="buttonDecEpisode" layoutX="223.0" layoutY="581.0" mnemonicParsing="false"
+            onAction="#decEpisodeButton" prefHeight="65.0" prefWidth="65.0" text="-"/>
+    <Button fx:id="buttonStartedSeries" layoutX="864.0" layoutY="601.0" mnemonicParsing="false" onAction="#startSeries"
+            text="Started series"/>
+    <Button fx:id="infoButton" layoutX="509.0" layoutY="581.0" mnemonicParsing="false" onAction="#displayInformation"
+            text="Information"/>
+    <Button fx:id="buttonFinishedSeries" layoutX="491.0" layoutY="621.0" mnemonicParsing="false"
+            onAction="#displayFinishedSeries" text="All finished series"/>
+
+    <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1124.0">
+        <Menu mnemonicParsing="false" text="Mode">
+            <Menu mnemonicParsing="false" text="Sort by...">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#sortByName" text="Name"/>
+                    <MenuItem mnemonicParsing="false" onAction="#sortByCompletion" text="Completion Rate"/>
+                </items>
+            </Menu>
+            <MenuItem mnemonicParsing="false" onAction="#searchSeries" text="Search Series"/>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem mnemonicParsing="false" onAction="#close" text="Close"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+            <MenuItem mnemonicParsing="false" onAction="#addSeries" text="Add a new Series"/>
+            <MenuItem mnemonicParsing="false" onAction="#deleteSeries" text="Delete a series"/>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem mnemonicParsing="false" onAction="#importBackUp" text="Import BackUp"/>
+            <MenuItem mnemonicParsing="false" onAction="#createBackUp" text="Create new BackUp"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Update">
+            <MenuItem mnemonicParsing="false" onAction="#menuUpdateAll" text="Update Series"/>
+            <MenuItem mnemonicParsing="false" onAction="#menuUpdateEnded" text="Update ended Series"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Settings">
+            <MenuItem mnemonicParsing="false" onAction="#showSettings" text="Open Settings"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <MenuItem mnemonicParsing="false" onAction="#showHowTo" text="How to use this program"/>
+        </Menu>
+    </MenuBar>
+    <ProgressIndicator fx:id="progressIndicator" layoutX="1017.0" layoutY="604.0" progress="0.0" visible="false"/>
+</AnchorPane>
