@@ -51,4 +51,16 @@
     * Fixed crash when no background picture is available
     * Main menu now uses a fallback image if there are none in the folder
     * Series not available on TVDB are now not failing the update anymore
+* RECODE
+    * Tidied up the code
+    * Removed movie support
+    * Added Gradle support
+    * Changed background size aspects to 16:9 to support more resolutions
+    * Background image folder for easier selection of own background pictures
+    * Added option to set API-Key
+    * Added a better PopUp
+    * Added option to sort by name or by completion
+    * Added selecting series via button press in main menu and deletion screen
+    * Information button now works for all tables again
+    
 

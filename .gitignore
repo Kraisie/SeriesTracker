@@ -1,10 +1,10 @@
-#keine binärffiles
-
 *.class
 *.jar
 
 .gradle
 /build/
+/classes/
+/gradle/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -95,9 +95,3 @@ nbdist/
 .project
 .settings
 .springBeans
-
-### pictures ###
-Background/
-
-### fallback image ###
-fallback.jpg
