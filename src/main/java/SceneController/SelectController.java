@@ -190,7 +190,8 @@ public class SelectController extends Controller {
 
 		if (selectedSeries != null) {
 			List<MySeries> allSeries = MySeries.readData();
-			MySeries series = TVDB_Data.getUpdate(selectedSeries.getTvdbID(), 0, 1, 1);
+			TVDB_Data tvdbAPI = new TVDB_Data();
+			MySeries series = tvdbAPI.getUpdate(selectedSeries.getTvdbID(), 0, 1, 1);
 			allSeries.add(series);
 			MySeries.writeData(allSeries);
 			popUp.showAlert("Series added!", "\"" + selectedSeries.getName() + "\" has been added to your list.", false);

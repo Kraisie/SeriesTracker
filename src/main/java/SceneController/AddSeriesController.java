@@ -41,7 +41,8 @@ public class AddSeriesController extends Controller {
 			return;
 		}
 
-		List<MySeries> possibleSeries = TVDB_Data.searchSeries(nameTVDB.getText());
+		TVDB_Data tvdbAPI = new TVDB_Data();
+		List<MySeries> possibleSeries = tvdbAPI.searchSeries(nameTVDB.getText());
 		if (possibleSeries == null || possibleSeries.size() == 0) {
 			popUp.showWarning("No series found!", "No series found by the name of \"" + nameTVDB.getText() + "\".");
 			return;
@@ -49,7 +50,7 @@ public class AddSeriesController extends Controller {
 
 		if (possibleSeries.size() == 1) {
 			//might be an empty series (uncommon but happens)
-			possibleSeries.set(0, TVDB_Data.getUpdate(possibleSeries.get(0).getTvdbID(), 0, 1, 1));
+			possibleSeries.set(0, tvdbAPI.getUpdate(possibleSeries.get(0).getTvdbID(), 0, 1, 1));
 			if (possibleSeries.get(0).getEpisodes().size() >= 1) {
 				allSeries.add(possibleSeries.get(0));
 				MySeries.writeData(allSeries);

@@ -808,8 +808,10 @@ public class MainSeriesController extends Controller {
 						continue;
 					}
 
-					MySeries updatedSeries = TVDB_Data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
+					TVDB_Data data = new TVDB_Data();
+					MySeries updatedSeries = data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
 					if (updatedSeries == null) {
+						System.out.println(series.getName());
 						updatedAllSeries.add(series);
 						continue;
 					}

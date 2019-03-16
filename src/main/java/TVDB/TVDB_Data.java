@@ -29,7 +29,13 @@ import java.util.List;
 
 public class TVDB_Data {
 
+	private String token;
+
 	// -1=no predefined Status (-1 add); 0=not started; 1=watching; 2=wait for new episodes; 3=finished (0-3 update)
+
+	public TVDB_Data() {
+		this.token = logIn();
+	}
 
 	/*
 	 *	pull a banner of the series
@@ -61,9 +67,9 @@ public class TVDB_Data {
 	/*
 	 *	search possibly fitting series to a search term
 	 */
-	public static List<MySeries> searchSeries(String seriesName) {
+	public List<MySeries> searchSeries(String seriesName) {
 		// LOGIN
-		String token = logIn();
+		//String token = logIn();
 
 		// SEARCH possible Series
 		SeriesSearchData suggestions = searchPossibleSeries(seriesName, token, false);
@@ -107,9 +113,9 @@ public class TVDB_Data {
 	/*
 	 *	updated series that are already saved locally
 	 */
-	public static MySeries getUpdate(String providedID, int userState, int currentSeason, int currentEpisode) {
+	public MySeries getUpdate(String providedID, int userState, int currentSeason, int currentEpisode) {
 		// LOGIN
-		String token = logIn();
+		//String token = logIn();
 
 		// GET Series
 		SeriesData series = getSeries(token, Integer.valueOf(providedID));
@@ -158,7 +164,7 @@ public class TVDB_Data {
 	/*
 	 *	get access to the API
 	 */
-	private static String logIn() {
+	private String logIn() {
 		String tokenJSON = "";
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		APIKey key = APIKey.readKey();
