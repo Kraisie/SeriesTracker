@@ -45,6 +45,9 @@ java -jar SeriesTracker-release-X.jar
 
 ## Think-Abouts
 * Beautify some scenes
+* Center new scenes in the middle of the main menu 
+* Change the numeric value of the `userState` to something more obvious
+    * That will require support for a change of the json file
 
 ## Bugs with no solution yet
 * CSS errors (`java.lang.String cannot be cast to javafx.scene.paint.Color' while converting value for '-fx-background-color' from rule '*.scroll-bar:vertical' in stylesheet jar:file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jfxrt.jar!/com/sun/javafx/scene/control/skin/modena/modena.bss`)
@@ -53,3 +56,5 @@ java -jar SeriesTracker-release-X.jar
 * `Gtk-Message: Failed to load module "pantheon-filechooser-module"` when Pantheon/Gtk is installed
 * NPE when switching scenes on Linux caused by the menu bar
     * only removing the menu bar fixes it at the moment
+* Windows shows white edges on startup (right and bottom side); Menu bar behaves weird on a second screen with another resolution
+    * might be related to DPI/Zoom level in windows settings
