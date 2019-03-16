@@ -467,6 +467,10 @@ public class MainSeriesController extends Controller {
 	 *	scroll down to the first series with the first character that just got pressed
 	 */
 	private void scrollToSeries(TableView<MySeries> table, KeyEvent key) {
+		if(key.getText().length() == 0) {
+			return;
+		}
+
 		char c = key.getText().charAt(0);
 		ObservableList<MySeries> allSeriesInTable = table.getItems();
 		MySeries match = null;
