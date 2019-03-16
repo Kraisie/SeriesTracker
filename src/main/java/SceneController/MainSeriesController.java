@@ -108,7 +108,7 @@ public class MainSeriesController extends Controller {
 	}
 
 	/*
-	 *  sets the background picture of the scene. Images have to be larger than 1124x632 and should be 16:9 for perfect fit.
+	 *  sets the background picture of the scene. Images have to be larger than 1124x632 or equal and should be 16:9 for perfect fit.
 	 */
 	private void setBackground() {
 		File backgroundFolder;

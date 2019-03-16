@@ -17,14 +17,15 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class TVDB_Data {
 
@@ -177,22 +178,14 @@ public class TVDB_Data {
 			HttpEntity entity = response.getEntity();
 
 			if (entity != null) {
-				InputStream instream = entity.getContent();
-				tokenJSON = convertStreamToString(instream);
+				BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8));
+				tokenJSON = reader.readLine();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return getToken(tokenJSON);
-	}
-
-	/*
-	 *	get readable String from Stream
-	 */
-	private static String convertStreamToString(InputStream is) {
-		Scanner s = new Scanner(is).useDelimiter("\\A");
-		return s.hasNext() ? s.next() : "";
 	}
 
 	/*
@@ -269,8 +262,8 @@ public class TVDB_Data {
 				return null;
 			}
 
-			InputStream instream = entity.getContent();
-			stringJSON = convertStreamToString(instream);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8));
+			stringJSON = reader.readLine();
 
 			if (stringJSON.startsWith("{\"Error\":\"ID: ") && stringJSON.endsWith(" not found\"}")) {
 				return null;
@@ -310,9 +303,9 @@ public class TVDB_Data {
 	private static List<Episode> getEpisodes(String token, int id, int currentSeason, int currentEpisode) {
 		String episodesJSON = requestToString("getEpisodes", token, String.valueOf(id), false, 1);
 
-		Gson gson = null;
-		SeriesEpisodes episodes = null;
-		List<Episode> allEpisodes = null;
+		Gson gson;
+		SeriesEpisodes episodes;
+		List<Episode> allEpisodes;
 
 		if (episodesJSON == null) {
 			return new ArrayList<>();
