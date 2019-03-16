@@ -39,8 +39,8 @@
     <Separator layoutX="-2.0" layoutY="505.0" prefHeight="7.0" prefWidth="1149.0"/>
     <Button layoutX="498.0" layoutY="514.0" mnemonicParsing="false" onAction="#decEpisode" prefHeight="25.0"
             prefWidth="26.0" text="-"/>
-    <Button layoutX="627.0" layoutY="514.0" mnemonicParsing="false" onAction="#incEpisode" prefHeight="20.0"
-            prefWidth="20.0" text="+"/>
+    <Button layoutX="627.0" layoutY="514.0" mnemonicParsing="false" onAction="#incEpisode" prefHeight="25.0"
+            prefWidth="26.0" text="+"/>
     <Label fx:id="labelEpOfSeason" layoutX="573.0" layoutY="519.0" textAlignment="CENTER"/>
     <Button layoutX="706.0" layoutY="514.0" mnemonicParsing="false" onAction="#selectCurrentEpisode"
             text="Go to current Episode"/>
