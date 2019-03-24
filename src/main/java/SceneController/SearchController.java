@@ -195,9 +195,6 @@ public class SearchController extends Controller {
 		}
 
 		isAlreadyFound = true;
-		for (MySeries series : matches) {
-			foundMatches.getItems().add(series.getName());
-		}
 		tmpMatches = matches;
 		ownInitialize();
 	}
@@ -278,11 +275,7 @@ public class SearchController extends Controller {
 		}
 
 		// check status
-		if (!parameter.getStatus().equals(series.getStatus())) {
-			return false;
-		}
-
-		return true;
+		return parameter.getStatus().equals(series.getStatus());
 	}
 
 	/*
