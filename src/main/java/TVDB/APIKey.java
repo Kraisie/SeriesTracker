@@ -35,8 +35,6 @@ public class APIKey {
 		try {
 			json = new String(Files.readAllBytes(setting.getPathAPIKey()));
 		} catch (IOException e) {
-			PopUp popUp = new PopUp();
-			popUp.showError("Failed while getting API Key!", "Trying to read the API Key failed. Please check the validity of you Path.", false);
 			return null;
 		}
 
