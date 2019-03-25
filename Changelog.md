@@ -72,5 +72,8 @@
     * Fixed Windows charset (CP1252 to UTF-8)
     * Fixed invalid keystrokes to scroll
     * Removed unnecessary logins to TVDB
-    
+* **VERSION 2.0.2 - Fixed Windows related issues and a few bugs**
+    * Fixed small bug when searching for series
+    * Removed double PopUp when APIKey was missing
+    * Fixed [Windows resizeable window bug](https://bugs.openjdk.java.net/browse/JDK-8089008)
 

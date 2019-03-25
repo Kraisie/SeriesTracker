@@ -54,7 +54,7 @@ java -jar SeriesTracker-release-X.jar
     * Seem to be widespread and no real solution is available
 * SearchSeries/AddSeries starts black (Linux) when Pantheon/Gtk is installed
 * `Gtk-Message: Failed to load module "pantheon-filechooser-module"` when Pantheon/Gtk is installed
-* NPE when switching scenes on Linux caused by the menu bar
+* NPE when switching scenes on Linux caused by the menu bar (Main menu -> Information)
     * only removing the menu bar fixes it at the moment
-* Windows shows white edges on startup (right and bottom side); Menu bar behaves weird on a second screen with another resolution
-    * might be related to DPI/Zoom level in windows settings
+* Menu bar behaves weird on a second screen with another resolution (Windows)
+    * should be fixed with Java9/Java11
