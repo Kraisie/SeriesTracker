@@ -80,6 +80,7 @@ public class Main extends Application {
 			primaryStage.setResizable(false);
 			primaryStage.getIcons().add(img);
 			primaryStage.setScene(new Scene(root));
+			primaryStage.sizeToScene();
 			primaryStage.show();
 		} else {
 			throw new FileNotFoundException();

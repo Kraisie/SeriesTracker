@@ -54,11 +54,7 @@ class Controller {
 			Image img = new Image(resource.toString());
 			Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
 
-			primaryStage.setTitle(title);
-			primaryStage.setResizable(false);
-			primaryStage.getIcons().add(img);
-			primaryStage.setScene(new Scene(root));
-			primaryStage.show();
+			setStageProperties(primaryStage, title, img, root);
 		} else {
 			// series.png not found
 			throw new FileNotFoundException();
@@ -89,11 +85,7 @@ class Controller {
 				controller.initData((List<MySeries>) series);
 			}
 
-			primaryStage.setTitle(title);
-			primaryStage.setResizable(false);
-			primaryStage.getIcons().add(img);
-			primaryStage.setScene(new Scene(root));
-			primaryStage.show();
+			setStageProperties(primaryStage, title, img, root);
 		} else {
 			// series.png not found
 			throw new FileNotFoundException();
@@ -115,12 +107,7 @@ class Controller {
 			// get right controller
 			SearchController controller = loader.getController();
 			controller.initData();
-
-			primaryStage.setTitle(title);
-			primaryStage.setResizable(false);
-			primaryStage.getIcons().add(img);
-			primaryStage.setScene(new Scene(root));
-			primaryStage.show();
+			setStageProperties(primaryStage, title, img, root);
 		} else {
 			// series.png not found
 			throw new FileNotFoundException();
@@ -142,12 +129,7 @@ class Controller {
 			// get right controller
 			AdvancedInformationController controller = loader.getController();
 			controller.initData(series, tmpMatches);
-
-			primaryStage.setTitle(title);
-			primaryStage.setResizable(false);
-			primaryStage.getIcons().add(img);
-			primaryStage.setScene(new Scene(root));
-			primaryStage.show();
+			setStageProperties(primaryStage, title, img, root);
 		} else {
 			// series.png not found
 			throw new FileNotFoundException();
@@ -169,15 +151,22 @@ class Controller {
 			// get right controller
 			SearchController controller = loader.getController();
 			controller.initData(tmpMatches);
-
-			primaryStage.setTitle(title);
-			primaryStage.setResizable(false);
-			primaryStage.getIcons().add(img);
-			primaryStage.setScene(new Scene(root));
-			primaryStage.show();
+			setStageProperties(primaryStage, title, img, root);
 		} else {
 			// series.png not found
 			throw new FileNotFoundException();
 		}
+	}
+
+	/*
+	 *	set stage properties
+	 */
+	private void setStageProperties(Stage primaryStage, String title, Image icon, Parent root) {
+		primaryStage.setTitle(title);
+		primaryStage.setResizable(false);
+		primaryStage.getIcons().add(icon);
+		primaryStage.setScene(new Scene(root));
+		primaryStage.sizeToScene();
+		primaryStage.show();
 	}
 }
