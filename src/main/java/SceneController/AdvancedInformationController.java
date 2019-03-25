@@ -122,7 +122,7 @@ public class AdvancedInformationController extends Controller {
 			labelIsCurrent.setText("\tSeries finished");
 		}
 
-		Image banner =TVDB_Data.getBannerImage(series.getBanner());
+		Image banner = TVDB_Data.getBannerImage(series.getBanner());
 		imgSeriesBanner.setImage(banner);
 		centerImage(imgSeriesBanner);
 
@@ -217,7 +217,6 @@ public class AdvancedInformationController extends Controller {
 			openSearchFromAdvancedInformation((Stage) backButton.getScene().getWindow(), "/FXML/SearchSeries.fxml", "Search one of your series by attributes", tmpMatches);
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(6);
 		}
 	}
 
@@ -230,7 +229,6 @@ public class AdvancedInformationController extends Controller {
 			openScene((Stage) backMenuButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(7);
 		}
 	}
 

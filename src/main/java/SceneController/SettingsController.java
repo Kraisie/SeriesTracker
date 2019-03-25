@@ -160,6 +160,10 @@ public class SettingsController extends Controller {
 	@FXML
 	private void save() {
 		Settings oldSettings = Settings.readData();
+		if(oldSettings == null) {
+			return;
+		}
+
 		try {
 			if (!oldSettings.getPathSeries().equals(settings.getPathSeries())) {
 				Files.move(oldSettings.getPathSeries(), settings.getPathSeries(), REPLACE_EXISTING);
@@ -199,7 +203,6 @@ public class SettingsController extends Controller {
 			openScene((Stage) backButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(16);
 		}
 	}
 }

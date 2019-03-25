@@ -4,6 +4,7 @@ import Dialog.PopUp;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 
@@ -25,6 +26,10 @@ public class BackUp {
 	 */
 	public static BackUp readBackUp() {
 		Settings settings = Settings.readData();
+		if(settings == null) {
+			return null;
+		}
+
 		if (!settings.getPathBackUp().toFile().exists()) {
 			PopUp popUp = new PopUp();
 			popUp.showError("No BackUp available!", "You do not have a local BackUp available. Please make sure it is at the right location.", false);
@@ -33,7 +38,7 @@ public class BackUp {
 
 		String json;
 		try {
-			json = new String(Files.readAllBytes(settings.getPathBackUp()));
+			json = new String(Files.readAllBytes(settings.getPathBackUp()), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			return new BackUp();
 		}
@@ -49,8 +54,9 @@ public class BackUp {
 		Gson gson = new Gson();
 		String json = gson.toJson(backUp);
 		Settings settings = Settings.readData();
+
 		try {
-			Files.write(settings.getPathBackUp(), json.getBytes(), TRUNCATE_EXISTING, CREATE);
+			Files.write(settings.getPathBackUp(), json.getBytes(StandardCharsets.UTF_8), TRUNCATE_EXISTING, CREATE);
 		} catch (IOException e) {
 			PopUp popUp = new PopUp();
 			popUp.showError("BackUp failed!", "The BackUp failed. Please check the validity of your Path.", false);

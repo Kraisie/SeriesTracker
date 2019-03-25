@@ -4,6 +4,7 @@ import Dialog.PopUp;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -44,10 +45,13 @@ public class MySeries {
 	 */
 	public static List<MySeries> readData() {
 		String json;
-		Settings setting = Settings.readData();
+		Settings settings = Settings.readData();
+		if(settings == null) {
+			return new ArrayList<>();
+		}
 
 		try {
-			json = new String(Files.readAllBytes(setting.getPathSeries()));
+			json = new String(Files.readAllBytes(settings.getPathSeries()), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			return new ArrayList<>();
 		}
@@ -72,10 +76,10 @@ public class MySeries {
 
 		Gson gson = new Gson();
 		String json = gson.toJson(allEntries);
-		Settings setting = Settings.readData();
+		Settings settings = Settings.readData();
 
 		try {
-			Files.write(setting.getPathSeries(), json.getBytes(), TRUNCATE_EXISTING, CREATE);
+			Files.write(settings.getPathSeries(), json.getBytes(StandardCharsets.UTF_8), TRUNCATE_EXISTING, CREATE);
 		} catch (IOException e) {
 			PopUp popUp = new PopUp();
 			popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false);
@@ -88,7 +92,6 @@ public class MySeries {
 	public static List<MySeries> checkAirDates() {
 		List<MySeries> allEntries = MySeries.readData();
 		List<MySeries> updatedSeries = new ArrayList<>();
-
 		for (MySeries series : allEntries) {
 			if (series.getUserState() == 3) {
 				if (series.getStatus().equals("Ended")) {

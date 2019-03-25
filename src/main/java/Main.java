@@ -62,7 +62,6 @@ public class Main extends Application {
 			openScene(primaryStage);
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(1);
 		}
 	}
 

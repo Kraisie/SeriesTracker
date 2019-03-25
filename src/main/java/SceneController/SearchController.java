@@ -203,7 +203,7 @@ public class SearchController extends Controller {
 	 *  get the chosen parameters from the UI
 	 */
 	private SearchParameter getSearchParameter() {
-		int rating = Integer.valueOf(ratingChoice.getValue().replaceAll(">", ""));
+		int rating = Integer.parseInt(ratingChoice.getValue().replaceAll(">", ""));
 		int duration = durationSpinner.getValue();
 		int derivation = derivationSpinner.getValue();
 		int seasons = seasonsSpinner.getValue();
@@ -312,7 +312,6 @@ public class SearchController extends Controller {
 			openAdvancedInformationFromSearch((Stage) infoButton.getScene().getWindow(), "/FXML/AdvancedInformation.fxml", "Information about " + foundMatches.getSelectionModel().getSelectedItem(), selectedSeries, tmpMatches);
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(4);
 		}
 	}
 
@@ -325,7 +324,6 @@ public class SearchController extends Controller {
 			openScene((Stage) backButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(5);
 		}
 	}
 }

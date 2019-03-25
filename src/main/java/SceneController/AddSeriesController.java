@@ -65,7 +65,6 @@ public class AddSeriesController extends Controller {
 			openSceneWithOneParameter((Stage) backButton.getScene().getWindow(), "/FXML/SelectFoundSeries.fxml", "Select one of the found series", possibleSeries);
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(19);
 		}
 	}
 
@@ -78,7 +77,6 @@ public class AddSeriesController extends Controller {
 			openScene((Stage) backButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(20);
 		}
 	}
 }

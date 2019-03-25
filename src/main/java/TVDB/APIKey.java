@@ -5,6 +5,7 @@ import Dialog.PopUp;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 import static java.nio.file.StandardOpenOption.CREATE;
@@ -30,10 +31,13 @@ public class APIKey {
 
 	public static APIKey readKey() {
 		String json;
-		Settings setting = Settings.readData();
+		Settings settings = Settings.readData();
+		if(settings == null) {
+			return null;
+		}
 
 		try {
-			json = new String(Files.readAllBytes(setting.getPathAPIKey()));
+			json = new String(Files.readAllBytes(settings.getPathAPIKey()), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			return null;
 		}
@@ -45,10 +49,10 @@ public class APIKey {
 	public static void writeKey(APIKey key) {
 		Gson gson = new Gson();
 		String json = gson.toJson(key);
-		Settings setting = Settings.readData();
+		Settings settings = Settings.readData();
 
 		try {
-			Files.write(setting.getPathAPIKey(), json.getBytes(), TRUNCATE_EXISTING, CREATE);
+			Files.write(settings.getPathAPIKey(), json.getBytes(StandardCharsets.UTF_8), TRUNCATE_EXISTING, CREATE);
 		} catch (IOException e) {
 			PopUp popUp = new PopUp();
 			popUp.showError("Failed while saving!", "Trying to save the API Key failed. Please check the validity of you Path.", false);

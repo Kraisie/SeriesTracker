@@ -118,14 +118,14 @@ public class TVDB_Data {
 		//String token = logIn();
 
 		// GET Series
-		SeriesData series = getSeries(token, Integer.valueOf(providedID));
+		SeriesData series = getSeries(token, Integer.parseInt(providedID));
 
 		if (series == null) {
 			return null;
 		}
 
 		// GET Episodes
-		List<Episode> episodes = getEpisodes(token, Integer.valueOf(providedID), currentSeason, currentEpisode);
+		List<Episode> episodes = getEpisodes(token, Integer.parseInt(providedID), currentSeason, currentEpisode);
 
 		// If userState is not given (-1) set it to 0 (not started)
 		if (userState == -1) {
@@ -152,7 +152,7 @@ public class TVDB_Data {
 				episodes,
 				userState,
 				series.getData().getStatus(),
-				Integer.valueOf(series.getData().getRuntime()),
+				Integer.parseInt(series.getData().getRuntime()),
 				overview,
 				Double.valueOf(series.getData().getSiteRating()),
 				banner                        //banner = 758x140
@@ -171,7 +171,7 @@ public class TVDB_Data {
 		if (key == null) {
 			PopUp popUp = new PopUp();
 			popUp.showWarning("Missing API Key!", "Please set an API-Key in the settings to use the program.");
-			System.exit(16);
+			return null;
 		}
 
 		try {
@@ -186,6 +186,7 @@ public class TVDB_Data {
 			if (entity != null) {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8));
 				tokenJSON = reader.readLine();
+				reader.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -248,6 +249,9 @@ public class TVDB_Data {
 				// GET Episodes
 				case "getEpisodes":
 					request = new HttpGet("https://api.thetvdb.com/series/" + seriesIndication + "/episodes?page=" + page);
+					break;
+				default:
+					// shouldn't happen
 			}
 
 			if (request == null) {
@@ -269,7 +273,11 @@ public class TVDB_Data {
 			}
 
 			BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8));
-			stringJSON = reader.readLine();
+			if ((stringJSON = reader.readLine()) == null) {
+				reader.close();
+				return null;
+			}
+			reader.close();
 
 			if (stringJSON.startsWith("{\"Error\":\"ID: ") && stringJSON.endsWith(" not found\"}")) {
 				return null;
@@ -350,8 +358,8 @@ public class TVDB_Data {
 		for (int i = 0; i < episodes.getData().length; i++) {
 			// if sth not given set the String as not given
 			Episode e = new Episode(0, 0, null, null, null);
-			e.setEpNumberOfSeason(Integer.valueOf(episodes.getData()[i].getAiredEpisodeNumber()));
-			e.setSeason(Integer.valueOf(episodes.getData()[i].getAiredSeason()));
+			e.setEpNumberOfSeason(Integer.parseInt(episodes.getData()[i].getAiredEpisodeNumber()));
+			e.setSeason(Integer.parseInt(episodes.getData()[i].getAiredSeason()));
 
 
 			if (episodes.getData()[i].getEpisodeName() != null && !episodes.getData()[i].getEpisodeName().equals("")) {

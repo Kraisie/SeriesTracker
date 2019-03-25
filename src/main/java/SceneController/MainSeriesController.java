@@ -121,13 +121,14 @@ public class MainSeriesController extends Controller {
 			boolean createdDir = backgroundFolder.mkdir();
 
 			// check if there are fitting files
-			if (createdDir || Objects.requireNonNull(backgroundFolder.listFiles()).length == 0) {
+			if (createdDir) {
 				throw new Exception();
 			}
 
 			files = backgroundFolder.listFiles((dir, name) -> (name.toLowerCase().endsWith(".png") ||
 					name.toLowerCase().endsWith(".jpg") ||
 					name.toLowerCase().endsWith(".jpeg")));
+
 			if (files == null || files.length == 0) {
 				throw new Exception();
 			}
@@ -283,7 +284,8 @@ public class MainSeriesController extends Controller {
 				case 2:
 					waitingSeries.add(listEntry);
 					break;
-				// finished series get ignored
+				default:
+					// finished series get ignored
 			}
 		}
 
@@ -674,7 +676,6 @@ public class MainSeriesController extends Controller {
 			openSceneWithOneParameter((Stage) infoButton.getScene().getWindow(), "/FXML/AdvancedInformation.fxml", title, selectedSeries);
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(2);
 		}
 
 	}
@@ -689,7 +690,6 @@ public class MainSeriesController extends Controller {
 			openSearch((Stage) menuBar.getScene().getWindow(), "/FXML/SearchSeries.fxml", title);
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(8);
 		}
 	}
 
@@ -703,7 +703,6 @@ public class MainSeriesController extends Controller {
 			openScene((Stage) buttonFinishedSeries.getScene().getWindow(), "/FXML/FinishedSeries.fxml", title);
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(9);
 		}
 	}
 
@@ -717,7 +716,6 @@ public class MainSeriesController extends Controller {
 			openScene((Stage) menuBar.getScene().getWindow(), "/FXML/AddSeries.fxml", title);
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(10);
 		}
 	}
 
@@ -731,7 +729,6 @@ public class MainSeriesController extends Controller {
 			openScene((Stage) menuBar.getScene().getWindow(), "/FXML/DeleteSeries.fxml", title);
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(11);
 		}
 	}
 
@@ -745,7 +742,6 @@ public class MainSeriesController extends Controller {
 			openScene((Stage) menuBar.getScene().getWindow(), "/FXML/Settings.fxml", title);
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(12);
 		}
 	}
 
@@ -754,7 +750,7 @@ public class MainSeriesController extends Controller {
 	 */
 	@FXML
 	private void menuUpdateAll() {
-		startUpdate();
+		uiOnUpdate(true);
 		update("Continuing");
 		initialize();
 	}
@@ -764,35 +760,22 @@ public class MainSeriesController extends Controller {
 	 */
 	@FXML
 	private void menuUpdateEnded() {
-		startUpdate();
+		uiOnUpdate(true);
 		update("Ended");
 		initialize();
 	}
 
 	/*
-	 *   disable everything to prohibit changing the data while updating
+	 *  activate and deactivate UI features while updating
 	 */
-	private void startUpdate() {
-		progressIndicator.setVisible(true);
-		buttonIncEpisode.setDisable(true);
-		buttonDecEpisode.setDisable(true);
-		buttonStartedSeries.setDisable(true);
-		infoButton.setDisable(true);
-		buttonFinishedSeries.setDisable(true);
-		menuBar.setDisable(true);
-	}
-
-	/*
-	 *  reactivate the UI features after the update
-	 */
-	private void finishedUpdate() {
-		progressIndicator.setVisible(false);
-		buttonIncEpisode.setDisable(false);
-		buttonDecEpisode.setDisable(false);
-		buttonStartedSeries.setDisable(false);
-		infoButton.setDisable(false);
-		buttonFinishedSeries.setDisable(false);
-		menuBar.setDisable(false);
+	private void uiOnUpdate(boolean updateRunning) {
+		progressIndicator.setVisible(updateRunning);
+		buttonIncEpisode.setDisable(updateRunning);
+		buttonDecEpisode.setDisable(updateRunning);
+		buttonStartedSeries.setDisable(updateRunning);
+		infoButton.setDisable(updateRunning);
+		buttonFinishedSeries.setDisable(updateRunning);
+		menuBar.setDisable(updateRunning);
 	}
 
 	/*
@@ -835,7 +818,7 @@ public class MainSeriesController extends Controller {
 				// update tables
 				initialize();
 
-				finishedUpdate();
+				uiOnUpdate(false);
 				updating = false;
 				return null;
 			}

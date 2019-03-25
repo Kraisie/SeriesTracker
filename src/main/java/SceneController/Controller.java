@@ -9,9 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 class Controller {
@@ -29,7 +27,7 @@ class Controller {
 		double ratioX = imageView.getFitWidth() / img.getWidth();
 		double ratioY = imageView.getFitHeight() / img.getHeight();
 
-		double reducCoeff = 0;
+		double reducCoeff;
 		if (ratioX >= ratioY) {
 			reducCoeff = ratioY;
 		} else {
@@ -48,17 +46,8 @@ class Controller {
 	 */
 	@FXML
 	void openScene(Stage primaryStage, String fxmlPath, String title) throws IOException {
-		URL resource = getClass().getResource("/Pics/Icon/series.png");
-
-		if (resource != null) {
-			Image img = new Image(resource.toString());
-			Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-
-			setStageProperties(primaryStage, title, img, root);
-		} else {
-			// series.png not found
-			throw new FileNotFoundException();
-		}
+		Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+		setStageProperties(primaryStage, title, root);
 	}
 
 	/*
@@ -68,28 +57,20 @@ class Controller {
 	@SuppressWarnings("unchecked")
 	// cast from object to List<MySeries> is safe
 	void openSceneWithOneParameter(Stage primaryStage, String fxmlPath, String title, Object series) throws IOException {
-		URL resource = getClass().getResource("/Pics/Icon/series.png");
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+		Parent root = loader.load();
 
-		if (resource != null) {
-			Image img = new Image(resource.toString());
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-			Parent root = loader.load();
-
-			// get right controller
-			if (series instanceof MySeries) {
-				AdvancedInformationController controller = loader.getController();
-				controller.initData((MySeries) series);
-			}
-			if (series instanceof List) {
-				SelectController controller = loader.getController();
-				controller.initData((List<MySeries>) series);
-			}
-
-			setStageProperties(primaryStage, title, img, root);
-		} else {
-			// series.png not found
-			throw new FileNotFoundException();
+		// get right controller
+		if (series instanceof MySeries) {
+			AdvancedInformationController controller = loader.getController();
+			controller.initData((MySeries) series);
 		}
+		if (series instanceof List) {
+			SelectController controller = loader.getController();
+			controller.initData((List<MySeries>) series);
+		}
+
+		setStageProperties(primaryStage, title, root);
 	}
 
 	/*
@@ -97,21 +78,13 @@ class Controller {
 	 */
 	@FXML
 	void openSearch(Stage primaryStage, String fxmlPath, String title) throws IOException {
-		URL resource = getClass().getResource("/Pics/Icon/series.png");
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+		Parent root = loader.load();
 
-		if (resource != null) {
-			Image img = new Image(resource.toString());
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-			Parent root = loader.load();
-
-			// get right controller
-			SearchController controller = loader.getController();
-			controller.initData();
-			setStageProperties(primaryStage, title, img, root);
-		} else {
-			// series.png not found
-			throw new FileNotFoundException();
-		}
+		// get right controller
+		SearchController controller = loader.getController();
+		controller.initData();
+		setStageProperties(primaryStage, title, root);
 	}
 
 	/*
@@ -119,21 +92,13 @@ class Controller {
 	 */
 	@FXML
 	void openAdvancedInformationFromSearch(Stage primaryStage, String fxmlPath, String title, MySeries series, List<MySeries> tmpMatches) throws IOException {
-		URL resource = getClass().getResource("/Pics/Icon/series.png");
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+		Parent root = loader.load();
 
-		if (resource != null) {
-			Image img = new Image(resource.toString());
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-			Parent root = loader.load();
-
-			// get right controller
-			AdvancedInformationController controller = loader.getController();
-			controller.initData(series, tmpMatches);
-			setStageProperties(primaryStage, title, img, root);
-		} else {
-			// series.png not found
-			throw new FileNotFoundException();
-		}
+		// get right controller
+		AdvancedInformationController controller = loader.getController();
+		controller.initData(series, tmpMatches);
+		setStageProperties(primaryStage, title, root);
 	}
 
 	/*
@@ -141,30 +106,21 @@ class Controller {
 	 */
 	@FXML
 	void openSearchFromAdvancedInformation(Stage primaryStage, String fxmlPath, String title, List<MySeries> tmpMatches) throws IOException {
-		URL resource = getClass().getResource("/Pics/Icon/series.png");
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+		Parent root = loader.load();
 
-		if (resource != null) {
-			Image img = new Image(resource.toString());
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-			Parent root = loader.load();
-
-			// get right controller
-			SearchController controller = loader.getController();
-			controller.initData(tmpMatches);
-			setStageProperties(primaryStage, title, img, root);
-		} else {
-			// series.png not found
-			throw new FileNotFoundException();
-		}
+		// get right controller
+		SearchController controller = loader.getController();
+		controller.initData(tmpMatches);
+		setStageProperties(primaryStage, title, root);
 	}
 
 	/*
 	 *	set stage properties
 	 */
-	private void setStageProperties(Stage primaryStage, String title, Image icon, Parent root) {
+	private void setStageProperties(Stage primaryStage, String title, Parent root) {
 		primaryStage.setTitle(title);
 		primaryStage.setResizable(false);
-		primaryStage.getIcons().add(icon);
 		primaryStage.setScene(new Scene(root));
 		primaryStage.sizeToScene();
 		primaryStage.show();

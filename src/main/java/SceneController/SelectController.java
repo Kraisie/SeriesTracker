@@ -211,7 +211,6 @@ public class SelectController extends Controller {
 			openScene((Stage) backButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(21);
 		}
 	}
 }

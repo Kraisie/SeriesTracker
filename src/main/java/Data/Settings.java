@@ -4,6 +4,7 @@ import Dialog.PopUp;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -53,6 +54,10 @@ public class Settings {
 	 *   Get the settings from the json-file
 	 */
 	public static Settings readData() {
+		if (PATH == null) {
+			return new Settings();
+		}
+
 		String json;
 		if (!PATH.toFile().exists()) {
 			// if the path to the files does not exist, create it
@@ -65,7 +70,7 @@ public class Settings {
 		}
 
 		try {
-			json = new String(Files.readAllBytes(PATH));
+			json = new String(Files.readAllBytes(PATH), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			json = null;
 		}
@@ -82,7 +87,7 @@ public class Settings {
 		Gson gson = new Gson();
 		String json = gson.toJson(settings);
 		try {
-			Files.write(PATH, json.getBytes(), TRUNCATE_EXISTING, CREATE);
+			Files.write(PATH, json.getBytes(StandardCharsets.UTF_8), TRUNCATE_EXISTING, CREATE);
 		} catch (IOException e) {
 			PopUp popUp = new PopUp();
 			popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false);

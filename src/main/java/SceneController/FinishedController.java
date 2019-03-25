@@ -40,7 +40,6 @@ public class FinishedController extends Controller {
 
 		if (listEntries.isEmpty()) {
 			popUp.showError("Failed getting series!", "There was an error while trying to get the list of your series.", false);
-			System.exit(14);
 		}
 
 		for (MySeries listEntry : listEntries) {
@@ -85,7 +84,6 @@ public class FinishedController extends Controller {
 			openScene((Stage) backButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
-			System.exit(15);
 		}
 	}
 }
