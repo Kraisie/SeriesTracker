@@ -39,23 +39,20 @@
 * Added search for series (in already added series)
 * Added Settings
 * **VERSION 1.0**
-* Added option to force a BackUp
-* Series that get continued after they already got ended before are now automatically added back to the continuing series
+    * Added option to force a BackUp
+    * Series that get continued after they already got ended before are now automatically added back to the continuing series
 * **VERSION 1.1**
-* Removed old Information screen in favor of advanced information screen
-* Custom main menu background picture support
+    * Removed old Information screen in favor of advanced information screen
+    * Custom main menu background picture support
 * **VERSION 1.1.2**
-* Checking air dates after an update
-* PopUp informing you about (a) newly aired episode/s you can watch
+    * Checking air dates after an update
+    * PopUp informing you about (a) newly aired episode/s you can watch
 * **VERSION 1.2 - Bugfixes and Enhancements**
     * Handling series with no episodes as a faulty series of TVDB
     * Enhancement of the selection screen
     * Fixed crash when no background picture is available
     * Main menu now uses a fallback image if there are none in the folder
     * Series not available on TVDB are now not failing the update anymore
-</p>
-</details>
-
 * **VERSION 2.0 - RECODE**
     * Tidied up the code
     * Removed movie support
@@ -76,4 +73,11 @@
     * Fixed small bug when searching for series
     * Removed double PopUp when APIKey was missing
     * Fixed [Windows resizeable window bug](https://bugs.openjdk.java.net/browse/JDK-8089008)
+    
+</p>
+</details>
 
+* **VERSION 2.1**
+    * Improved stability and code quality
+    * Added time related order option
+    * Added `About` screen
