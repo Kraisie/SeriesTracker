@@ -275,6 +275,20 @@ public class MySeries {
 	}
 
 	/*
+	 *	get needed time to end the series
+	 */
+	public int getTimeToEnd() {
+		int sum = 0;
+		for (Episode epi : episodes) {
+			if (!epi.isWatched()) {
+				sum++;
+			}
+		}
+
+		return sum * runtime;
+	}
+
+	/*
 	 *  calculates the sum of all episodes a series got
 	 */
 	public int getSumEpisodesOfSeason(Episode current) {

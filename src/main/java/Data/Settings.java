@@ -18,7 +18,8 @@ public class Settings {
 	private String pathSeries;
 	private String pathBackUp;
 	private int backUpCycle;      // every x days BackUp
-	private boolean sortByName;    // false = sort by less time to completion
+	private boolean sortByCompletion;
+	private boolean sortByTime;
 
 	private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
 
@@ -33,21 +34,29 @@ public class Settings {
 	 *   Constructor that sets the standard values
 	 */
 	public Settings() {
-		pathAPIKey = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/API_Key.json").toString();
-		pathSeries = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Series.json").toString();
-		pathBackUp = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/BackUp.json").toString();
-		backUpCycle = 1;
-		sortByName = true;
+		this.pathAPIKey = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/API_Key.json").toString();
+		this.pathSeries = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Series.json").toString();
+		this.pathBackUp = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/BackUp.json").toString();
+		this.backUpCycle = 1;
+		this.sortByCompletion = false;
+		this.sortByTime = false;
 	}
 
 	/*
 	 *   Constructor that receives modified settings from the user
 	 */
-	public Settings(String pathSeries, String pathBackUp, int backUpCycle, boolean sortByName) {
+	public Settings(String pathSeries, String pathBackUp, int backUpCycle, boolean sortByCompletion, boolean sortByTime) {
 		this.pathSeries = pathSeries;
 		this.pathBackUp = pathBackUp;
 		this.backUpCycle = backUpCycle;
-		this.sortByName = sortByName;
+
+		if(sortByCompletion && sortByTime) {
+			this.sortByCompletion = false;
+			this.sortByTime = false;
+		} else {
+			this.sortByCompletion = sortByCompletion;
+			this.sortByTime = sortByTime;
+		}
 	}
 
 	/*
@@ -100,10 +109,10 @@ public class Settings {
 	public static boolean checkSettings(Settings settings) {
 		if (settings == null) return false;
 
-		return settings.getPathSeries() != null &&
+		return settings.getPathAPIKey() != null &&
+				settings.getPathSeries() != null &&
 				settings.getPathBackUp() != null &&
 				settings.getBackUpCycle() != 0;
-
 	}
 
 
@@ -139,11 +148,19 @@ public class Settings {
 		backUpCycle = cycle;
 	}
 
-	public boolean isSortByName() {
-		return sortByName;
+	public boolean isSortByCompletion() {
+		return sortByCompletion;
 	}
 
-	public void setSortByName(boolean sortByName) {
-		this.sortByName = sortByName;
+	public void setSortByCompletion(boolean sortByCompletion) {
+		this.sortByCompletion = sortByCompletion;
+	}
+
+	public boolean isSortByTime() {
+		return sortByTime;
+	}
+
+	public void setSortByTime(boolean sortByTime) {
+		this.sortByTime = sortByTime;
 	}
 }

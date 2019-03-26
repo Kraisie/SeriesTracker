@@ -312,9 +312,15 @@ public class MainSeriesController extends Controller {
 	 *  insert the series data into the cells of the table
 	 */
 	private void insertTableData(ObservableList<MySeries> unstarted, ObservableList<MySeries> watching, ObservableList<MySeries> waiting) {
-		if (!Settings.readData().isSortByName()) {
+		Settings settings = Settings.readData();
+		if (settings.isSortByCompletion()) {
 			// only watching as the others are all 100% or 0%
-			watching.sort(Comparator.comparing(MySeries::getCompletionRate));
+			watching.sort(Comparator.comparing(MySeries::getCompletionRate).reversed());
+		}
+
+		if (settings.isSortByTime()) {
+			watching.sort(Comparator.comparing(MySeries::getTimeToEnd));
+			unstarted.sort(Comparator.comparing(MySeries::getTimeToEnd));
 		}
 
 		tableStartWatching.setItems(unstarted);
@@ -508,7 +514,7 @@ public class MainSeriesController extends Controller {
 	 */
 	@FXML
 	private void sortByName() {
-		setSortingBehaviour(true);
+		setSortingBehaviour("name");
 	}
 
 	/*
@@ -516,22 +522,39 @@ public class MainSeriesController extends Controller {
 	 */
 	@FXML
 	private void sortByCompletion() {
-		setSortingBehaviour(false);
+		setSortingBehaviour("comp");
+	}
+
+	/*
+	 *	change the sorting behaviour to "by less needed time"
+	 */
+	@FXML
+	private void sortByTime() {
+		setSortingBehaviour("time");
 	}
 
 	/*
 	 *	change the sorting behaviour in the settings
 	 */
-	private void setSortingBehaviour(boolean sortBehaviour) {
+	private void setSortingBehaviour(String mode) {
 		Settings settings = Settings.readData();
 
-		if (settings.isSortByName() == sortBehaviour) {
-			return;
+		switch (mode) {
+			case "comp":
+				settings.setSortByCompletion(true);
+				settings.setSortByTime(false);
+				break;
+			case "time":
+				settings.setSortByCompletion(false);
+				settings.setSortByTime(true);
+				break;
+			case "name":
+			default:
+				settings.setSortByCompletion(false);
+				settings.setSortByTime(false);
 		}
 
-		settings.setSortByName(sortBehaviour);
 		Settings.writeData(settings);
-
 		initialize();
 	}
 

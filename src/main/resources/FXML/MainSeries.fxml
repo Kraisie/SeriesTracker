@@ -68,6 +68,7 @@
             <Menu mnemonicParsing="false" text="Sort by...">
                 <MenuItem mnemonicParsing="false" onAction="#sortByName" text="Name"/>
                 <MenuItem mnemonicParsing="false" onAction="#sortByCompletion" text="Completion Rate"/>
+                <MenuItem mnemonicParsing="false" onAction="#sortByTime" text="Less needed Time"/>
             </Menu>
             <MenuItem mnemonicParsing="false" onAction="#searchSeries" text="Search Series"/>
             <SeparatorMenuItem mnemonicParsing="false"/>
