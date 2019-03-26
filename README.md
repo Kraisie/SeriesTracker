@@ -30,7 +30,7 @@ java -jar SeriesTracker-release-X.jar
 * "Mode" > "Close", or the OS specific close button will close the program
 
 ##### Advanced
-* Click on "Mode" > "Sort by ..." and select `Name` to sort by name. Select `Completion rate` to sort by the amount episodes needed to finish the series. This only takes effect in the main menu and only for the `Continue watching` table as the other tables are at either 0% or 100%
+* Click on "Mode" > "Sort by ..." and select `Name` to sort by name. Select `Completion rate` to sort by the amount episodes needed to finish the series. This only takes effect in the main menu and only for the `Continue watching` table as the other tables are at either 0% or 100%. Select `Less needed Time` to sort by the amount of time needed to finish the series. This one does affect `Continue watching` and `Start watching`. When you order by `Completion rate` the series with the highest completion percentage gets shown at the top of the table. `Less needed Time` also shows the series with the least needed time at the top of the table.
 * Click on "Mode" > "Search Series" to search for a series in your data by some parameters.
     * Derivation means that if the duration you want to search for is 20 minutes and you select a derivation of 5 minutes the search will include series with a duration per episode of 15 to 25 minutes.
     * Userstates are symbolised by the tables of the main menu
@@ -54,7 +54,9 @@ java -jar SeriesTracker-release-X.jar
     * Seem to be widespread and no real solution is available
 * SearchSeries/AddSeries starts black (Linux) when Pantheon/Gtk is installed
 * `Gtk-Message: Failed to load module "pantheon-filechooser-module"` when Pantheon/Gtk is installed
-* NPE when switching scenes on Linux caused by the menu bar (Main menu -> Information)
+* NPE when switching scenes on Linux caused by the menu bar and gtk (Main menu -> Information)
     * only removing the menu bar fixes it at the moment
-* Menu bar behaves weird on a second screen with another resolution (Windows)
-    * should be fixed with Java9/Java11
+    
+## Why is there no Java 11 support?
+Unfortunately there are a lot of problems regarding Java 11 and OpenJFX. [Creating a .jar-file via gradle](http://openjdk.java.net/projects/jigsaw/spec/issues/#MultiModuleExecutableJARs), bugged windows (like on a Raspberry Pi), [gtk3-errors](https://bugs.openjdk.java.net/browse/JDK-8215104) and [warnings](https://bugs.openjdk.java.net/browse/JDK-8211305) and so on and so on. Because of those problems there is currently no point in supporting Java 11 which would be needed to fix the menu bar bug. Java 9 would also fix that bug but as a non LTS version it is already deprecated. Currently it seems that OpenJFX 12 fixes some of those problems so later this program may support Java 12.
+Until then only Java 8 is supported at a loss of a correctly working menu bar on a second screen on Windows.
