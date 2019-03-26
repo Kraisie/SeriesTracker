@@ -1,18 +1,18 @@
 package Dialog;
 
-import javafx.scene.control.Alert;
+import SceneController.MainSeriesController;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
+import java.net.URL;
 import java.util.Optional;
 
 public class PopUp {
 
 	public void showAlert(String header, String message, boolean contentBox) {
 		Alert alert = new Alert(AlertType.INFORMATION);
-
 		alert.setTitle("Information");
 		alert.setHeaderText(header);
 
@@ -62,7 +62,44 @@ public class PopUp {
 
 		Optional<ButtonType> option = alert.showAndWait();
 		return option.get() == ButtonType.YES;
+	}
 
+	public void showAbout() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("About");
+		alert.setHeaderText(null);
+
+		URL classResource = MainSeriesController.class.getResource("MainSeriesController.class");
+		if(classResource.toString().startsWith("jar")) {
+			// started from (release) jar
+			String name = getClass().getPackage().getImplementationTitle();
+			String version = getClass().getPackage().getImplementationVersion();
+
+			VBox dialogPaneContent = new VBox();
+			Label information = new Label("\n" + name + " - " + version + "\n\tby Kraisie");
+			Label github = new Label("\n\nGithub: ");
+			Hyperlink linkGithub = new Hyperlink("https://github.com/Kraisie");
+			Label telegram = new Label("\nTelegram: ");
+			Hyperlink linkTelegram = new Hyperlink("@Kraisie");
+			Font labelFont = new Font(16.0);
+			Font linkFont = new Font(16.0);
+			information.setFont(labelFont);
+			github.setFont(labelFont);
+			telegram.setFont(labelFont);
+			linkGithub.setFont(linkFont);
+			linkTelegram.setFont(linkFont);
+
+			dialogPaneContent.getChildren().addAll(information, github, linkGithub, telegram, linkTelegram);
+			alert.getDialogPane().setContent(dialogPaneContent);
+
+			linkGithub.setOnAction((event -> BrowserControl.openBrowser("https://github.com/Kraisie")));
+			linkTelegram.setOnAction((event -> BrowserControl.openBrowser("https://t.me/Kraisie")));
+		} else {
+			// started from IDE or used ./gradlew run etc.
+			alert.setContentText("Developer edition - No information available!");
+		}
+
+		alert.showAndWait();
 	}
 
 	private void showContentBox(Alert alert, String message) {

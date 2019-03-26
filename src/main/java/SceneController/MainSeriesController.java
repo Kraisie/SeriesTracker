@@ -35,6 +35,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.*;
 
+import static Dialog.BrowserControl.openBrowser;
 import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
 
 public class MainSeriesController extends Controller {
@@ -628,41 +629,7 @@ public class MainSeriesController extends Controller {
 	@FXML
 	private void showHowTo() {
 		String url = "https://github.com/Kraisie/SeriesTracker/blob/master/README.md";
-		String os = System.getProperty("os.name").toLowerCase();
-		Runtime runtime = Runtime.getRuntime();
-
-		try {
-			// Windows
-			if (os.contains("win")) {
-				runtime.exec("rundll32 url.dll, FileProtocolHandler" + url);
-				return;
-			}
-
-			// Linux
-			if (os.contains("nux") || os.contains("nix")) {
-				String[] browsers = {"firefox", "google-chrome", "chromium-browser", "opera", "epiphany", "mozilla", "netscape", "konqueror"};
-				String browser = null;
-				for (int count = 0; count < browsers.length && browser == null; count++) {
-					if (Runtime.getRuntime().exec(new String[]{"which", browsers[count]}).waitFor() == 0) {
-						browser = browsers[count];
-					}
-				}
-
-				if (browser == null) {
-					throw new Exception();
-				}
-
-				Runtime.getRuntime().exec(new String[]{browser, url});
-				return;
-			}
-
-			// Mac
-			if (os.contains("mac")) {
-				runtime.exec("open " + url);
-			}
-		} catch (Exception e) {
-			popUp.showWarning("Can not open browser!", "There is no supported browser installed on your machine.");
-		}
+		openBrowser(url);
 	}
 
 	/*
@@ -740,6 +707,14 @@ public class MainSeriesController extends Controller {
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
 		}
+	}
+
+	/*
+	 *	show information about the program
+	 */
+	@FXML
+	public void showAbout() {
+		popUp.showAbout();
 	}
 
 	/*
