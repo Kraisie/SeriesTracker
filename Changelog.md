@@ -81,3 +81,7 @@
     * Improved stability and code quality
     * Added time related order option
     * Added `About` screen
+* **VERSION 2.1.1**
+    * Added icon to PopUps
+    * Changed main menu sizes
+    * Changed date related and search related behaviour
