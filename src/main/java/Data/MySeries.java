@@ -46,7 +46,7 @@ public class MySeries {
 	public static List<MySeries> readData() {
 		String json;
 		Settings settings = Settings.readData();
-		if(settings == null) {
+		if (settings == null) {
 			return new ArrayList<>();
 		}
 
@@ -117,7 +117,7 @@ public class MySeries {
 
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				LocalDate date = LocalDate.parse(series.getEpisodes().get(index + 1).getFirstAired(), formatter);
-				if (!date.isBefore(LocalDate.now())) {
+				if (!date.isBefore(LocalDate.now()) && !date.equals(LocalDate.now())) {
 					continue;
 				}
 
@@ -251,13 +251,18 @@ public class MySeries {
 	 */
 	public Double getCompletionRate() {
 		double sum = 0;
+		double size = 0;
 		for (Episode epi : episodes) {
 			if (epi.isWatched()) {
 				sum++;
 			}
+
+			if (epi.isAired()) {
+				size++;
+			}
 		}
 
-		return (sum / episodes.size()) * 100;
+		return (sum / size) * 100;
 	}
 
 	/*
@@ -280,7 +285,7 @@ public class MySeries {
 	public int getTimeToEnd() {
 		int sum = 0;
 		for (Episode epi : episodes) {
-			if (!epi.isWatched()) {
+			if (!epi.isWatched() && epi.isAired()) {
 				sum++;
 			}
 		}

@@ -245,7 +245,11 @@ public class SearchController extends Controller {
 			return "Continuing";
 		}
 
-		return "Ended";
+		if (radioEnded.isSelected()) {
+			return "Ended";
+		}
+
+		return "";
 	}
 
 	/*
@@ -275,7 +279,11 @@ public class SearchController extends Controller {
 		}
 
 		// check status
-		return parameter.getStatus().equals(series.getStatus());
+		if (!parameter.getStatus().isEmpty()) {
+			return parameter.getStatus().equals(series.getStatus());
+		}
+
+		return true;
 	}
 
 	/*

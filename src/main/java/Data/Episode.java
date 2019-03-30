@@ -1,5 +1,7 @@
 package Data;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -93,6 +95,16 @@ public class Episode {
 
 	public void setFirstAired(String firstAired) {
 		this.firstAired = firstAired;
+	}
+
+	public boolean isAired() {
+		if (firstAired.equals("Not given!")) {
+			return false;
+		}
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = LocalDate.parse(firstAired, formatter);
+		return (date.isBefore(LocalDate.now()) || date.equals(LocalDate.now()));
 	}
 
 	public boolean isCurrent() {
