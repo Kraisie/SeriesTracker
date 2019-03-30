@@ -44,7 +44,6 @@ class Controller {
 	/*
 	 *  open a new scene on the given stage
 	 */
-	@FXML
 	void openScene(Stage primaryStage, String fxmlPath, String title) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
 		setStageProperties(primaryStage, title, root);
@@ -53,7 +52,6 @@ class Controller {
 	/*
 	 *  open scene and pass a parameter
 	 */
-	@FXML
 	@SuppressWarnings("unchecked")
 	// cast from object to List<MySeries> is safe
 	void openSceneWithOneParameter(Stage primaryStage, String fxmlPath, String title, Object series) throws IOException {
@@ -76,7 +74,6 @@ class Controller {
 	/*
 	 *  open search screen without passing a parameter
 	 */
-	@FXML
 	void openSearch(Stage primaryStage, String fxmlPath, String title) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
 		Parent root = loader.load();
@@ -90,7 +87,6 @@ class Controller {
 	/*
 	 *  open advanced information screen and pass two parameters (1 needed, 1 to save)
 	 */
-	@FXML
 	void openAdvancedInformationFromSearch(Stage primaryStage, String fxmlPath, String title, MySeries series, List<MySeries> tmpMatches) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
 		Parent root = loader.load();
@@ -104,7 +100,6 @@ class Controller {
 	/*
 	 *  open advanced information screen and pass two parameters (1 needed, 1 to save)
 	 */
-	@FXML
 	void openSearchFromAdvancedInformation(Stage primaryStage, String fxmlPath, String title, List<MySeries> tmpMatches) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
 		Parent root = loader.load();

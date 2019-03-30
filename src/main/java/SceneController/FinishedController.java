@@ -48,7 +48,7 @@ public class FinishedController extends Controller {
 			}
 		}
 
-		setCellvalueFactories();
+		setCellValueFactories();
 		tableFinishedSeries.setItems(finishedSeries);
 		labelWasted.setText(MySeries.wastedMinutesToString(calcWastedTime(finishedSeries)));
 	}
@@ -56,7 +56,7 @@ public class FinishedController extends Controller {
 	/*
 	 *  set all needed cell value factories
 	 */
-	private void setCellvalueFactories() {
+	private void setCellValueFactories() {
 		columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		columnSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
 		columnEpisodes.setCellValueFactory(new PropertyValueFactory<>("sumEpisodes"));
