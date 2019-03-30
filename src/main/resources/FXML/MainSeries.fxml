@@ -4,67 +4,73 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0"
-            prefWidth="1124.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx"
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="745.0"
+            prefWidth="1280.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml" fx:controller="SceneController.MainSeriesController">
-    <ImageView fx:id="imageBackground" fitHeight="632.0" fitWidth="1124.0" layoutY="28.0" pickOnBounds="true"
+    <ImageView fx:id="imageBackground" fitHeight="720.0" fitWidth="1280.0" layoutY="28.0" pickOnBounds="true"
                preserveRatio="true"/>
-    <Label fx:id="labelWatching" alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="42.0"
+    <Label fx:id="labelWatching" alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" layoutY="42.0"
            prefHeight="27.0" prefWidth="300.0" text="Continue watching" textAlignment="CENTER" textFill="LIME"
            underline="true">
         <font>
             <Font size="24.0"/>
         </font>
     </Label>
-    <Label fx:id="labelStarting" alignment="CENTER" layoutX="763.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0"
+    <Label fx:id="labelStarting" alignment="CENTER" layoutX="905.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0"
            text="Start watching" textFill="LIME" underline="true">
         <font>
             <Font size="24.0"/>
         </font>
     </Label>
-    <Label fx:id="labelWaiting" alignment="CENTER" layoutX="401.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0"
+    <Label fx:id="labelWaiting" alignment="CENTER" layoutX="490.0" layoutY="42.0" prefHeight="27.0" prefWidth="300.0"
            text="Wait for new episodes" textFill="LIME" underline="true">
         <font>
             <Font size="24.0"/>
         </font>
     </Label>
-    <TableView fx:id="tableContinueWatching" layoutX="38.0" layoutY="78.0" onKeyPressed="#scrollToKeyWatching"
-               onMouseClicked="#clickOnTableWatching" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
+    <TableView fx:id="tableContinueWatching" layoutX="50.0" layoutY="78.0" onKeyPressed="#scrollToKeyWatching"
+               onMouseClicked="#clickOnTableWatching" opacity="0.9" prefHeight="589.0" prefWidth="350.0">
         <columns>
-            <TableColumn fx:id="columnContinueName" prefWidth="173.0" text="Name"/>
-            <TableColumn id="centeredColumn" fx:id="columnContinueSeason" prefWidth="59.0" text="Season"/>
-            <TableColumn id="centeredColumn" fx:id="columnContinueEpisode" prefWidth="68.0" text="Episode"/>
+            <TableColumn fx:id="columnContinueName" prefWidth="190.0" text="Name"/>
+            <TableColumn id="centeredColumn" fx:id="columnContinueSeason" maxWidth="80.0" minWidth="80.0"
+                         text="Season"/>
+            <TableColumn id="centeredColumn" fx:id="columnContinueEpisode" maxWidth="80.0" minWidth="80.0"
+                         text="Episode"/>
         </columns>
     </TableView>
-    <TableView fx:id="tableWaiting" layoutX="401.0" layoutY="78.0" onKeyPressed="#scrollToKeyWaiting"
-               onMouseClicked="#clickOnTableWaiting" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
+    <TableView fx:id="tableWaiting" layoutX="465.0" layoutY="78.0" onKeyPressed="#scrollToKeyWaiting"
+               onMouseClicked="#clickOnTableWaiting" opacity="0.9" prefHeight="589.0" prefWidth="350.0">
         <columns>
-            <TableColumn fx:id="columnWaitName" prefWidth="173.0" text="Name"/>
-            <TableColumn id="centeredColumn" fx:id="columnWaitSeason" prefWidth="59.0" text="Season"/>
-            <TableColumn id="centeredColumn" fx:id="columnWaitEpisode" prefWidth="68.0" text="Episode"/>
+            <TableColumn fx:id="columnWaitName" prefWidth="190.0" text="Name"/>
+            <TableColumn id="centeredColumn" fx:id="columnWaitSeason" maxWidth="80.0" minWidth="80.0" text="Season"/>
+            <TableColumn id="centeredColumn" fx:id="columnWaitEpisode" maxWidth="80.0" minWidth="80.0" text="Episode"/>
         </columns>
     </TableView>
-    <TableView fx:id="tableStartWatching" layoutX="763.0" layoutY="78.0" onKeyPressed="#scrollToKeyNotStarted"
-               onMouseClicked="#clickOnTableUnstarted" opacity="0.9" prefHeight="498.0" prefWidth="300.0">
+    <TableView fx:id="tableStartWatching" layoutX="880.0" layoutY="78.0" onKeyPressed="#scrollToKeyNotStarted"
+               onMouseClicked="#clickOnTableUnstarted" opacity="0.9" prefHeight="589.0" prefWidth="350.0">
         <columns>
-            <TableColumn fx:id="columnStartName" prefWidth="200.0" text="Name"/>
-            <TableColumn id="centeredColumn" fx:id="columnStartSeasons" prefWidth="100.0" text="Seasons"/>
+            <TableColumn fx:id="columnStartName" prefWidth="225.0" text="Name"/>
+            <TableColumn id="centeredColumn" fx:id="columnStartSeasons" maxWidth="125.0" minWidth="125.0"
+                         prefWidth="125.0" text="Seasons"/>
         </columns>
     </TableView>
 
-    <Button fx:id="buttonIncEpisode" layoutX="88.0" layoutY="585.0" mnemonicParsing="false" onAction="#incEpisodeButton"
-            prefHeight="65.0" prefWidth="65.0" text="+"/>
-    <Button fx:id="buttonDecEpisode" layoutX="223.0" layoutY="585.0" mnemonicParsing="false"
-            onAction="#decEpisodeButton" prefHeight="65.0" prefWidth="65.0" text="-"/>
-    <Button fx:id="buttonStartedSeries" layoutX="864.0" layoutY="605.0" mnemonicParsing="false" onAction="#startSeries"
+    <Button fx:id="buttonIncEpisode" layoutX="123.0" layoutY="675.0" mnemonicParsing="false"
+            onAction="#incEpisodeButton" prefHeight="65.0" prefWidth="65.0" text="+"/>
+    <Button fx:id="buttonDecEpisode" layoutX="273.0" layoutY="675.0" mnemonicParsing="false"
+            onAction="#decEpisodeButton" prefHeight="65.0" prefWidth="65.0" text="-">
+        <font>
+            <Font size="16.0"/>
+        </font>
+    </Button>
+    <Button fx:id="buttonStartedSeries" layoutX="1014.0" layoutY="695.0" mnemonicParsing="false" onAction="#startSeries"
             text="Started series"/>
-    <Button fx:id="infoButton" layoutX="513.0" layoutY="585.0" mnemonicParsing="false" onAction="#displayInformation"
+    <Button fx:id="infoButton" layoutX="598.0" layoutY="675.0" mnemonicParsing="false" onAction="#displayInformation"
             text="Information"/>
-    <Button fx:id="buttonFinishedSeries" layoutX="494.0" layoutY="625.0" mnemonicParsing="false"
+    <Button fx:id="buttonFinishedSeries" layoutX="580.0" layoutY="712.0" mnemonicParsing="false"
             onAction="#displayFinishedSeries" text="All finished series"/>
 
-    <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1124.0">
+    <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1280.0">
         <Menu mnemonicParsing="false" text="Mode">
             <Menu mnemonicParsing="false" text="Sort by...">
                 <MenuItem mnemonicParsing="false" onAction="#sortByName" text="Name"/>
