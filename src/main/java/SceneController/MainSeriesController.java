@@ -101,9 +101,11 @@ public class MainSeriesController extends Controller {
 			backgroundSet = true;
 		}
 
-		setHeaderContrastColor(labelWatching);
-		setHeaderContrastColor(labelWaiting);
-		setHeaderContrastColor(labelStarting);
+		if(bufImg != null) {
+			setHeaderContrastColor(labelWatching);
+			setHeaderContrastColor(labelWaiting);
+			setHeaderContrastColor(labelStarting);
+		}
 
 		populateTables();
 	}

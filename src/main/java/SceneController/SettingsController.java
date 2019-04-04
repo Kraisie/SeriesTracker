@@ -154,24 +154,50 @@ public class SettingsController extends Controller {
 		}
 
 		try {
-			if (!oldSettings.getPathSeries().equals(settings.getPathSeries())) {
-				Files.move(oldSettings.getPathSeries(), settings.getPathSeries(), REPLACE_EXISTING);
-			}
+			Path newSeries = settings.getPathSeries();
+			Path oldSeries = oldSettings.getPathSeries();
+			String fileSeries = "Series.json";
+			moveFile(newSeries, oldSeries, fileSeries);
 
-			if (!oldSettings.getPathAPIKey().equals(settings.getPathAPIKey())) {
-				Files.move(oldSettings.getPathAPIKey(), settings.getPathAPIKey(), REPLACE_EXISTING);
-			}
+			Path newKey = settings.getPathAPIKey();
+			Path oldKey = oldSettings.getPathAPIKey();
+			String fileKey = "API_Key.json";
+			moveFile(newKey, oldKey, fileKey);
 
-			if (!oldSettings.getPathBackUp().equals(settings.getPathBackUp())) {
-				Files.move(oldSettings.getPathBackUp(), settings.getPathBackUp(), REPLACE_EXISTING);
-			}
+			Path newBackUp = settings.getPathBackUp();
+			Path oldBackUp = oldSettings.getPathBackUp();
+			String fileBackUp = "BackUp.json";
+			moveFile(newBackUp, oldBackUp, fileBackUp);
 		} catch (IOException e) {
 			popUp.showError("Failed copying old save files!", getStackTrace(e), true);
 		}
 
-		APIKey.writeKey(new APIKey(textApiKey.getText(), textUserKey.getText(), textUserName.getText()));
 		Settings.writeData(settings);
 		back();
+	}
+
+	/*
+	 *	moves save files if needed or deletes old files
+	 */
+	private void moveFile(Path newPath, Path oldPath, String fileName) throws IOException {
+		if (oldPath.equals(newPath)) {
+			return;
+		}
+
+		if (!oldPath.toFile().exists()) {
+			return;
+		}
+
+		if (newPath.toFile().exists()) {
+			if (popUp.showChoice(fileName + " already exists!", "Do you want to replace it?")) {
+				Files.move(oldPath, newPath, REPLACE_EXISTING);
+			} else {
+				// remove old file
+				Files.delete(oldPath);
+			}
+		} else {
+			Files.move(oldPath, newPath, REPLACE_EXISTING);
+		}
 	}
 
 	/*
