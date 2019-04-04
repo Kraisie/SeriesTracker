@@ -85,3 +85,6 @@
     * Added icon to PopUps
     * Changed main menu sizes
     * Changed date related and search related behaviour
+* **VERSION 2.1.2**
+    * Upgraded graphics for every scene
+    * Improved file management

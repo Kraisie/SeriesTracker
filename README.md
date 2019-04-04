@@ -50,10 +50,8 @@ java -jar SeriesTracker-release-X.jar
     * That will require support for a change of the json file
 
 ## Bugs with no solution yet
-* CSS errors (`java.lang.String cannot be cast to javafx.scene.paint.Color' while converting value for '-fx-background-color' from rule '*.scroll-bar:vertical' in stylesheet jar:file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jfxrt.jar!/com/sun/javafx/scene/control/skin/modena/modena.bss`)
-    * Seem to be widespread and no real solution is available
-* SearchSeries/AddSeries starts black (Linux) when Pantheon/Gtk is installed
-* `Gtk-Message: Failed to load module "pantheon-filechooser-module"` when Pantheon/Gtk is installed
+* SearchSeries/AddSeries starts black sometimes (Linux)
+* `Gtk-Message: Failed to load module "pantheon-filechooser-module"` (Linux/pantheon)
 * NPE when switching scenes on Linux caused by the menu bar and gtk (Main menu -> Information)
     * only removing the menu bar fixes it at the moment
     
