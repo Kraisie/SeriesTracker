@@ -92,7 +92,8 @@ public class PopUp {
 			String name = getClass().getPackage().getImplementationTitle();
 			String version = getClass().getPackage().getImplementationVersion();
 
-			VBox dialogPaneContent = new VBox();
+			DialogPane dialogPaneContent = alert.getDialogPane();
+			VBox vbox = new VBox();
 			Label information = new Label("\n" + name + " - " + version + "\n\tby Kraisie");
 			Label github = new Label("\n\nGithub: ");
 			Hyperlink linkGithub = new Hyperlink("https://github.com/Kraisie");
@@ -106,13 +107,18 @@ public class PopUp {
 			linkGithub.setFont(linkFont);
 			linkTelegram.setFont(linkFont);
 
-			dialogPaneContent.getChildren().addAll(information, github, linkGithub, telegram, linkTelegram);
-			alert.getDialogPane().setContent(dialogPaneContent);
+			information.setId("normalLabel");
+			github.setId("normalLabel");
+			telegram.setId("normalLabel");
+			vbox.getChildren().addAll(information, github, linkGithub, telegram, linkTelegram);
+			dialogPaneContent.getStylesheets().add("/css/myStyle.css");
+			dialogPaneContent.setContent(vbox);
 
 			linkGithub.setOnAction((event -> BrowserControl.openBrowser("https://github.com/Kraisie")));
 			linkTelegram.setOnAction((event -> BrowserControl.openBrowser("https://t.me/Kraisie")));
 		} else {
 			// started from IDE or used ./gradlew run etc.
+			alert.getDialogPane().getStylesheets().add("/css/myStyle.css");
 			alert.setContentText("Developer edition - No information available!");
 		}
 
@@ -120,11 +126,13 @@ public class PopUp {
 	}
 
 	private void showContentBox(Alert alert, String message) {
-		VBox dialogPaneContent = new VBox();
+		DialogPane dialogPaneContent = alert.getDialogPane();
 		TextArea textArea = new TextArea();
 		textArea.setText(message);
-		dialogPaneContent.getChildren().addAll(textArea);
-		alert.getDialogPane().setContent(dialogPaneContent);
+		textArea.setEditable(false);
+
+		dialogPaneContent.getStylesheets().add("/css/myStyle.css");
+		dialogPaneContent.setContent(textArea);
 	}
 
 

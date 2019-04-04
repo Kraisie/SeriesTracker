@@ -5,10 +5,8 @@ import Data.SearchParameter;
 import Dialog.PopUp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -81,11 +79,6 @@ public class SearchController extends Controller {
 	}
 
 	private void ownInitialize() {
-		// disable the context menus
-		durationSpinner.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-		derivationSpinner.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-		seasonsSpinner.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-
 		// check if we need to reuse found series
 		if (tmpMatches != null) {
 			isAlreadyFound = true;
@@ -165,7 +158,7 @@ public class SearchController extends Controller {
 		seasonsSpinner.setValueFactory(valueFactory3);
 
 		ObservableList<String> choices = FXCollections.observableArrayList();
-		choices.addAll("0", ">1", ">2", ">3", ">4", ">5", ">6", ">7", ">8", ">9");
+		choices.addAll(" 0", " >1", " >2", " >3", " >4", " >5", " >6", " >7", " >8", " >9");
 		ratingChoice.setItems(choices);
 		ratingChoice.getSelectionModel().select(0);
 
@@ -203,7 +196,7 @@ public class SearchController extends Controller {
 	 *  get the chosen parameters from the UI
 	 */
 	private SearchParameter getSearchParameter() {
-		int rating = Integer.parseInt(ratingChoice.getValue().replaceAll(">", ""));
+		int rating = Integer.parseInt(ratingChoice.getValue().replaceAll(">", " ").replaceAll(" ", ""));
 		int duration = durationSpinner.getValue();
 		int derivation = derivationSpinner.getValue();
 		int seasons = seasonsSpinner.getValue();

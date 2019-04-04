@@ -3,34 +3,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0"
-            prefWidth="650.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx"
+<AnchorPane id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="536.0" prefWidth="650.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml" fx:controller="SceneController.SearchController">
-    <Label layoutX="120.0" layoutY="30.0" text="Search series by duration of the episodes," textAlignment="CENTER">
+    <Label id="biggerLabel" layoutX="128.0" layoutY="28.0" text="Search series by duration of the episodes,"
+           textAlignment="CENTER">
         <font>
             <Font size="22.0"/>
         </font>
     </Label>
-    <Label layoutX="173.0" layoutY="62.0" text="rating and  number of seasons:" textAlignment="CENTER">
+    <Label id="biggerLabel" layoutX="180.0" layoutY="63.0" text="rating and  number of seasons:" textAlignment="CENTER">
         <font>
             <Font size="22.0"/>
         </font>
     </Label>
     <Spinner fx:id="durationSpinner" editable="true" layoutX="367.0" layoutY="167.0"/>
-    <Label layoutX="120.0" layoutY="171.0" text="Duration of episodes in minutes:">
+    <Label id="normalLabel" layoutX="120.0" layoutY="171.0" text="Duration of episodes in minutes:">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
-    <Label layoutX="120.0" layoutY="208.0" text="Derivation of duration in minutes (±):"/>
+    <Label id="normalLabel" layoutX="120.0" layoutY="208.0" text="Derivation of duration in minutes (±):"/>
     <Spinner fx:id="derivationSpinner" editable="true" layoutX="367.0" layoutY="203.0"/>
-    <Label layoutX="121.0" layoutY="258.0" text="Rating of the series:">
+    <Label id="normalLabel" layoutX="121.0" layoutY="258.0" text="Rating of the series:">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
     <ComboBox fx:id="ratingChoice" layoutX="367.0" layoutY="254.0" prefHeight="25.0" prefWidth="164.0"/>
-    <Label layoutX="121.0" layoutY="308.0" text="Number of seasons:">
+    <Label id="normalLabel" layoutX="121.0" layoutY="308.0" text="Number of seasons:">
         <font>
             <Font size="15.0"/>
         </font>
@@ -40,11 +41,11 @@
             text="Search series"/>
     <Button fx:id="backButton" layoutX="487.0" layoutY="497.0" mnemonicParsing="false" onAction="#back"
             text="Go back to Main Menu"/>
-    <Label layoutX="131.0" layoutY="113.0" text="Leave Fields on 0 if you do not want to include them in your search!"
-           textFill="RED"/>
+    <Label id="normalAlert" layoutX="141.0" layoutY="112.0"
+           text="Leave Fields on 0 if you do not want to include them in your search!" textFill="RED"/>
     <Button fx:id="researchButton" layoutX="257.0" layoutY="497.0" mnemonicParsing="false" onAction="#reSearch"
             text="Search another series"/>
-    <Label layoutX="121.0" layoutY="358.0" text="Userstate of series:">
+    <Label id="normalLabel" layoutX="121.0" layoutY="358.0" text="Userstate of series:">
         <font>
             <Font size="15.0"/>
         </font>
@@ -57,7 +58,7 @@
               text="Waiting for new season"/>
     <CheckBox fx:id="checkFinished" layoutX="417.0" layoutY="386.0" mnemonicParsing="false" selected="true"
               text="Finished series"/>
-    <Label layoutX="121.0" layoutY="436.0" text="State of the series:">
+    <Label id="normalLabel" layoutX="121.0" layoutY="436.0" text="State of the series:">
         <font>
             <Font size="15.0"/>
         </font>

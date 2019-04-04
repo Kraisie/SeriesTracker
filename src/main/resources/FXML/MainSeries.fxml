@@ -58,11 +58,7 @@
     <Button fx:id="buttonIncEpisode" layoutX="123.0" layoutY="675.0" mnemonicParsing="false"
             onAction="#incEpisodeButton" prefHeight="65.0" prefWidth="65.0" text="+"/>
     <Button fx:id="buttonDecEpisode" layoutX="273.0" layoutY="675.0" mnemonicParsing="false"
-            onAction="#decEpisodeButton" prefHeight="65.0" prefWidth="65.0" text="-">
-        <font>
-            <Font size="16.0"/>
-        </font>
-    </Button>
+            onAction="#decEpisodeButton" prefHeight="65.0" prefWidth="65.0" text="-"/>
     <Button fx:id="buttonStartedSeries" layoutX="1014.0" layoutY="695.0" mnemonicParsing="false" onAction="#startSeries"
             text="Started series"/>
     <Button fx:id="infoButton" layoutX="598.0" layoutY="675.0" mnemonicParsing="false" onAction="#displayInformation"
@@ -100,5 +96,5 @@
             <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About"/>
         </Menu>
     </MenuBar>
-    <ProgressIndicator fx:id="progressIndicator" layoutX="1017.0" layoutY="604.0" progress="0.0" visible="false"/>
+    <ProgressIndicator fx:id="progressIndicator" layoutX="1225.0" layoutY="685.0" progress="0.0" visible="false"/>
 </AnchorPane>

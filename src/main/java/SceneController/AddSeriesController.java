@@ -3,11 +3,9 @@ package SceneController;
 import Data.MySeries;
 import Dialog.PopUp;
 import TVDB.TVDB_Data;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,8 +24,7 @@ public class AddSeriesController extends Controller {
 
 	@FXML
 	private void initialize() {
-		// disable the context menu
-		nameTVDB.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
+
 	}
 
 	/*

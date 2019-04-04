@@ -4,14 +4,12 @@ import Data.Episode;
 import Data.MySeries;
 import Dialog.PopUp;
 import TVDB.TVDB_Data;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -89,10 +87,6 @@ public class AdvancedInformationController extends Controller {
 	}
 
 	private void ownInitialize() {
-		// disable the context menus
-		overviewSeries.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-		overviewEpisode.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-
 		MySeries tmpSeries;
 		tmpSeries = series;
 

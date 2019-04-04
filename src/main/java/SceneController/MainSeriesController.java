@@ -231,17 +231,17 @@ public class MainSeriesController extends Controller {
 	 */
 	private Color getHighestContrast(double hue) {
 		// modified values
-		if (hue > 5 && hue <= 90) {                 // normal 46-90
+		if (hue > 46 && hue <= 90) {
 			return Color.yellow;
-		} else if (hue > 90 && hue <= 176) {        // normal 91-135
+		} else if (hue > 90 && hue <= 135) {
 			return Color.green;
-		} else if (hue > 177 && hue <= 225) {       // normal 136-225
+		} else if (hue > 135 && hue <= 225) {
 			return Color.cyan;
-		} else if (hue > 225 && hue <= 239) {       // normal 226-270
+		} else if (hue > 225 && hue <= 270) {
 			return Color.blue;
-		} else if (hue > 239 && hue <= 315) {       // normal 271-315
+		} else if (hue > 270 && hue <= 315) {
 			return Color.magenta;
-		} else {                                    // normal 316-45
+		} else {
 			return Color.red;
 		}
 	}

@@ -3,10 +3,8 @@ package SceneController;
 import Data.Settings;
 import Dialog.PopUp;
 import TVDB.APIKey;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -43,15 +41,6 @@ public class SettingsController extends Controller {
 
 	@FXML
 	private void initialize() {
-		// disable the context menus
-		textPathAPIKey.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-		textPathSave.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-		textPathBackUp.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-		textApiKey.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-		textUserKey.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-		textUserName.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-		frequencySpinner.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
-
 		fillSettings();
 	}
 
@@ -160,7 +149,7 @@ public class SettingsController extends Controller {
 	@FXML
 	private void save() {
 		Settings oldSettings = Settings.readData();
-		if(oldSettings == null) {
+		if (oldSettings == null) {
 			return;
 		}
 
