@@ -88,3 +88,5 @@
 * **VERSION 2.1.2**
     * Upgraded graphics for every scene
     * Improved file management
+* **Version 2.2**
+    * Added option to select a preferred language for the TVDB results

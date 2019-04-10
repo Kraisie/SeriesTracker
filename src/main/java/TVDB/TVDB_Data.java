@@ -2,6 +2,7 @@ package TVDB;
 
 import Data.Episode;
 import Data.MySeries;
+import Data.Settings;
 import Dialog.PopUp;
 import SceneController.MainSeriesController;
 import com.google.gson.Gson;
@@ -68,14 +69,12 @@ public class TVDB_Data {
 	 *	search possibly fitting series to a search term
 	 */
 	public List<MySeries> searchSeries(String seriesName) {
-		// LOGIN
-		//String token = logIn();
-
 		// SEARCH possible Series
-		SeriesSearchData suggestions = searchPossibleSeries(seriesName, token, false);
+		Settings settings = Settings.readData();
+		SeriesSearchData suggestions = searchPossibleSeries(seriesName, token, settings.getLangIso());
 
 		if (suggestions == null) {
-			suggestions = searchPossibleSeries(seriesName, token, true);
+			suggestions = searchPossibleSeries(seriesName, token, "en");
 		}
 
 		if (suggestions == null) {
@@ -114,18 +113,27 @@ public class TVDB_Data {
 	 *	updated series that are already saved locally
 	 */
 	public MySeries getUpdate(String providedID, int userState, int currentSeason, int currentEpisode) {
-		// LOGIN
-		//String token = logIn();
-
 		// GET Series
-		SeriesData series = getSeries(token, Integer.parseInt(providedID));
+		Settings settings = Settings.readData();
+		String langIso = settings.getLangIso();
+		SeriesData series = getSeries(token, Integer.parseInt(providedID), langIso);
 
 		if (series == null) {
 			return null;
 		}
 
+		if (series.getData().getSeriesName() == null) {
+			// series not available on that language
+			series = getSeries(token, Integer.parseInt(providedID), "en");
+		}
+
+		if (series == null) {
+			// use local copy
+			return null;
+		}
+
 		// GET Episodes
-		List<Episode> episodes = getEpisodes(token, Integer.parseInt(providedID), currentSeason, currentEpisode);
+		List<Episode> episodes = getEpisodes(token, Integer.parseInt(providedID), currentSeason, currentEpisode, langIso);
 
 		// If userState is not given (-1) set it to 0 (not started)
 		if (userState == -1) {
@@ -208,7 +216,7 @@ public class TVDB_Data {
 	/*
 	 *	prepare search request to API
 	 */
-	private static SeriesSearchData searchPossibleSeries(String seriesName, String token, boolean german) {
+	private static SeriesSearchData searchPossibleSeries(String seriesName, String token, String language) {
 		// search Data.Series
 		String urlEncodedSeries = null;
 		try {
@@ -216,7 +224,7 @@ public class TVDB_Data {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		String foundJSON = requestToString("search", token, urlEncodedSeries, german, 0);
+		String foundJSON = requestToString("search", token, urlEncodedSeries, 0, language);
 
 		if (foundJSON == null) {
 			return null;
@@ -232,7 +240,7 @@ public class TVDB_Data {
 	/*
 	 *	send requests to the API
 	 */
-	private static String requestToString(String mode, String token, String seriesIndication, boolean german, int page) {
+	private static String requestToString(String mode, String token, String seriesIndication, int page, String languageIsoCode) {
 		String stringJSON = "";
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		try {
@@ -259,11 +267,7 @@ public class TVDB_Data {
 			}
 
 			request.setHeader("Authorization", "Bearer " + token);
-			if (german) {
-				request.addHeader("Accept-Language", "de");
-			} else {
-				request.addHeader("Accept-Language", "en");
-			}
+			request.addHeader("Accept-Language", languageIsoCode);
 
 			HttpResponse response = httpClient.execute(request);
 			HttpEntity entity = response.getEntity();
@@ -300,8 +304,8 @@ public class TVDB_Data {
 	/*
 	 *	 getting a series from the API
 	 */
-	private static SeriesData getSeries(String token, int id) {
-		String seriesJSON = requestToString("getSeries", token, String.valueOf(id), false, 0);
+	private static SeriesData getSeries(String token, int id, String language) {
+		String seriesJSON = requestToString("getSeries", token, String.valueOf(id), 0, language);
 
 		if (seriesJSON != null) {
 			Gson gson = new Gson();
@@ -314,8 +318,8 @@ public class TVDB_Data {
 	/*
 	 *	getting a list of all episodes a series got
 	 */
-	private static List<Episode> getEpisodes(String token, int id, int currentSeason, int currentEpisode) {
-		String episodesJSON = requestToString("getEpisodes", token, String.valueOf(id), false, 1);
+	private static List<Episode> getEpisodes(String token, int id, int currentSeason, int currentEpisode, String language) {
+		String episodesJSON = requestToString("getEpisodes", token, String.valueOf(id), 1, language);
 
 		Gson gson;
 		SeriesEpisodes episodes;
@@ -335,7 +339,7 @@ public class TVDB_Data {
 		allEpisodes = setFields(episodes);
 
 		for (int i = 2; i <= episodes.getLinks().getLast(); i++) {
-			episodesJSON = requestToString("getEpisodes", token, String.valueOf(id), false, i);
+			episodesJSON = requestToString("getEpisodes", token, String.valueOf(id), i, language);
 			episodes = gson.fromJson(episodesJSON, SeriesEpisodes.class);
 			allEpisodes.addAll(setFields(episodes));
 		}

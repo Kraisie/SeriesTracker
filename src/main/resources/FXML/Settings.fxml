@@ -3,11 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane id="anchorPane" prefHeight="456.0" prefWidth="600.0" stylesheets="@../css/myStyle.css"
+<AnchorPane id="anchorPane" prefHeight="600.0" prefWidth="600.0" stylesheets="@../css/myStyle.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="SceneController.SettingsController">
-    <Button layoutX="251.0" layoutY="406.0" mnemonicParsing="false" onAction="#save" text="Save Settings"/>
-    <Button fx:id="backButton" layoutX="540.0" layoutY="406.0" mnemonicParsing="false" onAction="#back" text="Back"/>
+    <Button layoutX="252.0" layoutY="559.0" mnemonicParsing="false" onAction="#save" text="Save Settings"/>
+    <Button fx:id="backButton" layoutX="540.0" layoutY="559.0" mnemonicParsing="false" onAction="#back" text="Back"/>
     <Button layoutX="494.0" layoutY="231.0" mnemonicParsing="false" onAction="#changePathSave" text="Change Path"/>
     <Label id="normalLabel" layoutX="16.0" layoutY="236.0" text="Folder to save your series in:"/>
     <Label id="normalLabel" layoutX="16.0" layoutY="291.0" text="Folder to save your BackUp in:"/>
@@ -22,7 +22,7 @@
     <TextField fx:id="textPathSave" editable="false" layoutX="212.0" layoutY="230.0" prefHeight="25.0"
                prefWidth="270.0"/>
     <TextField fx:id="textPathBackUp" layoutX="212.0" layoutY="285.0" prefHeight="25.0" prefWidth="270.0"/>
-    <Button layoutX="14.0" layoutY="406.0" mnemonicParsing="false" onAction="#standard" text="Standard Settings"/>
+    <Button layoutX="16.0" layoutY="559.0" mnemonicParsing="false" onAction="#standard" text="Standard Settings"/>
     <Label id="normalLabel" layoutX="15.0" layoutY="79.0" text="Folder to save your API key in:"/>
     <TextField fx:id="textPathAPIKey" layoutX="212.0" layoutY="73.0" prefHeight="25.0" prefWidth="270.0"/>
     <Button layoutX="493.0" layoutY="74.0" mnemonicParsing="false" onAction="#changePathAPIKey" prefHeight="25.0"
@@ -33,4 +33,6 @@
     <TextField fx:id="textApiKey" layoutX="170.0" layoutY="115.0" prefHeight="25.0" prefWidth="311.0"/>
     <TextField fx:id="textUserKey" layoutX="170.0" layoutY="150.0" prefHeight="25.0" prefWidth="311.0"/>
     <TextField fx:id="textUserName" layoutX="170.0" layoutY="185.0" prefHeight="25.0" prefWidth="311.0"/>
+    <Label id="normalLabel" layoutX="16.0" layoutY="406.0" text="Prefered Language for TVDB:"/>
+    <ComboBox fx:id="languageCombo" layoutX="295.0" layoutY="403.0" prefWidth="150.0"/>
 </AnchorPane>

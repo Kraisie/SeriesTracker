@@ -20,6 +20,7 @@ public class Settings {
 	private int backUpCycle;      // every x days BackUp
 	private boolean sortByCompletion;
 	private boolean sortByTime;
+	private String langIso;
 
 	private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
 
@@ -40,17 +41,19 @@ public class Settings {
 		this.backUpCycle = 1;
 		this.sortByCompletion = false;
 		this.sortByTime = false;
+		this.langIso = "en";
 	}
 
 	/*
 	 *   Constructor that receives modified settings from the user
 	 */
-	public Settings(String pathSeries, String pathBackUp, int backUpCycle, boolean sortByCompletion, boolean sortByTime) {
+	public Settings(String pathSeries, String pathBackUp, int backUpCycle, boolean sortByCompletion, boolean sortByTime, String langIso) {
 		this.pathSeries = pathSeries;
 		this.pathBackUp = pathBackUp;
 		this.backUpCycle = backUpCycle;
+		this.langIso = langIso;
 
-		if(sortByCompletion && sortByTime) {
+		if (sortByCompletion && sortByTime) {
 			this.sortByCompletion = false;
 			this.sortByTime = false;
 		} else {
@@ -162,5 +165,13 @@ public class Settings {
 
 	public void setSortByTime(boolean sortByTime) {
 		this.sortByTime = sortByTime;
+	}
+
+	public String getLangIso() {
+		return langIso;
+	}
+
+	public void setLangIso(String langIso) {
+		this.langIso = langIso;
 	}
 }

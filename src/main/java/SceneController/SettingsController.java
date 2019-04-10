@@ -3,6 +3,8 @@ package SceneController;
 import Data.Settings;
 import Dialog.PopUp;
 import TVDB.APIKey;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
@@ -33,6 +35,8 @@ public class SettingsController extends Controller {
 	private TextField textUserName;
 	@FXML
 	private Spinner<Integer> frequencySpinner;
+	@FXML
+	private ComboBox<String> languageCombo;
 	@FXML
 	private Button backButton;
 
@@ -69,6 +73,11 @@ public class SettingsController extends Controller {
 		valueFactory.valueProperty().bindBidirectional(formatter.valueProperty());
 		frequencySpinner.setValueFactory(valueFactory);
 		frequencySpinner.getValueFactory().setValue(settings.getBackUpCycle());
+
+		ObservableList<String> languageOptions = FXCollections.observableArrayList();
+		languageOptions.addAll("en", "de", "es", "fr", "it");
+		languageCombo.setItems(languageOptions);
+		languageCombo.getSelectionModel().select(settings.getLangIso());
 	}
 
 	/*
@@ -153,6 +162,9 @@ public class SettingsController extends Controller {
 			return;
 		}
 
+		changeSettings();
+		changeApiKey();
+
 		try {
 			Path newSeries = settings.getPathSeries();
 			Path oldSeries = oldSettings.getPathSeries();
@@ -174,6 +186,49 @@ public class SettingsController extends Controller {
 
 		Settings.writeData(settings);
 		back();
+	}
+
+	/*
+	 *	save the new Frequency
+	 */
+	private void changeSettings() {
+		settings.setBackUpCycle(frequencySpinner.getValue());
+		settings.setLangIso(languageCombo.getValue());
+	}
+
+	/*
+	 *
+	 */
+
+	/*
+	 *	transfers changes of the API Key from UI to Object
+	 */
+	private void changeApiKey() {
+		APIKey key = APIKey.readKey();
+		boolean changes = false;
+		if (key != null) {
+			String apiKey = textApiKey.getText();
+			if (!apiKey.equals(key.getApikey())) {
+				key.setApikey(apiKey);
+				changes = true;
+			}
+
+			String userKey = textUserKey.getText();
+			if (!userKey.equals(key.getUserkey())) {
+				key.setUserkey(userKey);
+				changes = true;
+			}
+
+			String userName = textUserName.getText();
+			if (!userName.equals(key.getUsername())) {
+				key.setUsername(userName);
+				changes = true;
+			}
+
+			if (changes) {
+				APIKey.writeKey(key);
+			}
+		}
 	}
 
 	/*
