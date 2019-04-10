@@ -16,17 +16,22 @@ public class BackUp {
 	private final long lastSave;
 	private final List<MySeries> series;
 
+	/**
+	 * Creates a BackUp that contains the creation time of itself and the content that it saves.
+	 */
 	public BackUp() {
 		this.lastSave = System.currentTimeMillis();
 		this.series = MySeries.readData();
 	}
 
-	/*
-	 *  read the backUp from the json file
+	/**
+	 * Reads the BackUp from the json file specified in the settings. It returns null if there are no settings or the settings do not contain a BackUp path.
+	 *
+	 * @return BackUp
 	 */
 	public static BackUp readBackUp() {
 		Settings settings = Settings.readData();
-		if(settings == null) {
+		if (settings == null) {
 			return null;
 		}
 
@@ -47,8 +52,10 @@ public class BackUp {
 		return gson.fromJson(json, BackUp.class);
 	}
 
-	/*
-	 *  write a backUp to a json file
+	/**
+	 * Writes a BackUp to a json file.
+	 *
+	 * @param backUp an object of type BackUp
 	 */
 	public static void writeBackUp(BackUp backUp) {
 		Gson gson = new Gson();
@@ -63,8 +70,8 @@ public class BackUp {
 		}
 	}
 
-	/*
-	 *  checks if the backUp is older than the chosen backUp cycle allows
+	/**
+	 * @return true if the BackUp is older than the BackUp cycle allows
 	 */
 	public static boolean checkOldBackUp() {
 		Settings settings = Settings.readData();

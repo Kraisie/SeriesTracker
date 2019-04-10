@@ -27,8 +27,8 @@ public class AddSeriesController extends Controller {
 
 	}
 
-	/*
-	 *	get a maximum of 5 series which fit to the search term
+	/**
+	 * get a maximum of 5 series which fit to the search term
 	 */
 	@FXML
 	private void addTVDB() {
@@ -65,8 +65,11 @@ public class AddSeriesController extends Controller {
 		}
 	}
 
-	/*
-	 *	get back to the main menu
+	/**
+	 * opens the main menu scene
+	 *
+	 * @see Controller
+	 * @see MainSeriesController
 	 */
 	@FXML
 	private void back() {

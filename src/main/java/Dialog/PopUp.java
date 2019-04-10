@@ -15,6 +15,14 @@ public class PopUp {
 
 	private URL resource = getClass().getResource("/Pics/Icon/series.png");
 
+	/**
+	 * Shows an alert dedicated to inform the user of something.
+	 * If needed it does provide a TextArea to allow the user to easily copy alert messages.
+	 *
+	 * @param header     text for the header of the Alert
+	 * @param message    text for the message of the Alert
+	 * @param contentBox shows message in TextArea if true
+	 */
 	public void showAlert(String header, String message, boolean contentBox) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		Image img = new Image(resource.toString());
@@ -32,6 +40,12 @@ public class PopUp {
 		alert.showAndWait();
 	}
 
+	/**
+	 * Shows a warning to the user.
+	 *
+	 * @param header  text for the header of the Alert
+	 * @param message text for the message of the Alert
+	 */
 	public void showWarning(String header, String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		Image img = new Image(resource.toString());
@@ -44,6 +58,14 @@ public class PopUp {
 		alert.showAndWait();
 	}
 
+	/**
+	 * Alerts a user of an error.
+	 * If needed it does provide a TextArea to allow the user to easily copy errors like stack traces.
+	 *
+	 * @param header     text for the header of the Alert
+	 * @param message    text for the message of the Alert
+	 * @param contentBox shows message in TextArea if true
+	 */
 	public void showError(String header, String message, boolean contentBox) {
 		Alert alert = new Alert(AlertType.ERROR);
 		Image img = new Image(resource.toString());
@@ -61,6 +83,13 @@ public class PopUp {
 		alert.showAndWait();
 	}
 
+	/**
+	 * Alerts the user of a choice he/she has to decide on.
+	 *
+	 * @param header  text for the header of the Alert
+	 * @param message text for the message of the Alert
+	 * @return true if user selects 'Yes' Button
+	 */
 	public boolean showChoice(String header, String message) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		Image img = new Image(resource.toString());
@@ -78,6 +107,9 @@ public class PopUp {
 		return option.filter(buttonType -> buttonType == ButtonType.YES).isPresent();
 	}
 
+	/**
+	 * Shows the about screen for this piece of software
+	 */
 	public void showAbout() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		Image img = new Image(resource.toString());
@@ -125,6 +157,12 @@ public class PopUp {
 		alert.showAndWait();
 	}
 
+	/**
+	 * Configures the TextArea if needed
+	 *
+	 * @param alert   the Alert that is going to be shown to the user
+	 * @param message the message which should appear in the TextArea
+	 */
 	private void showContentBox(Alert alert, String message) {
 		DialogPane dialogPaneContent = alert.getDialogPane();
 		TextArea textArea = new TextArea();

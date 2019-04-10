@@ -24,15 +24,8 @@ public class Settings {
 
 	private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
 
-	/*
-	 * GSON CAN NOT SAVE A PATH AS IT HAS A CYCLIC REFERENCE IN IT!
-	 * fs -> WindowsFileSystem -> provider -> WindowsFileSystem -> provider -> ...
-	 * THAT'S WHY WE SAVE THE PATH AS STRING AND RETURN THEM AS PATH IN THE GETTER
-	 * AND GET THEM AS PATH IN THE SETTER WHILST SAVING THEM AS STRINGS
-	 */
-
-	/*
-	 *   Constructor that sets the standard values
+	/**
+	 * Constructor that sets the standard values
 	 */
 	public Settings() {
 		this.pathAPIKey = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/API_Key.json").toString();
@@ -44,10 +37,25 @@ public class Settings {
 		this.langIso = "en";
 	}
 
-	/*
-	 *   Constructor that receives modified settings from the user
+	/**
+	 * Gson can not save a Path as those have a cyclic reference in them.
+	 * 'fs' to 'WindowsFileSystem' to 'provider' to 'WindowsFileSystem' to 'provider' to ...
+	 * That's why the Path gets saved as String.
+	 * If sortByCompletion and sortByTime are both true both get set to false and thus everything gets sorted by name
+	 *
+	 * @param pathAPIKey       Path to the json file that saves the APIKey
+	 * @param pathSeries       Path to the json file that saves all series (MySeries)
+	 * @param pathBackUp       Path to the json file that saves the BackUp
+	 * @param backUpCycle      number of days until a new BackUp gets created
+	 * @param sortByCompletion saves if the tables in the main menu should get sorted by completion rate
+	 * @param sortByTime       saves if the tables in the main menu should get sorted by less time to completion
+	 * @param langIso          saves the language which should get used when getting data from the TVDB API in ISO639-2
+	 * @see TVDB.APIKey
+	 * @see MySeries
+	 * @see BackUp
 	 */
-	public Settings(String pathSeries, String pathBackUp, int backUpCycle, boolean sortByCompletion, boolean sortByTime, String langIso) {
+	public Settings(String pathAPIKey, String pathSeries, String pathBackUp, int backUpCycle, boolean sortByCompletion, boolean sortByTime, String langIso) {
+		this.pathAPIKey = pathAPIKey;
 		this.pathSeries = pathSeries;
 		this.pathBackUp = pathBackUp;
 		this.backUpCycle = backUpCycle;
@@ -62,8 +70,10 @@ public class Settings {
 		}
 	}
 
-	/*
-	 *   Get the settings from the json-file
+	/**
+	 * Reads settings from a json file
+	 *
+	 * @return Settings
 	 */
 	public static Settings readData() {
 		if (PATH == null) {
@@ -92,8 +102,10 @@ public class Settings {
 	}
 
 
-	/*
-	 *   Write the settings to a json-file
+	/**
+	 * Writes the settings to a json-file
+	 *
+	 * @param settings object of type Settings
 	 */
 	public static void writeData(Settings settings) {
 		Gson gson = new Gson();
@@ -106,8 +118,9 @@ public class Settings {
 		}
 	}
 
-	/*
-	 *  returns true if Settings.json exists
+	/**
+	 * @param settings object of type Settings
+	 * @return true if all paths are set
 	 */
 	public static boolean checkSettings(Settings settings) {
 		if (settings == null) return false;

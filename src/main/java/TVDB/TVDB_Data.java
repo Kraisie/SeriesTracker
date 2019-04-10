@@ -38,8 +38,9 @@ public class TVDB_Data {
 		this.token = logIn();
 	}
 
-	/*
-	 *	pull a banner of the series
+	/**
+	 * @param banner String representation of the last part of a url for a banner (e.g. '/banner123.png')
+	 * @return Image that is at the given URL
 	 */
 	public static Image getBannerImage(String banner) {
 		try {
@@ -49,10 +50,12 @@ public class TVDB_Data {
 			return SwingFXUtils.toFXImage(bufImg, null);
 		} catch (IOException e) {
 			return getFallbackBanner();
-
 		}
 	}
 
+	/**
+	 * @return use a fallback Image if no image available
+	 */
 	private static Image getFallbackBanner() {
 		try {
 			URL noImage = MainSeriesController.class.getResource("/Pics/Alert/NoImageAvailable.png");
@@ -65,8 +68,11 @@ public class TVDB_Data {
 	}
 
 
-	/*
-	 *	search possibly fitting series to a search term
+	/**
+	 * Find a series by a given name via theTVDB API
+	 *
+	 * @param seriesName the name of the series
+	 * @return a list of max. 5 series that match the name
 	 */
 	public List<MySeries> searchSeries(String seriesName) {
 		// SEARCH possible Series
@@ -109,8 +115,15 @@ public class TVDB_Data {
 		return suggestedSeries;
 	}
 
-	/*
-	 *	updated series that are already saved locally
+	/**
+	 * Update series that are already saved locally
+	 *
+	 * @param providedID     tvdbID of MySeries
+	 * @param userState      current user state of the series
+	 * @param currentSeason  current season of the series
+	 * @param currentEpisode current episode of the current season of the series
+	 * @return MySeries with new information from TVDB
+	 * @see MySeries
 	 */
 	public MySeries getUpdate(String providedID, int userState, int currentSeason, int currentEpisode) {
 		// GET Series
@@ -165,12 +178,12 @@ public class TVDB_Data {
 				Double.valueOf(series.getData().getSiteRating()),
 				banner                        //banner = 758x140
 		);
-
-
 	}
 
-	/*
-	 *	get access to the API
+	/**
+	 * get a token to use the theTVDB API
+	 *
+	 * @return String representation of the token
 	 */
 	private String logIn() {
 		String tokenJSON = "";
@@ -203,8 +216,9 @@ public class TVDB_Data {
 		return getToken(tokenJSON);
 	}
 
-	/*
-	 *	extract token
+	/**
+	 * @param tokenJSON json String to get a token from
+	 * @return String representation of the token from the json
 	 */
 	private static String getToken(String tokenJSON) {
 		Gson gson = new Gson();
@@ -213,11 +227,15 @@ public class TVDB_Data {
 		return token.getToken();
 	}
 
-	/*
-	 *	prepare search request to API
+	/**
+	 * searches for a series by name
+	 *
+	 * @param seriesName series name to search for
+	 * @param token      token to access the API with
+	 * @param language   preferred language for API results ISO639-2
+	 * @return data provided by the API
 	 */
 	private static SeriesSearchData searchPossibleSeries(String seriesName, String token, String language) {
-		// search Data.Series
 		String urlEncodedSeries = null;
 		try {
 			urlEncodedSeries = URLEncoder.encode(seriesName, java.nio.charset.StandardCharsets.UTF_8.toString());
@@ -237,8 +255,16 @@ public class TVDB_Data {
 		return extractSeries(foundJSON);
 	}
 
-	/*
-	 *	send requests to the API
+	/**
+	 * sends http requests to the API
+	 *
+	 * @param mode             'search' by name, 'getSeries' by ID, 'getEpisodes' of a series
+	 * @param token            token to access the API with
+	 * @param seriesIndication tvdbID of MySeries
+	 * @param page             specify a specific numeric data page
+	 * @param languageIsoCode  preferred language for API results in ISO639-2
+	 * @return answer of the API as json String
+	 * @see MySeries
 	 */
 	private static String requestToString(String mode, String token, String seriesIndication, int page, String languageIsoCode) {
 		String stringJSON = "";
@@ -293,16 +319,20 @@ public class TVDB_Data {
 		return stringJSON;
 	}
 
-	/*
-	 *	extract series
+	/**
+	 * @param foundJSON json String which contains data from the API
+	 * @return serialized data
 	 */
 	private static SeriesSearchData extractSeries(String foundJSON) {
 		Gson gson = new Gson();
 		return gson.fromJson(foundJSON, SeriesSearchData.class);
 	}
 
-	/*
-	 *	 getting a series from the API
+	/**
+	 * @param token    token to access the API with
+	 * @param id       id of the series
+	 * @param language preferred language for API results
+	 * @return serialized data
 	 */
 	private static SeriesData getSeries(String token, int id, String language) {
 		String seriesJSON = requestToString("getSeries", token, String.valueOf(id), 0, language);
@@ -315,8 +345,14 @@ public class TVDB_Data {
 		return null;
 	}
 
-	/*
-	 *	getting a list of all episodes a series got
+	/**
+	 * @param token          token to access the API with
+	 * @param id             id of the series
+	 * @param currentSeason  current season of the series
+	 * @param currentEpisode current Episode of the current season of the series
+	 * @param language       preferred language for API results
+	 * @return a list of all Episode a series got
+	 * @see Episode
 	 */
 	private static List<Episode> getEpisodes(String token, int id, int currentSeason, int currentEpisode, String language) {
 		String episodesJSON = requestToString("getEpisodes", token, String.valueOf(id), 1, language);
@@ -353,8 +389,12 @@ public class TVDB_Data {
 		return allEpisodes;
 	}
 
-	/*
-	 *	 change missing data to a general information about missing data
+	/**
+	 * Changes missing data in the API to 'Not given!' fields to prevent nulls
+	 *
+	 * @param episodes serialized data for episodes
+	 * @return list of Episode
+	 * @see Episode
 	 */
 	private static List<Episode> setFields(SeriesEpisodes episodes) {
 		List<Episode> allEpisodes = new ArrayList<>();

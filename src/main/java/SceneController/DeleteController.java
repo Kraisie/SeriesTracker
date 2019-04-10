@@ -31,8 +31,8 @@ public class DeleteController extends Controller {
 		}
 	}
 
-	/*
-	 *  delete the selected series
+	/**
+	 * delete the selected series and update the UI accordingly
 	 */
 	@FXML
 	private void delete() {
@@ -50,8 +50,12 @@ public class DeleteController extends Controller {
 		popUp.showAlert("Series deleted!", "\"" + name + "\" got deleted successfully.", false);
 	}
 
-	/*
-	 *	scroll down to the first series with the first character that just got pressed
+	/**
+	 * Scrolls to the first series that starts with the letter that just got pressed.
+	 * If the same gets pressed as the first letter of the currently selected series the next series with that first letter gets selected.
+	 * Keys like Shift, Enter etc get ignored.
+	 *
+	 * @param key KeyEvent of the pressed key.
 	 */
 	@FXML
 	private void scrollToKey(KeyEvent key) {
@@ -89,8 +93,11 @@ public class DeleteController extends Controller {
 		listViewSeries.scrollTo(match);
 	}
 
-	/*
-	 *  go back to main menu
+	/**
+	 * opens the main menu scene
+	 *
+	 * @see MainSeriesController
+	 * @see Controller
 	 */
 	@FXML
 	private void back() {

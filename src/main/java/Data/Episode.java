@@ -16,6 +16,15 @@ public class Episode {
 	private boolean current;
 	private boolean watched;
 
+	/**
+	 * Creates a new episode
+	 *
+	 * @param epNumberOfSeason The number of the episode in a specific season
+	 * @param season           The number of the season the episode belongs to
+	 * @param name             Name of the episode
+	 * @param overview         A small overview of what happens in the episode
+	 * @param firstAired       Date as String of the first air date
+	 */
 	public Episode(int epNumberOfSeason, int season, String name, String overview, String firstAired) {
 		this.epNumberOfSeason = epNumberOfSeason;
 		this.season = season;
@@ -26,8 +35,10 @@ public class Episode {
 		this.watched = false;
 	}
 
-	/*
-	 *  delete all episodes that have epNumberOfSeason or season = null/0 since those are just specials
+	/**
+	 * Deletes all special episodes that do not belong to official seasons
+	 *
+	 * @param allEpisodes A list of all episodes that a series has
 	 */
 	static void deleteNull(List<Episode> allEpisodes) {
 		List<Episode> remove = new ArrayList<>();
@@ -43,11 +54,12 @@ public class Episode {
 		allEpisodes.removeAll(remove);
 	}
 
-	/*
-	 *  sort list regarding the seasons and the episodes
+	/**
+	 * Sorts a list of episodes regarding their season and their episode number
+	 *
+	 * @param allEpisodes A list of all episodes that a series has
 	 */
 	public static void sort(List<Episode> allEpisodes) {
-		//
 		allEpisodes.sort((e1, e2) -> {
 			int value1 = e1.getSeason().compareTo(e2.getSeason());
 			if (value1 == 0) {
@@ -97,6 +109,9 @@ public class Episode {
 		this.firstAired = firstAired;
 	}
 
+	/**
+	 * @return true if the air date of the episode is before today or today
+	 */
 	public boolean isAired() {
 		if (firstAired.equals("Not given!")) {
 			return false;

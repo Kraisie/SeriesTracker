@@ -63,29 +63,43 @@ public class AdvancedInformationController extends Controller {
 	private MySeries series;
 	private List<MySeries> tmpMatches;
 
+	/**
+	 * used to receive data from another controller via Dependency Injection
+	 *
+	 * @param series the series to show information about
+	 */
 	void initData(MySeries series) {
 		this.series = series;
 		tmpMatches = null;
 		ownInitialize();
 	}
 
+	/**
+	 * used to receive data from another controller via Dependency Injection
+	 *
+	 * @param series     the series to show information about
+	 * @param tmpMatches a list of all matches that a search has given the user
+	 */
 	void initData(MySeries series, List<MySeries> tmpMatches) {
 		this.series = series;
 		this.tmpMatches = tmpMatches;
 		ownInitialize();
 	}
 
-	/*
-	 *	this method is not needed as it would run as soon as the FXMLLoader loads the fxml file
-	 * 	as such the parameters didn't already get passed as the initData can only be called after
-	 * 	we initialized the Controller. Thus we later have to call an own InitializeFunction, but can
-	 *  also not just remove this function as it initializes all scene content.
+	/**
+	 * This method is not needed as it would run as soon as the FXMLLoader loads the fxml file
+	 * as such the parameters didn't already get passed as the initData can only be called after
+	 * we initialized the Controller. Thus we later have to call an own InitializeFunction, but can
+	 * also not just remove this function as it initializes all scene content.
 	 */
 	@FXML
 	private void initialize() {
 
 	}
 
+	/**
+	 * own function to initialize the scene due to a non-usable initialize function
+	 */
 	private void ownInitialize() {
 		MySeries tmpSeries;
 		tmpSeries = series;
@@ -108,8 +122,10 @@ public class AdvancedInformationController extends Controller {
 		fillInformation(tmpSeries);
 	}
 
-	/*
-	 *  fill all fields with the fitting information about the series
+	/**
+	 * fill all fields with the fitting information about the series
+	 *
+	 * @param tmpSeries the series to show information about
 	 */
 	private void fillInformation(MySeries tmpSeries) {
 		if (series.getUserState() == 3) {
@@ -136,8 +152,10 @@ public class AdvancedInformationController extends Controller {
 		overviewEpisode.setText(series.getCurrent().getOverview());
 	}
 
-	/*
-	 *  increase the episode to show the content of the next episode
+	/**
+	 * increases the Episode which should get shown in the overview TextArea
+	 *
+	 * @see Episode
 	 */
 	@FXML
 	private void incEpisode() {
@@ -151,8 +169,10 @@ public class AdvancedInformationController extends Controller {
 		}
 	}
 
-	/*
-	 *  decrease the episode to show the content of the last episode
+	/**
+	 * decreases the Episode which should get shown in the overview TextArea
+	 *
+	 * @see Episode
 	 */
 	@FXML
 	private void decEpisode() {
@@ -166,8 +186,10 @@ public class AdvancedInformationController extends Controller {
 		}
 	}
 
-	/*
-	 *  update the season and episode sign (x.y) and show if the episode is the current one to watch
+	/**
+	 * updates the season and episode sign (x.y) and show if the episode is the current one to watch
+	 *
+	 * @see Episode
 	 */
 	private void update() {
 		labelEpOfSeason.setText(series.getCurrent().getSeason() + "." + series.getCurrent().getEpNumberOfSeason());
@@ -181,8 +203,8 @@ public class AdvancedInformationController extends Controller {
 		overviewEpisode.setText(series.getCurrent().getOverview());
 	}
 
-	/*
-	 *  show the info for the current episode again
+	/**
+	 * jumps back to the current episode and shows its content again
 	 */
 	@FXML
 	private void selectCurrentEpisode() {
@@ -198,8 +220,11 @@ public class AdvancedInformationController extends Controller {
 		update();
 	}
 
-	/*
-	 *  go back to searching series
+	/**
+	 * opens search scene again
+	 *
+	 * @see Controller
+	 * @see SearchController
 	 */
 	@FXML
 	private void back() {
@@ -214,8 +239,11 @@ public class AdvancedInformationController extends Controller {
 		}
 	}
 
-	/*
-	 *  go back to the main menu
+	/**
+	 * opens main menu scene
+	 *
+	 * @see Controller
+	 * @see MainSeriesController
 	 */
 	@FXML
 	private void backToMain() {

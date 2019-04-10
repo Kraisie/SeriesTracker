@@ -2,6 +2,11 @@ package Dialog;
 
 public class BrowserControl {
 
+	/**
+	 * Opens a browser on various systems
+	 *
+	 * @param url URL to be shown by the browser as String
+	 */
 	public static void openBrowser(String url) {
 		String os = System.getProperty("os.name").toLowerCase();
 

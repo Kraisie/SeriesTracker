@@ -72,23 +72,37 @@ public class SelectController extends Controller {
 	private List<MySeries> foundSeries;
 	private PopUp popUp = new PopUp();
 
+	/**
+	 * used to receive data from another controller via Dependency Injection
+	 *
+	 * @param foundSeries a list of max. 5 series to select from
+	 */
 	void initData(List<MySeries> foundSeries) {
 		this.foundSeries = foundSeries;
 		ownInitialize();
 	}
 
+	/**
+	 * This method is not needed as it would run as soon as the FXMLLoader loads the fxml file
+	 * as such the parameters didn't already get passed as the initData can only be called after
+	 * we initialized the Controller. Thus we later have to call an own InitializeFunction, but can
+	 * also not just remove this function as it initializes all scene content.
+	 */
 	@FXML
 	private void initialize() {
 
 	}
 
+	/**
+	 * own function to initialize the scene due to a non-usable initialize function
+	 */
 	@FXML
 	private void ownInitialize() {
 		enableSelectionSlots();
 	}
 
-	/*
-	 *	populate fields with possible series
+	/**
+	 * populate fields with possible series
 	 */
 	private void enableSelectionSlots() {
 		URL noImage = MainSeriesController.class.getResource("/Pics/Alert/NoImageAvailable.png");
@@ -168,8 +182,8 @@ public class SelectController extends Controller {
 		}
 	}
 
-	/*
-	 *	choose a found series
+	/**
+	 * get the series which the user selected and save it
 	 */
 	@FXML
 	private void select() {
@@ -202,8 +216,11 @@ public class SelectController extends Controller {
 		backToMain();
 	}
 
-	/*
-	 *	get back to the main menu
+	/**
+	 * opens main menu scene
+	 *
+	 * @see Controller
+	 * @see MainSeriesController
 	 */
 	@FXML
 	private void backToMain() {

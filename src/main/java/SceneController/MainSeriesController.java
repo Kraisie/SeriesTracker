@@ -101,7 +101,7 @@ public class MainSeriesController extends Controller {
 			backgroundSet = true;
 		}
 
-		if(bufImg != null) {
+		if (bufImg != null) {
 			setHeaderContrastColor(labelWatching);
 			setHeaderContrastColor(labelWaiting);
 			setHeaderContrastColor(labelStarting);
@@ -110,8 +110,8 @@ public class MainSeriesController extends Controller {
 		populateTables();
 	}
 
-	/*
-	 *  sets the background picture of the scene. Images have to be larger than 1124x632 or equal and should be 16:9 for perfect fit.
+	/**
+	 * sets the background picture of the scene. Images have to be larger than 1280x720 or equal and should be 16:9 for perfect fit.
 	 */
 	private void setBackground() {
 		File backgroundFolder;
@@ -142,7 +142,7 @@ public class MainSeriesController extends Controller {
 				InputStream is = new FileInputStream(image);
 				BufferedImage tmpImg = ImageIO.read(is);
 
-				if (tmpImg.getWidth() >= 1124 && tmpImg.getHeight() >= 632) {
+				if (tmpImg.getWidth() >= 1280 && tmpImg.getHeight() >= 720) {
 					fittingImages.add(image);
 				}
 			}
@@ -161,8 +161,8 @@ public class MainSeriesController extends Controller {
 		}
 	}
 
-	/*
-	 *  uses a non local picture as background if there is no local available
+	/**
+	 * uses a non local picture as background if there is no local available
 	 */
 	private void setFallbackImage() {
 		try {
@@ -176,8 +176,10 @@ public class MainSeriesController extends Controller {
 		}
 	}
 
-	/*
-	 *  set header text color to one with a high contrast
+	/**
+	 * sets header text color to one with a high contrast to the background of the label
+	 *
+	 * @param label label that needs a high contrast text color to its background
 	 */
 	private void setHeaderContrastColor(Label label) {
 		// get far most left (x) and far most up point (y)
@@ -201,8 +203,9 @@ public class MainSeriesController extends Controller {
 		label.setTextFill(javafx.scene.paint.Color.web(hexContrastColor));
 	}
 
-	/*
-	 *  get a contrasting color (hex-code) to a given color
+	/**
+	 * @param color background color
+	 * @return a high contrast color for background color
 	 */
 	private String getContrastColor(Color color) {
 		ColorSpace space = ColorSpace.getInstance(ColorSpace.CS_sRGB);
@@ -228,8 +231,9 @@ public class MainSeriesController extends Controller {
 		return "#" + colorToHex(getHighestContrast(hue));
 	}
 
-	/*
-	 *  return the color with the highest contrast to a hue value
+	/**
+	 * @param hue the hue to get the best contrast color for
+	 * @return color with the highest contrast
 	 */
 	private Color getHighestContrast(double hue) {
 		// modified values
@@ -248,8 +252,9 @@ public class MainSeriesController extends Controller {
 		}
 	}
 
-	/*
-	 *  returns a hex representation of a RGB color
+	/**
+	 * @param color a color :)
+	 * @return hex representation as a String of a color
 	 */
 	private String colorToHex(Color color) {
 		String hexColor = Integer.toHexString(color.getRGB() & 0xffffff);
@@ -260,8 +265,8 @@ public class MainSeriesController extends Controller {
 		return hexColor;
 	}
 
-	/*
-	 *  populate the tables
+	/**
+	 * populates the tables with data
 	 */
 	private void populateTables() {
 		ObservableList<MySeries> unstartedSeries = FXCollections.observableArrayList();
@@ -275,7 +280,7 @@ public class MainSeriesController extends Controller {
 
 		setCellValueFactories();
 
-		// populate the observable lists for the tables according to the UserState
+		// populate the observable lists for the tables according to the userState
 		for (MySeries listEntry : listEntries) {
 			switch (listEntry.getUserState()) {
 				case 0:
@@ -295,8 +300,8 @@ public class MainSeriesController extends Controller {
 		insertTableData(unstartedSeries, watchingSeries, waitingSeries);
 	}
 
-	/*
-	 *  set cell values factories for every column
+	/**
+	 * sets cell values factories for every column
 	 */
 	private void setCellValueFactories() {
 		columnContinueName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -311,8 +316,12 @@ public class MainSeriesController extends Controller {
 		columnStartSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
 	}
 
-	/*
-	 *  insert the series data into the cells of the table
+	/**
+	 * inserts the series data into the cells of the table
+	 *
+	 * @param unstarted ObservableList of all series which the user did not start yet
+	 * @param watching  ObservableList of all series which the user is currently watching
+	 * @param waiting   ObservableList of all series which need new episodes
 	 */
 	private void insertTableData(ObservableList<MySeries> unstarted, ObservableList<MySeries> watching, ObservableList<MySeries> waiting) {
 		Settings settings = Settings.readData();
@@ -337,8 +346,8 @@ public class MainSeriesController extends Controller {
 		tableWaiting.getColumns().get(0).setVisible(true);
 	}
 
-	/*
-	 *  reacts to a button click to increase the episode counter of a series
+	/**
+	 * reacts to a button click to increase the episode counter of a series
 	 */
 	@FXML
 	private void incEpisodeButton() {
@@ -373,8 +382,8 @@ public class MainSeriesController extends Controller {
 		initialize();
 	}
 
-	/*
-	 *  increases the episode counter of a series
+	/**
+	 * increases the episode counter of a series
 	 */
 	private void incEpisode(MySeries series) {
 		int index = series.getEpisodes().indexOf(series.getCurrent());
@@ -397,8 +406,8 @@ public class MainSeriesController extends Controller {
 		series.setNewCurrent(series.getCurrent(), true);            //true = ++ ; false = --
 	}
 
-	/*
-	 *  reacts to a button click to decrease the episode counter of a series
+	/**
+	 * reacts to a button click to decrease the episode counter of a series
 	 */
 	@FXML
 	private void decEpisodeButton() {
@@ -426,16 +435,19 @@ public class MainSeriesController extends Controller {
 		initialize();
 	}
 
-	/*
-	 *  decreases the episode counter of a series
+	/**
+	 * decreases the episode counter of a series
+	 *
+	 * @param series the selected series to decrease the Episode counter of
+	 * @see Episode
 	 */
 	private void decEpisode(MySeries series) {
 		series.setNewCurrent(series.getCurrent(), false);                      //true = ++ ; false = --
 		series.getCurrent().setWatched(false);
 	}
 
-	/*
-	 *   change user state of a series from not started to watching
+	/**
+	 * changes user state of a selected series from not started to watching
 	 */
 	@FXML
 	private void startSeries() {
@@ -456,26 +468,36 @@ public class MainSeriesController extends Controller {
 		initialize();
 	}
 
-	/*
-	 *	scroll to a series with the same first char as the button pressed for all tables
+	/**
+	 * scrolls to a series with the same first char as the button pressed for all tables
 	 */
 	@FXML
 	private void scrollToKeyWatching(KeyEvent key) {
 		scrollToSeries(tableContinueWatching, key);
 	}
 
+	/**
+	 * scrolls to a series with the same first char as the button pressed for all tables
+	 */
 	@FXML
 	private void scrollToKeyWaiting(KeyEvent key) {
 		scrollToSeries(tableWaiting, key);
 	}
 
+	/**
+	 * scrolls to a series with the same first char as the button pressed for all tables
+	 */
 	@FXML
 	private void scrollToKeyNotStarted(KeyEvent key) {
 		scrollToSeries(tableStartWatching, key);
 	}
 
-	/*
-	 *	scroll down to the first series with the first character that just got pressed
+	/**
+	 * Scrolls to the first series that starts with the letter that just got pressed.
+	 * If the same gets pressed as the first letter of the currently selected series the next series with that first letter gets selected.
+	 * Keys like Shift, Enter etc get ignored.
+	 *
+	 * @param key KeyEvent of the pressed key.
 	 */
 	private void scrollToSeries(TableView<MySeries> table, KeyEvent key) {
 		if (key.getText().length() == 0) {
@@ -512,32 +534,34 @@ public class MainSeriesController extends Controller {
 		table.scrollTo(match);
 	}
 
-	/*
-	 *	change the sorting behaviour to "by Name"
+	/**
+	 * changes the sorting behaviour to "by Name"
 	 */
 	@FXML
 	private void sortByName() {
 		setSortingBehaviour("name");
 	}
 
-	/*
-	 *	change the sorting behaviour to "by Completion"
+	/**
+	 * changes the sorting behaviour to "by Completion"
 	 */
 	@FXML
 	private void sortByCompletion() {
 		setSortingBehaviour("comp");
 	}
 
-	/*
-	 *	change the sorting behaviour to "by less needed time"
+	/**
+	 * changes the sorting behaviour to "by less needed time"
 	 */
 	@FXML
 	private void sortByTime() {
 		setSortingBehaviour("time");
 	}
 
-	/*
-	 *	change the sorting behaviour in the settings
+	/**
+	 * changes the sorting behaviour to 'by name', 'by completion rate' or by 'less needed time'
+	 *
+	 * @param mode the mode to sort by
 	 */
 	private void setSortingBehaviour(String mode) {
 		Settings settings = Settings.readData();
@@ -561,8 +585,8 @@ public class MainSeriesController extends Controller {
 		initialize();
 	}
 
-	/*
-	 * 	clears selections on other tables
+	/**
+	 * gets called when a series gets selected in tableContinueWatching, clears selections on other tables
 	 */
 	@FXML
 	private void clickOnTableWatching() {
@@ -570,8 +594,8 @@ public class MainSeriesController extends Controller {
 		tableStartWatching.getSelectionModel().clearSelection();
 	}
 
-	/*
-	 * 	clears selections on other tables
+	/**
+	 * gets called when a series gets selected in tableWaiting, clears selections on other tables
 	 */
 	@FXML
 	private void clickOnTableWaiting() {
@@ -579,8 +603,8 @@ public class MainSeriesController extends Controller {
 		tableStartWatching.getSelectionModel().clearSelection();
 	}
 
-	/*
-	 * 	clears selections on other tables
+	/**
+	 * gets called when a series gets selected in tableStartWatching, clears selections on other tables
 	 */
 	@FXML
 	private void clickOnTableUnstarted() {
@@ -588,8 +612,10 @@ public class MainSeriesController extends Controller {
 		tableWaiting.getSelectionModel().clearSelection();
 	}
 
-	/*
-	 *  import a local backup
+	/**
+	 * imports BackUp from the drive
+	 *
+	 * @see BackUp
 	 */
 	@FXML
 	private void importBackUp() {
@@ -609,8 +635,10 @@ public class MainSeriesController extends Controller {
 		initialize();
 	}
 
-	/*
-	 *  create a new local backup
+	/**
+	 * creates a new BackUp on the drive
+	 *
+	 * @see BackUp
 	 */
 	@FXML
 	private void createBackUp() {
@@ -625,8 +653,8 @@ public class MainSeriesController extends Controller {
 
 	}
 
-	/*
-	 *  opens HowTo in a browser
+	/**
+	 * opens HowTo in a browser
 	 */
 	@FXML
 	private void showHowTo() {
@@ -634,8 +662,8 @@ public class MainSeriesController extends Controller {
 		openBrowser(url);
 	}
 
-	/*
-	 *  closes the stage and thus the program
+	/**
+	 * closes the stage and thus the program itself
 	 */
 	@FXML
 	private void close() {
@@ -643,8 +671,11 @@ public class MainSeriesController extends Controller {
 		stage.close();
 	}
 
-	/*
-	 *  display further information about a series
+	/**
+	 * opens information scene for a selected series
+	 *
+	 * @see Controller
+	 * @see AdvancedInformationController
 	 */
 	@FXML
 	private void displayInformation() {
@@ -672,8 +703,11 @@ public class MainSeriesController extends Controller {
 
 	}
 
-	/*
-	 *  opens a new scene to search for a series by specific parameters
+	/**
+	 * opens search scene
+	 *
+	 * @see Controller
+	 * @see SearchController
 	 */
 	@FXML
 	private void searchSeries() {
@@ -685,8 +719,11 @@ public class MainSeriesController extends Controller {
 		}
 	}
 
-	/*
-	 *  display all finished series
+	/**
+	 * opens scene with a list of all series the user finished
+	 *
+	 * @see Controller
+	 * @see FinishedController
 	 */
 	@FXML
 	private void displayFinishedSeries() {
@@ -698,8 +735,11 @@ public class MainSeriesController extends Controller {
 		}
 	}
 
-	/*
-	 *  add a new series to the tracker
+	/**
+	 * opens scene to add series
+	 *
+	 * @see Controller
+	 * @see AddSeriesController
 	 */
 	@FXML
 	private void addSeries() {
@@ -711,16 +751,21 @@ public class MainSeriesController extends Controller {
 		}
 	}
 
-	/*
-	 *	show information about the program
+	/**
+	 * opens PopUp with information about the program
+	 *
+	 * @see PopUp
 	 */
 	@FXML
 	public void showAbout() {
 		popUp.showAbout();
 	}
 
-	/*
-	 *  delete a series from the tracker
+	/**
+	 * opens scene to delete series
+	 *
+	 * @see Controller
+	 * @see DeleteController
 	 */
 	@FXML
 	private void deleteSeries() {
@@ -732,8 +777,11 @@ public class MainSeriesController extends Controller {
 		}
 	}
 
-	/*
-	 *  open the settings screen
+	/**
+	 * opens settings scene
+	 *
+	 * @see Controller
+	 * @see SettingsController
 	 */
 	@FXML
 	private void showSettings() {
@@ -745,8 +793,10 @@ public class MainSeriesController extends Controller {
 		}
 	}
 
-	/*
-	 *  update all series which are not ended
+	/**
+	 * updates all series
+	 *
+	 * @see MySeries
 	 */
 	@FXML
 	private void menuUpdateAll() {
@@ -755,8 +805,10 @@ public class MainSeriesController extends Controller {
 		initialize();
 	}
 
-	/*
-	 *  update all ended series
+	/**
+	 * only updates the series with status 'Ended'
+	 *
+	 * @see MySeries
 	 */
 	@FXML
 	private void menuUpdateEnded() {
@@ -765,8 +817,10 @@ public class MainSeriesController extends Controller {
 		initialize();
 	}
 
-	/*
-	 *  activate and deactivate UI features while updating
+	/**
+	 * enables and disables UI features while updating to prevent data loss
+	 *
+	 * @param updateRunning true to disable
 	 */
 	private void uiOnUpdate(boolean updateRunning) {
 		progressIndicator.setVisible(updateRunning);
@@ -778,8 +832,11 @@ public class MainSeriesController extends Controller {
 		menuBar.setDisable(updateRunning);
 	}
 
-	/*
-	 *  update the series according to the selected mode in a second thread
+	/**
+	 * updates the locally saved series with data from theTVDB API in a second thread
+	 *
+	 * @param mode only updates series that have that status
+	 * @see MySeries
 	 */
 	private void update(String mode) {
 		List<MySeries> allSeries = MySeries.readData();
@@ -798,7 +855,6 @@ public class MainSeriesController extends Controller {
 					TVDB_Data data = new TVDB_Data();
 					MySeries updatedSeries = data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
 					if (updatedSeries == null) {
-						System.out.println(series.getName());
 						updatedAllSeries.add(series);
 						continue;
 					}

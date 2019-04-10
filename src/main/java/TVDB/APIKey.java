@@ -23,16 +23,25 @@ public class APIKey {
 		this.username = "";
 	}
 
+	/**
+	 * @param apikey String representation of the API key that can be requested on theTVDB.com
+	 * @param userkey String representation of the theTVDB.com user key
+	 * @param username the theTVDB.com user name
+	 */
 	public APIKey(String apikey, String userkey, String username) {
 		this.apikey = apikey;
 		this.userkey = userkey;
 		this.username = username;
 	}
 
+	/**
+	 * @return API key from the json file specified in the Settings
+	 * @see Settings
+	 */
 	public static APIKey readKey() {
 		String json;
 		Settings settings = Settings.readData();
-		if(settings == null) {
+		if (settings == null) {
 			return null;
 		}
 
@@ -46,6 +55,9 @@ public class APIKey {
 		return gson.fromJson(json, APIKey.class);
 	}
 
+	/**
+	 * @param key API Key to save in a json file
+	 */
 	public static void writeKey(APIKey key) {
 		Gson gson = new Gson();
 		String json = gson.toJson(key);
@@ -59,6 +71,9 @@ public class APIKey {
 		}
 	}
 
+	/**
+	 * @return String that can be used to log in to theTVDB API
+	 */
 	String getFormattedKey() {
 		return "{\"apikey\": \"" + apikey + "\"," +
 				"\"userkey\": \"" + userkey + "\"," +

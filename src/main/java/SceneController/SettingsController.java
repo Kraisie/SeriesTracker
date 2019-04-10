@@ -48,8 +48,10 @@ public class SettingsController extends Controller {
 		fillSettings();
 	}
 
-	/*
-	 *	populate Settings with data
+	/**
+	 * populates TextField, Spinner and ComboBox with data from the Settings
+	 *
+	 * @see Settings
 	 */
 	private void fillSettings() {
 		settings = Settings.readData();
@@ -80,8 +82,8 @@ public class SettingsController extends Controller {
 		languageCombo.getSelectionModel().select(settings.getLangIso());
 	}
 
-	/*
-	 *	change content if path gets changed
+	/**
+	 * changes text in TextField on Path change
 	 */
 	@FXML
 	private void changePathAPIKey() {
@@ -104,8 +106,8 @@ public class SettingsController extends Controller {
 		textPathAPIKey.setText(settings.getPathAPIKey().toString());
 	}
 
-	/*
-	 *	change content if path gets changed
+	/**
+	 * changes text in TextField on Path change
 	 */
 	@FXML
 	private void changePathSave() {
@@ -128,8 +130,8 @@ public class SettingsController extends Controller {
 		textPathSave.setText(settings.getPathSeries().toString());
 	}
 
-	/*
-	 *	change content if path gets changed
+	/**
+	 * changes text in TextField on Path change
 	 */
 	@FXML
 	private void changePathBackUp() {
@@ -152,8 +154,10 @@ public class SettingsController extends Controller {
 		textPathBackUp.setText(settings.getPathBackUp().toString());
 	}
 
-	/*
-	 * 	save the given settings
+	/**
+	 * gets the data from the UI and saves the Settings to a json file
+	 *
+	 * @see Settings
 	 */
 	@FXML
 	private void save() {
@@ -188,20 +192,20 @@ public class SettingsController extends Controller {
 		back();
 	}
 
-	/*
-	 *	save the new Frequency
+	/**
+	 * changes the Settings to the data set in the UI
+	 *
+	 * @see Settings
 	 */
 	private void changeSettings() {
 		settings.setBackUpCycle(frequencySpinner.getValue());
 		settings.setLangIso(languageCombo.getValue());
 	}
 
-	/*
+	/**
+	 * transfers changes of the API Key from UI to file
 	 *
-	 */
-
-	/*
-	 *	transfers changes of the API Key from UI to Object
+	 * @see APIKey
 	 */
 	private void changeApiKey() {
 		APIKey key = APIKey.readKey();
@@ -231,8 +235,8 @@ public class SettingsController extends Controller {
 		}
 	}
 
-	/*
-	 *	moves save files if needed or deletes old files
+	/**
+	 * moves save files if needed or deletes old files
 	 */
 	private void moveFile(Path newPath, Path oldPath, String fileName) throws IOException {
 		if (oldPath.equals(newPath)) {
@@ -255,8 +259,10 @@ public class SettingsController extends Controller {
 		}
 	}
 
-	/*
-	 *	restore standard settings
+	/**
+	 * restores standard settings
+	 *
+	 * @see Settings
 	 */
 	@FXML
 	private void standard() {
@@ -264,8 +270,11 @@ public class SettingsController extends Controller {
 		initialize();
 	}
 
-	/*
-	 *	get back to main menu
+	/**
+	 * opens main menu scene
+	 *
+	 * @see Controller
+	 * @see MainSeriesController
 	 */
 	@FXML
 	private void back() {

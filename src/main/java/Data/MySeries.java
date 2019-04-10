@@ -21,13 +21,27 @@ public class MySeries {
 	private String name;
 	private String tvdbID;
 	private List<Episode> episodes;
-	private int userState;      //0=not started; 1=watching; 2=wait for new episodes; 3=finished
-	private String status;      //Continuing / Ended
+	private int userState;
+	private String status;
 	private int runtime;
 	private String description;
 	private double rating;
 	private String banner;
 
+	/**
+	 * Creates a new series
+	 *
+	 * @param name        name of the series
+	 * @param tvdbID      ID used on theTVDB.com
+	 * @param episodes    list of Episodes
+	 * @param userState   0=not started; 1=watching; 2=wait for new episodes; 3=finished
+	 * @param status      Continuing / Ended
+	 * @param runtime     the length of an average episode
+	 * @param description a description of the series
+	 * @param rating      rating of the series between 0 and 10
+	 * @param banner      end of url to a banner by TVDB (e.g. '/banner123.png')
+	 * @see Episode
+	 */
 	public MySeries(String name, String tvdbID, List<Episode> episodes, int userState, String status, int runtime, String description, double rating, String banner) {
 		this.name = name;
 		this.tvdbID = tvdbID;
@@ -40,8 +54,11 @@ public class MySeries {
 		this.banner = banner;
 	}
 
-	/*
-	 *  read the list of series from the json file
+	/**
+	 * Reads the list of series from the json file specified in the Settings
+	 *
+	 * @return List of all series that are saved locally
+	 * @see Settings
 	 */
 	public static List<MySeries> readData() {
 		String json;
@@ -62,8 +79,11 @@ public class MySeries {
 		return new ArrayList<>(Arrays.asList(entries));
 	}
 
-	/*
-	 *  write the ordered list of series to a json file
+	/**
+	 * Writes a list of series cleaned and ordered in a file which gets defined in the Settings
+	 *
+	 * @param allEntries List of all series
+	 * @see Settings
 	 */
 	public static void writeData(List<MySeries> allEntries) {
 		for (MySeries series : allEntries) {
@@ -86,8 +106,10 @@ public class MySeries {
 		}
 	}
 
-	/*
-	 *  checks if there are any new episodes which aired and monitors status changes
+	/**
+	 * Checks if there are any new episodes which aired and monitors status changes
+	 *
+	 * @return a list of series with the latest updates regarding status changes
 	 */
 	public static List<MySeries> checkAirDates() {
 		List<MySeries> allEntries = MySeries.readData();
@@ -135,8 +157,12 @@ public class MySeries {
 		return updatedSeries;
 	}
 
-	/*
-	 *  check if a series is already tracked
+	/**
+	 * Checks for duplicate series
+	 *
+	 * @param allSeries list of all series
+	 * @param name      the name of the series that is supposed to be checked
+	 * @return true if a series with the same name is found
 	 */
 	public static boolean checkDuplicate(List<MySeries> allSeries, String name) {
 		if (allSeries.isEmpty()) {
@@ -152,8 +178,11 @@ public class MySeries {
 		return false;
 	}
 
-	/*
-	 *  converts the calculated time to a more readable format depending on the number
+	/**
+	 * Converts the calculated time to a more readable format depending on the number
+	 *
+	 * @param time time in minutes
+	 * @return a String representation of the time in minutes, hours or days
 	 */
 	public static String wastedMinutesToString(int time) {
 		// if lower than 2 hours print minutes, lower than 7 days print hours, else use days
@@ -168,8 +197,8 @@ public class MySeries {
 		}
 	}
 
-	/*
-	 *  get the current episode to watch
+	/**
+	 * @return the episode which should be seen next
 	 */
 	public Episode getCurrent() {
 		for (Episode ep : episodes) {
@@ -181,8 +210,8 @@ public class MySeries {
 		return null;
 	}
 
-	/*
-	 *  set the current episode to watch
+	/**
+	 * @param newCurrent set the episode which should get seen next
 	 */
 	public void setCurrent(Episode newCurrent) {
 		//just sets watched right for newCurrent after current, if it is before it won't change the ones behind
@@ -195,8 +224,8 @@ public class MySeries {
 		}
 	}
 
-	/*
-	 *  check if the series got a episode after the current one
+	/**
+	 * @return true if series has a next episode
 	 */
 	public boolean hasNext() {
 		Episode current = getCurrent();
@@ -229,10 +258,14 @@ public class MySeries {
 		return episode.getSeason();
 	}
 
-	/*
-	 *  set new current episode 1 next to the current one depending on which button clicked (inc/dec)
+	/**
+	 * Sets the new current episode. The current episode is the one which should be seen next.
+	 * You can proceed with the next episode or go back to already seen episodes.
+	 *
+	 * @param current   the episode to be seen next
+	 * @param direction true to increase the number, false to decrease
 	 */
-	public void setNewCurrent(Episode current, boolean direction) {         //true = ++ ; false = --
+	public void setNewCurrent(Episode current, boolean direction) {
 		int pos = episodes.indexOf(current);
 		if (pos < 0 || (pos + 1) >= episodes.size()) {
 			return;
@@ -246,8 +279,8 @@ public class MySeries {
 		episodes.get(pos).setCurrent(false);
 	}
 
-	/*
-	 *  calculates the completion of a series as a percentage
+	/**
+	 * @return percentage of the completion of a series
 	 */
 	public Double getCompletionRate() {
 		double sum = 0;
@@ -265,8 +298,8 @@ public class MySeries {
 		return (sum / size) * 100;
 	}
 
-	/*
-	 *  calculates the approximate 'wasted' time on a series
+	/**
+	 * @return the approximate 'wasted' time on a series
 	 */
 	public int getWastedTime() {
 		int sum = 0;
@@ -279,8 +312,8 @@ public class MySeries {
 		return sum * runtime;
 	}
 
-	/*
-	 *	get needed time to end the series
+	/**
+	 * @return the needed time to end the series
 	 */
 	public int getTimeToEnd() {
 		int sum = 0;
@@ -293,8 +326,10 @@ public class MySeries {
 		return sum * runtime;
 	}
 
-	/*
-	 *  calculates the sum of all episodes a series got
+	/**
+	 * @param current current Episode
+	 * @return the sum of all episodes a series got
+	 * @see Episode
 	 */
 	public int getSumEpisodesOfSeason(Episode current) {
 		int sum = 0;

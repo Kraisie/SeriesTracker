@@ -13,8 +13,10 @@ import java.util.List;
 
 class Controller {
 
-	/*
-	 *	center too small images
+	/**
+	 * centers too small images in the ImageView
+	 *
+	 * @param imageView the ImageView in which the image should get centered
 	 */
 	void centerImage(ImageView imageView) {
 		Image img = imageView.getImage();
@@ -40,16 +42,27 @@ class Controller {
 		imageView.setY((imageView.getFitHeight() - height) / 2);
 	}
 
-	/*
-	 *  open a new scene on the given stage
+	/**
+	 * opens a new scene in the given Stage
+	 *
+	 * @param primaryStage the stage in which the scene should get shown
+	 * @param fxmlPath     the path to the fxml file which describes the scene
+	 * @param title        the title of the Window
 	 */
 	void openScene(Stage primaryStage, String fxmlPath, String title) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
 		setStageProperties(primaryStage, title, root);
 	}
 
-	/*
-	 *  open scene and pass a parameter
+	/**
+	 * opens a scene in a stage and passes a parameter as Object
+	 *
+	 * @param primaryStage the stage in which the scene should get shown
+	 * @param fxmlPath     the path to the fxml file which describes the scene
+	 * @param title        the title of the Window
+	 * @param series       Object which shall get passed (List or MySeries)
+	 * @throws IOException if fxml file can not be read
+	 * @see MySeries
 	 */
 	@SuppressWarnings("unchecked")
 	// cast from object to List<MySeries> is safe
@@ -70,8 +83,14 @@ class Controller {
 		setStageProperties(primaryStage, title, root);
 	}
 
-	/*
-	 *  open search screen without passing a parameter
+	/**
+	 * opens the search scene without passing a parameter. This is needed if there are no search results which should get shown again.
+	 *
+	 * @param primaryStage the stage in which the scene should get shown
+	 * @param fxmlPath     the path to the fxml file which describes the scene
+	 * @param title        the title of the Window
+	 * @throws IOException if fxml file can not be read
+	 * @see SearchController
 	 */
 	void openSearch(Stage primaryStage, String fxmlPath, String title) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -83,8 +102,16 @@ class Controller {
 		setStageProperties(primaryStage, title, root);
 	}
 
-	/*
-	 *  open advanced information screen and pass two parameters (1 needed, 1 to save)
+	/**
+	 * opens advanced information screen and passes two parameters.
+	 *
+	 * @param primaryStage the stage in which the scene should get shown
+	 * @param fxmlPath     the path to the fxml file which describes the scene
+	 * @param title        the title of the Window
+	 * @param series       series which the user wants to see all information about
+	 * @param tmpMatches   a list of all matches found via the search scene
+	 * @throws IOException if fxml file can not be read
+	 * @see AdvancedInformationController
 	 */
 	void openAdvancedInformationFromSearch(Stage primaryStage, String fxmlPath, String title, MySeries series, List<MySeries> tmpMatches) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -96,8 +123,15 @@ class Controller {
 		setStageProperties(primaryStage, title, root);
 	}
 
-	/*
-	 *  open advanced information screen and pass two parameters (1 needed, 1 to save)
+	/**
+	 * opens the search from the information scene and passes the search results.
+	 *
+	 * @param primaryStage the stage in which the scene should get shown
+	 * @param fxmlPath     the path to the fxml file which describes the scene
+	 * @param title        the title of the Window
+	 * @param tmpMatches   a list of all matches found via the search scene
+	 * @throws IOException if fxml file can not be read
+	 * @see SearchController
 	 */
 	void openSearchFromAdvancedInformation(Stage primaryStage, String fxmlPath, String title, List<MySeries> tmpMatches) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -109,8 +143,12 @@ class Controller {
 		setStageProperties(primaryStage, title, root);
 	}
 
-	/*
-	 *	set stage properties
+	/**
+	 * sets all stage properties and shows the scene
+	 *
+	 * @param primaryStage the stage in which the scene should get shown
+	 * @param title        the title of the Window
+	 * @param root         the Parent which contains the fxml data
 	 */
 	private void setStageProperties(Stage primaryStage, String title, Parent root) {
 		primaryStage.setTitle(title);

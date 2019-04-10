@@ -53,8 +53,8 @@ public class FinishedController extends Controller {
 		labelWasted.setText(MySeries.wastedMinutesToString(calcWastedTime(finishedSeries)));
 	}
 
-	/*
-	 *  set all needed cell value factories
+	/**
+	 * sets all the cell value factories for the columns.
 	 */
 	private void setCellValueFactories() {
 		columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -62,8 +62,12 @@ public class FinishedController extends Controller {
 		columnEpisodes.setCellValueFactory(new PropertyValueFactory<>("sumEpisodes"));
 	}
 
-	/*
-	 *  calculate the time needed to watch all finished series
+	/**
+	 * calulates the time needed to watch all series which the user finished already.
+	 *
+	 * @param finishedSeries a list of MySeries which are finished by the user
+	 * @return wasted time in minutes
+	 * @see MySeries
 	 */
 	private int calcWastedTime(ObservableList<MySeries> finishedSeries) {
 		int sum = 0;
@@ -75,8 +79,11 @@ public class FinishedController extends Controller {
 	}
 
 
-	/*
-	 *  get back to the main menu
+	/**
+	 * opens the main menu scene
+	 *
+	 * @see Controller
+	 * @see MainSeriesController
 	 */
 	@FXML
 	private void back() {

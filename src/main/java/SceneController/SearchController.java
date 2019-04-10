@@ -54,30 +54,38 @@ public class SearchController extends Controller {
 	private PopUp popUp = new PopUp();
 	private List<MySeries> tmpMatches;
 
-	/*
-	 *	this method is needed as we do not need to pass a parameter if we call from the main menu
+	/**
+	 * means that there are no search results we need to show again
 	 */
 	void initData() {
 		this.tmpMatches = null;
 		ownInitialize();
 	}
 
+	/**
+	 * used to receive data from another controller via Dependency Injection
+	 *
+	 * @param tmpMatches a list of previously found matches
+	 */
 	void initData(List<MySeries> tmpMatches) {
 		this.tmpMatches = tmpMatches;
 		ownInitialize();
 	}
 
-	/*
-	 *	this method is not needed as it would run as soon as the FXMLLoader loads the fxml file
-	 * 	as such the parameters didn't already get passed as the initData can only be called after
-	 * 	we initialized the Controller. Thus we later have to call an own InitializeFunction, but can
-	 *  also not just remove this function as it initializes all scene content.
+	/**
+	 * This method is not needed as it would run as soon as the FXMLLoader loads the fxml file
+	 * as such the parameters didn't already get passed as the initData can only be called after
+	 * we initialized the Controller. Thus we later have to call an own InitializeFunction, but can
+	 * also not just remove this function as it initializes all scene content.
 	 */
 	@FXML
 	private void initialize() {
 
 	}
 
+	/**
+	 * own function to initialize the scene due to a non-usable initialize function
+	 */
 	private void ownInitialize() {
 		// check if we need to reuse found series
 		if (tmpMatches != null) {
@@ -97,8 +105,8 @@ public class SearchController extends Controller {
 		}
 	}
 
-	/*
-	 *  changes between showing results and showing the search options in the scene
+	/**
+	 * disables or enables specific scene content to either show matches of the search or the UI to select search parameters
 	 */
 	private void changeSearchMode(boolean mode) {
 		durationSpinner.setVisible(mode);
@@ -133,8 +141,8 @@ public class SearchController extends Controller {
 		infoButton.setDisable(mode);
 	}
 
-	/*
-	 *  initializes the ranges and starting values of the search fields
+	/**
+	 * initializes the ranges and starting values of the search fields
 	 */
 	private void setSearchOptionValues() {
 		SpinnerValueFactory<Integer> valueFactory1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 500);
@@ -166,8 +174,8 @@ public class SearchController extends Controller {
 		radioEnded.setSelected(false);
 	}
 
-	/*
-	 *  search for series by set parameters
+	/**
+	 * searches for series by set parameters
 	 */
 	@FXML
 	private void search() {
@@ -192,8 +200,11 @@ public class SearchController extends Controller {
 		ownInitialize();
 	}
 
-	/*
-	 *  get the chosen parameters from the UI
+	/**
+	 * gets the chosen parameters from the UI
+	 *
+	 * @return SearchParameter
+	 * @see SearchParameter
 	 */
 	private SearchParameter getSearchParameter() {
 		int rating = Integer.parseInt(ratingChoice.getValue().replaceAll(">", " ").replaceAll(" ", ""));
@@ -204,11 +215,12 @@ public class SearchController extends Controller {
 		String status = getStringStatus();
 
 		return new SearchParameter(rating, duration, derivation, seasons, userState, status);
-
 	}
 
-	/*
-	 *  transform user state parameter to an integer value
+	/**
+	 * transforms user state parameter to an integer value
+	 *
+	 * @return userState as integer, -1 if none is selected
 	 */
 	private int getIntUserState() {
 		if (checkStarted.isSelected()) {
@@ -230,8 +242,9 @@ public class SearchController extends Controller {
 		return -1;
 	}
 
-	/*
-	 *  transform status parameter to a string
+	/**
+	 * @return selected status as String
+	 * @see MySeries
 	 */
 	private String getStringStatus() {
 		if (radioContinuing.isSelected()) {
@@ -245,8 +258,13 @@ public class SearchController extends Controller {
 		return "";
 	}
 
-	/*
-	 *  check if a series fulfills all parameter
+	/**
+	 * Checks if a series fulfills all set SearchParameter
+	 *
+	 * @param parameter search parameters that get used to filter series
+	 * @param series    series that gets matched with the parameters
+	 * @return true if series fulfills all parameters
+	 * @see SearchParameter
 	 */
 	private boolean checkParameters(SearchParameter parameter, MySeries series) {
 		// check rating
@@ -256,8 +274,8 @@ public class SearchController extends Controller {
 
 		// check duration + derivation
 		if (parameter.getDuration() != 0 &&
-				(series.getRuntime() < (parameter.getDuration() - parameter.getDerivation()) ||
-						series.getRuntime() > (parameter.getDuration() + parameter.getDerivation()))) {
+				(series.getRuntime() < (parameter.getDuration() - parameter.getDeviation()) ||
+						series.getRuntime() > (parameter.getDuration() + parameter.getDeviation()))) {
 			return false;
 		}
 
@@ -279,8 +297,8 @@ public class SearchController extends Controller {
 		return true;
 	}
 
-	/*
-	 *  Search again after the search was already successful
+	/**
+	 * do a new search
 	 */
 	@FXML
 	private void reSearch() {
@@ -290,8 +308,11 @@ public class SearchController extends Controller {
 		ownInitialize();
 	}
 
-	/*
-	 *  show further information about a found series
+	/**
+	 * opens information scene for a specific series and injects list of all matches to reuse it later
+	 *
+	 * @see Controller
+	 * @see AdvancedInformationController
 	 */
 	@FXML
 	private void showInformation() {
@@ -316,8 +337,11 @@ public class SearchController extends Controller {
 		}
 	}
 
-	/*
-	 *  go back to main menu
+	/**
+	 * opens main menu scene
+	 *
+	 * @see Controller
+	 * @see MainSeriesController
 	 */
 	@FXML
 	private void back() {
