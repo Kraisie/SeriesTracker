@@ -145,8 +145,13 @@ public class AdvancedInformationController extends Controller {
 		labelCurrentEpisodeInfo.setText(tmpSeries.getCurrent().getEpNumberOfSeason() + " / " + series.getSumEpisodesOfSeason(tmpSeries.getCurrent()));
 		labelNrSeasonInfo.setText(String.valueOf(series.getNumberOfSeasons()));
 		labelNrEpisodeInfo.setText(String.valueOf(series.getSumEpisodes()));
-		labelCompletionInfo.setText(String.format("%.2f", tmpSeries.getCompletionRate()) + "%");
 		overviewSeries.setText(series.getDescription());
+
+		if (!tmpSeries.getCompletionRate().isNaN()) {
+			labelCompletionInfo.setText(String.format("%.2f", tmpSeries.getCompletionRate()) + "%");
+		} else {
+			labelCompletionInfo.setText("Not calculable");
+		}
 
 		labelEpOfSeason.setText(series.getCurrent().getSeason() + "." + series.getCurrent().getEpNumberOfSeason());
 		overviewEpisode.setText(series.getCurrent().getOverview());
