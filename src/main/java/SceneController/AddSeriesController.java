@@ -45,24 +45,25 @@ public class AddSeriesController extends Controller {
 			return;
 		}
 
-		if (possibleSeries.size() == 1) {
-			//might be an empty series (uncommon but happens)
-			possibleSeries.set(0, tvdbAPI.getUpdate(possibleSeries.get(0).getTvdbID(), 0, 1, 1));
-			if (possibleSeries.get(0).getEpisodes().size() >= 1) {
-				allSeries.add(possibleSeries.get(0));
-				MySeries.writeData(allSeries);
-				popUp.showAlert("Series added!", "\"" + possibleSeries.get(0).getName() + "\" has been added to your list.", false);
-			} else {
-				popUp.showError("Major error!", "The found series is corrupt, please contact @Kraisie with the series name!", false);
+		if (possibleSeries.size() > 1) {
+			try {
+				openSceneWithOneParameter((Stage) backButton.getScene().getWindow(), "/FXML/SelectFoundSeries.fxml", "Select one of the found series", possibleSeries);
+			} catch (IOException e) {
+				popUp.showError("Failed to open the scene!", getStackTrace(e), true);
 			}
-			back();
 		}
 
-		try {
-			openSceneWithOneParameter((Stage) backButton.getScene().getWindow(), "/FXML/SelectFoundSeries.fxml", "Select one of the found series", possibleSeries);
-		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+		//might be an empty series (uncommon but happens)
+		possibleSeries.set(0, tvdbAPI.getUpdate(possibleSeries.get(0).getTvdbID(), 0, 1, 1));
+		if (possibleSeries.get(0).getEpisodes().size() >= 1) {
+			allSeries.add(possibleSeries.get(0));
+			MySeries.writeData(allSeries);
+			popUp.showAlert("Series added!", "\"" + possibleSeries.get(0).getName() + "\" has been added to your list.", false);
+		} else {
+			popUp.showError("Major error!", "The found series is corrupt, please contact @Kraisie with the series name!", false);
 		}
+
+		back();
 	}
 
 	/**
