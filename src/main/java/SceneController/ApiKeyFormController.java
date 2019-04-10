@@ -3,6 +3,7 @@ package SceneController;
 import Dialog.BrowserControl;
 import Dialog.PopUp;
 import TVDB.APIKey;
+import TVDB.TVDB_Data;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -42,12 +43,18 @@ public class ApiKeyFormController extends Controller {
 	@FXML
 	private void setKey() {
 		PopUp popUp = new PopUp();
-		if(textApiKey.getText().isEmpty() || textUserKey.getText().isEmpty() || textUserName.getText().isEmpty()) {
+		if (textApiKey.getText().isEmpty() || textUserKey.getText().isEmpty() || textUserName.getText().isEmpty()) {
 			popUp.showError("Missing data!", "Please fill in each field correctly.", false);
 			return;
 		}
 
+		// check if key is valid
 		APIKey apiKey = new APIKey(textApiKey.getText(), textUserKey.getText(), textUserName.getText());
+		TVDB_Data validation = new TVDB_Data(apiKey);
+		if (!validation.keyValid()) {
+			popUp.showError("API Key not valid!", "Please recheck your data for mistakes.", false);
+			return;
+		}
 		APIKey.writeKey(apiKey);
 
 		try {

@@ -91,7 +91,9 @@
 * **Version 2.1.3**
     * Added option to select a preferred language for the TVDB results
     * Improved way to delete series
+    * Improved searching options
     * Minor layout/graphics changes and improvements
     * Added JavaDoc
     * New scenes now open centered to the old one
     * Program requests API Key via form if not set on start
+    * Added validity check for API Key

@@ -3,7 +3,6 @@ package TVDB;
 import Data.Episode;
 import Data.MySeries;
 import Data.Settings;
-import Dialog.PopUp;
 import SceneController.MainSeriesController;
 import com.google.gson.Gson;
 import javafx.embed.swing.SwingFXUtils;
@@ -34,8 +33,12 @@ public class TVDB_Data {
 
 	// -1=no predefined Status (-1 add); 0=not started; 1=watching; 2=wait for new episodes; 3=finished (0-3 update)
 
-	public TVDB_Data() {
-		this.token = logIn();
+	public TVDB_Data(APIKey key) {
+		this.token = logIn(key);
+	}
+
+	public boolean keyValid() {
+		return token != null;
 	}
 
 	/**
@@ -66,7 +69,6 @@ public class TVDB_Data {
 			return null;
 		}
 	}
-
 
 	/**
 	 * Find a series by a given name via theTVDB API
@@ -185,15 +187,9 @@ public class TVDB_Data {
 	 *
 	 * @return String representation of the token
 	 */
-	private String logIn() {
+	private String logIn(APIKey key) {
 		String tokenJSON = "";
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		APIKey key = APIKey.readKey();
-		if (key == null) {
-			PopUp popUp = new PopUp();
-			popUp.showWarning("Missing API Key!", "Please set an API-Key in the settings to use the program.");
-			return null;
-		}
 
 		try {
 			HttpPost request = new HttpPost("https://api.thetvdb.com/login");
