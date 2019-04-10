@@ -65,7 +65,6 @@ public class Main extends Application {
 		}
 	}
 
-
 	/*
 	 *	open the main scene
 	 */

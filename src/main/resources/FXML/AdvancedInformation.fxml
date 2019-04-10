@@ -17,24 +17,24 @@
     </Label>
     <Label id="normalLabel" layoutX="97.0" layoutY="221.0" text="Status of the series:"/>
     <Label id="normalLabel" fx:id="labelStatusInfo" layoutX="315.0" layoutY="221.0"/>
-    <Label id="normalLabel" layoutX="508.0" layoutY="221.0" text="Rating:"/>
+    <Label id="normalLabel" layoutX="515.0" layoutY="221.0" text="Rating:"/>
     <Label id="normalLabel" fx:id="labelRatingInfo" layoutX="690.0" layoutY="221.0"/>
-    <Label id="normalLabel" layoutX="831.0" layoutY="221.0" text="Number of seasons:"/>
+    <Label id="normalLabel" layoutX="835.0" layoutY="221.0" text="Number of seasons:"/>
     <Label id="normalLabel" fx:id="labelNrSeasonInfo" alignment="CENTER_RIGHT" layoutX="1025.0" layoutY="221.0"
            textAlignment="RIGHT"/>
     <Label id="normalLabel" layoutX="97.0" layoutY="251.0" text="Average length of an episode:"/>
     <Label id="normalLabel" fx:id="labelRuntimeInfo" layoutX="315.0" layoutY="251.0"/>
-    <Label id="normalLabel" layoutX="508.0" layoutY="251.0" text="Current season:"/>
+    <Label id="normalLabel" layoutX="515.0" layoutY="251.0" text="Current season:"/>
     <Label id="normalLabel" fx:id="labelCurrentSeasonInfo" layoutX="690.0" layoutY="251.0"/>
-    <Label id="normalLabel" layoutX="829.0" layoutY="251.0" text="Number of episodes:"/>
+    <Label id="normalLabel" layoutX="835.0" layoutY="251.0" text="Number of episodes:"/>
     <Label id="normalLabel" fx:id="labelNrEpisodeInfo" layoutX="1025.0" layoutY="251.0"/>
     <Label id="normalLabel" layoutX="97.0" layoutY="281.0" text="'Wasted' time:"/>
     <Label id="normalLabel" fx:id="labelWastedInfo" layoutX="315.0" layoutY="281.0"/>
-    <Label id="normalLabel" layoutX="508.0" layoutY="281.0" text="Current episode:"/>
+    <Label id="normalLabel" layoutX="515.0" layoutY="281.0" text="Current episode:"/>
     <Label id="normalLabel" fx:id="labelCurrentEpisodeInfo" layoutX="690.0" layoutY="281.0"/>
-    <Label id="normalLabel" layoutX="829.0" layoutY="281.0" text="Completion:"/>
+    <Label id="normalLabel" layoutX="835.0" layoutY="281.0" text="Completion:"/>
     <Label id="normalLabel" fx:id="labelCompletionInfo" layoutX="1025.0" layoutY="281.0"/>
-    <Label id="normalLabel" layoutX="508.0" layoutY="311.0" prefHeight="29.0" prefWidth="129.0"
+    <Label id="normalLabel" alignment="CENTER" layoutX="94.0" layoutY="304.0" prefHeight="29.0" prefWidth="976.0"
            text="Overview of the series" textAlignment="CENTER"/>
     <TextArea fx:id="overviewSeries" editable="false" layoutX="94.0" layoutY="333.0" prefHeight="140.0"
               prefWidth="976.0" wrapText="true"/>
@@ -46,8 +46,8 @@
     <Label id="normalLabel" fx:id="labelEpOfSeason" layoutX="573.0" layoutY="519.0" textAlignment="CENTER"/>
     <Button layoutX="706.0" layoutY="514.0" mnemonicParsing="false" onAction="#selectCurrentEpisode"
             text="Go to current Episode"/>
-    <Label id="smallAlert" fx:id="labelIsCurrent" layoutX="534.0" layoutY="539.0" text="Your current episode"
-           textFill="RED">
+    <Label id="smallAlert" fx:id="labelIsCurrent" alignment="CENTER" layoutX="497.0" layoutY="539.0" prefHeight="7.0"
+           prefWidth="157.0" text="Your current episode" textFill="RED">
         <font>
             <Font size="9.0"/>
         </font>

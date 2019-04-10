@@ -197,6 +197,11 @@
     -fx-fill: lime;
 }
 
+.progress-indicator:indeterminate > .spinner {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
 /*
     Combo Box / Spinner
 */
