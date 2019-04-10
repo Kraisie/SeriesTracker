@@ -61,9 +61,8 @@
     Button
 */
 .button {
-    -fx-background-color:
-            linear-gradient(#a0ff35, #a9ff00),
-            radial-gradient(center 50% -40%, radius 200%, #646464 45%, #4d4d4d 50%);
+    -fx-background-color: linear-gradient(#a0ff35, #a9ff00),
+    radial-gradient(center 50% -40%, radius 200%, #646464 45%, #4d4d4d 50%);
     -fx-background-radius: 5;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0.0, 0, 1);
@@ -72,9 +71,8 @@
 }
 
 .button:hover {
-    -fx-background-color:
-            linear-gradient(#8ceb21, #958700),
-            radial-gradient(center 50% -40%, radius 200%, #505050 45%, #393939 50%);
+    -fx-background-color: linear-gradient(#8ceb21, #958700),
+    radial-gradient(center 50% -40%, radius 200%, #505050 45%, #393939 50%);
     -fx-background-radius: 5;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0.0, 0, 1);
@@ -208,6 +206,11 @@
 .combo-box, .spinner {
     -fx-border-width: 1px;
     -fx-border-color: #90B931;
+}
+
+.combo-box .list-cell,
+.spinner .text-field {
+    -fx-alignment: center;
 }
 
 .combo-box, .combo-box .list-cell,

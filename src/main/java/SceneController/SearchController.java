@@ -166,7 +166,7 @@ public class SearchController extends Controller {
 		seasonsSpinner.setValueFactory(valueFactory3);
 
 		ObservableList<String> choices = FXCollections.observableArrayList();
-		choices.addAll(" 0", " >1", " >2", " >3", " >4", " >5", " >6", " >7", " >8", " >9");
+		choices.addAll("0", ">1", ">2", ">3", ">4", ">5", ">6", ">7", ">8", ">9");
 		ratingChoice.setItems(choices);
 		ratingChoice.getSelectionModel().select(0);
 
@@ -193,6 +193,7 @@ public class SearchController extends Controller {
 		if (matches.size() == 0) {
 			popUp.showWarning("No matches found!", "There are no series that match your search parameters.");
 			ownInitialize();
+			return;
 		}
 
 		isAlreadyFound = true;
@@ -207,7 +208,7 @@ public class SearchController extends Controller {
 	 * @see SearchParameter
 	 */
 	private SearchParameter getSearchParameter() {
-		int rating = Integer.parseInt(ratingChoice.getValue().replaceAll(">", " ").replaceAll(" ", ""));
+		int rating = Integer.parseInt(ratingChoice.getValue().replaceAll(">", ""));
 		int duration = durationSpinner.getValue();
 		int derivation = derivationSpinner.getValue();
 		int seasons = seasonsSpinner.getValue();
