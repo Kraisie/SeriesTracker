@@ -46,8 +46,8 @@ public class DeleteController extends Controller {
 		}
 
 		MySeries.writeData(listEntries);
+		listViewSeries.getItems().remove(name);
 		popUp.showAlert("Series deleted!", "\"" + name + "\" got deleted successfully.", false);
-		back();
 	}
 
 	/*
@@ -55,6 +55,10 @@ public class DeleteController extends Controller {
 	 */
 	@FXML
 	private void scrollToKey(KeyEvent key) {
+		if (key.getText().length() == 0) {
+			return;
+		}
+
 		char c = key.getText().charAt(0);
 		ObservableList<String> allSeriesInList = listViewSeries.getItems();
 		String match = null;

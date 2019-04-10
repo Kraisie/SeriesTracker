@@ -90,3 +90,4 @@
     * Improved file management
 * **Version 2.2**
     * Added option to select a preferred language for the TVDB results
+    * Improved way to delete series
