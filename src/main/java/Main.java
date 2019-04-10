@@ -34,15 +34,21 @@ public class Main extends Application {
 			Settings.writeData(new Settings());
 		}
 
-		// check API Key
-		APIKey key = APIKey.readKey();
-		if (key == null) {
-			popUp.showWarning("Missing API Key!", "Please set an API-Key in the settings to use the program.");
-		}
-
 		// create BackUp if last BackUp is older than 24 hours/back up cycle in settings
 		if (checkOldBackUp()) {
 			writeBackUp(new BackUp());
+		}
+
+		// check API Key
+		APIKey key = APIKey.readKey();
+		if (key == null) {
+			// request an API Key
+			try {
+				openScene(primaryStage, "/FXML/ApiKeyForm.fxml");
+				return;
+			} catch (IOException e) {
+				popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			}
 		}
 
 		// check for newly aired episodes
@@ -59,21 +65,25 @@ public class Main extends Application {
 
 		// start program / open scene
 		try {
-			openScene(primaryStage);
+			openScene(primaryStage, "/FXML/MainSeries.fxml");
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
 		}
 	}
 
-	/*
-	 *	open the main scene
+	/**
+	 * opens a scene by fxml
+	 *
+	 * @param primaryStage stage to open scene in
+	 * @throws IOException if fxml or icon file can not be read
+	 * @see SceneController.MainSeriesController
 	 */
-	private void openScene(Stage primaryStage) throws IOException {
+	private void openScene(Stage primaryStage, String fxmlPath) throws IOException {
 		URL resource = getClass().getResource("/Pics/Icon/series.png");
 
 		if (resource != null) {
 			Image img = new Image(resource.toString());
-			Parent root = FXMLLoader.load(getClass().getResource("/FXML/MainSeries.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
 			primaryStage.setTitle("Series Control Panel");
 			primaryStage.setResizable(false);
 			primaryStage.getIcons().add(img);

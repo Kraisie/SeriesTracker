@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="anchorPane" prefHeight="307.0" prefWidth="600.0" stylesheets="@../css/myStyle.css"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="SceneController.ApiKeyFormController">
+    <Label id="biggerLabel" alignment="CENTER" layoutY="14.0" prefHeight="15.0" prefWidth="600.0"
+           text="Please set an API-Key to use this program!"/>
+    <Label id="biggerLabel" alignment="CENTER" layoutY="58.0" prefHeight="15.0" prefWidth="600.0"
+           text="You can get a free API-Key on"/>
+    <Label id="normalLabel" layoutX="105.0" layoutY="147.0" text="&quot;apikey&quot;:"/>
+    <Label id="normalLabel" layoutX="101.0" layoutY="182.0" text="&quot;userkey&quot;:"/>
+    <Label id="normalLabel" layoutX="95.0" layoutY="217.0" text="&quot;username&quot;:"/>
+    <TextField fx:id="textApiKey" layoutX="196.0" layoutY="142.0" prefHeight="25.0" prefWidth="311.0"/>
+    <TextField fx:id="textUserKey" layoutX="196.0" layoutY="177.0" prefHeight="25.0" prefWidth="311.0"/>
+    <TextField fx:id="textUserName" layoutX="196.0" layoutY="212.0" prefHeight="25.0" prefWidth="311.0"/>
+    <Hyperlink layoutX="245.0" layoutY="97.0" onAction="#openTVDB" text="theTVDB.com">
+        <font>
+            <Font size="16.0"/>
+        </font>
+    </Hyperlink>
+    <Button fx:id="doneButton" layoutX="274.0" layoutY="266.0" mnemonicParsing="false" onAction="#setKey" text="Done"/>
+</AnchorPane>

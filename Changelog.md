@@ -94,3 +94,4 @@
     * Minor layout/graphics changes and improvements
     * Added JavaDoc
     * New scenes now open centered to the old one
+    * Program requests API Key via form if not set on start
