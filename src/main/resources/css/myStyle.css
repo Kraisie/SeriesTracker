@@ -139,6 +139,15 @@
     -fx-background-radius: 1;
 }
 
+.table-view .placeholder {
+    -fx-background-color: rgba(97, 97, 97, 35);
+}
+
+.table-view .placeholder .label {
+    -fx-text-fill: #96f52b;
+    -fx-font: 20px "Serif";
+}
+
 /*
     Scroll Bar
 */

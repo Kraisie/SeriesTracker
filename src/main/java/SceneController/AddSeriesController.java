@@ -2,6 +2,7 @@ package SceneController;
 
 import Data.MySeries;
 import Dialog.PopUp;
+import TVDB.APIKey;
 import TVDB.TVDB_Data;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -38,11 +39,24 @@ public class AddSeriesController extends Controller {
 			return;
 		}
 
-		TVDB_Data tvdbAPI = new TVDB_Data();
+		TVDB_Data tvdbAPI = new TVDB_Data(APIKey.readKey());
 		List<MySeries> possibleSeries = tvdbAPI.searchSeries(nameTVDB.getText());
 		if (possibleSeries == null || possibleSeries.size() == 0) {
 			popUp.showWarning("No series found!", "No series found by the name of \"" + nameTVDB.getText() + "\".");
 			return;
+		}
+
+		if (possibleSeries.size() == 1) {
+			//might be an empty series (uncommon but happens)
+			possibleSeries.set(0, tvdbAPI.getUpdate(possibleSeries.get(0).getTvdbID(), 0, 1, 1));
+			if (possibleSeries.get(0).getEpisodes().size() >= 1) {
+				allSeries.add(possibleSeries.get(0));
+				MySeries.writeData(allSeries);
+				popUp.showAlert("Series added!", "\"" + possibleSeries.get(0).getName() + "\" has been added to your list.", false);
+			} else {
+				popUp.showError("Major error!", "The found series is corrupt, please contact @Kraisie with the series name!", false);
+			}
+			back();
 		}
 
 		if (possibleSeries.size() > 1) {
@@ -52,18 +66,6 @@ public class AddSeriesController extends Controller {
 				popUp.showError("Failed to open the scene!", getStackTrace(e), true);
 			}
 		}
-
-		//might be an empty series (uncommon but happens)
-		possibleSeries.set(0, tvdbAPI.getUpdate(possibleSeries.get(0).getTvdbID(), 0, 1, 1));
-		if (possibleSeries.get(0).getEpisodes().size() >= 1) {
-			allSeries.add(possibleSeries.get(0));
-			MySeries.writeData(allSeries);
-			popUp.showAlert("Series added!", "\"" + possibleSeries.get(0).getName() + "\" has been added to your list.", false);
-		} else {
-			popUp.showError("Major error!", "The found series is corrupt, please contact @Kraisie with the series name!", false);
-		}
-
-		back();
 	}
 
 	/**

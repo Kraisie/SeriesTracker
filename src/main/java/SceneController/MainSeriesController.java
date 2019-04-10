@@ -5,6 +5,7 @@ import Data.Episode;
 import Data.MySeries;
 import Data.Settings;
 import Dialog.PopUp;
+import TVDB.APIKey;
 import TVDB.TVDB_Data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -626,7 +627,7 @@ public class MainSeriesController extends Controller {
 
 		BackUp backUp = BackUp.readBackUp();
 		if (backUp == null) {
-			popUp.showError("Failed to read BackUp!", "There was an error while trying to read the BackUp.", false);
+			popUp.showError("Failed to read BackUp!", "Please check the validity of your path.", false);
 			return;
 		}
 
@@ -852,7 +853,7 @@ public class MainSeriesController extends Controller {
 						continue;
 					}
 
-					TVDB_Data data = new TVDB_Data();
+					TVDB_Data data = new TVDB_Data(APIKey.readKey());
 					MySeries updatedSeries = data.getUpdate(series.getTvdbID(), series.getUserState(), series.getCurrentSeason(), series.getCurrentEpisode());
 					if (updatedSeries == null) {
 						updatedAllSeries.add(series);

@@ -30,13 +30,18 @@ public class Main extends Application {
 		PopUp popUp = new PopUp();
 
 		// create new Settings if file does not exist
-		if (!checkSettings(Settings.readData())) {
+		boolean clearStart = false;
+		Settings settings = Settings.readData();
+		if (!checkSettings(settings)) {
 			Settings.writeData(new Settings());
+			clearStart = true;
 		}
 
 		// create BackUp if last BackUp is older than 24 hours/back up cycle in settings
-		if (checkOldBackUp()) {
-			writeBackUp(new BackUp());
+		if(!clearStart && settings.getPathBackUp().toFile().exists()) {
+			if (checkOldBackUp()) {
+				writeBackUp(new BackUp());
+			}
 		}
 
 		// check API Key

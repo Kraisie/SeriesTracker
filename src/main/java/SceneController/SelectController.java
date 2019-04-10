@@ -2,6 +2,7 @@ package SceneController;
 
 import Data.MySeries;
 import Dialog.PopUp;
+import TVDB.APIKey;
 import TVDB.TVDB_Data;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -204,7 +205,7 @@ public class SelectController extends Controller {
 
 		if (selectedSeries != null) {
 			List<MySeries> allSeries = MySeries.readData();
-			TVDB_Data tvdbAPI = new TVDB_Data();
+			TVDB_Data tvdbAPI = new TVDB_Data(APIKey.readKey());
 			MySeries series = tvdbAPI.getUpdate(selectedSeries.getTvdbID(), 0, 1, 1);
 			allSeries.add(series);
 			MySeries.writeData(allSeries);

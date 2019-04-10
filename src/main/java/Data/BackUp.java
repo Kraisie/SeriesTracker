@@ -36,8 +36,6 @@ public class BackUp {
 		}
 
 		if (!settings.getPathBackUp().toFile().exists()) {
-			PopUp popUp = new PopUp();
-			popUp.showError("No BackUp available!", "You do not have a local BackUp available. Please make sure it is at the right location.", false);
 			return null;
 		}
 

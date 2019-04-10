@@ -97,3 +97,4 @@
     * New scenes now open centered to the old one
     * Program requests API Key via form if not set on start
     * Added validity check for API Key
+    * Improved behaviour and design on first start
