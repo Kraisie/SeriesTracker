@@ -160,7 +160,7 @@ class Controller {
 		primaryStage.setScene(new Scene(root));
 		primaryStage.sizeToScene();
 
-		// Relocate the pop-up Stage
+		// Relocate the new scene
 		primaryStage.setX(xPos - primaryStage.getWidth() / 2d);
 		primaryStage.setY(yPos - primaryStage.getHeight() / 2d);
 		primaryStage.show();
