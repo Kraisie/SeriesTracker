@@ -274,10 +274,11 @@ public class SearchController extends Controller {
 		}
 
 		// check duration + derivation
-		if (parameter.getDuration() != 0 &&
-				(series.getRuntime() < (parameter.getDuration() - parameter.getDeviation()) ||
-						series.getRuntime() > (parameter.getDuration() + parameter.getDeviation()))) {
-			return false;
+		if (parameter.getDuration() != 0 || parameter.getDeviation() != 0) {
+			if (series.getRuntime() < (parameter.getDuration() - parameter.getDeviation()) ||
+					series.getRuntime() > (parameter.getDuration() + parameter.getDeviation())) {
+				return false;
+			}
 		}
 
 		// check seasons
