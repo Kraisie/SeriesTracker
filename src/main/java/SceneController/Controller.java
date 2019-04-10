@@ -151,10 +151,18 @@ class Controller {
 	 * @param root         the Parent which contains the fxml data
 	 */
 	private void setStageProperties(Stage primaryStage, String title, Parent root) {
+		// get center of current stage
+		double xPos = primaryStage.getX() + primaryStage.getWidth() / 2d;
+		double yPos = primaryStage.getY() + primaryStage.getHeight() / 2d;
+
 		primaryStage.setTitle(title);
 		primaryStage.setResizable(false);
 		primaryStage.setScene(new Scene(root));
 		primaryStage.sizeToScene();
+
+		// Relocate the pop-up Stage
+		primaryStage.setX(xPos - primaryStage.getWidth() / 2d);
+		primaryStage.setY(yPos - primaryStage.getHeight() / 2d);
 		primaryStage.show();
 	}
 }
