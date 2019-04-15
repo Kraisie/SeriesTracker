@@ -33,6 +33,6 @@
     <TextField fx:id="textApiKey" layoutX="170.0" layoutY="115.0" prefHeight="25.0" prefWidth="311.0"/>
     <TextField fx:id="textUserKey" layoutX="170.0" layoutY="150.0" prefHeight="25.0" prefWidth="311.0"/>
     <TextField fx:id="textUserName" layoutX="170.0" layoutY="185.0" prefHeight="25.0" prefWidth="311.0"/>
-    <Label id="normalLabel" layoutX="16.0" layoutY="406.0" text="Prefered Language for TVDB:"/>
+    <Label id="normalLabel" layoutX="16.0" layoutY="406.0" text="Preferred Language for TVDB:"/>
     <ComboBox fx:id="languageCombo" layoutX="295.0" layoutY="403.0" prefWidth="95.0"/>
 </AnchorPane>
