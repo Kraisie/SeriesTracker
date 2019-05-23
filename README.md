@@ -6,16 +6,27 @@ All data is provided by [TheTvdb.com](https://www.thetvdb.com/), a database of s
 
 ### Usage
 ##### Needed stuff 
-* You need [Java 8](https://java.com/de/download/manual.jsp) for this program
-* The `.jar`-File of the [SeriesTracker](https://github.com/Kraisie/SeriesTracker/releases)
+* You need [Java 12](https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html) for this program
+* ~~(The `.jar`-File of the [SeriesTracker](https://github.com/Kraisie/SeriesTracker/releases))~~ **Not available for Java12 at the moment**
 * And furthermore an account and an API-Key from [TheTvdb.com](https://www.thetvdb.com/member/api) 
 
 ##### Start
+<details><summary>Old starting method with Java8</summary><p>
+
 Start the `.jar` via Commandline, via double-click or via right-click "Open with...".
 ```cmd
 cd path/to/jar
 java -jar SeriesTracker-release-X.jar
 ```
+
+</p>
+</details>
+
+* Clone or download and extract the repository
+* Open a CMD/Terminal in the folder where the files are located
+    * On Linux or Windows with gradle installed type: `gradle run`
+    * On Linux without gradle installed type: `./gradlew run`
+    * On Windows without gradle installed type: `gradlew.bat run`
 
 ### How to use the tracker
 
@@ -49,15 +60,14 @@ java -jar SeriesTracker-release-X.jar
 ##### Customization
 * You can use custom backgrounds in the main menu. Just navigate to your Home folder, open the `SERIESTRACKER` folder and place your `png`, `jpg`, or `jpeg` in `/Backgrounds/`. 
     * The minimum size is 1280x720px due to the fixed window size. Larger sizes work too as long as they have an aspect ratio of 16:9
-
-## Bugs with no solution yet
-* SearchSeries/AddSeries starts black sometimes (Linux)
-* `Gtk-Message: Failed to load module "pantheon-filechooser-module"` (Linux/pantheon)
-* NPE when switching scenes on Linux caused by the menu bar and gtk (Main menu -> Information)
-    * only removing the menu bar fixes it at the moment
     
-## Why is there no Java 11 support?
-Unfortunately there are a lot of problems regarding Java 11 and OpenJFX. [Creating a .jar-file via gradle](http://openjdk.java.net/projects/jigsaw/spec/issues/#MultiModuleExecutableJARs), bugged windows (like on a Raspberry Pi), [gtk3-errors](https://bugs.openjdk.java.net/browse/JDK-8215104) and [warnings](https://bugs.openjdk.java.net/browse/JDK-8211305) and so on and so on. 
-Because of those problems there is currently no point in supporting Java 11 which would be needed to fix the menu bar bug. 
-Java 9 would also fix that bug but as a non LTS version it is already deprecated. Currently it seems that OpenJFX 12 fixes some of those problems so later this program may support Java 12.
-Until then only Java 8 is supported at a loss of a correctly working menu bar on a second screen on Windows.
+### Why is there no jar to use?
+At the moment there is a module called `java.base` that needs the `javafx.graphics` module on the start of the application.
+That JavaFX module needs to be present by name, because if not the application will stop starting. 
+Thus you can not use the JavaFX libraries as jars on the classpath as it is simply not allowed.
+Furthermore it would result in lots of duplicate filenames etc if it would be.
+It would be needed to install the JavaFX SDK on every system that wants to run this program or use alternatives that create Images (`jlink` is implemented in `build.gradle`) or bundle your other jars etc.
+Another workaround may be to create a new `Main`-class which calls the `Main` that extends `Application` but I could not get that to work either.
+Because of that there is currently no `.jar`-file you can use.
+
+**TL;DR**: Problems of removing JavaFX from the JDK are not yet completely solved in a useful manner.
