@@ -1,10 +1,8 @@
 package com.Kraisie.Data;
 
-import com.Kraisie.Dialog.PopUp;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 
@@ -54,24 +52,20 @@ public class BackUp {
 	 * Writes a BackUp to a json file.
 	 *
 	 * @param backUp an object of type BackUp
+	 * @throws IOException when not able to write to file/find file
 	 */
-	public static void writeBackUp(BackUp backUp) {
+	public static void writeBackUp(BackUp backUp) throws IOException {
 		Gson gson = new Gson();
 		String json = gson.toJson(backUp);
 		Settings settings = Settings.readData();
-
-		try {
-			Files.writeString(settings.getPathBackUp(), json, TRUNCATE_EXISTING, CREATE);
-		} catch (IOException e) {
-			PopUp popUp = new PopUp();
-			popUp.showError("BackUp failed!", "The BackUp failed. Please check the validity of your Path.", false);
-		}
+		Files.writeString(settings.getPathBackUp(), json, TRUNCATE_EXISTING, CREATE);
 	}
 
 	/**
 	 * @return true if the BackUp is older than the BackUp cycle allows
+	 * @throws IOException if not able to write BackUp on disk
 	 */
-	public static boolean checkOldBackUp() {
+	public static boolean checkOldBackUp() throws IOException {
 		Settings settings = Settings.readData();
 
 		if (settings == null) {

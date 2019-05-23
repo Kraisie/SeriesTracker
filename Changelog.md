@@ -100,3 +100,5 @@
 
 * **VERSION 2.2**
     * Added Java12 support (no `.jar` support though)
+    * Removed PopUp calls from non-UI classes
+    * PopUps are now centered to the stage

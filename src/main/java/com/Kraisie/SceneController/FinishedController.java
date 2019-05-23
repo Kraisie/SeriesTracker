@@ -39,7 +39,7 @@ public class FinishedController extends Controller {
 		ObservableList<MySeries> listEntries = FXCollections.observableArrayList(MySeries.readData());
 
 		if (listEntries.isEmpty()) {
-			popUp.showError("Failed getting series!", "There was an error while trying to get the list of your series.", false);
+			popUp.showError("Failed getting series!", "There was an error while trying to get the list of your series.", false, (Stage) tableFinishedSeries.getScene().getWindow());
 		}
 
 		for (MySeries listEntry : listEntries) {
@@ -90,7 +90,7 @@ public class FinishedController extends Controller {
 		try {
 			openScene((Stage) backButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) backButton.getScene().getWindow());
 		}
 	}
 }

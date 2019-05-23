@@ -199,7 +199,7 @@ public class SelectController extends Controller {
 		} else if (radio5.isSelected()) {
 			selectedSeries = foundSeries.get(4);
 		} else {
-			popUp.showWarning("Select a series", "Select a series you want to add to the tracker.");
+			popUp.showWarning("Select a series", "Select a series you want to add to the tracker.", (Stage) radio1.getScene().getWindow());
 			initialize();
 		}
 
@@ -207,11 +207,17 @@ public class SelectController extends Controller {
 			List<MySeries> allSeries = MySeries.readData();
 			TVDB_Data tvdbAPI = new TVDB_Data(APIKey.readKey());
 			MySeries series = tvdbAPI.getUpdate(selectedSeries.getTvdbID(), 0, 1, 1);
-			allSeries.add(series);
-			MySeries.writeData(allSeries);
-			popUp.showAlert("Series added!", "\"" + selectedSeries.getName() + "\" has been added to your list.", false);
+
+			try {
+				allSeries.add(series);
+				MySeries.writeData(allSeries);
+			} catch (IOException e) {
+				popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) radio1.getScene().getWindow());
+				return;
+			}
+			popUp.showAlert("Series added!", "\"" + selectedSeries.getName() + "\" has been added to your list.", false, (Stage) radio1.getScene().getWindow());
 		} else {
-			popUp.showWarning("Series not found", "Could not find your selected series.");
+			popUp.showWarning("Series not found", "Could not find your selected series.", (Stage) radio1.getScene().getWindow());
 		}
 
 		backToMain();
@@ -228,7 +234,7 @@ public class SelectController extends Controller {
 		try {
 			openScene((Stage) backButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) backButton.getScene().getWindow());
 		}
 	}
 }

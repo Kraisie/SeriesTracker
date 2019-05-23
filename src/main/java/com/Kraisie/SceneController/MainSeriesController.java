@@ -173,7 +173,7 @@ public class MainSeriesController extends Controller {
 			ImageIO.write(bufImg, "jpg", file);
 			imageBackground.setImage(SwingFXUtils.toFXImage(bufImg, null));
 		} catch (IOException e) {
-			popUp.showWarning("No background picture found!", "Please make sure that local pictures are in the correct folder or that you are connected to the internet to see a background picture.");
+			popUp.showWarning("No background picture found!", "Please make sure that local pictures are in the correct folder or that you are connected to the internet to see a background picture.", (Stage) imageBackground.getScene().getWindow());
 		}
 	}
 
@@ -353,7 +353,7 @@ public class MainSeriesController extends Controller {
 	@FXML
 	private void incEpisodeButton() {
 		if (tableContinueWatching.getSelectionModel().getSelectedItem() == null) {
-			popUp.showWarning("No series selected!", "Please select a series to increase the episode of.");
+			popUp.showWarning("No series selected!", "Please select a series to increase the episode of.", (Stage) buttonIncEpisode.getScene().getWindow());
 			return;
 		}
 
@@ -379,7 +379,11 @@ public class MainSeriesController extends Controller {
 			break;
 		}
 
-		MySeries.writeData(allSeries);
+		try {
+			MySeries.writeData(allSeries);
+		} catch (IOException e) {
+			popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) buttonIncEpisode.getScene().getWindow());
+		}
 		initialize();
 	}
 
@@ -413,7 +417,7 @@ public class MainSeriesController extends Controller {
 	@FXML
 	private void decEpisodeButton() {
 		if (tableContinueWatching.getSelectionModel().getSelectedItem() == null) {
-			popUp.showWarning("No series selected!", "Please select a series to decrease the episode of.");
+			popUp.showWarning("No series selected!", "Please select a series to decrease the episode of.", (Stage) buttonDecEpisode.getScene().getWindow());
 			return;
 		}
 
@@ -432,7 +436,11 @@ public class MainSeriesController extends Controller {
 			break;
 		}
 
-		MySeries.writeData(allSeries);
+		try {
+			MySeries.writeData(allSeries);
+		} catch (IOException e) {
+			popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) buttonDecEpisode.getScene().getWindow());
+		}
 		initialize();
 	}
 
@@ -453,7 +461,7 @@ public class MainSeriesController extends Controller {
 	@FXML
 	private void startSeries() {
 		if (tableStartWatching.getSelectionModel().getSelectedItem() == null) {
-			popUp.showWarning("No series selected!", "Please select a series you want to start watching.");
+			popUp.showWarning("No series selected!", "Please select a series you want to start watching.", (Stage) buttonStartedSeries.getScene().getWindow());
 			return;
 		}
 
@@ -465,7 +473,11 @@ public class MainSeriesController extends Controller {
 			}
 		}
 
-		MySeries.writeData(allSeries);
+		try {
+			MySeries.writeData(allSeries);
+		} catch (IOException e) {
+			popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) buttonStartedSeries.getScene().getWindow());
+		}
 		initialize();
 	}
 
@@ -582,7 +594,11 @@ public class MainSeriesController extends Controller {
 				settings.setSortByTime(false);
 		}
 
-		Settings.writeData(settings);
+		try {
+			Settings.writeData(settings);
+		} catch (IOException e) {
+			popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) menuBar.getScene().getWindow());
+		}
 		initialize();
 	}
 
@@ -620,19 +636,23 @@ public class MainSeriesController extends Controller {
 	 */
 	@FXML
 	private void importBackUp() {
-		boolean choice = popUp.showChoice("Import BackUp", "Are you sure you want to import the BackUp?");
+		boolean choice = popUp.showChoice("Import BackUp", "Are you sure you want to import the BackUp?", (Stage) menuBar.getScene().getWindow());
 		if (!choice) {
 			return;
 		}
 
 		BackUp backUp = BackUp.readBackUp();
 		if (backUp == null) {
-			popUp.showError("Failed to read BackUp!", "Please check the validity of your path.", false);
+			popUp.showError("Failed to read BackUp!", "Please check the validity of your path.", false, (Stage) menuBar.getScene().getWindow());
 			return;
 		}
 
-		List<MySeries> series = backUp.getSeries();
-		MySeries.writeData(series);
+		try {
+			List<MySeries> series = backUp.getSeries();
+			MySeries.writeData(series);
+		} catch (IOException e) {
+			popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) menuBar.getScene().getWindow());
+		}
 		initialize();
 	}
 
@@ -643,14 +663,19 @@ public class MainSeriesController extends Controller {
 	 */
 	@FXML
 	private void createBackUp() {
-		boolean choice = popUp.showChoice("Create BackUp", "Are you sure you want to create a new BackUp?");
+		boolean choice = popUp.showChoice("Create BackUp", "Are you sure you want to create a new BackUp?", (Stage) menuBar.getScene().getWindow());
 		if (!choice) {
 			return;
 		}
 
-		BackUp backUp = new BackUp();
-		BackUp.writeBackUp(backUp);
-		popUp.showAlert("BackUp created", "Created a new BackUp on your drive.", false);
+		try {
+			BackUp backUp = new BackUp();
+			BackUp.writeBackUp(backUp);
+		} catch (IOException e) {
+			popUp.showError("BackUp failed!", "The BackUp failed. Please check the validity of your Path.", false, (Stage) menuBar.getScene().getWindow());
+			return;
+		}
+		popUp.showAlert("BackUp created", "Created a new BackUp on your drive.", false, (Stage) menuBar.getScene().getWindow());
 
 	}
 
@@ -659,8 +684,12 @@ public class MainSeriesController extends Controller {
 	 */
 	@FXML
 	private void showHowTo() {
-		String url = "https://github.com/Kraisie/SeriesTracker/blob/master/README.md";
-		openBrowser(url);
+		try {
+			String url = "https://github.com/Kraisie/SeriesTracker/blob/master/README.md";
+			openBrowser(url);
+		} catch (Exception e) {
+			popUp.showWarning("Can not open browser!", "There is no supported browser installed on your machine.", (Stage) menuBar.getScene().getWindow());
+		}
 	}
 
 	/**
@@ -691,7 +720,7 @@ public class MainSeriesController extends Controller {
 		}
 
 		if (selectedSeries == null) {
-			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.");
+			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.", (Stage) infoButton.getScene().getWindow());
 			return;
 		}
 
@@ -699,7 +728,7 @@ public class MainSeriesController extends Controller {
 			String title = "Information about " + selectedSeries.getName();
 			openSceneWithOneParameter((Stage) infoButton.getScene().getWindow(), "/FXML/AdvancedInformation.fxml", title, selectedSeries);
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) infoButton.getScene().getWindow());
 		}
 
 	}
@@ -716,7 +745,7 @@ public class MainSeriesController extends Controller {
 			String title = "Search one of your series by attributes";
 			openSearch((Stage) menuBar.getScene().getWindow(), "/FXML/SearchSeries.fxml", title);
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) menuBar.getScene().getWindow());
 		}
 	}
 
@@ -732,7 +761,7 @@ public class MainSeriesController extends Controller {
 			String title = "All finished Series";
 			openScene((Stage) buttonFinishedSeries.getScene().getWindow(), "/FXML/FinishedSeries.fxml", title);
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) buttonFinishedSeries.getScene().getWindow());
 		}
 	}
 
@@ -748,7 +777,7 @@ public class MainSeriesController extends Controller {
 			String title = "Add a new series";
 			openScene((Stage) menuBar.getScene().getWindow(), "/FXML/AddSeries.fxml", title);
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) menuBar.getScene().getWindow());
 		}
 	}
 
@@ -759,7 +788,7 @@ public class MainSeriesController extends Controller {
 	 */
 	@FXML
 	public void showAbout() {
-		popUp.showAbout();
+		popUp.showAbout((Stage) menuBar.getScene().getWindow());
 	}
 
 	/**
@@ -774,7 +803,7 @@ public class MainSeriesController extends Controller {
 			String title = "Delete series";
 			openScene((Stage) menuBar.getScene().getWindow(), "/FXML/DeleteSeries.fxml", title);
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) menuBar.getScene().getWindow());
 		}
 	}
 
@@ -790,7 +819,7 @@ public class MainSeriesController extends Controller {
 			String title = "Settings";
 			openScene((Stage) menuBar.getScene().getWindow(), "/FXML/Settings.fxml", title);
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) menuBar.getScene().getWindow());
 		}
 	}
 
@@ -866,7 +895,11 @@ public class MainSeriesController extends Controller {
 					updateProgress(updatedAllSeries.size(), allSeries.size());
 				}
 
-				MySeries.writeData(updatedAllSeries);
+				try {
+					MySeries.writeData(updatedAllSeries);
+				} catch (IOException e) {
+					popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) menuBar.getScene().getWindow());
+				}
 
 				//TODO: this thread can't access the JavaFX/PopUp stuff so any alerts won't get shown to the user!
 

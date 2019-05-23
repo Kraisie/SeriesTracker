@@ -240,7 +240,7 @@ public class AdvancedInformationController extends Controller {
 		try {
 			openSearchFromAdvancedInformation((Stage) backButton.getScene().getWindow(), "/FXML/SearchSeries.fxml", "Search one of your series by attributes", tmpMatches);
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) backButton.getScene().getWindow());
 		}
 	}
 
@@ -255,7 +255,7 @@ public class AdvancedInformationController extends Controller {
 		try {
 			openScene((Stage) backMenuButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) backMenuButton.getScene().getWindow());
 		}
 	}
 

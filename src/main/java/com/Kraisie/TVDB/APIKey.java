@@ -1,11 +1,9 @@
 package com.Kraisie.TVDB;
 
 import com.Kraisie.Data.Settings;
-import com.Kraisie.Dialog.PopUp;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 import static java.nio.file.StandardOpenOption.CREATE;
@@ -24,8 +22,8 @@ public class APIKey {
 	}
 
 	/**
-	 * @param apikey String representation of the API key that can be requested on theTVDB.com
-	 * @param userkey String representation of the theTVDB.com user key
+	 * @param apikey   String representation of the API key that can be requested on theTVDB.com
+	 * @param userkey  String representation of the theTVDB.com user key
 	 * @param username the theTVDB.com user name
 	 */
 	public APIKey(String apikey, String userkey, String username) {
@@ -57,18 +55,13 @@ public class APIKey {
 
 	/**
 	 * @param key API Key to save in a json file
+	 * @throws IOException when not able to write to file/find file
 	 */
-	public static void writeKey(APIKey key) {
+	public static void writeKey(APIKey key) throws IOException {
 		Gson gson = new Gson();
 		String json = gson.toJson(key);
 		Settings settings = Settings.readData();
-
-		try {
-			Files.writeString(settings.getPathAPIKey(), json, TRUNCATE_EXISTING, CREATE);
-		} catch (IOException e) {
-			PopUp popUp = new PopUp();
-			popUp.showError("Failed while saving!", "Trying to save the API Key failed. Please check the validity of you Path.", false);
-		}
+		Files.writeString(settings.getPathAPIKey(), json, TRUNCATE_EXISTING, CREATE);
 	}
 
 	/**

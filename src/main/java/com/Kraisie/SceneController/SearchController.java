@@ -191,7 +191,7 @@ public class SearchController extends Controller {
 		}
 
 		if (matches.size() == 0) {
-			popUp.showWarning("No matches found!", "There are no series that match your search parameters.");
+			popUp.showWarning("No matches found!", "There are no series that match your search parameters.", (Stage) searchButton.getScene().getWindow());
 			ownInitialize();
 			return;
 		}
@@ -319,7 +319,7 @@ public class SearchController extends Controller {
 	@FXML
 	private void showInformation() {
 		if (foundMatches.getSelectionModel().getSelectedItem() == null) {
-			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.");
+			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.", (Stage) infoButton.getScene().getWindow());
 			return;
 		}
 
@@ -335,7 +335,7 @@ public class SearchController extends Controller {
 		try {
 			openAdvancedInformationFromSearch((Stage) infoButton.getScene().getWindow(), "/FXML/AdvancedInformation.fxml", "Information about " + foundMatches.getSelectionModel().getSelectedItem(), selectedSeries, tmpMatches);
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) infoButton.getScene().getWindow());
 		}
 	}
 
@@ -350,7 +350,7 @@ public class SearchController extends Controller {
 		try {
 			openScene((Stage) backButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) backButton.getScene().getWindow());
 		}
 	}
 }

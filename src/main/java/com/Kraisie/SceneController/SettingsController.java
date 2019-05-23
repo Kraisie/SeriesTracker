@@ -39,6 +39,8 @@ public class SettingsController extends Controller {
 	private ComboBox<String> languageCombo;
 	@FXML
 	private Button backButton;
+	@FXML
+	private Button saveButton;
 
 	private Settings settings;
 	private PopUp popUp = new PopUp();
@@ -185,10 +187,14 @@ public class SettingsController extends Controller {
 			String fileBackUp = "BackUp.json";
 			moveFile(newBackUp, oldBackUp, fileBackUp);
 		} catch (IOException e) {
-			popUp.showError("Failed copying old save files!", getStackTrace(e), true);
+			popUp.showError("Failed copying old save files!", getStackTrace(e), true, (Stage) saveButton.getScene().getWindow());
 		}
 
-		Settings.writeData(settings);
+		try {
+			Settings.writeData(settings);
+		} catch (IOException e) {
+			popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) saveButton.getScene().getWindow());
+		}
 		back();
 	}
 
@@ -230,7 +236,11 @@ public class SettingsController extends Controller {
 			}
 
 			if (changes) {
-				APIKey.writeKey(key);
+				try {
+					APIKey.writeKey(key);
+				} catch (IOException e) {
+					popUp.showError("Failed while saving!", "Trying to save the API Key failed. Please check the validity of you Path.", false, (Stage) saveButton.getScene().getWindow());
+				}
 			}
 		}
 	}
@@ -248,7 +258,7 @@ public class SettingsController extends Controller {
 		}
 
 		if (newPath.toFile().exists()) {
-			if (popUp.showChoice(fileName + " already exists!", "Do you want to replace it?")) {
+			if (popUp.showChoice(fileName + " already exists!", "Do you want to replace it?", (Stage) saveButton.getScene().getWindow())) {
 				Files.move(oldPath, newPath, REPLACE_EXISTING);
 			} else {
 				// remove old file
@@ -281,7 +291,7 @@ public class SettingsController extends Controller {
 		try {
 			openScene((Stage) backButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) backButton.getScene().getWindow());
 		}
 	}
 }

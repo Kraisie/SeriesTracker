@@ -1,6 +1,7 @@
 package com.Kraisie.Dialog;
 
 import com.Kraisie.SceneController.MainSeriesController;
+import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -23,24 +24,16 @@ public class PopUp {
 	 * @param header     text for the header of the Alert
 	 * @param message    text for the message of the Alert
 	 * @param contentBox shows message in TextArea if true
+	 * @param baseStage the base stage that called the Alert
 	 */
-	public void showAlert(String header, String message, boolean contentBox) {
+	public void showAlert(String header, String message, boolean contentBox, Stage baseStage) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		Image img = new Image(resource.toString());
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(img);
 		alert.setTitle("Information");
-		alert.setHeaderText(header);
-
-		if (contentBox) {
-			showContentBox(alert, message);
-		} else {
-			alert.setContentText(message);
-		}
-
-		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-		alert.getDialogPane().setMinWidth(Region.USE_PREF_SIZE);
-		alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/myStyle.css").toExternalForm());
+		setProperties(alert, contentBox, header, message);
+		Platform.runLater(() -> setCoordinates(alert, baseStage));
 		alert.showAndWait();
 	}
 
@@ -49,19 +42,16 @@ public class PopUp {
 	 *
 	 * @param header  text for the header of the Alert
 	 * @param message text for the message of the Alert
+	 * @param baseStage the base stage that called the Alert
 	 */
-	public void showWarning(String header, String message) {
+	public void showWarning(String header, String message, Stage baseStage) {
 		Alert alert = new Alert(AlertType.ERROR);
 		Image img = new Image(resource.toString());
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(img);
 		alert.setTitle("Warning!");
-		alert.setHeaderText(header);
-		alert.setContentText(message);
-
-		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-		alert.getDialogPane().setMinWidth(Region.USE_PREF_SIZE);
-		alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/myStyle.css").toExternalForm());
+		setProperties(alert, false, header, message);
+		Platform.runLater(() -> setCoordinates(alert, baseStage));
 		alert.showAndWait();
 	}
 
@@ -72,24 +62,16 @@ public class PopUp {
 	 * @param header     text for the header of the Alert
 	 * @param message    text for the message of the Alert
 	 * @param contentBox shows message in TextArea if true
+	 * @param baseStage the base stage that called the Alert
 	 */
-	public void showError(String header, String message, boolean contentBox) {
+	public void showError(String header, String message, boolean contentBox, Stage baseStage) {
 		Alert alert = new Alert(AlertType.ERROR);
 		Image img = new Image(resource.toString());
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(img);
 		alert.setTitle("Error!");
-		alert.setHeaderText(header);
-
-		if (contentBox) {
-			showContentBox(alert, message);
-		} else {
-			alert.setContentText(message);
-		}
-
-		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-		alert.getDialogPane().setMinWidth(Region.USE_PREF_SIZE);
-		alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/myStyle.css").toExternalForm());
+		setProperties(alert, contentBox, header, message);
+		Platform.runLater(() -> setCoordinates(alert, baseStage));
 		alert.showAndWait();
 	}
 
@@ -98,22 +80,20 @@ public class PopUp {
 	 *
 	 * @param header  text for the header of the Alert
 	 * @param message text for the message of the Alert
+	 * @param baseStage the base stage that called the Alert
 	 * @return true if user selects 'Yes' Button
 	 */
-	public boolean showChoice(String header, String message) {
+	public boolean showChoice(String header, String message, Stage baseStage) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		Image img = new Image(resource.toString());
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(img);
 		alert.setTitle("Confirmation");
-		alert.setHeaderText(header);
-		alert.setContentText(message);
+		setProperties(alert, false, header, message);
 		alert.getButtonTypes().clear();
 		alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
-		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-		alert.getDialogPane().setMinWidth(Region.USE_PREF_SIZE);
-		alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/myStyle.css").toExternalForm());
 
+		Platform.runLater(() -> setCoordinates(alert, baseStage));
 		Optional<ButtonType> option = alert.showAndWait();
 
 		return option.filter(buttonType -> buttonType == ButtonType.YES).isPresent();
@@ -121,8 +101,10 @@ public class PopUp {
 
 	/**
 	 * Shows the about screen for this piece of software
+	 *
+	 * @param baseStage the base stage that called the Alert
 	 */
-	public void showAbout() {
+	public void showAbout(Stage baseStage) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		Image img = new Image(resource.toString());
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -158,8 +140,21 @@ public class PopUp {
 			dialogPaneContent.getStylesheets().add(getClass().getResource("/css/myStyle.css").toExternalForm());
 			dialogPaneContent.setContent(vbox);
 
-			linkGithub.setOnAction((event -> BrowserControl.openBrowser("https://github.com/Kraisie")));
-			linkTelegram.setOnAction((event -> BrowserControl.openBrowser("https://t.me/Kraisie")));
+			linkGithub.setOnAction((event -> {
+				try {
+					BrowserControl.openBrowser("https://github.com/Kraisie");
+				} catch (Exception e) {
+					showWarning("Can not open browser!", "There is no supported browser installed on your machine.", (Stage) dialogPaneContent.getScene().getWindow());
+				}
+			}));
+
+			linkTelegram.setOnAction((event -> {
+				try {
+					BrowserControl.openBrowser("https://t.me/Kraisie");
+				} catch (Exception e) {
+					showWarning("Can not open browser!", "There is no supported browser installed on your machine.", (Stage) dialogPaneContent.getScene().getWindow());
+				}
+			}));
 		} else {
 			// started from IDE or used ./gradlew run etc.
 			alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/myStyle.css").toExternalForm());
@@ -169,6 +164,8 @@ public class PopUp {
 		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 		alert.getDialogPane().setMinWidth(Region.USE_PREF_SIZE);
 		alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/myStyle.css").toExternalForm());
+
+		Platform.runLater(() -> setCoordinates(alert, baseStage));
 		alert.showAndWait();
 	}
 
@@ -184,9 +181,43 @@ public class PopUp {
 		textArea.setText(message);
 		textArea.setEditable(false);
 
+		alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/myStyle.css").toExternalForm());
+		dialogPaneContent.setContent(textArea);
+	}
+
+	/**
+	 * Sets all needed text and size properties
+	 *
+	 * @param alert      the Alert that is going to be shown to the user
+	 * @param contentBox shows message in TextArea if true
+	 * @param header     text for the header of the Alert
+	 * @param message    the message which should appear
+	 */
+	private void setProperties(Alert alert, boolean contentBox, String header, String message) {
+		alert.setHeaderText(header);
+
+		if (contentBox) {
+			showContentBox(alert, message);
+		} else {
+			alert.setContentText(message);
+		}
+
 		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 		alert.getDialogPane().setMinWidth(Region.USE_PREF_SIZE);
 		alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/myStyle.css").toExternalForm());
-		dialogPaneContent.setContent(textArea);
+	}
+
+	/**
+	 * Sets the coordinates of the alert to the center of the base stage
+	 *
+	 * @param alert the Alert that is going to be shown to the user
+	 * @param baseStage the base stage that called the Alert
+	 */
+	private void setCoordinates(Alert alert, Stage baseStage) {
+		Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+		double xPos = baseStage.getX() + baseStage.getWidth() / 2d;
+		double yPos = baseStage.getY() + baseStage.getHeight() / 2d;
+		alertStage.setX(xPos - alertStage.getWidth() / 2d);
+		alertStage.setY(yPos - alertStage.getHeight() / 2d);
 	}
 }

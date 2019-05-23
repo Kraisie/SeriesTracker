@@ -45,9 +45,13 @@ public class DeleteController extends Controller {
 			}
 		}
 
-		MySeries.writeData(listEntries);
+		try {
+			MySeries.writeData(listEntries);
+		} catch (IOException e) {
+			popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) listViewSeries.getScene().getWindow());
+		}
 		listViewSeries.getItems().remove(name);
-		popUp.showAlert("Series deleted!", "\"" + name + "\" got deleted successfully.", false);
+		popUp.showAlert("Series deleted!", "\"" + name + "\" got deleted successfully.", false, (Stage) listViewSeries.getScene().getWindow());
 	}
 
 	/**
@@ -104,7 +108,7 @@ public class DeleteController extends Controller {
 		try {
 			openScene((Stage) backButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) backButton.getScene().getWindow());
 		}
 	}
 }

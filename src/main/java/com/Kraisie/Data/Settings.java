@@ -1,11 +1,9 @@
 package com.Kraisie.Data;
 
-import com.Kraisie.Dialog.PopUp;
 import com.Kraisie.TVDB.APIKey;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -107,16 +105,12 @@ public class Settings {
 	 * Writes the settings to a json-file
 	 *
 	 * @param settings object of type Settings
+	 * @throws IOException when not able to write to file/find file
 	 */
-	public static void writeData(Settings settings) {
+	public static void writeData(Settings settings) throws IOException {
 		Gson gson = new Gson();
 		String json = gson.toJson(settings);
-		try {
-			Files.writeString(PATH, json, TRUNCATE_EXISTING, CREATE);
-		} catch (IOException e) {
-			PopUp popUp = new PopUp();
-			popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false);
-		}
+		Files.writeString(PATH, json, TRUNCATE_EXISTING, CREATE);
 	}
 
 	/**

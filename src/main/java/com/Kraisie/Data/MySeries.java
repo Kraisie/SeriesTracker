@@ -1,6 +1,5 @@
 package com.Kraisie.Data;
 
-import com.Kraisie.Dialog.PopUp;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -82,9 +81,10 @@ public class MySeries {
 	 * Writes a list of series cleaned and ordered in a file which gets defined in the Settings
 	 *
 	 * @param allEntries List of all series
+	 * @throws IOException when not able to write to file/find file
 	 * @see Settings
 	 */
-	public static void writeData(List<MySeries> allEntries) {
+	public static void writeData(List<MySeries> allEntries) throws IOException {
 		for (MySeries series : allEntries) {
 			Episode.deleteNull(series.episodes);
 			Episode.sort(series.episodes);
@@ -96,13 +96,7 @@ public class MySeries {
 		Gson gson = new Gson();
 		String json = gson.toJson(allEntries);
 		Settings settings = Settings.readData();
-
-		try {
-			Files.writeString(settings.getPathSeries(), json, TRUNCATE_EXISTING, CREATE);
-		} catch (IOException e) {
-			PopUp popUp = new PopUp();
-			popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false);
-		}
+		Files.writeString(settings.getPathSeries(), json, TRUNCATE_EXISTING, CREATE);
 	}
 
 	/**
@@ -146,11 +140,6 @@ public class MySeries {
 				series.setNewCurrent(series.getCurrent(), true);    //add 1 episode as we are changing from last episode of a season to the first episode of a new season
 				updatedSeries.add(series);
 			}
-		}
-
-		//save changes if necessary
-		if (updatedSeries.size() > 0) {
-			MySeries.writeData(allEntries);
 		}
 
 		return updatedSeries;

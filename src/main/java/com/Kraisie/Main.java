@@ -36,14 +36,22 @@ public class Main extends Application {
 		boolean clearStart = false;
 		Settings settings = Settings.readData();
 		if (!checkSettings(settings)) {
-			Settings.writeData(new Settings());
-			clearStart = true;
+			try {
+				Settings.writeData(new Settings());
+				clearStart = true;
+			} catch (IOException e) {
+				popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, primaryStage);
+			}
 		}
 
 		// create BackUp if last BackUp is older than 24 hours/back up cycle in settings
-		if(!clearStart && settings.getPathBackUp().toFile().exists()) {
-			if (checkOldBackUp()) {
-				writeBackUp(new BackUp());
+		if (!clearStart && settings.getPathBackUp().toFile().exists()) {
+			try {
+				if (checkOldBackUp()) {
+					writeBackUp(new BackUp());
+				}
+			} catch (IOException e) {
+				popUp.showError("BackUp failed!", "The BackUp failed. Please check the validity of your Path.", false, primaryStage);
 			}
 		}
 
@@ -55,12 +63,21 @@ public class Main extends Application {
 				openScene(primaryStage, "/FXML/ApiKeyForm.fxml");
 				return;
 			} catch (IOException e) {
-				popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+				popUp.showError("Failed to open the scene!", getStackTrace(e), true, primaryStage);
 			}
 		}
 
 		// check for newly aired episodes
 		List<MySeries> updatedSeries = MySeries.checkAirDates();
+
+		//save changes if necessary
+		if (updatedSeries.size() > 0) {
+			try {
+				MySeries.writeData(updatedSeries);
+			} catch (IOException e) {
+				popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, primaryStage);
+			}
+		}
 
 		if (updatedSeries.size() > 0) {
 			StringBuilder sb = new StringBuilder();
@@ -68,14 +85,14 @@ public class Main extends Application {
 				sb.append(series.getName()).append("\n");
 			}
 
-			popUp.showAlert(updatedSeries.size() + " series got modified they may have some new content you do not want to miss!", sb.toString(), true);
+			popUp.showAlert(updatedSeries.size() + " series got modified they may have some new content you do not want to miss!", sb.toString(), true, primaryStage);
 		}
 
 		// start program / open scene
 		try {
 			openScene(primaryStage, "/FXML/MainSeries.fxml");
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, primaryStage);
 		}
 	}
 
@@ -97,7 +114,7 @@ public class Main extends Application {
 			primaryStage.getIcons().add(img);
 			primaryStage.setScene(new Scene(root));
 			primaryStage.sizeToScene();
-			primaryStage.show();	// XSetErrorHandler() called with a GDK error trap pushed
+			primaryStage.show();    // XSetErrorHandler() called with a GDK error trap pushed
 		} else {
 			throw new FileNotFoundException();
 		}

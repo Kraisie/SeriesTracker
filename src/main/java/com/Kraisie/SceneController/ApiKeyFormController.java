@@ -34,7 +34,12 @@ public class ApiKeyFormController extends Controller {
 	 */
 	@FXML
 	private void openTVDB() {
-		BrowserControl.openBrowser("https://www.thetvdb.com/member/api");
+		try {
+			BrowserControl.openBrowser("https://www.thetvdb.com/member/api");
+		} catch (Exception e) {
+			PopUp popUp = new PopUp();
+			popUp.showWarning("Can not open browser!", "There is no supported browser installed on your machine.", (Stage) textApiKey.getScene().getWindow());
+		}
 	}
 
 	/**
@@ -44,7 +49,7 @@ public class ApiKeyFormController extends Controller {
 	private void setKey() {
 		PopUp popUp = new PopUp();
 		if (textApiKey.getText().isEmpty() || textUserKey.getText().isEmpty() || textUserName.getText().isEmpty()) {
-			popUp.showError("Missing data!", "Please fill in each field correctly.", false);
+			popUp.showError("Missing data!", "Please fill in each field correctly.", false, (Stage) textApiKey.getScene().getWindow());
 			return;
 		}
 
@@ -52,15 +57,20 @@ public class ApiKeyFormController extends Controller {
 		APIKey apiKey = new APIKey(textApiKey.getText(), textUserKey.getText(), textUserName.getText());
 		TVDB_Data validation = new TVDB_Data(apiKey);
 		if (!validation.keyValid()) {
-			popUp.showError("API Key not valid!", "Please recheck your data for mistakes.", false);
+			popUp.showError("API Key not valid!", "Please recheck your data for mistakes.", false, (Stage) textApiKey.getScene().getWindow());
 			return;
 		}
-		APIKey.writeKey(apiKey);
+
+		try {
+			APIKey.writeKey(apiKey);
+		} catch (IOException e) {
+			popUp.showError("Failed while saving!", "Trying to save the API Key failed. Please check the validity of you Path.", false, (Stage) textApiKey.getScene().getWindow());
+		}
 
 		try {
 			openScene((Stage) doneButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true);
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) textApiKey.getScene().getWindow());
 		}
 	}
 }
