@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane id="anchorPane" prefHeight="740.0" prefWidth="1140.0" stylesheets="@../css/myStyle.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="SceneController.AdvancedInformationController">
+            fx:controller="com.Kraisie.SceneController.AdvancedInformationController">
     <ImageView fx:id="imgSeriesBanner" fitHeight="140.0" fitWidth="758.0" layoutX="191.0" layoutY="14.0"
                pickOnBounds="true" preserveRatio="true"/>
     <Label id="normalLabel" fx:id="labelSeriesName" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0"

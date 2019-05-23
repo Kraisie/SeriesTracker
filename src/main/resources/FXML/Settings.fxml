@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane id="anchorPane" prefHeight="600.0" prefWidth="600.0" stylesheets="@../css/myStyle.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="SceneController.SettingsController">
+            fx:controller="com.Kraisie.SceneController.SettingsController">
     <Button layoutX="252.0" layoutY="559.0" mnemonicParsing="false" onAction="#save" text="Save Settings"/>
     <Button fx:id="backButton" layoutX="540.0" layoutY="559.0" mnemonicParsing="false" onAction="#back" text="Back"/>
     <Button layoutX="494.0" layoutY="231.0" mnemonicParsing="false" onAction="#changePathSave" text="Change Path"/>

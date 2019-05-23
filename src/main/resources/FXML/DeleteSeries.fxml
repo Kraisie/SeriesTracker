@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane id="anchorPane" onKeyPressed="#scrollToKey" prefHeight="450.0" prefWidth="350.0"
             stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="SceneController.DeleteController">
+            fx:controller="com.Kraisie.SceneController.DeleteController">
     <ListView fx:id="listViewSeries" layoutX="25.0" layoutY="8.0" prefHeight="390.0" prefWidth="300.0"/>
     <Button layoutX="25.0" layoutY="409.0" mnemonicParsing="false" onAction="#delete" text="Delete Series"/>
     <Button fx:id="backButton" layoutX="257.0" layoutY="409.0" mnemonicParsing="false" onAction="#back" text="Go back"/>

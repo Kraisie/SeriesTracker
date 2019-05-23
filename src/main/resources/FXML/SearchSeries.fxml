@@ -6,7 +6,7 @@
 <AnchorPane id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="536.0" prefWidth="650.0" stylesheets="@../css/myStyle.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="SceneController.SearchController">
+            fx:controller="com.Kraisie.SceneController.SearchController">
     <Label id="biggerLabel" layoutX="128.0" layoutY="28.0" text="Search series by duration of the episodes,"
            textAlignment="CENTER">
         <font>

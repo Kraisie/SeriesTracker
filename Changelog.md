@@ -73,10 +73,6 @@
     * Fixed small bug when searching for series
     * Removed double PopUp when APIKey was missing
     * Fixed [Windows resizeable window bug](https://bugs.openjdk.java.net/browse/JDK-8089008)
-    
-</p>
-</details>
-
 * **VERSION 2.1**
     * Improved stability and code quality
     * Added time related order option
@@ -98,3 +94,9 @@
     * Program requests API Key via form if not set on start
     * Added validity check for API Key
     * Improved behaviour and design on first start
+    
+</p>
+</details>
+
+* **VERSION 2.2**
+    * Added Java12 support (no `.jar` support though)

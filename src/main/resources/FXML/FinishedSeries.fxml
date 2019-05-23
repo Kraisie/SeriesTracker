@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane id="anchorPane" prefHeight="590.0" prefWidth="400.0" stylesheets="@../css/myStyle.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="SceneController.FinishedController">
+            fx:controller="com.Kraisie.SceneController.FinishedController">
     <TableView fx:id="tableFinishedSeries" layoutX="25.0" layoutY="47.0" prefHeight="440.0" prefWidth="350.0">
         <columns>
             <TableColumn fx:id="columnName" prefWidth="200.0" text="Name"/>
