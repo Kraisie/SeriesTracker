@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="745.0"
             prefWidth="1280.0" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml" fx:controller="com.Kraisie.SceneController.MainSeriesController">
+            xmlns:fx="http://javafx.com/fxml" fx:controller="Kraisie.SceneController.MainSeriesController">
     <ImageView fx:id="imageBackground" fitHeight="720.0" fitWidth="1280.0" layoutY="28.0" pickOnBounds="true"
                preserveRatio="true"/>
     <Label fx:id="labelWatching" alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" layoutY="42.0"

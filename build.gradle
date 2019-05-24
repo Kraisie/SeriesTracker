@@ -4,7 +4,6 @@ plugins {
     id 'eclipse'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.7'
-    id 'org.beryx.jlink' version '2.10.2'
 }
 
 sourceCompatibility = '1.12'
@@ -20,6 +19,19 @@ dependencies {
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
     implementation 'org.apache.httpcomponents:httpclient:4.5.8'
+
+    /* uncomment for cross-platform jar: */
+//    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:win"
+//    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:linux"
+//    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:mac"
+//
+//    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:win"
+//    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:linux"
+//    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:mac"
+//
+//    runtimeOnly "org.openjfx:javafx-swing:$javafx.version:win"
+//    runtimeOnly "org.openjfx:javafx-swing:$javafx.version:linux"
+//    runtimeOnly "org.openjfx:javafx-swing:$javafx.version:mac"
 }
 
 javafx {
@@ -28,27 +40,15 @@ javafx {
 }
 
 application {
-    mainClassName = 'SeriesTracker/com.Kraisie.Main'
+    mainClassName = 'Kraisie.Main'
 }
 
 jar {
     manifest {
-        attributes(
-                'Main-Class': mainClassName,
-                'Implementation-Title': 'SeriesTracker',
-                'Implementation-Version': version
-        )
+        attributes 'Main-Class': 'Kraisie.Launcher'
     }
-
-    project.archivesBaseName = project.name + '-release'
     from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-}
-
-jlink {
-    launcher {
-        name = 'SeriesTracker'
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 

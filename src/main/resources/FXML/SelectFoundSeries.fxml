@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane id="anchorPane" prefHeight="781.0" prefWidth="1072.0" stylesheets="@../css/myStyle.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.Kraisie.SceneController.SelectController">
+            fx:controller="Kraisie.SceneController.SelectController">
     <ImageView fx:id="image1" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="14.0" pickOnBounds="true"
                preserveRatio="true"/>
     <RadioButton fx:id="radio1" layoutX="38.0" layoutY="14.0" mnemonicParsing="false" prefHeight="140.0"

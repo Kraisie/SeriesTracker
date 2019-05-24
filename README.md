@@ -7,26 +7,21 @@ All data is provided by [TheTvdb.com](https://www.thetvdb.com/), a database of s
 ### Usage
 ##### Needed stuff 
 * You need [Java 12](https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html) for this program
-* ~~(The `.jar`-File of the [SeriesTracker](https://github.com/Kraisie/SeriesTracker/releases))~~ **Not available for Java12 at the moment**
+* The `.jar`-File of the [SeriesTracker](https://github.com/Kraisie/SeriesTracker/releases)
+    * You can download the specific version for your platform (Linux, Mac, Windows) or the one that runs on all platforms (Master)
 * And furthermore an account and an API-Key from [TheTvdb.com](https://www.thetvdb.com/member/api) 
 
 ##### Start
-<details><summary>Old starting method with Java8</summary><p>
-
 Start the `.jar` via Commandline, via double-click or via right-click "Open with...".
 ```cmd
 cd path/to/jar
 java -jar SeriesTracker-release-X.jar
 ```
-
-</p>
-</details>
-
-* Clone or download and extract the repository
+If you want to clone or download and extract the repository yourself you can start the program like this:
 * Open a CMD/Terminal in the folder where the files are located
     * On Linux or Windows with gradle installed type: `gradle run`
     * On Linux without gradle installed type: `./gradlew run`
-    * On Windows without gradle installed type: `gradlew.bat run`
+    * On Windows without gradle installed type: `gradlew run`
 
 ### How to use the tracker
 
@@ -60,14 +55,3 @@ java -jar SeriesTracker-release-X.jar
 ##### Customization
 * You can use custom backgrounds in the main menu. Just navigate to your Home folder, open the `SERIESTRACKER` folder and place your `png`, `jpg`, or `jpeg` in `/Backgrounds/`. 
     * The minimum size is 1280x720px due to the fixed window size. Larger sizes work too as long as they have an aspect ratio of 16:9
-    
-### Why is there no jar to use?
-At the moment there is a module called `java.base` that needs the `javafx.graphics` module on the start of the application.
-That JavaFX module needs to be present by name, because if not the application will stop starting. 
-Thus you can not use the JavaFX libraries as jars on the classpath as it is simply not allowed.
-Furthermore it would result in lots of duplicate filenames etc if it would be.
-It would be needed to install the JavaFX SDK on every system that wants to run this program or use alternatives that create Images (`jlink` is implemented in `build.gradle`) or bundle your other jars etc.
-Another workaround may be to create a new `Main`-class which calls the `Main` that extends `Application` but I could not get that to work either.
-Because of that there is currently no `.jar`-file you can use.
-
-**TL;DR**: Problems of removing JavaFX from the JDK are not yet completely solved in a useful manner.

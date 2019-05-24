@@ -10,7 +10,7 @@
 
 <AnchorPane id="anchorPane" prefHeight="600.0" prefWidth="600.0" stylesheets="@../css/myStyle.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.Kraisie.SceneController.SettingsController">
+            fx:controller="Kraisie.SceneController.SettingsController">
     <Button fx:id="saveButton" layoutX="252.0" layoutY="559.0" mnemonicParsing="false" onAction="#save"
             text="Save Settings"/>
     <Button fx:id="backButton" layoutX="540.0" layoutY="559.0" mnemonicParsing="false" onAction="#back" text="Back"/>
