@@ -80,7 +80,7 @@ public class Main extends Application {
 			}
 
 			try {
-				MySeries.writeData(updatedSeries);
+				MySeries.writeData(allSeries);
 			} catch (IOException e) {
 				popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, primaryStage);
 			}
