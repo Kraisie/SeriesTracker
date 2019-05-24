@@ -156,18 +156,29 @@ public class TVDB_Data {
 		}
 
 		String overview;
-		if (series.getData().getOverview() == null || series.getData().getOverview().equals("")) {
+		if (series.getData().getOverview() == null || series.getData().getOverview().isEmpty()) {
 			overview = "Not given!";
 		} else {
 			overview = series.getData().getOverview();
 		}
 
 		String banner;
-		if (series.getData().getBanner() == null || series.getData().getBanner().equals("")) {
+		if (series.getData().getBanner() == null || series.getData().getBanner().isEmpty()) {
 			banner = "Not given!";
 		} else {
 			banner = series.getData().getBanner();
 		}
+
+		int runtime = 0;
+		if(series.getData().getRuntime() != null && !series.getData().getRuntime().isEmpty()) {
+			runtime = Integer.parseInt(series.getData().getRuntime());
+		}
+
+		double rating = 0d;
+		if(series.getData().getSiteRating() != null && !series.getData().getSiteRating().isEmpty()) {
+			rating = Double.valueOf(series.getData().getSiteRating());
+		}
+
 
 		return new MySeries(
 				series.getData().getSeriesName(),
@@ -175,9 +186,9 @@ public class TVDB_Data {
 				episodes,
 				userState,
 				series.getData().getStatus(),
-				Integer.parseInt(series.getData().getRuntime()),
+				runtime,
 				overview,
-				Double.valueOf(series.getData().getSiteRating()),
+				rating,
 				banner                        //banner = 758x140
 		);
 	}
