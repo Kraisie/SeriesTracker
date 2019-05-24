@@ -70,21 +70,25 @@ public class Main extends Application {
 		// check for newly aired episodes
 		List<MySeries> updatedSeries = MySeries.checkAirDates();
 
-		//save changes if necessary
+		// save changes if necessary
 		if (updatedSeries.size() > 0) {
+			List<MySeries> allSeries = MySeries.readData();
+			for (MySeries series : allSeries) {
+				if(updatedSeries.contains(series)) {
+					allSeries.set(allSeries.indexOf(series), series);
+				}
+			}
+
 			try {
 				MySeries.writeData(updatedSeries);
 			} catch (IOException e) {
 				popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, primaryStage);
 			}
-		}
 
-		if (updatedSeries.size() > 0) {
 			StringBuilder sb = new StringBuilder();
 			for (MySeries series : updatedSeries) {
 				sb.append(series.getName()).append("\n");
 			}
-
 			popUp.showAlert(updatedSeries.size() + " series got modified they may have some new content you do not want to miss!", sb.toString(), true, primaryStage);
 		}
 
