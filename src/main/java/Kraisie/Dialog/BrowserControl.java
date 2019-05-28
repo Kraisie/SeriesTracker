@@ -12,7 +12,7 @@ public class BrowserControl {
 
 		// Windows
 		if (os.contains("win")) {
-			Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler" + url);
+			Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
 			return;
 		}
 
