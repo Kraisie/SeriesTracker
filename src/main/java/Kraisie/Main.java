@@ -6,6 +6,7 @@ import Kraisie.Data.Settings;
 import Kraisie.Dialog.PopUp;
 import Kraisie.SceneController.MainSeriesController;
 import Kraisie.TVDB.APIKey;
+import Kraisie.TVDB.TVDB_Data;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,16 +26,46 @@ import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
 
 public class Main extends Application {
 
+	private PopUp popUp = new PopUp();
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	public void start(Stage primaryStage) {
-		PopUp popUp = new PopUp();
+		startUp(Settings.readData(), primaryStage);
 
+		// start program / open scene
+		try {
+			openScene(primaryStage, "/FXML/MainSeries.fxml");
+		} catch (IOException e) {
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, primaryStage);
+		}
+	}
+
+	/**
+	 * Starts the startUp routine
+	 *
+	 * @param settings     Settings read from disk if available
+	 * @param primaryStage Stage to display scenes in
+	 */
+	private void startUp(Settings settings, Stage primaryStage) {
+		boolean firstStart = startUpCheckSettings(settings, primaryStage);
+		startUpCheckBackUp(firstStart, settings, primaryStage);
+		startUpCheckApiKey(primaryStage);
+		startUpCheckNewEpisodes(primaryStage);
+	}
+
+	/**
+	 * Checks if settings exist and creates new Settings if they don't
+	 *
+	 * @param settings     Settings read from disk if available
+	 * @param primaryStage Stage to center the PopUp to
+	 * @return true if it is a clear start and no settings are available
+	 */
+	private boolean startUpCheckSettings(Settings settings, Stage primaryStage) {
 		// create new Settings if file does not exist
 		boolean clearStart = false;
-		Settings settings = Settings.readData();
 		if (!checkSettings(settings)) {
 			try {
 				Settings.writeData(new Settings());
@@ -44,6 +75,17 @@ public class Main extends Application {
 			}
 		}
 
+		return clearStart;
+	}
+
+	/**
+	 * Checks if the BackUp is too old and creates a new one if it is
+	 *
+	 * @param clearStart   indicates if the start was a fresh start, if it is it does not need to read any BackUp
+	 * @param settings     Settings read from disk or created by first startUpCheck
+	 * @param primaryStage Stage to center the PopUp to
+	 */
+	private void startUpCheckBackUp(boolean clearStart, Settings settings, Stage primaryStage) {
 		// create BackUp if last BackUp is older than 24 hours/back up cycle in settings
 		if (!clearStart && settings.getPathBackUp().toFile().exists()) {
 			try {
@@ -54,19 +96,34 @@ public class Main extends Application {
 				popUp.showError("BackUp failed!", "The BackUp failed. Please check the validity of your Path.", false, primaryStage);
 			}
 		}
+	}
 
+	/**
+	 * Checks if API Key is available and valid
+	 *
+	 * @param primaryStage Stage to open a request for the API Key in or center the PopUp to
+	 */
+	private void startUpCheckApiKey(Stage primaryStage) {
 		// check API Key
 		APIKey key = APIKey.readKey();
-		if (key == null) {
-			// request an API Key
+		TVDB_Data validation = new TVDB_Data(key);
+
+		if (key == null || !validation.keyValid()) {
+			// request a valid API Key
 			try {
 				openScene(primaryStage, "/FXML/ApiKeyForm.fxml");
-				return;
 			} catch (IOException e) {
 				popUp.showError("Failed to open the scene!", getStackTrace(e), true, primaryStage);
 			}
 		}
+	}
 
+	/**
+	 * Checks if new episodes aired and informs the user
+	 *
+	 * @param primaryStage Stage to center the PopUp to
+	 */
+	private void startUpCheckNewEpisodes(Stage primaryStage) {
 		// check for newly aired episodes
 		List<MySeries> updatedSeries = MySeries.checkAirDates();
 
@@ -74,7 +131,7 @@ public class Main extends Application {
 		if (updatedSeries.size() > 0) {
 			List<MySeries> allSeries = MySeries.readData();
 			for (MySeries series : allSeries) {
-				if(updatedSeries.contains(series)) {
+				if (updatedSeries.contains(series)) {
 					allSeries.set(allSeries.indexOf(series), updatedSeries.get(updatedSeries.indexOf(series)));
 				}
 			}
@@ -91,19 +148,13 @@ public class Main extends Application {
 			}
 			popUp.showAlert(updatedSeries.size() + " series got modified. They may have some new content you do not want to miss!", sb.toString(), true, primaryStage);
 		}
-
-		// start program / open scene
-		try {
-			openScene(primaryStage, "/FXML/MainSeries.fxml");
-		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true, primaryStage);
-		}
 	}
 
 	/**
 	 * opens a scene by fxml
 	 *
 	 * @param primaryStage stage to open scene in
+	 * @param fxmlPath     Path to FXML file which contains the content of the scene
 	 * @throws IOException if fxml or icon file can not be read
 	 * @see MainSeriesController
 	 */
