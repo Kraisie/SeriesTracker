@@ -102,3 +102,4 @@
     * Added Java12 support
     * Removed PopUp calls from non-UI classes
     * PopUps are now centered to the stage
+    * Improved selection of a series to add
