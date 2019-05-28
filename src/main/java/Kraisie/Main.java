@@ -75,7 +75,7 @@ public class Main extends Application {
 			List<MySeries> allSeries = MySeries.readData();
 			for (MySeries series : allSeries) {
 				if(updatedSeries.contains(series)) {
-					allSeries.set(allSeries.indexOf(series), series);
+					allSeries.set(allSeries.indexOf(series), updatedSeries.get(updatedSeries.indexOf(series)));
 				}
 			}
 
@@ -89,7 +89,7 @@ public class Main extends Application {
 			for (MySeries series : updatedSeries) {
 				sb.append(series.getName()).append("\n");
 			}
-			popUp.showAlert(updatedSeries.size() + " series got modified they may have some new content you do not want to miss!", sb.toString(), true, primaryStage);
+			popUp.showAlert(updatedSeries.size() + " series got modified. They may have some new content you do not want to miss!", sb.toString(), true, primaryStage);
 		}
 
 		// start program / open scene
