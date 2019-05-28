@@ -3,6 +3,7 @@ package Kraisie.SceneController;
 import Kraisie.Data.Settings;
 import Kraisie.Dialog.PopUp;
 import Kraisie.TVDB.APIKey;
+import Kraisie.TVDB.TVDB_Data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -168,8 +169,12 @@ public class SettingsController extends Controller {
 			return;
 		}
 
+		if (changeApiKey()) {
+			popUp.showError("APIKey not valid!", "The given APIKey is not valid. Please insert a valid APIKey to use this program.", false, (Stage) saveButton.getScene().getWindow());
+			return;
+		}
+
 		changeSettings();
-		changeApiKey();
 
 		try {
 			Path newSeries = settings.getPathSeries();
@@ -211,38 +216,48 @@ public class SettingsController extends Controller {
 	/**
 	 * transfers changes of the API Key from UI to file
 	 *
+	 * @return true if APIKey is valid
 	 * @see APIKey
 	 */
-	private void changeApiKey() {
+	private boolean changeApiKey() {
 		APIKey key = APIKey.readKey();
 		boolean changes = false;
-		if (key != null) {
-			String apiKey = textApiKey.getText();
-			if (!apiKey.equals(key.getApikey())) {
-				key.setApikey(apiKey);
-				changes = true;
-			}
+		if (key == null) {
+			return false;
+		}
 
-			String userKey = textUserKey.getText();
-			if (!userKey.equals(key.getUserkey())) {
-				key.setUserkey(userKey);
-				changes = true;
-			}
+		String apiKey = textApiKey.getText();
+		if (!apiKey.equals(key.getApikey())) {
+			key.setApikey(apiKey);
+			changes = true;
+		}
 
-			String userName = textUserName.getText();
-			if (!userName.equals(key.getUsername())) {
-				key.setUsername(userName);
-				changes = true;
-			}
+		String userKey = textUserKey.getText();
+		if (!userKey.equals(key.getUserkey())) {
+			key.setUserkey(userKey);
+			changes = true;
+		}
 
-			if (changes) {
-				try {
-					APIKey.writeKey(key);
-				} catch (IOException e) {
-					popUp.showError("Failed while saving!", "Trying to save the API Key failed. Please check the validity of you Path.", false, (Stage) saveButton.getScene().getWindow());
-				}
+		String userName = textUserName.getText();
+		if (!userName.equals(key.getUsername())) {
+			key.setUsername(userName);
+			changes = true;
+		}
+
+		TVDB_Data validation = new TVDB_Data(key);
+		if (!validation.keyValid()) {
+			return false;
+		}
+
+		if (changes) {
+			try {
+				APIKey.writeKey(key);
+			} catch (IOException e) {
+				popUp.showError("Failed while saving!", "Trying to save the API Key failed. Please check the validity of you Path.", false, (Stage) saveButton.getScene().getWindow());
 			}
 		}
+
+		return true;
 	}
 
 	/**
