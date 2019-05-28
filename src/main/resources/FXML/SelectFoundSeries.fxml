@@ -3,44 +3,63 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane id="anchorPane" prefHeight="781.0" prefWidth="1072.0" stylesheets="@../css/myStyle.css"
+<AnchorPane id="anchorPane" prefHeight="830.0" prefWidth="1150.0" stylesheets="@../css/myStyle.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="Kraisie.SceneController.SelectController">
-    <ImageView fx:id="image1" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="14.0" pickOnBounds="true"
+    <ImageView fx:id="image1" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="15.0" pickOnBounds="true"
                preserveRatio="true"/>
-    <RadioButton fx:id="radio1" layoutX="38.0" layoutY="14.0" mnemonicParsing="false" prefHeight="140.0"
+    <RadioButton fx:id="radio1" layoutX="38.0" layoutY="15.0" mnemonicParsing="false" prefHeight="140.0"
                  prefWidth="782.0">
         <toggleGroup>
             <ToggleGroup fx:id="series"/>
         </toggleGroup>
     </RadioButton>
-    <Label id="normalLabel" fx:id="labelName1" layoutX="837.0" layoutY="46.0"/>
-    <Label id="normalLabel" fx:id="labelStatus1" layoutX="837.0" layoutY="105.0"/>
-    <ImageView fx:id="image2" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="154.0" pickOnBounds="true"
+    <Label id="normalLabel" fx:id="labelName1" layoutX="837.0" layoutY="15.0"/>
+    <Label id="normalLabel" fx:id="labelYear1" layoutX="837.0" layoutY="45.0"/>
+    <Label id="normalLabel" fx:id="labelID1" layoutX="837.0" layoutY="75.0"/>
+    <Label id="normalLabel" fx:id="labelNetwork1" layoutX="837.0" layoutY="105.0"/>
+    <Label id="normalLabel" fx:id="labelStatus1" layoutX="837.0" layoutY="135.0"/>
+    <ImageView fx:id="image2" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="165.0" pickOnBounds="true"
                preserveRatio="true"/>
-    <RadioButton fx:id="radio2" layoutX="38.0" layoutY="154.0" mnemonicParsing="false" prefHeight="140.0"
+    <RadioButton fx:id="radio2" layoutX="38.0" layoutY="165.0" mnemonicParsing="false" prefHeight="140.0"
                  prefWidth="782.0" toggleGroup="$series"/>
-    <Label id="normalLabel" fx:id="labelName2" layoutX="837.0" layoutY="186.0"/>
-    <Label id="normalLabel" fx:id="labelStatus2" layoutX="837.0" layoutY="248.0"/>
-    <ImageView fx:id="image3" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="294.0" pickOnBounds="true"
+    <Label id="normalLabel" fx:id="labelName2" layoutX="837.0" layoutY="165.0"/>
+    <Label id="normalLabel" fx:id="labelYear2" layoutX="837.0" layoutY="195.0"/>
+    <Label id="normalLabel" fx:id="labelID2" layoutX="837.0" layoutY="225.0"/>
+    <Label id="normalLabel" fx:id="labelNetwork2" layoutX="837.0" layoutY="265.0"/>
+    <Label id="normalLabel" fx:id="labelStatus2" layoutX="837.0" layoutY="285.0"/>
+    <ImageView fx:id="image3" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="315.0" pickOnBounds="true"
                preserveRatio="true"/>
-    <RadioButton fx:id="radio3" layoutX="38.0" layoutY="294.0" mnemonicParsing="false" prefHeight="140.0"
+    <RadioButton fx:id="radio3" layoutX="38.0" layoutY="315.0" mnemonicParsing="false" prefHeight="140.0"
                  prefWidth="782.0" toggleGroup="$series"/>
-    <Label id="normalLabel" fx:id="labelName3" layoutX="837.0" layoutY="326.0"/>
-    <Label id="normalLabel" fx:id="labelStatus3" layoutX="837.0" layoutY="388.0"/>
-    <ImageView fx:id="image4" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="434.0" pickOnBounds="true"
+    <Label id="normalLabel" fx:id="labelName3" layoutX="837.0" layoutY="315.0"/>
+    <Label id="normalLabel" fx:id="labelYear3" layoutX="837.0" layoutY="345.0"/>
+    <Label id="normalLabel" fx:id="labelID3" layoutX="837.0" layoutY="375.0"/>
+    <Label id="normalLabel" fx:id="labelNetwork3" layoutX="837.0" layoutY="405.0"/>
+    <Label id="normalLabel" fx:id="labelStatus3" layoutX="837.0" layoutY="435.0"/>
+    <ImageView fx:id="image4" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="465.0" pickOnBounds="true"
                preserveRatio="true"/>
-    <RadioButton fx:id="radio4" layoutX="38.0" layoutY="434.0" mnemonicParsing="false" prefHeight="140.0"
+    <RadioButton fx:id="radio4" layoutX="38.0" layoutY="465.0" mnemonicParsing="false" prefHeight="140.0"
                  prefWidth="782.0" toggleGroup="$series"/>
-    <Label id="normalLabel" fx:id="labelName4" layoutX="837.0" layoutY="466.0"/>
-    <Label id="normalLabel" fx:id="labelStatus4" layoutX="837.0" layoutY="528.0"/>
-    <ImageView fx:id="image5" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="574.0" pickOnBounds="true"
+    <Label id="normalLabel" fx:id="labelName4" layoutX="837.0" layoutY="465.0"/>
+    <Label id="normalLabel" fx:id="labelYear4" layoutX="837.0" layoutY="495.0"/>
+    <Label id="normalLabel" fx:id="labelID4" layoutX="837.0" layoutY="525.0"/>
+    <Label id="normalLabel" fx:id="labelNetwork4" layoutX="837.0" layoutY="555.0"/>
+    <Label id="normalLabel" fx:id="labelStatus4" layoutX="837.0" layoutY="585.0"/>
+    <ImageView fx:id="image5" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="615.0" pickOnBounds="true"
                preserveRatio="true"/>
-    <RadioButton fx:id="radio5" layoutX="38.0" layoutY="574.0" mnemonicParsing="false" prefHeight="140.0"
+    <RadioButton fx:id="radio5" layoutX="38.0" layoutY="615.0" mnemonicParsing="false" prefHeight="140.0"
                  prefWidth="782.0" toggleGroup="$series"/>
-    <Label id="normalLabel" fx:id="labelName5" layoutX="837.0" layoutY="606.0"/>
-    <Label id="normalLabel" fx:id="labelStatus5" layoutX="837.0" layoutY="668.0"/>
-    <Button layoutX="395.0" layoutY="738.0" mnemonicParsing="false" onAction="#select" text="Select series"/>
-    <Button fx:id="backButton" layoutX="590.0" layoutY="738.0" mnemonicParsing="false" onAction="#backToMain"
+    <Label id="normalLabel" fx:id="labelName5" layoutX="837.0" layoutY="615.0"/>
+    <Label id="normalLabel" fx:id="labelYear5" layoutX="837.0" layoutY="645.0"/>
+    <Label id="normalLabel" fx:id="labelID5" layoutX="837.0" layoutY="675.0"/>
+    <Label id="normalLabel" fx:id="labelNetwork5" layoutX="837.0" layoutY="705.0"/>
+    <Label id="normalLabel" fx:id="labelStatus5" layoutX="837.0" layoutY="735.0"/>
+    <Button layoutX="395.0" layoutY="780.0" mnemonicParsing="false" onAction="#select" text="Select series"/>
+    <Button fx:id="backButton" layoutX="590.0" layoutY="780.0" mnemonicParsing="false" onAction="#backToMain"
             text="Back to Main Menu"/>
+    <Separator layoutY="160.0" prefHeight="3.0" prefWidth="1150.0"/>
+    <Separator layoutY="310.0" prefHeight="3.0" prefWidth="1150.0"/>
+    <Separator layoutY="460.0" prefHeight="3.0" prefWidth="1150.0"/>
+    <Separator layoutY="610.0" prefHeight="3.0" prefWidth="1150.0"/>
 </AnchorPane>

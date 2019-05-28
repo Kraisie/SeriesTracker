@@ -37,10 +37,6 @@ public class TVDB_Data {
 		this.token = logIn(key);
 	}
 
-	public boolean keyValid() {
-		return token != null;
-	}
-
 	/**
 	 * @param banner String representation of the last part of a url for a banner (e.g. '/banner123.png')
 	 * @return Image that is at the given URL
@@ -68,159 +64,6 @@ public class TVDB_Data {
 		} catch (IOException e) {
 			return null;
 		}
-	}
-
-	/**
-	 * Find a series by a given name via theTVDB API
-	 *
-	 * @param seriesName the name of the series
-	 * @return a list of max. 5 series that match the name
-	 */
-	public List<MySeries> searchSeries(String seriesName) {
-		// SEARCH possible Series
-		Settings settings = Settings.readData();
-		SeriesSearchData suggestions = searchPossibleSeries(seriesName, token, settings.getLangIso());
-
-		if (suggestions == null) {
-			suggestions = searchPossibleSeries(seriesName, token, "en");
-		}
-
-		if (suggestions == null) {
-			return null;
-		}
-
-		// max 5 series
-		int max = 5;
-		if (suggestions.getData() == null) {
-			return null;
-		}
-		if (suggestions.getData().length < max) {
-			max = suggestions.getData().length;
-		}
-
-		List<MySeries> suggestedSeries = new ArrayList<>();
-		for (int i = 0; i < max; i++) {
-			// Needs banner, name and status
-			suggestedSeries.add(new MySeries(
-					suggestions.getData()[i].getSeriesName(),
-					String.valueOf(suggestions.getData()[i].getId()),
-					new ArrayList<>(),
-					0,
-					suggestions.getData()[i].getStatus(),
-					0,
-					suggestions.getData()[i].getOverview(),
-					0.0,
-					suggestions.getData()[i].getBanner()
-			));
-		}
-
-		return suggestedSeries;
-	}
-
-	/**
-	 * Update series that are already saved locally
-	 *
-	 * @param providedID     tvdbID of MySeries
-	 * @param userState      current user state of the series
-	 * @param currentSeason  current season of the series
-	 * @param currentEpisode current episode of the current season of the series
-	 * @return MySeries with new information from TVDB
-	 * @see MySeries
-	 */
-	public MySeries getUpdate(String providedID, int userState, int currentSeason, int currentEpisode) {
-		// GET Series
-		Settings settings = Settings.readData();
-		String langIso = settings.getLangIso();
-		SeriesData series = getSeries(token, Integer.parseInt(providedID), langIso);
-
-		if (series == null) {
-			return null;
-		}
-
-		if (series.getData().getSeriesName() == null) {
-			// series not available on that language
-			series = getSeries(token, Integer.parseInt(providedID), "en");
-		}
-
-		if (series == null) {
-			// use local copy
-			return null;
-		}
-
-		// GET Episodes
-		List<Episode> episodes = getEpisodes(token, Integer.parseInt(providedID), currentSeason, currentEpisode, langIso);
-
-		// If userState is not given (-1) set it to 0 (not started)
-		if (userState == -1) {
-			userState = 0;
-		}
-
-		String overview;
-		if (series.getData().getOverview() == null || series.getData().getOverview().isEmpty()) {
-			overview = "Not given!";
-		} else {
-			overview = series.getData().getOverview();
-		}
-
-		String banner;
-		if (series.getData().getBanner() == null || series.getData().getBanner().isEmpty()) {
-			banner = "Not given!";
-		} else {
-			banner = series.getData().getBanner();
-		}
-
-		int runtime = 0;
-		if(series.getData().getRuntime() != null && !series.getData().getRuntime().isEmpty()) {
-			runtime = Integer.parseInt(series.getData().getRuntime());
-		}
-
-		double rating = 0d;
-		if(series.getData().getSiteRating() != null && !series.getData().getSiteRating().isEmpty()) {
-			rating = Double.valueOf(series.getData().getSiteRating());
-		}
-
-
-		return new MySeries(
-				series.getData().getSeriesName(),
-				String.valueOf(series.getData().getId()),
-				episodes,
-				userState,
-				series.getData().getStatus(),
-				runtime,
-				overview,
-				rating,
-				banner                        //banner = 758x140
-		);
-	}
-
-	/**
-	 * get a token to use the theTVDB API
-	 *
-	 * @return String representation of the token
-	 */
-	private String logIn(APIKey key) {
-		String tokenJSON = "";
-		HttpClient httpClient = HttpClientBuilder.create().build();
-
-		try {
-			HttpPost request = new HttpPost("https://api.thetvdb.com/login");
-			StringEntity params = new StringEntity(key.getFormattedKey());
-			request.addHeader("content-type", "application/json");
-			request.setEntity(params);
-
-			HttpResponse response = httpClient.execute(request);
-			HttpEntity entity = response.getEntity();
-
-			if (entity != null) {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8));
-				tokenJSON = reader.readLine();
-				reader.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return getToken(tokenJSON);
 	}
 
 	/**
@@ -435,5 +278,162 @@ public class TVDB_Data {
 		}
 
 		return allEpisodes;
+	}
+
+	public boolean keyValid() {
+		return token != null;
+	}
+
+	/**
+	 * Find a series by a given name via theTVDB API
+	 *
+	 * @param seriesName the name of the series
+	 * @return a list of max. 5 series that match the name
+	 */
+	public List<SearchData> searchSeries(String seriesName) {
+		// SEARCH possible Series
+		Settings settings = Settings.readData();
+		SeriesSearchData suggestions = searchPossibleSeries(seriesName, token, settings.getLangIso());
+
+		if (suggestions == null) {
+			suggestions = searchPossibleSeries(seriesName, token, "en");
+		}
+
+		if (suggestions == null) {
+			return null;
+		}
+
+		// max 5 series
+		int max = 5;
+		if (suggestions.getData() == null) {
+			return null;
+		}
+		if (suggestions.getData().length < max) {
+			max = suggestions.getData().length;
+		}
+
+		List<SearchData> suggestedSeries = new ArrayList<>();
+		for (int i = 0; i < max; i++) {
+			// Needs banner, name and status
+			SearchData data = suggestions.getData()[i];
+			suggestedSeries.add(new SearchData(
+					data.getAliases(),
+					data.getBanner(),
+					data.getFirstAired(),
+					data.getId(),
+					data.getNetwork(),
+					data.getOverview(),
+					data.getSeriesName(),
+					data.getStatus()
+			));
+		}
+
+		return suggestedSeries;
+	}
+
+	/**
+	 * Update series that are already saved locally
+	 *
+	 * @param providedID     tvdbID of MySeries
+	 * @param userState      current user state of the series
+	 * @param currentSeason  current season of the series
+	 * @param currentEpisode current episode of the current season of the series
+	 * @return MySeries with new information from TVDB
+	 * @see MySeries
+	 */
+	public MySeries getUpdate(String providedID, int userState, int currentSeason, int currentEpisode) {
+		// GET Series
+		Settings settings = Settings.readData();
+		String langIso = settings.getLangIso();
+		SeriesData series = getSeries(token, Integer.parseInt(providedID), langIso);
+
+		if (series == null) {
+			return null;
+		}
+
+		if (series.getData().getSeriesName() == null) {
+			// series not available on that language
+			series = getSeries(token, Integer.parseInt(providedID), "en");
+		}
+
+		if (series == null) {
+			// use local copy
+			return null;
+		}
+
+		// GET Episodes
+		List<Episode> episodes = getEpisodes(token, Integer.parseInt(providedID), currentSeason, currentEpisode, langIso);
+
+		// If userState is not given (-1) set it to 0 (not started)
+		if (userState == -1) {
+			userState = 0;
+		}
+
+		String overview;
+		if (series.getData().getOverview() == null || series.getData().getOverview().isEmpty()) {
+			overview = "Not given!";
+		} else {
+			overview = series.getData().getOverview();
+		}
+
+		String banner;
+		if (series.getData().getBanner() == null || series.getData().getBanner().isEmpty()) {
+			banner = "Not given!";
+		} else {
+			banner = series.getData().getBanner();
+		}
+
+		int runtime = 0;
+		if (series.getData().getRuntime() != null && !series.getData().getRuntime().isEmpty()) {
+			runtime = Integer.parseInt(series.getData().getRuntime());
+		}
+
+		double rating = 0d;
+		if (series.getData().getSiteRating() != null && !series.getData().getSiteRating().isEmpty()) {
+			rating = Double.valueOf(series.getData().getSiteRating());
+		}
+
+
+		return new MySeries(
+				series.getData().getSeriesName(),
+				String.valueOf(series.getData().getId()),
+				episodes,
+				userState,
+				series.getData().getStatus(),
+				runtime,
+				overview,
+				rating,
+				banner                        //banner = 758x140
+		);
+	}
+
+	/**
+	 * get a token to use the theTVDB API
+	 *
+	 * @return String representation of the token
+	 */
+	private String logIn(APIKey key) {
+		String tokenJSON = "";
+		HttpClient httpClient = HttpClientBuilder.create().build();
+
+		try {
+			HttpPost request = new HttpPost("https://api.thetvdb.com/login");
+			StringEntity params = new StringEntity(key.getFormattedKey());
+			request.addHeader("content-type", "application/json");
+			request.setEntity(params);
+
+			HttpResponse response = httpClient.execute(request);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8));
+				tokenJSON = reader.readLine();
+				reader.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return getToken(tokenJSON);
 	}
 }

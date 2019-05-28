@@ -1,6 +1,5 @@
 package Kraisie.Dialog;
 
-import Kraisie.SceneController.MainSeriesController;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -24,7 +23,7 @@ public class PopUp {
 	 * @param header     text for the header of the Alert
 	 * @param message    text for the message of the Alert
 	 * @param contentBox shows message in TextArea if true
-	 * @param baseStage the base stage that called the Alert
+	 * @param baseStage  the base stage that called the Alert
 	 */
 	public void showAlert(String header, String message, boolean contentBox, Stage baseStage) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -40,8 +39,8 @@ public class PopUp {
 	/**
 	 * Shows a warning to the user.
 	 *
-	 * @param header  text for the header of the Alert
-	 * @param message text for the message of the Alert
+	 * @param header    text for the header of the Alert
+	 * @param message   text for the message of the Alert
 	 * @param baseStage the base stage that called the Alert
 	 */
 	public void showWarning(String header, String message, Stage baseStage) {
@@ -62,7 +61,7 @@ public class PopUp {
 	 * @param header     text for the header of the Alert
 	 * @param message    text for the message of the Alert
 	 * @param contentBox shows message in TextArea if true
-	 * @param baseStage the base stage that called the Alert
+	 * @param baseStage  the base stage that called the Alert
 	 */
 	public void showError(String header, String message, boolean contentBox, Stage baseStage) {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -78,8 +77,8 @@ public class PopUp {
 	/**
 	 * Alerts the user of a choice he/she has to decide on.
 	 *
-	 * @param header  text for the header of the Alert
-	 * @param message text for the message of the Alert
+	 * @param header    text for the header of the Alert
+	 * @param message   text for the message of the Alert
 	 * @param baseStage the base stage that called the Alert
 	 * @return true if user selects 'Yes' Button
 	 */
@@ -199,7 +198,7 @@ public class PopUp {
 	/**
 	 * Sets the coordinates of the alert to the center of the base stage
 	 *
-	 * @param alert the Alert that is going to be shown to the user
+	 * @param alert     the Alert that is going to be shown to the user
 	 * @param baseStage the base stage that called the Alert
 	 */
 	private void setCoordinates(Alert alert, Stage baseStage) {

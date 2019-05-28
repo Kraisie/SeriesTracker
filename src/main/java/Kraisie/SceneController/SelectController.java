@@ -3,6 +3,7 @@ package Kraisie.SceneController;
 import Kraisie.Data.MySeries;
 import Kraisie.Dialog.PopUp;
 import Kraisie.TVDB.APIKey;
+import Kraisie.TVDB.SearchData;
 import Kraisie.TVDB.TVDB_Data;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,6 +23,8 @@ import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
 public class SelectController extends Controller {
 
 	@FXML
+	Button backButton;
+	@FXML
 	private RadioButton radio1;
 	@FXML
 	private RadioButton radio2;
@@ -33,7 +36,6 @@ public class SelectController extends Controller {
 	private RadioButton radio5;
 	@FXML
 	private ToggleGroup series;
-
 	@FXML
 	private ImageView image1;
 	@FXML
@@ -44,7 +46,6 @@ public class SelectController extends Controller {
 	private ImageView image4;
 	@FXML
 	private ImageView image5;
-
 	@FXML
 	private Label labelName1;
 	@FXML
@@ -56,6 +57,36 @@ public class SelectController extends Controller {
 	@FXML
 	private Label labelName5;
 	@FXML
+	private Label labelYear1;
+	@FXML
+	private Label labelYear2;
+	@FXML
+	private Label labelYear3;
+	@FXML
+	private Label labelYear4;
+	@FXML
+	private Label labelYear5;
+	@FXML
+	private Label labelID1;
+	@FXML
+	private Label labelID2;
+	@FXML
+	private Label labelID3;
+	@FXML
+	private Label labelID4;
+	@FXML
+	private Label labelID5;
+	@FXML
+	private Label labelNetwork1;
+	@FXML
+	private Label labelNetwork2;
+	@FXML
+	private Label labelNetwork3;
+	@FXML
+	private Label labelNetwork4;
+	@FXML
+	private Label labelNetwork5;
+	@FXML
 	private Label labelStatus1;
 	@FXML
 	private Label labelStatus2;
@@ -65,12 +96,8 @@ public class SelectController extends Controller {
 	private Label labelStatus4;
 	@FXML
 	private Label labelStatus5;
-
-	@FXML
-	Button backButton;
-
-	private MySeries selectedSeries;
-	private List<MySeries> foundSeries;
+	private SearchData selectedSeries;
+	private List<SearchData> foundSeries;
 	private PopUp popUp = new PopUp();
 
 	/**
@@ -78,7 +105,7 @@ public class SelectController extends Controller {
 	 *
 	 * @param foundSeries a list of max. 5 series to select from
 	 */
-	void initData(List<MySeries> foundSeries) {
+	void initData(List<SearchData> foundSeries) {
 		this.foundSeries = foundSeries;
 		ownInitialize();
 	}
@@ -109,6 +136,17 @@ public class SelectController extends Controller {
 		URL noImage = MainSeriesController.class.getResource("/Pics/Alert/NoImageAvailable.png");
 		Image noImg = new Image(noImage.toString());
 
+		// replace non existant information
+		for (SearchData data : foundSeries) {
+			if (data.getFirstAired().isEmpty()) {
+				data.setFirstAired("----");
+			}
+
+			if (data.getNetwork().isEmpty()) {
+				data.setNetwork("Not given!");
+			}
+		}
+
 		if (foundSeries.size() >= 2) {
 			if (!foundSeries.get(0).getBanner().isEmpty()) {
 				Image img1 = TVDB_Data.getBannerImage(foundSeries.get(0).getBanner());
@@ -126,11 +164,17 @@ public class SelectController extends Controller {
 				centerImage(image2);
 			}
 
-			labelName1.setText(foundSeries.get(0).getName());
-			labelStatus1.setText(foundSeries.get(0).getStatus());
+			labelName1.setText("Name: " + foundSeries.get(0).getSeriesName());
+			labelYear1.setText("Year: " + foundSeries.get(0).getFirstAired().substring(0, 4));
+			labelID1.setText("TVDB ID: " + foundSeries.get(0).getId());
+			labelNetwork1.setText("Network: " + foundSeries.get(0).getNetwork());
+			labelStatus1.setText("Status: " + foundSeries.get(0).getStatus());
 
-			labelName2.setText(foundSeries.get(1).getName());
-			labelStatus2.setText(foundSeries.get(1).getStatus());
+			labelName2.setText("Name: " + foundSeries.get(1).getSeriesName());
+			labelYear2.setText("Year: " + foundSeries.get(1).getFirstAired().substring(0, 4));
+			labelID2.setText("TVDB ID: " + foundSeries.get(1).getId());
+			labelNetwork2.setText("Network: " + foundSeries.get(1).getNetwork());
+			labelStatus2.setText("Status: " + foundSeries.get(1).getStatus());
 
 			radio3.setDisable(true);
 			radio4.setDisable(true);
@@ -146,8 +190,11 @@ public class SelectController extends Controller {
 				centerImage(image3);
 			}
 
-			labelName3.setText(foundSeries.get(2).getName());
-			labelStatus3.setText(foundSeries.get(2).getStatus());
+			labelName3.setText("Name: " + foundSeries.get(2).getSeriesName());
+			labelYear3.setText("Year: " + foundSeries.get(2).getFirstAired().substring(0, 4));
+			labelID3.setText("TVDB ID: " + foundSeries.get(2).getId());
+			labelNetwork3.setText("Network: " + foundSeries.get(2).getNetwork());
+			labelStatus3.setText("Status: " + foundSeries.get(2).getStatus());
 
 			radio3.setDisable(false);
 		}
@@ -161,8 +208,11 @@ public class SelectController extends Controller {
 				centerImage(image4);
 			}
 
-			labelName4.setText(foundSeries.get(3).getName());
-			labelStatus4.setText(foundSeries.get(3).getStatus());
+			labelName4.setText("Name: " + foundSeries.get(3).getSeriesName());
+			labelYear4.setText("Year: " + foundSeries.get(3).getFirstAired().substring(0, 4));
+			labelID4.setText("TVDB ID: " + foundSeries.get(3).getId());
+			labelNetwork4.setText("Network: " + foundSeries.get(3).getNetwork());
+			labelStatus4.setText("Status: " + foundSeries.get(3).getStatus());
 
 			radio4.setDisable(false);
 		}
@@ -176,8 +226,11 @@ public class SelectController extends Controller {
 				centerImage(image5);
 			}
 
-			labelName5.setText(foundSeries.get(4).getName());
-			labelStatus5.setText(foundSeries.get(4).getStatus());
+			labelName5.setText("Name: " + foundSeries.get(4).getSeriesName());
+			labelYear5.setText("Year: " + foundSeries.get(4).getFirstAired().substring(0, 4));
+			labelID5.setText("TVDB ID: " + foundSeries.get(4).getId());
+			labelNetwork5.setText("Network: " + foundSeries.get(4).getNetwork());
+			labelStatus5.setText("Status: " + foundSeries.get(4).getStatus());
 
 			radio5.setDisable(false);
 		}
@@ -206,7 +259,7 @@ public class SelectController extends Controller {
 		if (selectedSeries != null) {
 			List<MySeries> allSeries = MySeries.readData();
 			TVDB_Data tvdbAPI = new TVDB_Data(APIKey.readKey());
-			MySeries series = tvdbAPI.getUpdate(selectedSeries.getTvdbID(), 0, 1, 1);
+			MySeries series = tvdbAPI.getUpdate(String.valueOf(selectedSeries.getId()), 0, 1, 1);
 
 			try {
 				allSeries.add(series);
@@ -215,7 +268,7 @@ public class SelectController extends Controller {
 				popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) radio1.getScene().getWindow());
 				return;
 			}
-			popUp.showAlert("Series added!", "\"" + selectedSeries.getName() + "\" has been added to your list.", false, (Stage) radio1.getScene().getWindow());
+			popUp.showAlert("Series added!", "\"" + selectedSeries.getSeriesName() + "\" has been added to your list.", false, (Stage) radio1.getScene().getWindow());
 		} else {
 			popUp.showWarning("Series not found", "Could not find your selected series.", (Stage) radio1.getScene().getWindow());
 		}

@@ -13,6 +13,7 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class Settings {
 
+	private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
 	private String pathAPIKey;
 	private String pathSeries;
 	private String pathBackUp;
@@ -20,8 +21,6 @@ public class Settings {
 	private boolean sortByCompletion;
 	private boolean sortByTime;
 	private String langIso;
-
-	private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
 
 	/**
 	 * Constructor that sets the standard values

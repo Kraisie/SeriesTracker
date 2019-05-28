@@ -1,6 +1,6 @@
 package Kraisie.TVDB;
 
-class Series {
+public class Series {
 
 	private String added;
 	private String airsDayOfWeek;

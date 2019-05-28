@@ -1,6 +1,7 @@
 package Kraisie.SceneController;
 
 import Kraisie.Data.MySeries;
+import Kraisie.TVDB.SearchData;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -65,7 +66,7 @@ class Controller {
 	 * @see MySeries
 	 */
 	@SuppressWarnings("unchecked")
-	// cast from object to List<MySeries> is safe
+	// cast from object to List<SearchData> is safe
 	void openSceneWithOneParameter(Stage primaryStage, String fxmlPath, String title, Object series) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
 		Parent root = loader.load();
@@ -77,7 +78,7 @@ class Controller {
 		}
 		if (series instanceof List) {
 			SelectController controller = loader.getController();
-			controller.initData((List<MySeries>) series);
+			controller.initData((List<SearchData>) series);
 		}
 
 		setStageProperties(primaryStage, title, root);

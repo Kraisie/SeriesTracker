@@ -1,6 +1,6 @@
 package Kraisie.TVDB;
 
-class SearchData {
+public class SearchData {
 
 	private String[] aliases;
 	private String banner;
@@ -26,31 +26,63 @@ class SearchData {
 		return aliases;
 	}
 
-	String getBanner() {
+	public void setAliases(String[] aliases) {
+		this.aliases = aliases;
+	}
+
+	public String getBanner() {
 		return banner;
 	}
 
-	String getFirstAired() {
+	public void setBanner(String banner) {
+		this.banner = banner;
+	}
+
+	public String getFirstAired() {
 		return firstAired;
 	}
 
-	int getId() {
+	public void setFirstAired(String firstAired) {
+		this.firstAired = firstAired;
+	}
+
+	public int getId() {
 		return id;
 	}
 
-	String getNetwork() {
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNetwork() {
 		return network;
+	}
+
+	public void setNetwork(String network) {
+		this.network = network;
 	}
 
 	String getOverview() {
 		return overview;
 	}
 
-	String getSeriesName() {
+	public void setOverview(String overview) {
+		this.overview = overview;
+	}
+
+	public String getSeriesName() {
 		return seriesName;
 	}
 
-	String getStatus() {
+	public void setSeriesName(String seriesName) {
+		this.seriesName = seriesName;
+	}
+
+	public String getStatus() {
 		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

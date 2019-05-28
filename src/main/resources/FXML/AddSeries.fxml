@@ -19,7 +19,7 @@
         </font>
     </Label>
     <TextField fx:id="nameTVDB" layoutX="67.0" layoutY="205.0" prefHeight="25.0" prefWidth="487.0"
-               promptText="Name of a series (english)"/>
+               onKeyPressed="#acceptOnEnter" promptText="Name of a series"/>
     <Label id="normalLabel" layoutX="75.0" layoutY="240.0" prefHeight="25.0" prefWidth="475.0"
            text="If it gives you an error stating that the series could not be found please check your"
            textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true"/>
