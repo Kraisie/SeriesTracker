@@ -6,33 +6,34 @@
 <AnchorPane id="anchorPane" prefHeight="358.0" prefWidth="601.0" stylesheets="@../css/myStyle.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="Kraisie.SceneController.AddSeriesController">
-    <Label id="biggerLabel" layoutX="82.0" layoutY="40.0" text="You can automatically add a series with data "
-           textFill="WHITE">
+    <Label id="biggerLabel" alignment="CENTER" layoutX="-2.0" layoutY="40.0" prefHeight="30.0" prefWidth="654.0"
+           text="You can automatically add a series with data " textFill="WHITE">
         <font>
             <Font size="24.0"/>
         </font>
     </Label>
-    <Label id="biggerLabel" layoutX="64.0" layoutY="85.0" text="from TVDB. Just type the name of the series and"
-           textFill="WHITE">
+    <Label id="biggerLabel" alignment="CENTER" layoutY="85.0" prefHeight="30.0" prefWidth="654.0"
+           text="from TVDB. Just type the name of the series and" textFill="WHITE">
         <font>
             <Font size="24.0"/>
         </font>
     </Label>
-    <TextField fx:id="nameTVDB" layoutX="67.0" layoutY="205.0" prefHeight="25.0" prefWidth="487.0"
-               onKeyPressed="#acceptOnEnter" promptText="Name of a series"/>
-    <Label id="normalLabel" layoutX="75.0" layoutY="240.0" prefHeight="25.0" prefWidth="475.0"
+    <TextField fx:id="nameTVDB" layoutX="75.0" layoutY="204.0" onKeyPressed="#acceptOnEnter" prefHeight="25.0"
+               prefWidth="487.0" promptText="Name of a series"/>
+    <Label id="normalLabel" alignment="CENTER" layoutX="1.0" layoutY="240.0" prefHeight="25.0" prefWidth="654.0"
            text="If it gives you an error stating that the series could not be found please check your"
            textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true"/>
-    <Label id="normalLabel" layoutX="159.0" layoutY="265.0" text="spelling and also make sure you have the right name."
-           textFill="WHITE"/>
+    <Label id="normalLabel" alignment="CENTER" layoutX="1.0" layoutY="265.0" prefHeight="19.0" prefWidth="654.0"
+           text="spelling and also make sure you have the right name." textFill="WHITE"/>
     <Button layoutX="270.0" layoutY="308.0" mnemonicParsing="false" onAction="#addTVDB" text="Add Series"/>
     <Button fx:id="backButton" layoutX="415.0" layoutY="308.0" mnemonicParsing="false" onAction="#back"
             text="Go back to the Main Menu"/>
-    <Label id="biggerLabel" layoutX="211.0" layoutY="130.0" text="press 'Add Series':" textFill="WHITE">
+    <Label id="biggerLabel" alignment="CENTER" layoutY="130.0" prefHeight="30.0" prefWidth="654.0"
+           text="press 'Add Series':" textFill="WHITE">
         <font>
             <Font size="24.0"/>
         </font>
     </Label>
-    <Label id="normalAlert" layoutX="133.0" layoutY="180.0"
+    <Label id="normalAlert" alignment="CENTER" layoutX="1.0" layoutY="179.0" prefHeight="16.0" prefWidth="654.0"
            text="This process may take some time, please do not close this window!" textFill="RED"/>
 </AnchorPane>

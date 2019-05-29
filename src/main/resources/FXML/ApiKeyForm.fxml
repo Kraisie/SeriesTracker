@@ -16,7 +16,8 @@
     <TextField fx:id="textApiKey" layoutX="196.0" layoutY="142.0" prefHeight="25.0" prefWidth="311.0"/>
     <TextField fx:id="textUserKey" layoutX="196.0" layoutY="177.0" prefHeight="25.0" prefWidth="311.0"/>
     <TextField fx:id="textUserName" layoutX="196.0" layoutY="212.0" prefHeight="25.0" prefWidth="311.0"/>
-    <Hyperlink layoutX="245.0" layoutY="97.0" onAction="#openTVDB" text="theTVDB.com">
+    <Hyperlink alignment="CENTER" layoutY="97.0" onAction="#openTVDB" prefHeight="28.0" prefWidth="600.0"
+               text="theTVDB.com">
         <font>
             <Font size="16.0"/>
         </font>

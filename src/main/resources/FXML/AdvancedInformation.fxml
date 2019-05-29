@@ -9,27 +9,27 @@
             fx:controller="Kraisie.SceneController.AdvancedInformationController">
     <ImageView fx:id="imgSeriesBanner" fitHeight="140.0" fitWidth="758.0" layoutX="191.0" layoutY="14.0"
                pickOnBounds="true" preserveRatio="true"/>
-    <Label id="normalLabel" fx:id="labelSeriesName" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0"
-           layoutY="170.0" prefHeight="29.0" prefWidth="1147.0" textAlignment="CENTER">
+    <Label id="biggerLabel" fx:id="labelSeriesName" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0"
+           layoutY="170.0" prefHeight="29.0" prefWidth="1163.0" textAlignment="CENTER">
         <font>
             <Font size="25.0"/>
         </font>
     </Label>
     <Label id="normalLabel" layoutX="97.0" layoutY="221.0" text="Status of the series:"/>
-    <Label id="normalLabel" fx:id="labelStatusInfo" layoutX="315.0" layoutY="221.0"/>
+    <Label id="normalLabel" fx:id="labelStatusInfo" layoutX="335.0" layoutY="221.0"/>
     <Label id="normalLabel" layoutX="515.0" layoutY="221.0" text="Rating:"/>
     <Label id="normalLabel" fx:id="labelRatingInfo" layoutX="690.0" layoutY="221.0"/>
     <Label id="normalLabel" layoutX="835.0" layoutY="221.0" text="Number of seasons:"/>
     <Label id="normalLabel" fx:id="labelNrSeasonInfo" alignment="CENTER_RIGHT" layoutX="1025.0" layoutY="221.0"
            textAlignment="RIGHT"/>
     <Label id="normalLabel" layoutX="97.0" layoutY="251.0" text="Average length of an episode:"/>
-    <Label id="normalLabel" fx:id="labelRuntimeInfo" layoutX="315.0" layoutY="251.0"/>
+    <Label id="normalLabel" fx:id="labelRuntimeInfo" layoutX="335.0" layoutY="251.0"/>
     <Label id="normalLabel" layoutX="515.0" layoutY="251.0" text="Current season:"/>
     <Label id="normalLabel" fx:id="labelCurrentSeasonInfo" layoutX="690.0" layoutY="251.0"/>
     <Label id="normalLabel" layoutX="835.0" layoutY="251.0" text="Number of episodes:"/>
     <Label id="normalLabel" fx:id="labelNrEpisodeInfo" layoutX="1025.0" layoutY="251.0"/>
     <Label id="normalLabel" layoutX="97.0" layoutY="281.0" text="'Wasted' time:"/>
-    <Label id="normalLabel" fx:id="labelWastedInfo" layoutX="315.0" layoutY="281.0"/>
+    <Label id="normalLabel" fx:id="labelWastedInfo" layoutX="335.0" layoutY="281.0"/>
     <Label id="normalLabel" layoutX="515.0" layoutY="281.0" text="Current episode:"/>
     <Label id="normalLabel" fx:id="labelCurrentEpisodeInfo" layoutX="690.0" layoutY="281.0"/>
     <Label id="normalLabel" layoutX="835.0" layoutY="281.0" text="Completion:"/>
@@ -41,21 +41,22 @@
     <Separator layoutX="-2.0" layoutY="505.0" prefHeight="7.0" prefWidth="1149.0"/>
     <Button layoutX="498.0" layoutY="514.0" mnemonicParsing="false" onAction="#decEpisode" prefHeight="25.0"
             prefWidth="26.0" text="-"/>
-    <Button layoutX="627.0" layoutY="514.0" mnemonicParsing="false" onAction="#incEpisode" prefHeight="25.0"
+    <Button layoutX="637.0" layoutY="514.0" mnemonicParsing="false" onAction="#incEpisode" prefHeight="25.0"
             prefWidth="26.0" text="+"/>
-    <Label id="normalLabel" fx:id="labelEpOfSeason" layoutX="573.0" layoutY="519.0" textAlignment="CENTER"/>
+    <Label id="normalLabel" fx:id="labelEpOfSeason" alignment="CENTER" layoutY="519.0" prefHeight="19.0"
+           prefWidth="1163.0" textAlignment="CENTER"/>
     <Button layoutX="706.0" layoutY="514.0" mnemonicParsing="false" onAction="#selectCurrentEpisode"
             text="Go to current Episode"/>
-    <Label id="smallAlert" fx:id="labelIsCurrent" alignment="CENTER" layoutX="497.0" layoutY="539.0" prefHeight="7.0"
-           prefWidth="157.0" text="Your current episode" textFill="RED">
+    <Label id="smallAlert" fx:id="labelIsCurrent" alignment="CENTER" layoutY="539.0" prefHeight="11.0"
+           prefWidth="1163.0" text="Your current episode" textFill="RED">
         <font>
             <Font size="9.0"/>
         </font>
     </Label>
     <TextArea fx:id="overviewEpisode" editable="false" layoutX="94.0" layoutY="563.0" prefHeight="126.0"
               prefWidth="976.0" wrapText="true"/>
-    <Button fx:id="backButton" layoutX="829.0" layoutY="701.0" mnemonicParsing="false" onAction="#back"
+    <Button fx:id="backButton" layoutX="798.0" layoutY="701.0" mnemonicParsing="false" onAction="#back"
             text="Select another series"/>
-    <Button fx:id="backMenuButton" layoutX="1003.0" layoutY="701.0" mnemonicParsing="false" onAction="#backToMain"
+    <Button fx:id="backMenuButton" layoutX="990.0" layoutY="701.0" mnemonicParsing="false" onAction="#backToMain"
             text="Back to Main Menu"/>
 </AnchorPane>

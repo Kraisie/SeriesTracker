@@ -120,6 +120,7 @@ public class AdvancedInformationController extends Controller {
 		}
 
 		fillInformation(tmpSeries);
+		labelEpOfSeason.setPickOnBounds(false);
 	}
 
 	/**

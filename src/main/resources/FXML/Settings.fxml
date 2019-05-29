@@ -1,44 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane id="anchorPane" prefHeight="600.0" prefWidth="600.0" stylesheets="@../css/myStyle.css"
+<AnchorPane id="anchorPane" prefHeight="600.0" prefWidth="750.0" stylesheets="@../css/myStyle.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="Kraisie.SceneController.SettingsController">
-    <Button fx:id="saveButton" layoutX="252.0" layoutY="559.0" mnemonicParsing="false" onAction="#save"
+    <Button fx:id="saveButton" layoutX="312.0" layoutY="558.0" mnemonicParsing="false" onAction="#save"
             text="Save Settings"/>
-    <Button fx:id="backButton" layoutX="540.0" layoutY="559.0" mnemonicParsing="false" onAction="#back" text="Back"/>
-    <Button layoutX="494.0" layoutY="231.0" mnemonicParsing="false" onAction="#changePathSave" text="Change Path"/>
-    <Label id="normalLabel" layoutX="16.0" layoutY="236.0" text="Folder to save your series in:"/>
-    <Label id="normalLabel" layoutX="16.0" layoutY="291.0" text="Folder to save your BackUp in:"/>
-    <Label id="normalLabel" layoutX="16.0" layoutY="346.0" text="Frequency of BackUps in days:"/>
-    <Label id="biggerLabel" layoutX="238.0" layoutY="14.0" text="SETTINGS" textAlignment="CENTER" underline="true">
+    <Button fx:id="backButton" layoutX="681.0" layoutY="558.0" mnemonicParsing="false" onAction="#back" text="Back"/>
+    <Button layoutX="624.0" layoutY="299.0" mnemonicParsing="false" onAction="#changePathSave" text="Change Path"/>
+    <Label id="normalLabel" layoutX="17.0" layoutY="265.0" text="Folder to save your series in:"/>
+    <Label id="normalLabel" layoutX="11.0" layoutY="347.0" text="Folder to save your BackUp in:"/>
+    <Label id="normalLabel" layoutX="11.0" layoutY="426.0" text="Frequency of BackUps in days:"/>
+    <Label id="biggerLabel" alignment="CENTER" layoutY="14.0" prefHeight="30.0" prefWidth="750.0" text="SETTINGS"
+           textAlignment="CENTER" underline="true">
         <font>
             <Font size="25.0"/>
         </font>
     </Label>
-    <Button layoutX="494.0" layoutY="286.0" mnemonicParsing="false" onAction="#changePathBackUp" text="Change Path"/>
-    <Spinner fx:id="frequencySpinner" layoutX="295.0" layoutY="341.0" prefHeight="25.0" prefWidth="95.0"/>
-    <TextField fx:id="textPathSave" editable="false" layoutX="212.0" layoutY="230.0" prefHeight="25.0"
-               prefWidth="270.0"/>
-    <TextField fx:id="textPathBackUp" layoutX="212.0" layoutY="285.0" prefHeight="25.0" prefWidth="270.0"/>
-    <Button layoutX="16.0" layoutY="559.0" mnemonicParsing="false" onAction="#standard" text="Standard Settings"/>
+    <Button layoutX="624.0" layoutY="378.0" mnemonicParsing="false" onAction="#changePathBackUp" text="Change Path"/>
+    <Spinner fx:id="frequencySpinner" layoutX="319.0" layoutY="419.0" prefHeight="25.0" prefWidth="95.0"/>
+    <TextField fx:id="textPathSave" editable="false" layoutX="70.0" layoutY="298.0" prefHeight="30.0"
+               prefWidth="500.0"/>
+    <TextField fx:id="textPathBackUp" layoutX="68.0" layoutY="377.0" prefHeight="30.0" prefWidth="500.0"/>
+    <Button layoutX="14.0" layoutY="558.0" mnemonicParsing="false" onAction="#standard" text="Standard Settings"/>
     <Label id="normalLabel" layoutX="15.0" layoutY="79.0" text="Folder to save your API key in:"/>
-    <TextField fx:id="textPathAPIKey" layoutX="212.0" layoutY="73.0" prefHeight="25.0" prefWidth="270.0"/>
-    <Button layoutX="493.0" layoutY="74.0" mnemonicParsing="false" onAction="#changePathAPIKey" prefHeight="25.0"
-            prefWidth="94.0" text="Change Path"/>
-    <Label id="normalLabel" layoutX="79.0" layoutY="120.0" text="&quot;apikey&quot;:"/>
-    <Label id="normalLabel" layoutX="75.0" layoutY="155.0" text="&quot;userkey&quot;:"/>
-    <Label id="normalLabel" layoutX="69.0" layoutY="190.0" text="&quot;username&quot;:"/>
-    <TextField fx:id="textApiKey" layoutX="170.0" layoutY="115.0" prefHeight="25.0" prefWidth="311.0"/>
-    <TextField fx:id="textUserKey" layoutX="170.0" layoutY="150.0" prefHeight="25.0" prefWidth="311.0"/>
-    <TextField fx:id="textUserName" layoutX="170.0" layoutY="185.0" prefHeight="25.0" prefWidth="311.0"/>
-    <Label id="normalLabel" layoutX="16.0" layoutY="406.0" text="Preferred Language for TVDB:"/>
-    <ComboBox fx:id="languageCombo" layoutX="295.0" layoutY="403.0" prefWidth="95.0"/>
+    <TextField fx:id="textPathAPIKey" layoutX="70.0" layoutY="103.0" prefHeight="30.0" prefWidth="500.0"/>
+    <Button layoutX="624.0" layoutY="104.0" mnemonicParsing="false" onAction="#changePathAPIKey" text="Change Path"/>
+    <Label id="normalLabel" layoutX="80.0" layoutY="151.0" text="&quot;apikey&quot;:"/>
+    <Label id="normalLabel" layoutX="76.0" layoutY="186.0" text="&quot;userkey&quot;:"/>
+    <Label id="normalLabel" layoutX="70.0" layoutY="221.0" text="&quot;username&quot;:"/>
+    <TextField fx:id="textApiKey" layoutX="171.0" layoutY="146.0" prefHeight="30.0" prefWidth="400.0"/>
+    <TextField fx:id="textUserKey" layoutX="171.0" layoutY="181.0" prefHeight="30.0" prefWidth="400.0"/>
+    <TextField fx:id="textUserName" layoutX="171.0" layoutY="216.0" prefHeight="30.0" prefWidth="400.0"/>
+    <Label id="normalLabel" layoutX="11.0" layoutY="468.0" text="Preferred Language for TVDB:"/>
+    <ComboBox fx:id="languageCombo" layoutX="319.0" layoutY="466.0" prefWidth="95.0"/>
 </AnchorPane>
