@@ -7,35 +7,27 @@ import Kraisie.Data.Settings;
 import Kraisie.Dialog.PopUp;
 import Kraisie.TVDB.APIKey;
 import Kraisie.TVDB.TVDB_Data;
+import Kraisie.UI.BackgroundManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.ArrayUtils;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.*;
 
 import static Kraisie.Dialog.BrowserControl.openBrowser;
 import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
@@ -115,80 +107,16 @@ public class MainSeriesController extends Controller {
 	 * @param h height of the borderPane
 	 */
 	private void setBackground(int w, int h) {
-		File backgroundFolder;
-		File[] files;
-
-		// get all png/jpg files of background folder
-		try {
-			// create folder if it does not exist
-			backgroundFolder = new File(System.getProperty("user.home"), "/SERIESTRACKER/Backgrounds/");
-			boolean createdDir = backgroundFolder.mkdir();
-
-			// check if there are fitting files
-			if (createdDir) {
-				throw new Exception();
-			}
-
-			files = backgroundFolder.listFiles((dir, name) -> (
-					name.toLowerCase().endsWith(".png") ||
-							name.toLowerCase().endsWith(".jpg") ||
-							name.toLowerCase().endsWith(".jpeg")
-			));
-
-			if (files == null || files.length == 0) {
-				throw new Exception();
-			}
-
-			// select a random image
-			Random random = new Random();
-			InputStream is = new FileInputStream(files[random.nextInt(files.length)]);
-			BufferedImage bufImg = ImageIO.read(is);
-
-			setBorderPaneBackground(SwingFXUtils.toFXImage(bufImg, null), w, h);
-		} catch (Exception e) {
-			setFallbackImage(w, h);
-		}
-	}
-
-	/**
-	 * uses a non local picture as background if there is no local available
-	 *
-	 * @param w width of the borderPane
-	 * @param h height of the borderPane
-	 */
-	private void setFallbackImage(int w, int h) {
-		try {
-			URL url = new URL("https://i.imgur.com/iJYsAF4.jpg");
-			BufferedImage bufImg = ImageIO.read(url);
-			File file = new File(System.getProperty("user.home"), "/SERIESTRACKER/Backgrounds/fallback.jpg");
-			ImageIO.write(bufImg, "jpg", file);
-			setBorderPaneBackground(SwingFXUtils.toFXImage(bufImg, null), w, h);
-		} catch (IOException e) {
+		BufferedImage bufImg = BackgroundManager.getRandomImage();
+		if (bufImg == null) {
 			popUp.showWarning("No background picture found!", "Please make sure that local pictures are in the correct folder or that you are connected to the internet to see a background picture.", (Stage) borderPane.getScene().getWindow());
+			return;
 		}
-	}
 
-	/**
-	 * sets an image as background of the borderPane
-	 *
-	 * @param img the image that shall get set as background
-	 * @param w   width of the borderPane
-	 * @param h   height of the borderPane
-	 */
-	private void setBorderPaneBackground(Image img, int w, int h) {
-
-		BackgroundSize bSize = new BackgroundSize(w, h, false, false, false, false);
-		Background background = new Background(
-				new BackgroundImage(
-						img,
-						BackgroundRepeat.NO_REPEAT,
-						BackgroundRepeat.NO_REPEAT,
-						BackgroundPosition.CENTER,
-						bSize
-				)
-		);
-
+		BackgroundManager bm = new BackgroundManager(bufImg);
+		Background background = bm.getFittingBackground(w, h);
 		borderPane.setBackground(background);
+
 	}
 
 	/**
@@ -196,9 +124,12 @@ public class MainSeriesController extends Controller {
 	 */
 	private void updateBackgroundSize() {
 		Image img = borderPane.getBackground().getImages().get(0).getImage();
+		BackgroundManager bm = new BackgroundManager(SwingFXUtils.fromFXImage(img, null));
+
 		int w = (int) borderPane.getScene().getWidth();
 		int h = (int) borderPane.getScene().getHeight();
-		setBorderPaneBackground(img, w, h);
+		Background background = bm.getFittingBackground(w, h);
+		borderPane.setBackground(background);
 	}
 
 	/**
@@ -207,90 +138,12 @@ public class MainSeriesController extends Controller {
 	 * @param label label that needs a high contrast text color to its background
 	 */
 	private void setHeaderContrastColor(Label label) {
-		// get far most left (x) and far most up point (y)
 		Image img = borderPane.getBackground().getImages().get(0).getImage();
 		BufferedImage bufImg = SwingFXUtils.fromFXImage(img, null);
-		List<Color> pixels = new ArrayList<>();
 
-		for (int x = (int) label.getLayoutX(); x < (int) (label.getLayoutX() + label.getWidth()); x++) {
-			for (int y = (int) label.getLayoutY(); y < (int) (label.getLayoutY() + label.getHeight()); y++) {
-				pixels.add(new Color(bufImg.getRGB(x, y)));
-			}
-		}
-
-		// get average RGB of the label background
-		int avgRed = 0, avgGreen = 0, avgBlue = 0;
-		for (Color pixel : pixels) {
-			avgRed += pixel.getRed();
-			avgGreen += pixel.getGreen();
-			avgBlue += pixel.getBlue();
-		}
-
-		Color avgColor = new Color(avgRed / pixels.size(), avgGreen / pixels.size(), avgBlue / pixels.size());
-		String hexContrastColor = getContrastColor(avgColor);
+		BackgroundManager bm = new BackgroundManager(bufImg);
+		String hexContrastColor = bm.getContrastColor(label);
 		label.setTextFill(javafx.scene.paint.Color.web(hexContrastColor));
-	}
-
-	/**
-	 * @param color background color
-	 * @return a high contrast color for background color
-	 */
-	private String getContrastColor(Color color) {
-		ColorSpace space = ColorSpace.getInstance(ColorSpace.CS_sRGB);
-		float[] rgb = {color.getRed(), color.getGreen(), color.getBlue()};
-		float[] sRGB = space.fromRGB(rgb);
-
-		// get min and max of sRGB
-		List<Float> tempRGBList = new ArrayList<>(Arrays.asList(ArrayUtils.toObject(sRGB)));
-		float min = Collections.min(tempRGBList);
-		float max = Collections.max(tempRGBList);
-
-		// use hue formula according to max value
-		double hue;
-		if (max == sRGB[0]) {
-			hue = (sRGB[1] - sRGB[2]) / (max - min);
-		} else if (max == sRGB[1]) {
-			hue = 2 + (sRGB[2] - sRGB[0]) / (max - min);
-		} else {
-			hue = 4 + (sRGB[0] - sRGB[1]) / (max - min);
-		}
-		hue = (60 * hue) % 360;
-
-		return "#" + colorToHex(getHighestContrast(hue));
-	}
-
-	/**
-	 * @param hue the hue to get the best contrast color for
-	 * @return color with the highest contrast
-	 */
-	private Color getHighestContrast(double hue) {
-		// modified values
-		if (hue > 46 && hue <= 90) {
-			return Color.yellow;
-		} else if (hue > 90 && hue <= 135) {
-			return Color.green;
-		} else if (hue > 135 && hue <= 225) {
-			return Color.cyan;
-		} else if (hue > 225 && hue <= 270) {
-			return Color.blue;
-		} else if (hue > 270 && hue <= 315) {
-			return Color.magenta;
-		} else {
-			return Color.red;
-		}
-	}
-
-	/**
-	 * @param color a color :)
-	 * @return hex representation as a String of a color
-	 */
-	private String colorToHex(Color color) {
-		String hexColor = Integer.toHexString(color.getRGB() & 0xffffff);
-		if (hexColor.length() < 6) {
-			hexColor = "000000".substring(0, 6 - hexColor.length()) + hexColor;
-		}
-
-		return hexColor;
 	}
 
 	/**
