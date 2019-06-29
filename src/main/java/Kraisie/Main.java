@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -163,9 +164,14 @@ public class Main extends Application {
 
 		if (resource != null) {
 			Image img = new Image(resource.toString());
-			Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+			Parent root = loader.load();
+
+			MainSeriesController controller = loader.getController();
+			primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> controller.initBackground());
+
+
 			primaryStage.setTitle("Series Control Panel");
-			primaryStage.setResizable(false);
 			primaryStage.getIcons().add(img);
 			primaryStage.setScene(new Scene(root));
 			primaryStage.sizeToScene();

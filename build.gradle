@@ -9,7 +9,7 @@ plugins {
 sourceCompatibility = '1.12'
 targetCompatibility = '1.12'
 group 'Kraisie'
-version '2.2'
+version '2.2.1'
 
 repositories {
     mavenCentral()

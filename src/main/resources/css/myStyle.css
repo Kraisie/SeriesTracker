@@ -6,6 +6,13 @@
 }
 
 /*
+    BorderPane
+*/
+#borderPane {
+    -fx-background-color: linear-gradient(to bottom left, #4d4d4d, #727272, #4d4d4d);
+}
+
+/*
     PopUp/Dialog
 */
 .dialog-pane {
@@ -44,6 +51,7 @@
 
 #biggerLabel .text {
     -fx-font: 24px "Serif";
+    -fx-font-weight: bold;
     -fx-fill: #96f52b;
 }
 
@@ -190,23 +198,14 @@
 }
 
 /*
-    Progress Indicator
+    Progress Bar
 */
-.progress-indicator {
-    -fx-progress-color: lime;
-}
-
-.progress-indicator .determinate-indicator .indicator {
-    -fx-background-color: #262626;
-}
-
-.progress-indicator .percentage {
-    -fx-fill: lime;
-}
-
-.progress-indicator:indeterminate > .spinner {
+.progress-bar .track {
     -fx-background-color: transparent;
-    -fx-border-color: transparent;
+}
+
+.progress-bar .bar {
+    -fx-background-color: lime;
 }
 
 /*

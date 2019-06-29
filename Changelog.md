@@ -104,3 +104,6 @@
     * PopUps are now centered to the stage
     * Improved selection of a series to add
     * Improved layouts for DPI awareness
+* **VERSION 2.2.1**
+    * Made Main Scene and background responsive
+    * Removed "Waiting" table    

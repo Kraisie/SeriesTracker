@@ -2,7 +2,7 @@
 
 A program to keep track of all your series you are currently watching, you plan to watch in the future and all those you already finished. 
 This program helps you to never watch an episode again because you forgot if you already saw it, or reminds you of the series you started, but never finished as you forgot that there was a new season.
-All data is provided by [TheTvdb.com](https://www.thetvdb.com/), a database of series.
+All data is provided by [TheTvdb.com](https://www.thetvdb.com/), a database of TV series.
 
 ### Usage
 ##### Needed stuff 
@@ -41,7 +41,6 @@ If you want to clone or download and extract the repository yourself you can sta
 * To delete a series click on "Edit" > "Delete a series" and select the one you want to delete
 * Instead of scrolling through a long list of series you can focus a table and press a key on your keyboard to directly select the first series with that initial letter
 * Click on "Mode" > "Search Series" to search for a series in your data by some parameters.
-    * Userstates are symbolised by the tables of the main menu
 * "Settings" > "Open Settings" will open the settings to choose the file locations, BackUp frequency and to change your API-Key
 
 ##### BackUps
@@ -53,5 +52,4 @@ If you want to clone or download and extract the repository yourself you can sta
     * You can still update the discontinued series explicitly with "Update" > "Update ended Series"
 
 ##### Customization
-* You can use custom backgrounds in the main menu. Just navigate to your Home folder, open the `SERIESTRACKER` folder and place your `png`, `jpg`, or `jpeg` in `/Backgrounds/`. 
-    * The minimum size is 1280x720px due to the fixed window size. Larger sizes work too as long as they have an aspect ratio of 16:9
+* You can use custom backgrounds in the main menu. Just navigate to your Home folder, open the `SERIESTRACKER` folder and place your `png`, `jpg`, or `jpeg` in `/Backgrounds/`.

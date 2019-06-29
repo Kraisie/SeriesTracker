@@ -2,6 +2,7 @@ package Kraisie.SceneController;
 
 import Kraisie.Data.MySeries;
 import Kraisie.TVDB.SearchData;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -145,6 +146,22 @@ class Controller {
 	}
 
 	/**
+	 * opens the main menu scene
+	 *
+	 * @param primaryStage the stage in which the scene should get shown
+	 * @throws IOException if fxml file can not be read
+	 */
+	void openMain(Stage primaryStage) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/MainSeries.fxml"));
+		Parent root = loader.load();
+		MainSeriesController controller = loader.getController();
+
+		// initialize Background after scene initialization
+		Platform.runLater(controller::initBackground);
+		setStageProperties(primaryStage, "Series Control Panel", root);
+	}
+
+	/**
 	 * sets all stage properties and shows the scene
 	 *
 	 * @param primaryStage the stage in which the scene should get shown
@@ -157,7 +174,6 @@ class Controller {
 		double yPos = primaryStage.getY() + primaryStage.getHeight() / 2d;
 
 		primaryStage.setTitle(title);
-		primaryStage.setResizable(false);
 		primaryStage.setScene(new Scene(root));
 		primaryStage.sizeToScene();
 

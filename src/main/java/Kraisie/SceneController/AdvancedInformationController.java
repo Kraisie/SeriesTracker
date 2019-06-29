@@ -254,7 +254,7 @@ public class AdvancedInformationController extends Controller {
 	@FXML
 	private void backToMain() {
 		try {
-			openScene((Stage) backMenuButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
+			openMain((Stage) backMenuButton.getScene().getWindow());
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) backMenuButton.getScene().getWindow());
 		}

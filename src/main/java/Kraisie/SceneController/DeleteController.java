@@ -106,7 +106,7 @@ public class DeleteController extends Controller {
 	@FXML
 	private void back() {
 		try {
-			openScene((Stage) backButton.getScene().getWindow(), "/FXML/MainSeries.fxml", "Series Control Panel");
+			openMain((Stage) backButton.getScene().getWindow());
 		} catch (IOException e) {
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) backButton.getScene().getWindow());
 		}

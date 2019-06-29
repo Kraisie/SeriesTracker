@@ -17,8 +17,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -42,13 +43,11 @@ import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
 public class MainSeriesController extends Controller {
 
 	@FXML
+	private BorderPane borderPane;
+	@FXML
 	private MenuBar menuBar;
 	@FXML
-	private ImageView imageBackground;
-	@FXML
 	private TableView<MySeries> tableContinueWatching;
-	@FXML
-	private TableView<MySeries> tableWaiting;
 	@FXML
 	private TableView<MySeries> tableStartWatching;
 	@FXML
@@ -57,12 +56,6 @@ public class MainSeriesController extends Controller {
 	private TableColumn<MySeries, Integer> columnContinueSeason;
 	@FXML
 	private TableColumn<MySeries, Integer> columnContinueEpisode;
-	@FXML
-	private TableColumn<MySeries, String> columnWaitName;
-	@FXML
-	private TableColumn<MySeries, Integer> columnWaitSeason;
-	@FXML
-	private TableColumn<MySeries, Integer> columnWaitEpisode;
 	@FXML
 	private TableColumn<MySeries, String> columnStartName;
 	@FXML
@@ -80,14 +73,10 @@ public class MainSeriesController extends Controller {
 	@FXML
 	private Label labelWatching;
 	@FXML
-	private Label labelWaiting;
-	@FXML
 	private Label labelStarting;
 	@FXML
-	private ProgressIndicator progressIndicator;
+	private ProgressBar progressIndicator;
 
-	private BufferedImage bufImg;
-	private boolean backgroundSet = false;
 	private boolean updating = false;
 	private PopUp popUp = new PopUp();
 
@@ -97,24 +86,35 @@ public class MainSeriesController extends Controller {
 			return;
 		}
 
-		if (!backgroundSet) {
-			setBackground();
-			backgroundSet = true;
-		}
-
-		if (bufImg != null) {
-			setHeaderContrastColor(labelWatching);
-			setHeaderContrastColor(labelWaiting);
-			setHeaderContrastColor(labelStarting);
-		}
-
 		populateTables();
 	}
 
 	/**
-	 * sets the background picture of the scene. Images have to be larger than 1280x720 or equal and should be 16:9 for perfect fit.
+	 * initializes the background of the main scene
 	 */
-	private void setBackground() {
+	public void initBackground() {
+		Stage stage = (Stage) borderPane.getScene().getWindow();
+		int width = (int) borderPane.getScene().getWidth();
+		int height = (int) borderPane.getScene().getHeight();
+		setBackground(width, height);
+
+		if (borderPane.getBackground().getImages().size() > 0) {
+			setHeaderContrastColor(labelWatching);
+			setHeaderContrastColor(labelStarting);
+		}
+
+		// event on resize to update background pictures
+		stage.widthProperty().addListener((obs, oldVal, newVal) -> updateBackgroundSize());
+		stage.heightProperty().addListener((obs, oldVal, newVal) -> updateBackgroundSize());
+	}
+
+	/**
+	 * sets the background picture of the scene. Images have to be larger than 1280x720 or equal and should be 16:9 for perfect fit.
+	 *
+	 * @param w width of the borderPane
+	 * @param h height of the borderPane
+	 */
+	private void setBackground(int w, int h) {
 		File backgroundFolder;
 		File[] files;
 
@@ -129,52 +129,76 @@ public class MainSeriesController extends Controller {
 				throw new Exception();
 			}
 
-			files = backgroundFolder.listFiles((dir, name) -> (name.toLowerCase().endsWith(".png") ||
-					name.toLowerCase().endsWith(".jpg") ||
-					name.toLowerCase().endsWith(".jpeg")));
+			files = backgroundFolder.listFiles((dir, name) -> (
+					name.toLowerCase().endsWith(".png") ||
+							name.toLowerCase().endsWith(".jpg") ||
+							name.toLowerCase().endsWith(".jpeg")
+			));
 
 			if (files == null || files.length == 0) {
 				throw new Exception();
 			}
 
-			// check if size fits
-			List<File> fittingImages = new ArrayList<>();
-			for (File image : files) {
-				InputStream is = new FileInputStream(image);
-				BufferedImage tmpImg = ImageIO.read(is);
-
-				if (tmpImg.getWidth() >= 1280 && tmpImg.getHeight() >= 720) {
-					fittingImages.add(image);
-				}
-			}
-
-			if (fittingImages.isEmpty()) {
-				throw new Exception();
-			}
-
 			// select a random image
 			Random random = new Random();
-			InputStream is = new FileInputStream(fittingImages.get(random.nextInt(fittingImages.size())));
-			bufImg = ImageIO.read(is);
-			imageBackground.setImage(SwingFXUtils.toFXImage(bufImg, null));
+			InputStream is = new FileInputStream(files[random.nextInt(files.length)]);
+			BufferedImage bufImg = ImageIO.read(is);
+
+			setBorderPaneBackground(SwingFXUtils.toFXImage(bufImg, null), w, h);
 		} catch (Exception e) {
-			setFallbackImage();
+			setFallbackImage(w, h);
 		}
 	}
 
 	/**
 	 * uses a non local picture as background if there is no local available
+	 *
+	 * @param w width of the borderPane
+	 * @param h height of the borderPane
 	 */
-	private void setFallbackImage() {
+	private void setFallbackImage(int w, int h) {
 		try {
 			URL url = new URL("https://i.imgur.com/iJYsAF4.jpg");
-			bufImg = ImageIO.read(url);
+			BufferedImage bufImg = ImageIO.read(url);
 			File file = new File(System.getProperty("user.home"), "/SERIESTRACKER/Backgrounds/fallback.jpg");
 			ImageIO.write(bufImg, "jpg", file);
-			imageBackground.setImage(SwingFXUtils.toFXImage(bufImg, null));
+			setBorderPaneBackground(SwingFXUtils.toFXImage(bufImg, null), w, h);
 		} catch (IOException e) {
-			popUp.showWarning("No background picture found!", "Please make sure that local pictures are in the correct folder or that you are connected to the internet to see a background picture.", (Stage) imageBackground.getScene().getWindow());
+			popUp.showWarning("No background picture found!", "Please make sure that local pictures are in the correct folder or that you are connected to the internet to see a background picture.", (Stage) borderPane.getScene().getWindow());
 		}
+	}
+
+	/**
+	 * sets an image as background of the borderPane
+	 *
+	 * @param img the image that shall get set as background
+	 * @param w   width of the borderPane
+	 * @param h   height of the borderPane
+	 */
+	private void setBorderPaneBackground(Image img, int w, int h) {
+
+		BackgroundSize bSize = new BackgroundSize(w, h, false, false, false, false);
+		Background background = new Background(
+				new BackgroundImage(
+						img,
+						BackgroundRepeat.NO_REPEAT,
+						BackgroundRepeat.NO_REPEAT,
+						BackgroundPosition.CENTER,
+						bSize
+				)
+		);
+
+		borderPane.setBackground(background);
+	}
+
+	/**
+	 * updates the image on resize of the scene
+	 */
+	private void updateBackgroundSize() {
+		Image img = borderPane.getBackground().getImages().get(0).getImage();
+		int w = (int) borderPane.getScene().getWidth();
+		int h = (int) borderPane.getScene().getHeight();
+		setBorderPaneBackground(img, w, h);
 	}
 
 	/**
@@ -184,9 +208,12 @@ public class MainSeriesController extends Controller {
 	 */
 	private void setHeaderContrastColor(Label label) {
 		// get far most left (x) and far most up point (y)
+		Image img = borderPane.getBackground().getImages().get(0).getImage();
+		BufferedImage bufImg = SwingFXUtils.fromFXImage(img, null);
 		List<Color> pixels = new ArrayList<>();
-		for (int x = (int) label.getLayoutX(); x < (int) (label.getLayoutX() + label.getPrefWidth()); x++) {
-			for (int y = (int) label.getLayoutY(); y < (int) (label.getLayoutY() + label.getPrefHeight()); y++) {
+
+		for (int x = (int) label.getLayoutX(); x < (int) (label.getLayoutX() + label.getWidth()); x++) {
+			for (int y = (int) label.getLayoutY(); y < (int) (label.getLayoutY() + label.getHeight()); y++) {
 				pixels.add(new Color(bufImg.getRGB(x, y)));
 			}
 		}
@@ -272,7 +299,6 @@ public class MainSeriesController extends Controller {
 	private void populateTables() {
 		ObservableList<MySeries> unstartedSeries = FXCollections.observableArrayList();
 		ObservableList<MySeries> watchingSeries = FXCollections.observableArrayList();
-		ObservableList<MySeries> waitingSeries = FXCollections.observableArrayList();
 		List<MySeries> listEntries = MySeries.readData();
 
 		if (listEntries.isEmpty()) {
@@ -280,6 +306,7 @@ public class MainSeriesController extends Controller {
 		}
 
 		setCellValueFactories();
+		setColumnWidth();
 
 		// populate the observable lists for the tables according to the userState
 		for (MySeries listEntry : listEntries) {
@@ -290,15 +317,12 @@ public class MainSeriesController extends Controller {
 				case 1:
 					watchingSeries.add(listEntry);
 					break;
-				case 2:
-					waitingSeries.add(listEntry);
-					break;
 				default:
-					// finished series get ignored
+					// waiting and finished series get ignored
 			}
 		}
 
-		insertTableData(unstartedSeries, watchingSeries, waitingSeries);
+		insertTableData(unstartedSeries, watchingSeries);
 	}
 
 	/**
@@ -309,12 +333,20 @@ public class MainSeriesController extends Controller {
 		columnContinueSeason.setCellValueFactory(new PropertyValueFactory<>("currentSeason"));
 		columnContinueEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
 
-		columnWaitName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		columnWaitSeason.setCellValueFactory(new PropertyValueFactory<>("currentSeason"));
-		columnWaitEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
-
 		columnStartName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		columnStartSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
+	}
+
+	/**
+	 * sets the column width for every column
+	 */
+	private void setColumnWidth() {
+		columnContinueName.prefWidthProperty().bind(tableContinueWatching.widthProperty().divide(2));
+		columnContinueSeason.prefWidthProperty().bind(tableContinueWatching.widthProperty().divide(4));
+		columnContinueEpisode.prefWidthProperty().bind(tableContinueWatching.widthProperty().divide(4));
+
+		columnStartName.prefWidthProperty().bind(tableStartWatching.widthProperty().divide(2));
+		columnStartSeasons.prefWidthProperty().bind(tableStartWatching.widthProperty().divide(2));
 	}
 
 	/**
@@ -322,9 +354,8 @@ public class MainSeriesController extends Controller {
 	 *
 	 * @param unstarted ObservableList of all series which the user did not start yet
 	 * @param watching  ObservableList of all series which the user is currently watching
-	 * @param waiting   ObservableList of all series which need new episodes
 	 */
-	private void insertTableData(ObservableList<MySeries> unstarted, ObservableList<MySeries> watching, ObservableList<MySeries> waiting) {
+	private void insertTableData(ObservableList<MySeries> unstarted, ObservableList<MySeries> watching) {
 		Settings settings = Settings.readData();
 		if (settings.isSortByCompletion()) {
 			// only watching as the others are all 100% or 0%
@@ -338,13 +369,10 @@ public class MainSeriesController extends Controller {
 
 		tableStartWatching.setItems(unstarted);
 		tableContinueWatching.setItems(watching);
-		tableWaiting.setItems(waiting);
 
 		// force table update
 		tableContinueWatching.getColumns().get(0).setVisible(false);
 		tableContinueWatching.getColumns().get(0).setVisible(true);
-		tableWaiting.getColumns().get(0).setVisible(false);
-		tableWaiting.getColumns().get(0).setVisible(true);
 	}
 
 	/**
@@ -493,14 +521,6 @@ public class MainSeriesController extends Controller {
 	 * scrolls to a series with the same first char as the button pressed for all tables
 	 */
 	@FXML
-	private void scrollToKeyWaiting(KeyEvent key) {
-		scrollToSeries(tableWaiting, key);
-	}
-
-	/**
-	 * scrolls to a series with the same first char as the button pressed for all tables
-	 */
-	@FXML
 	private void scrollToKeyNotStarted(KeyEvent key) {
 		scrollToSeries(tableStartWatching, key);
 	}
@@ -607,16 +627,6 @@ public class MainSeriesController extends Controller {
 	 */
 	@FXML
 	private void clickOnTableWatching() {
-		tableWaiting.getSelectionModel().clearSelection();
-		tableStartWatching.getSelectionModel().clearSelection();
-	}
-
-	/**
-	 * gets called when a series gets selected in tableWaiting, clears selections on other tables
-	 */
-	@FXML
-	private void clickOnTableWaiting() {
-		tableContinueWatching.getSelectionModel().clearSelection();
 		tableStartWatching.getSelectionModel().clearSelection();
 	}
 
@@ -626,7 +636,6 @@ public class MainSeriesController extends Controller {
 	@FXML
 	private void clickOnTableUnstarted() {
 		tableContinueWatching.getSelectionModel().clearSelection();
-		tableWaiting.getSelectionModel().clearSelection();
 	}
 
 	/**
@@ -710,10 +719,6 @@ public class MainSeriesController extends Controller {
 	@FXML
 	private void displayInformation() {
 		MySeries selectedSeries = tableContinueWatching.getSelectionModel().getSelectedItem();
-
-		if (selectedSeries == null) {
-			selectedSeries = tableWaiting.getSelectionModel().getSelectedItem();
-		}
 
 		if (selectedSeries == null) {
 			selectedSeries = tableStartWatching.getSelectionModel().getSelectedItem();
