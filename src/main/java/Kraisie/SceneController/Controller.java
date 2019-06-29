@@ -3,11 +3,14 @@ package Kraisie.SceneController;
 import Kraisie.Data.MySeries;
 import Kraisie.TVDB.SearchData;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -181,5 +184,47 @@ class Controller {
 		primaryStage.setX(xPos - primaryStage.getWidth() / 2d);
 		primaryStage.setY(yPos - primaryStage.getHeight() / 2d);
 		primaryStage.show();
+	}
+
+	/**
+	 * Scrolls to the first series that starts with the letter that just got pressed.
+	 * If the same gets pressed as the first letter of the currently selected series the next series with that first letter gets selected.
+	 * Keys like Shift, Enter etc get ignored.
+	 *
+	 * @param key KeyEvent of the pressed key.
+	 */
+	void scrollToSeries(TableView<MySeries> table, KeyEvent key) {
+		if (key.getText().length() == 0) {
+			return;
+		}
+
+		char c = key.getText().charAt(0);
+		ObservableList<MySeries> allSeriesInTable = table.getItems();
+		MySeries match = null;
+
+		// if the selected series already starts with that char and the next one in the list still got that char then select the next series
+		int index = table.getSelectionModel().getSelectedIndex();
+		if (index + 1 < allSeriesInTable.size()) {
+			MySeries nextSeries = allSeriesInTable.get(index + 1);
+			if (c == nextSeries.getName().toLowerCase().charAt(0)) {
+				table.getSelectionModel().select(nextSeries);
+				return;
+			}
+		}
+
+		// select first occurrence
+		for (MySeries series : allSeriesInTable) {
+			if (c == series.getName().toLowerCase().charAt(0)) {
+				match = series;
+				break;
+			}
+		}
+
+		if (match == null) {
+			return;
+		}
+
+		table.getSelectionModel().select(match);
+		table.scrollTo(match);
 	}
 }

@@ -53,7 +53,7 @@ public class MainSeriesController extends Controller {
 	@FXML
 	private TableColumn<MySeries, Integer> columnStartSeasons;
 	@FXML
-	private Button infoButton;
+	private Button waitButton;
 	@FXML
 	private Button buttonIncEpisode;
 	@FXML
@@ -222,10 +222,6 @@ public class MainSeriesController extends Controller {
 
 		tableStartWatching.setItems(unstarted);
 		tableContinueWatching.setItems(watching);
-
-		// force table update
-		tableContinueWatching.getColumns().get(0).setVisible(false);
-		tableContinueWatching.getColumns().get(0).setVisible(true);
 	}
 
 	/**
@@ -376,48 +372,6 @@ public class MainSeriesController extends Controller {
 	@FXML
 	private void scrollToKeyNotStarted(KeyEvent key) {
 		scrollToSeries(tableStartWatching, key);
-	}
-
-	/**
-	 * Scrolls to the first series that starts with the letter that just got pressed.
-	 * If the same gets pressed as the first letter of the currently selected series the next series with that first letter gets selected.
-	 * Keys like Shift, Enter etc get ignored.
-	 *
-	 * @param key KeyEvent of the pressed key.
-	 */
-	private void scrollToSeries(TableView<MySeries> table, KeyEvent key) {
-		if (key.getText().length() == 0) {
-			return;
-		}
-
-		char c = key.getText().charAt(0);
-		ObservableList<MySeries> allSeriesInTable = table.getItems();
-		MySeries match = null;
-
-		// if the selected series already starts with that char and the next one in the list still got that char then select the next series
-		int index = table.getSelectionModel().getSelectedIndex();
-		if (index + 1 < allSeriesInTable.size()) {
-			MySeries nextSeries = allSeriesInTable.get(index + 1);
-			if (c == nextSeries.getName().toLowerCase().charAt(0)) {
-				table.getSelectionModel().select(nextSeries);
-				return;
-			}
-		}
-
-		// select first occurrence
-		for (MySeries series : allSeriesInTable) {
-			if (c == series.getName().toLowerCase().charAt(0)) {
-				match = series;
-				break;
-			}
-		}
-
-		if (match == null) {
-			return;
-		}
-
-		table.getSelectionModel().select(match);
-		table.scrollTo(match);
 	}
 
 	/**
@@ -578,17 +532,25 @@ public class MainSeriesController extends Controller {
 		}
 
 		if (selectedSeries == null) {
-			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.", (Stage) infoButton.getScene().getWindow());
+			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.", (Stage) tableStartWatching.getScene().getWindow());
 			return;
 		}
 
 		try {
 			String title = "Information about " + selectedSeries.getName();
-			openSceneWithOneParameter((Stage) infoButton.getScene().getWindow(), "/FXML/AdvancedInformation.fxml", title, selectedSeries);
+			openSceneWithOneParameter((Stage) tableStartWatching.getScene().getWindow(), "/FXML/AdvancedInformation.fxml", title, selectedSeries);
 		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) infoButton.getScene().getWindow());
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) tableStartWatching.getScene().getWindow());
 		}
+	}
 
+	@FXML
+	private void displayWaiting() {
+		try {
+			openScene((Stage) waitButton.getScene().getWindow(), "/FXML/WaitingSeries.fxml", "Series with not aired episodes");
+		} catch (IOException e) {
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) waitButton.getScene().getWindow());
+		}
 	}
 
 	/**
@@ -715,7 +677,7 @@ public class MainSeriesController extends Controller {
 		buttonIncEpisode.setDisable(updateRunning);
 		buttonDecEpisode.setDisable(updateRunning);
 		buttonStartedSeries.setDisable(updateRunning);
-		infoButton.setDisable(updateRunning);
+		waitButton.setDisable(updateRunning);
 		buttonFinishedSeries.setDisable(updateRunning);
 		menuBar.setDisable(updateRunning);
 	}

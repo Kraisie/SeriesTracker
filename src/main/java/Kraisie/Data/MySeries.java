@@ -331,6 +331,30 @@ public class MySeries {
 		return sum;
 	}
 
+	/**
+	 * gets the next air date of the series
+	 *
+	 * @return String representation of the next air date in dd.MM.yyyy
+	 */
+	public String getNextAirDate() {
+		if (hasNoNextEp()) {
+			return "Not given!";
+		}
+
+		int current = episodes.indexOf(getCurrent());
+		Episode nextEpisode = episodes.get(current + 1);
+		String nextAirDate = nextEpisode.getFirstAired();
+		if (nextAirDate.equalsIgnoreCase("Not given!")) {
+			return "Not given!";
+		}
+
+		DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter formatterDisplay = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+		LocalDate tmp = LocalDate.parse(nextAirDate, formatterData);
+
+		return tmp.format(formatterDisplay);
+	}
+
 	public int getSumEpisodes() {
 		return episodes.size();
 	}

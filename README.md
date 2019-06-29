@@ -36,7 +36,8 @@ If you want to clone or download and extract the repository yourself you can sta
 * Click on "Edit" > "Add a new Series" and type in the name of the series. If you can choose between multiple series select the one that is your desired one
 * To start watching a series select the series in the right table and click on the button "Started series"
 * You can select the series in the left table and click on the "+" button to increment the episode of the season; decrease with the "-" button
-* Select a series and click on the "Information" button to get some information about that series
+* Right click on a series and click on "Information..." to get some information about that series
+* You can find all awaited series in a list when clicking on the button titled "All awaited series"
 * You can find all finished series in a list when clicking on the button titled "All finished series"
 * To delete a series click on "Edit" > "Delete a series" and select the one you want to delete
 * Instead of scrolling through a long list of series you can focus a table and press a key on your keyboard to directly select the first series with that initial letter

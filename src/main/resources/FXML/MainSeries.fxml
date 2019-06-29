@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <BorderPane id="borderPane" fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
             prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/myStyle.css"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="Kraisie.SceneController.MainSeriesController">
     <top>
         <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
@@ -46,8 +46,8 @@
                 <Insets bottom="3.0"/>
             </BorderPane.margin>
             <HBox alignment="CENTER">
-                <Button fx:id="infoButton" minHeight="35.0" mnemonicParsing="false"
-                        onAction="#displayInformation" text="Information">
+                <Button fx:id="waitButton" minHeight="35.0" mnemonicParsing="false" onAction="#displayWaiting"
+                        text="All awaited series">
                     <HBox.margin>
                         <Insets right="25.0"/>
                     </HBox.margin>
@@ -60,8 +60,8 @@
                 </Button>
             </HBox>
             <AnchorPane>
-                <ProgressBar fx:id="progressIndicator" progress="0.0" visible="false"
-                             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+                <ProgressBar fx:id="progressIndicator" progress="0.0" visible="false" AnchorPane.leftAnchor="0.0"
+                             AnchorPane.rightAnchor="0.0"/>
             </AnchorPane>
         </VBox>
     </bottom>
@@ -70,14 +70,14 @@
             <BorderPane.margin>
                 <Insets/>
             </BorderPane.margin>
-            <HBox AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"
+            <HBox AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0"
                   AnchorPane.topAnchor="25.0">
                 <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets right="25.0"/>
+                        <Insets right="50.0"/>
                     </HBox.margin>
-                    <Label fx:id="labelWatching" alignment="CENTER" contentDisplay="CENTER"
-                           text="Continue watching" textAlignment="CENTER" textFill="LIME" underline="true">
+                    <Label fx:id="labelWatching" alignment="CENTER" contentDisplay="CENTER" text="Continue watching"
+                           textAlignment="CENTER" textFill="LIME" underline="true">
                         <font>
                             <Font size="24.0"/>
                         </font>
@@ -89,21 +89,27 @@
                             <TableColumn id="centeredColumn" fx:id="columnContinueSeason" text="Season"/>
                             <TableColumn id="centeredColumn" fx:id="columnContinueEpisode" text="Episode"/>
                         </columns>
+                        <contextMenu>
+                            <ContextMenu>
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#displayInformation"
+                                              text="Information..."/>
+                                </items>
+                            </ContextMenu>
+                        </contextMenu>
                     </TableView>
                     <HBox alignment="CENTER">
                         <VBox.margin>
                             <Insets/>
                         </VBox.margin>
-                        <Button fx:id="buttonIncEpisode" alignment="CENTER" minHeight="50.0"
-                                minWidth="50.0" mnemonicParsing="false" onAction="#incEpisodeButton"
-                                text="+" HBox.hgrow="ALWAYS">
+                        <Button fx:id="buttonIncEpisode" alignment="CENTER" minHeight="50.0" minWidth="50.0"
+                                mnemonicParsing="false" onAction="#incEpisodeButton" text="+" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets right="25.0"/>
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="buttonDecEpisode" alignment="CENTER" minHeight="50.0"
-                                minWidth="50.0" mnemonicParsing="false" onAction="#decEpisodeButton"
-                                text="-" HBox.hgrow="ALWAYS">
+                        <Button fx:id="buttonDecEpisode" alignment="CENTER" minHeight="50.0" minWidth="50.0"
+                                mnemonicParsing="false" onAction="#decEpisodeButton" text="-" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets left="25.0"/>
                             </HBox.margin>
@@ -112,7 +118,7 @@
                 </VBox>
                 <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets left="25.0"/>
+                        <Insets left="50.0"/>
                     </HBox.margin>
                     <Label fx:id="labelStarting" alignment="CENTER" text="Start watching" textFill="LIME"
                            underline="true">
@@ -126,10 +132,17 @@
                             <TableColumn fx:id="columnStartName" text="Name"/>
                             <TableColumn id="centeredColumn" fx:id="columnStartSeasons" text="Seasons"/>
                         </columns>
+                        <contextMenu>
+                            <ContextMenu>
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#displayInformation"
+                                              text="Information..."/>
+                                </items>
+                            </ContextMenu>
+                        </contextMenu>
                     </TableView>
                     <Button fx:id="buttonStartedSeries" alignment="CENTER_RIGHT" minHeight="50.0"
-                            mnemonicParsing="false" onAction="#startSeries" text="Started series"
-                            VBox.vgrow="ALWAYS">
+                            mnemonicParsing="false" onAction="#startSeries" text="Started series" VBox.vgrow="ALWAYS">
                         <VBox.margin>
                             <Insets/>
                         </VBox.margin>

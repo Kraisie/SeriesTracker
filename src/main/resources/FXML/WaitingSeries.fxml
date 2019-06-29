@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="anchorPane" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="Kraisie.SceneController.WaitingController">
+    <VBox alignment="CENTER" layoutX="100.0" layoutY="25.0" spacing="15.0" AnchorPane.bottomAnchor="25.0"
+          AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" text="Waiting for new episodes" textAlignment="CENTER"
+               textFill="LIME" underline="true">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
+        <TableView fx:id="tableWaiting" onKeyPressed="#scrollToKeyWaiting" opacity="0.9" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="columnName" prefWidth="-1.0" text="Name"/>
+                <TableColumn id="centeredColumn" fx:id="columnNextAirDate" prefWidth="-1.0"
+                             text="Next air date"/>
+            </columns>
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#displayInformation" text="Information..."/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TableView>
+        <Button fx:id="backButton" mnemonicParsing="false" onAction="#backToMain" text="Back"/>
+    </VBox>
+</AnchorPane>

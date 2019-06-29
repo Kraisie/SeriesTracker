@@ -106,4 +106,5 @@
     * Improved layouts for DPI awareness
 * **VERSION 2.2.1**
     * Made Main Scene and background responsive
-    * Removed "Waiting" table    
+    * Removed "Waiting" table
+    * Added new scene for awaited series
