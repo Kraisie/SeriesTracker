@@ -38,7 +38,7 @@ public class AddSeriesController extends Controller {
 	private void addTVDB() {
 		List<MySeries> allSeries = MySeries.readData();
 		if (MySeries.checkDuplicate(allSeries, nameTVDB.getText())) {
-			popUp.showAlert("Duplicate found!", "That series is already in you list.", false, (Stage) nameTVDB.getScene().getWindow());
+			popUp.showAlert("Duplicate found!", "That series is already in your list.", false, (Stage) nameTVDB.getScene().getWindow());
 			return;
 		}
 
@@ -50,7 +50,7 @@ public class AddSeriesController extends Controller {
 		}
 
 		if (possibleSeries.size() == 1) {
-			MySeries series = tvdbAPI.getUpdate(String.valueOf(possibleSeries.get(0).getId()), 0, 1, 1);
+			MySeries series = tvdbAPI.getUpdate(String.valueOf(possibleSeries.get(0).getId()), 0, -1, -1);
 			// check for empty series (uncommon but happens)
 			if (series.getEpisodes().size() >= 1) {
 				allSeries.add(series);

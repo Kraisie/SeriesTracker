@@ -40,7 +40,7 @@ public class Episode {
 	 *
 	 * @param allEpisodes A list of all episodes that a series has
 	 */
-	static void deleteNull(List<Episode> allEpisodes) {
+	public static void deleteNull(List<Episode> allEpisodes) {
 		List<Episode> remove = new ArrayList<>();
 		for (Episode epi : allEpisodes) {
 			if (epi.getSeason() == 0 || epi.getSeason() == null) {

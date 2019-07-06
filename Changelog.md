@@ -108,3 +108,4 @@
     * Made Main Scene and background responsive
     * Removed "Waiting" table
     * Added new scene for awaited series
+    * Fixed problem with series that are not complete and do not provide a continuous list of episodes

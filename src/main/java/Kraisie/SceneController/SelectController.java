@@ -259,7 +259,7 @@ public class SelectController extends Controller {
 		if (selectedSeries != null) {
 			List<MySeries> allSeries = MySeries.readData();
 			TVDB_Data tvdbAPI = new TVDB_Data(APIKey.readKey());
-			MySeries series = tvdbAPI.getUpdate(String.valueOf(selectedSeries.getId()), 0, 1, 1);
+			MySeries series = tvdbAPI.getUpdate(String.valueOf(selectedSeries.getId()), 0, -1, -1);
 
 			try {
 				allSeries.add(series);

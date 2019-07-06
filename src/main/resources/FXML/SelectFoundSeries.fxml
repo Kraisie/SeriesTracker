@@ -26,7 +26,7 @@
     <Label id="normalLabel" fx:id="labelName2" layoutX="837.0" layoutY="165.0"/>
     <Label id="normalLabel" fx:id="labelYear2" layoutX="837.0" layoutY="195.0"/>
     <Label id="normalLabel" fx:id="labelID2" layoutX="837.0" layoutY="225.0"/>
-    <Label id="normalLabel" fx:id="labelNetwork2" layoutX="837.0" layoutY="265.0"/>
+    <Label id="normalLabel" fx:id="labelNetwork2" layoutX="837.0" layoutY="255.0"/>
     <Label id="normalLabel" fx:id="labelStatus2" layoutX="837.0" layoutY="285.0"/>
     <ImageView fx:id="image3" fitHeight="140.0" fitWidth="758.0" layoutX="62.0" layoutY="315.0" pickOnBounds="true"
                preserveRatio="true"/>

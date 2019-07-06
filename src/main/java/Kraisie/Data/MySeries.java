@@ -85,11 +85,6 @@ public class MySeries {
 	 * @see Settings
 	 */
 	public static void writeData(List<MySeries> allEntries) throws IOException {
-		for (MySeries series : allEntries) {
-			Episode.deleteNull(series.episodes);
-			Episode.sort(series.episodes);
-		}
-
 		//sort series by name
 		allEntries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
 

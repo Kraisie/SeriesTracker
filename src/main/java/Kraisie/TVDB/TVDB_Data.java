@@ -230,6 +230,17 @@ public class TVDB_Data {
 			allEpisodes.addAll(setFields(episodes));
 		}
 
+		Episode.deleteNull(allEpisodes);
+		Episode.sort(allEpisodes);
+		if (allEpisodes.size() == 0) {
+			return new ArrayList<>();
+		}
+
+		if (currentEpisode == -1 && currentSeason == -1) {
+			allEpisodes.get(0).setCurrent(true);
+			return allEpisodes;
+		}
+
 		for (Episode epi : allEpisodes) {
 			if (epi.getSeason() == currentSeason && epi.getEpNumberOfSeason() == currentEpisode) {
 				epi.setCurrent(true);

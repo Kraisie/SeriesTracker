@@ -183,7 +183,7 @@ public class AdvancedInformationController extends Controller {
 	@FXML
 	private void decEpisode() {
 		List<Episode> episodes = series.getEpisodes();
-		if (series.getCurrent().getSeason() != 1 || series.getCurrent().getEpNumberOfSeason() != 1) {
+		if (episodes.indexOf(series.getCurrent()) > 0) {
 			int pos = episodes.indexOf(series.getCurrent());
 			series.getEpisodes().get(pos).setCurrent(false);
 			series.getEpisodes().get(pos - 1).setCurrent(true);                 //Not saving since it is just to get up and down
