@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane id="anchorPane" prefHeight="590.0" prefWidth="400.0" stylesheets="@../css/myStyle.css"
-            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Kraisie.SceneController.FinishedController">
-    <TableView fx:id="tableFinishedSeries" layoutX="25.0" layoutY="47.0" prefHeight="440.0" prefWidth="350.0">
-        <columns>
-            <TableColumn fx:id="columnName" prefWidth="200.0" text="Name"/>
-            <TableColumn fx:id="columnSeasons" prefWidth="50.0" text="Seasons"/>
-            <TableColumn fx:id="columnEpisodes" prefWidth="56.0" text="Episodes"/>
-        </columns>
-    </TableView>
-    <Label id="biggerLabel" alignment="CENTER" layoutY="14.0" prefHeight="30.0" prefWidth="406.0" text="Finished Series"
-           underline="true">
+<VBox id="myPane" alignment="CENTER" spacing="15.0" stylesheets="@../css/myStyle.css"
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Kraisie.SceneController.FinishedController">
+    <padding>
+        <Insets bottom="15.0" left="25.0" right="25.0" top="15.0"/>
+    </padding>
+    <Label id="biggerLabel" alignment="CENTER" text="Finished Series" underline="true">
         <font>
             <Font size="18.0"/>
         </font>
     </Label>
-    <Button fx:id="backButton" layoutX="210.0" layoutY="548.0" mnemonicParsing="false" onAction="#back"
-            text="Go back to Main Menu"/>
-    <Label id="normalLabel" layoutX="25.0" layoutY="516.0" text="Total time:"/>
-    <Label id="normalLabel" fx:id="labelWasted" layoutX="128.0" layoutY="516.0"/>
-</AnchorPane>
+    <TableView fx:id="tableFinishedSeries" minWidth="300.0" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="columnName" text="Name"/>
+            <TableColumn id="centeredColumn" fx:id="columnSeasons" text="Seasons"/>
+            <TableColumn id="centeredColumn" fx:id="columnEpisodes" text="Episodes"/>
+        </columns>
+    </TableView>
+    <HBox spacing="10.0">
+        <Label id="normalLabel" text="Total time:"/>
+        <Label id="normalLabel" fx:id="labelWasted"/>
+    </HBox>
+    <Button fx:id="backButton" mnemonicParsing="false" onAction="#back" text="Go back to Main Menu"/>
+</VBox>

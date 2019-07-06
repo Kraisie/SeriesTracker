@@ -7,6 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +19,12 @@ import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
 
 public class SearchController extends Controller {
 
+	@FXML
+	private VBox containerSearchData;
+	@FXML
+	private VBox containerResultSet;
+	@FXML
+	private HBox containerResultButtons;
 	@FXML
 	private Spinner<Integer> durationSpinner;
 	@FXML
@@ -107,38 +115,19 @@ public class SearchController extends Controller {
 
 	/**
 	 * disables or enables specific scene content to either show matches of the search or the UI to select search parameters
+	 *
+	 * @param mode if true it shows the search template, if false it shows the found series
 	 */
 	private void changeSearchMode(boolean mode) {
-		durationSpinner.setVisible(mode);
-		derivationSpinner.setVisible(mode);
-		ratingChoice.setVisible(mode);
-		seasonsSpinner.setVisible(mode);
-		checkStarted.setVisible(mode);
-		checkWatching.setVisible(mode);
-		checkWaiting.setVisible(mode);
-		checkFinished.setVisible(mode);
-		radioContinuing.setVisible(mode);
-		radioEnded.setVisible(mode);
-
-		durationSpinner.setDisable(!mode);
-		derivationSpinner.setDisable(!mode);
-		ratingChoice.setDisable(!mode);
-		seasonsSpinner.setDisable(!mode);
-		checkStarted.setDisable(!mode);
-		checkWatching.setDisable(!mode);
-		checkWaiting.setDisable(!mode);
-		checkFinished.setDisable(!mode);
-		radioContinuing.setDisable(!mode);
-		radioEnded.setDisable(!mode);
-
-		foundMatches.setVisible(!mode);
-		foundMatches.setDisable(mode);
+		containerSearchData.setVisible(mode);
+		containerSearchData.setDisable(!mode);
 		searchButton.setVisible(mode);
 		searchButton.setDisable(!mode);
-		researchButton.setVisible(!mode);
-		researchButton.setDisable(mode);
-		infoButton.setVisible(!mode);
-		infoButton.setDisable(mode);
+
+		containerResultSet.setVisible(!mode);
+		containerResultSet.setDisable(mode);
+		containerResultButtons.setVisible(!mode);
+		containerResultButtons.setDisable(mode);
 	}
 
 	/**

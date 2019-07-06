@@ -105,10 +105,9 @@
     * Improved selection of a series to add
     * Improved layouts for DPI awareness
 * **VERSION 2.2.1**
-    * Made Main Scene and background responsive
-    * Removed "Waiting" table
-    * Added new scene for awaited series
+    * Made all scenes responsive to size changes
+    * Moved "Waiting" table to new scene
     * Fixed problem with series that are not complete and do not provide a continuous list of episodes
-    * Added option to delete a series via right-click
+    * Moved option to delete a series from scene to context menu
     * Improved duplicate check
     * Added option to restore default window size of the main scene

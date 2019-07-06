@@ -1,39 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<AnchorPane id="anchorPane" prefHeight="600.0" prefWidth="750.0" stylesheets="@../css/myStyle.css"
-            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Kraisie.SceneController.SettingsController">
-    <Button fx:id="saveButton" layoutX="312.0" layoutY="558.0" mnemonicParsing="false" onAction="#save"
-            text="Save Settings"/>
-    <Button fx:id="backButton" layoutX="681.0" layoutY="558.0" mnemonicParsing="false" onAction="#back" text="Back"/>
-    <Button layoutX="624.0" layoutY="299.0" mnemonicParsing="false" onAction="#changePathSave" text="Change Path"/>
-    <Label id="normalLabel" layoutX="17.0" layoutY="265.0" text="Folder to save your series in:"/>
-    <Label id="normalLabel" layoutX="11.0" layoutY="347.0" text="Folder to save your BackUp in:"/>
-    <Label id="normalLabel" layoutX="11.0" layoutY="426.0" text="Frequency of BackUps in days:"/>
-    <Label id="biggerLabel" alignment="CENTER" layoutY="14.0" prefHeight="30.0" prefWidth="750.0" text="SETTINGS"
-           textAlignment="CENTER" underline="true">
-        <font>
-            <Font size="25.0"/>
-        </font>
-    </Label>
-    <Button layoutX="624.0" layoutY="378.0" mnemonicParsing="false" onAction="#changePathBackUp" text="Change Path"/>
-    <Spinner fx:id="frequencySpinner" layoutX="319.0" layoutY="419.0" prefHeight="25.0" prefWidth="95.0"/>
-    <TextField fx:id="textPathSave" editable="false" layoutX="70.0" layoutY="298.0" prefHeight="30.0"
-               prefWidth="500.0"/>
-    <TextField fx:id="textPathBackUp" layoutX="68.0" layoutY="377.0" prefHeight="30.0" prefWidth="500.0"/>
-    <Button layoutX="14.0" layoutY="558.0" mnemonicParsing="false" onAction="#standard" text="Standard Settings"/>
-    <Label id="normalLabel" layoutX="15.0" layoutY="79.0" text="Folder to save your API key in:"/>
-    <TextField fx:id="textPathAPIKey" layoutX="70.0" layoutY="103.0" prefHeight="30.0" prefWidth="500.0"/>
-    <Button layoutX="624.0" layoutY="104.0" mnemonicParsing="false" onAction="#changePathAPIKey" text="Change Path"/>
-    <Label id="normalLabel" layoutX="80.0" layoutY="151.0" text="&quot;apikey&quot;:"/>
-    <Label id="normalLabel" layoutX="76.0" layoutY="186.0" text="&quot;userkey&quot;:"/>
-    <Label id="normalLabel" layoutX="70.0" layoutY="221.0" text="&quot;username&quot;:"/>
-    <TextField fx:id="textApiKey" layoutX="171.0" layoutY="146.0" prefHeight="30.0" prefWidth="400.0"/>
-    <TextField fx:id="textUserKey" layoutX="171.0" layoutY="181.0" prefHeight="30.0" prefWidth="400.0"/>
-    <TextField fx:id="textUserName" layoutX="171.0" layoutY="216.0" prefHeight="30.0" prefWidth="400.0"/>
-    <Label id="normalLabel" layoutX="11.0" layoutY="468.0" text="Preferred Language for TVDB:"/>
-    <ComboBox fx:id="languageCombo" layoutX="319.0" layoutY="466.0" prefWidth="95.0"/>
-</AnchorPane>
+<?import javafx.scene.layout.*?>
+<VBox id="myPane" alignment="CENTER" spacing="10.0" stylesheets="@../css/myStyle.css"
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Kraisie.SceneController.SettingsController">
+    <padding>
+        <Insets top="20.0"/>
+    </padding>
+    <Label id="biggerLabel" text="SETTINGS" textAlignment="CENTER" underline="true"/>
+    <GridPane hgap="15.0" vgap="10.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0"/>
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="300.0"/>
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <padding>
+            <Insets bottom="10.0" left="25.0" right="25.0" top="15.0"/>
+        </padding>
+        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" text="Save Settings"
+                GridPane.rowIndex="9"/>
+        <Button mnemonicParsing="false" onAction="#standard" text="Standard Settings" GridPane.columnIndex="1"
+                GridPane.rowIndex="9"/>
+        <Button fx:id="backButton" mnemonicParsing="false" onAction="#back" text="Back" GridPane.columnIndex="2"
+                GridPane.rowIndex="9"/>
+        <Label id="normalLabel" text="Folder to save your API key in:"/>
+        <TextField fx:id="textPathAPIKey" GridPane.columnIndex="1"/>
+        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#changePathAPIKey" text="Change Path"
+                GridPane.columnIndex="2"/>
+        <Label id="normalLabel" text="&quot;apikey&quot;:" GridPane.rowIndex="1"/>
+        <Label id="normalLabel" text="&quot;userkey&quot;:" GridPane.rowIndex="2"/>
+        <Label id="normalLabel" text="&quot;username&quot;:" GridPane.rowIndex="3"/>
+        <TextField fx:id="textApiKey" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <TextField fx:id="textUserKey" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <TextField fx:id="textUserName" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label id="normalLabel" text="Folder to save your series in:" GridPane.rowIndex="4"/>
+        <TextField fx:id="textPathSave" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Label id="normalLabel" text="Folder to save your BackUp in:" GridPane.rowIndex="5"/>
+        <TextField fx:id="textPathBackUp" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        <Button mnemonicParsing="false" onAction="#changePathSave" text="Change Path" GridPane.columnIndex="2"
+                GridPane.rowIndex="4"/>
+        <Button mnemonicParsing="false" onAction="#changePathBackUp" text="Change Path" GridPane.columnIndex="2"
+                GridPane.rowIndex="5"/>
+        <Label id="normalLabel" text="Frequency of BackUps in days:" GridPane.rowIndex="6"/>
+        <Label id="normalLabel" text="Preferred Language for TVDB:" GridPane.rowIndex="7"/>
+        <Spinner fx:id="frequencySpinner" prefHeight="25.0" prefWidth="95.0" GridPane.columnIndex="1"
+                 GridPane.rowIndex="6"/>
+        <ComboBox fx:id="languageCombo" prefWidth="95.0" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+    </GridPane>
+</VBox>

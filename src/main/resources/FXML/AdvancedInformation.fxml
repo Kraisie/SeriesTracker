@@ -1,62 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane id="anchorPane" prefHeight="740.0" prefWidth="1140.0" stylesheets="@../css/myStyle.css"
-            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Kraisie.SceneController.AdvancedInformationController">
-    <ImageView fx:id="imgSeriesBanner" fitHeight="140.0" fitWidth="758.0" layoutX="191.0" layoutY="14.0"
-               pickOnBounds="true" preserveRatio="true"/>
-    <Label id="biggerLabel" fx:id="labelSeriesName" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0"
-           layoutY="170.0" prefHeight="29.0" prefWidth="1163.0" textAlignment="CENTER">
-        <font>
-            <Font size="25.0"/>
-        </font>
-    </Label>
-    <Label id="normalLabel" layoutX="97.0" layoutY="221.0" text="Status of the series:"/>
-    <Label id="normalLabel" fx:id="labelStatusInfo" layoutX="335.0" layoutY="221.0"/>
-    <Label id="normalLabel" layoutX="515.0" layoutY="221.0" text="Rating:"/>
-    <Label id="normalLabel" fx:id="labelRatingInfo" layoutX="690.0" layoutY="221.0"/>
-    <Label id="normalLabel" layoutX="835.0" layoutY="221.0" text="Number of seasons:"/>
-    <Label id="normalLabel" fx:id="labelNrSeasonInfo" alignment="CENTER_RIGHT" layoutX="1025.0" layoutY="221.0"
-           textAlignment="RIGHT"/>
-    <Label id="normalLabel" layoutX="97.0" layoutY="251.0" text="Average length of an episode:"/>
-    <Label id="normalLabel" fx:id="labelRuntimeInfo" layoutX="335.0" layoutY="251.0"/>
-    <Label id="normalLabel" layoutX="515.0" layoutY="251.0" text="Current season:"/>
-    <Label id="normalLabel" fx:id="labelCurrentSeasonInfo" layoutX="690.0" layoutY="251.0"/>
-    <Label id="normalLabel" layoutX="835.0" layoutY="251.0" text="Number of episodes:"/>
-    <Label id="normalLabel" fx:id="labelNrEpisodeInfo" layoutX="1025.0" layoutY="251.0"/>
-    <Label id="normalLabel" layoutX="97.0" layoutY="281.0" text="'Wasted' time:"/>
-    <Label id="normalLabel" fx:id="labelWastedInfo" layoutX="335.0" layoutY="281.0"/>
-    <Label id="normalLabel" layoutX="515.0" layoutY="281.0" text="Current episode:"/>
-    <Label id="normalLabel" fx:id="labelCurrentEpisodeInfo" layoutX="690.0" layoutY="281.0"/>
-    <Label id="normalLabel" layoutX="835.0" layoutY="281.0" text="Completion:"/>
-    <Label id="normalLabel" fx:id="labelCompletionInfo" layoutX="1025.0" layoutY="281.0"/>
-    <Label id="normalLabel" alignment="CENTER" layoutX="94.0" layoutY="304.0" prefHeight="29.0" prefWidth="976.0"
-           text="Overview of the series" textAlignment="CENTER"/>
-    <TextArea fx:id="overviewSeries" editable="false" layoutX="94.0" layoutY="333.0" prefHeight="140.0"
-              prefWidth="976.0" wrapText="true"/>
-    <Separator layoutX="-2.0" layoutY="505.0" prefHeight="7.0" prefWidth="1149.0"/>
-    <Button layoutX="498.0" layoutY="514.0" mnemonicParsing="false" onAction="#decEpisode" prefHeight="25.0"
-            prefWidth="26.0" text="-"/>
-    <Button layoutX="637.0" layoutY="514.0" mnemonicParsing="false" onAction="#incEpisode" prefHeight="25.0"
-            prefWidth="26.0" text="+"/>
-    <Label id="normalLabel" fx:id="labelEpOfSeason" alignment="CENTER" layoutY="519.0" prefHeight="19.0"
-           prefWidth="1163.0" textAlignment="CENTER"/>
-    <Button layoutX="706.0" layoutY="514.0" mnemonicParsing="false" onAction="#selectCurrentEpisode"
-            text="Go to current Episode"/>
-    <Label id="smallAlert" fx:id="labelIsCurrent" alignment="CENTER" layoutY="539.0" prefHeight="11.0"
-           prefWidth="1163.0" text="Your current episode" textFill="RED">
-        <font>
-            <Font size="9.0"/>
-        </font>
-    </Label>
-    <TextArea fx:id="overviewEpisode" editable="false" layoutX="94.0" layoutY="563.0" prefHeight="126.0"
-              prefWidth="976.0" wrapText="true"/>
-    <Button fx:id="backButton" layoutX="798.0" layoutY="701.0" mnemonicParsing="false" onAction="#back"
-            text="Select another series"/>
-    <Button fx:id="backMenuButton" layoutX="990.0" layoutY="701.0" mnemonicParsing="false" onAction="#backToMain"
-            text="Back to Main Menu"/>
+<AnchorPane id="myPane" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="Kraisie.SceneController.AdvancedInformationController">
+    <VBox layoutX="-5.0" layoutY="50.0" spacing="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="25.0"
+          AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="50.0">
+        <VBox alignment="CENTER" spacing="10.0">
+            <ImageView fx:id="imgSeriesBanner" fitHeight="140.0" fitWidth="758.0" pickOnBounds="true"
+                       preserveRatio="true" VBox.vgrow="NEVER"/>
+            <Label id="biggerLabel" fx:id="labelSeriesName" alignment="CENTER" contentDisplay="CENTER"
+                   textAlignment="CENTER">
+                <font>
+                    <Font size="25.0"/>
+                </font>
+            </Label>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets/>
+                </VBox.margin>
+                <Label id="normalLabel" text="Status of the series:"/>
+                <Label id="normalLabel" text="Rating:" GridPane.columnIndex="2"/>
+                <Label id="normalLabel" text="Number of seasons:" GridPane.columnIndex="4"/>
+                <Label id="normalLabel" fx:id="labelStatusInfo" GridPane.columnIndex="1"/>
+                <Label id="normalLabel" fx:id="labelRatingInfo" GridPane.columnIndex="3"/>
+                <Label id="normalLabel" fx:id="labelNrSeasonInfo" alignment="CENTER_RIGHT" textAlignment="RIGHT"
+                       GridPane.columnIndex="5"/>
+                <Label id="normalLabel" text="Average length of an episode:" GridPane.rowIndex="1"/>
+                <Label id="normalLabel" fx:id="labelRuntimeInfo" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label id="normalLabel" text="Current season:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <Label id="normalLabel" fx:id="labelCurrentSeasonInfo" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                <Label id="normalLabel" text="Number of episodes:" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+                <Label id="normalLabel" fx:id="labelNrEpisodeInfo" GridPane.columnIndex="5" GridPane.rowIndex="1"/>
+                <Label id="normalLabel" text="'Wasted' time:" GridPane.rowIndex="2"/>
+                <Label id="normalLabel" fx:id="labelWastedInfo" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label id="normalLabel" text="Current episode:" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <Label id="normalLabel" fx:id="labelCurrentEpisodeInfo" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                <Label id="normalLabel" text="Completion:" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+                <Label id="normalLabel" fx:id="labelCompletionInfo" GridPane.columnIndex="5" GridPane.rowIndex="2"/>
+            </GridPane>
+            <Label id="normalLabel" alignment="CENTER" prefHeight="29.0" prefWidth="976.0" text="Overview of the series"
+                   textAlignment="CENTER"/>
+            <TextArea fx:id="overviewSeries" editable="false" wrapText="true">
+                <VBox.margin>
+                    <Insets/>
+                </VBox.margin>
+            </TextArea>
+        </VBox>
+        <Separator/>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0"/>
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <Button mnemonicParsing="false" onAction="#decEpisode" text="-"/>
+            <Label id="normalLabel" fx:id="labelEpOfSeason" alignment="CENTER" textAlignment="CENTER"
+                   GridPane.columnIndex="1"/>
+            <Label id="smallAlert" fx:id="labelIsCurrent" alignment="CENTER" text="Your current episode" textFill="RED"
+                   GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <font>
+                    <Font size="9.0"/>
+                </font>
+            </Label>
+            <HBox spacing="25.0" GridPane.columnIndex="2">
+                <Button mnemonicParsing="false" onAction="#incEpisode" text="+"/>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#selectCurrentEpisode" text="Go to current Episode"
+                    GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        </GridPane>
+        <TextArea fx:id="overviewEpisode" editable="false" wrapText="true"/>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#back" text="Select another series"/>
+            <Button fx:id="backMenuButton" mnemonicParsing="false" onAction="#backToMain" text="Back to Main Menu"
+                    GridPane.columnIndex="1"/>
+        </GridPane>
+    </VBox>
 </AnchorPane>

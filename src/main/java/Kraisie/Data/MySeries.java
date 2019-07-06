@@ -168,15 +168,18 @@ public class MySeries {
 	 * @return a String representation of the time in minutes, hours or days
 	 */
 	public static String wastedMinutesToString(int time) {
-		// if lower than 2 hours print minutes, lower than 7 days print hours, else use days
+		// if lower than 2 hours print minutes, lower than 7 days print hours, if lower than 64 days print days, else use months (31 days)
 		if (time < 120) {
 			return time + " minutes wasted";
 		} else if (time < (7 * 24 * 60)) {
 			String wastedTime = String.format("%.2f", ((double) time / 60));
 			return wastedTime + " hours wasted";
-		} else {
+		} else if (time < (64 * 24 * 60)) {
 			String wastedTime = String.format("%.2f", (((double) time / 60) / 24));
 			return wastedTime + " days wasted";
+		} else {
+			String wastedTime = String.format("%.2f", ((((double) time / 60) / 24) / 31));
+			return wastedTime + " months wasted";
 		}
 	}
 
@@ -197,12 +200,12 @@ public class MySeries {
 	 * @param newCurrent set the episode which should get seen next
 	 */
 	public void setCurrent(Episode newCurrent) {
-		//just sets watched right for newCurrent after current, if it is before it won't change the ones behind
 		for (Episode ep : episodes) {
 			if (ep.equals(newCurrent)) {
 				ep.setCurrent(true);
 				break;
 			}
+			// sets all episodes in front of newCurrent to watched
 			ep.setWatched(true);
 		}
 	}

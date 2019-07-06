@@ -1,14 +1,7 @@
 /*
-    AnchorPane
+    used for all panes in the background (lowest level)
 */
-#anchorPane {
-    -fx-background-color: linear-gradient(to bottom left, #4d4d4d, #727272, #4d4d4d);
-}
-
-/*
-    BorderPane
-*/
-#borderPane {
+#myPane {
     -fx-background-color: linear-gradient(to bottom left, #4d4d4d, #727272, #4d4d4d);
 }
 
@@ -121,7 +114,7 @@
     -fx-text-fill: white;
 }
 
-#centeredColumn {
+#centeredColumn, #centeredList .list-cell {
     -fx-alignment: center;
 }
 

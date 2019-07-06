@@ -49,6 +49,7 @@ public class FinishedController extends Controller {
 		}
 
 		setCellValueFactories();
+		setColumnWidth();
 		tableFinishedSeries.setItems(finishedSeries);
 		labelWasted.setText(MySeries.wastedMinutesToString(calcWastedTime(finishedSeries)));
 	}
@@ -60,6 +61,15 @@ public class FinishedController extends Controller {
 		columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		columnSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
 		columnEpisodes.setCellValueFactory(new PropertyValueFactory<>("sumEpisodes"));
+	}
+
+	/**
+	 * sets the column width for every column
+	 */
+	private void setColumnWidth() {
+		columnName.prefWidthProperty().bind(tableFinishedSeries.widthProperty().divide((5d / 3d)));
+		columnSeasons.prefWidthProperty().bind(tableFinishedSeries.widthProperty().divide(5));
+		columnEpisodes.prefWidthProperty().bind(tableFinishedSeries.widthProperty().divide(5));
 	}
 
 	/**

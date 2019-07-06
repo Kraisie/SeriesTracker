@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<BorderPane id="borderPane" fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+<BorderPane id="myPane" fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
             prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/myStyle.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="Kraisie.SceneController.MainSeriesController">
@@ -23,7 +23,6 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
                 <MenuItem mnemonicParsing="false" onAction="#addSeries" text="Add a new Series"/>
-                <MenuItem mnemonicParsing="false" onAction="#deleteSeries" text="Delete a series"/>
                 <SeparatorMenuItem mnemonicParsing="false"/>
                 <MenuItem mnemonicParsing="false" onAction="#importBackUp" text="Import BackUp"/>
                 <MenuItem mnemonicParsing="false" onAction="#createBackUp" text="Create new BackUp"/>
