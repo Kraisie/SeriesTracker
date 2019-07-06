@@ -663,22 +663,6 @@ public class MainSeriesController extends Controller {
 	}
 
 	/**
-	 * opens scene to delete series
-	 *
-	 * @see Controller
-	 * @see DeleteController
-	 */
-	@FXML
-	private void deleteSeries() {
-		try {
-			String title = "Delete series";
-			openScene((Stage) menuBar.getScene().getWindow(), "/FXML/DeleteSeries.fxml", title);
-		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) menuBar.getScene().getWindow());
-		}
-	}
-
-	/**
 	 * opens settings scene
 	 *
 	 * @see Controller
