@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -32,8 +31,7 @@
         <padding>
             <Insets bottom="10.0" left="25.0" right="25.0" top="15.0"/>
         </padding>
-        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" text="Save Settings"
-                GridPane.rowIndex="9"/>
+        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" text="Save Settings" GridPane.rowIndex="9"/>
         <Button mnemonicParsing="false" onAction="#standard" text="Standard Settings" GridPane.columnIndex="1"
                 GridPane.rowIndex="9"/>
         <Button fx:id="backButton" mnemonicParsing="false" onAction="#back" text="Back" GridPane.columnIndex="2"
@@ -56,8 +54,8 @@
                 GridPane.rowIndex="4"/>
         <Button mnemonicParsing="false" onAction="#changePathBackUp" text="Change Path" GridPane.columnIndex="2"
                 GridPane.rowIndex="5"/>
-        <Label id="normalLabel" text="Frequency of BackUps in days:" GridPane.rowIndex="6"/>
-        <Label id="normalLabel" text="Preferred Language for TVDB:" GridPane.rowIndex="7"/>
+        <Label id="normalLabel" fx:id="labelBackUp" text="Frequency of BackUps in days:" GridPane.rowIndex="6"/>
+        <Label id="normalLabel" fx:id="labelLanguage" text="Preferred Language for TVDB:" GridPane.rowIndex="7"/>
         <Spinner fx:id="frequencySpinner" prefHeight="25.0" prefWidth="95.0" GridPane.columnIndex="1"
                  GridPane.rowIndex="6"/>
         <ComboBox fx:id="languageCombo" prefWidth="95.0" GridPane.columnIndex="1" GridPane.rowIndex="7"/>

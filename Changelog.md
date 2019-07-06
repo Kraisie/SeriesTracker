@@ -111,3 +111,4 @@
     * Moved option to delete a series from scene to context menu
     * Improved duplicate check
     * Added option to restore default window size of the main scene
+    * Added tooltips for unclear options/parameter

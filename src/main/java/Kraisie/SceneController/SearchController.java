@@ -45,6 +45,10 @@ public class SearchController extends Controller {
 	@FXML
 	private ToggleGroup state;
 	@FXML
+	private Label labelDerivation;
+	@FXML
+	private Label labelUserstate;
+	@FXML
 	private Button backButton;
 	@FXML
 	private Button searchButton;
@@ -106,6 +110,19 @@ public class SearchController extends Controller {
 		} else {
 			changeSearchMode(false);
 		}
+
+		// add hover listeners to labels that show a tooltip
+		setTooltipToLabel(labelDerivation,
+				"If you search for series with a duration of 30 minutes\n" +
+						"and choose a derivation of 5 minutes you will get all\n" +
+						"series with episodes that are 25 to 35 minutes long."
+		);
+
+		setTooltipToLabel(labelUserstate,
+				"If you search for series with a duration of 30 minutes\n" +
+						"and choose a derivation of 5 minutes you will get all\n" +
+						"series with episodes that are 25 to 35 minutes long."
+		);
 	}
 
 	/**

@@ -39,6 +39,10 @@ public class SettingsController extends Controller {
 	@FXML
 	private ComboBox<String> languageCombo;
 	@FXML
+	private Label labelBackUp;
+	@FXML
+	private Label labelLanguage;
+	@FXML
 	private Button backButton;
 	@FXML
 	private Button saveButton;
@@ -49,6 +53,19 @@ public class SettingsController extends Controller {
 	@FXML
 	private void initialize() {
 		fillSettings();
+
+		// add hover listeners to labels that show a tooltip
+		setTooltipToLabel(labelBackUp,
+				"If set to one it will create an update every day.\n" +
+						"You can increase the duration of BackUp cycle\n" +
+						"to a maximum of 14 days."
+		);
+
+		setTooltipToLabel(labelLanguage,
+				"You can select the language which you want to use\n" +
+						"to search for data in TVDB. If the data is not provided\n" +
+						"in your desired language it will use english."
+		);
 	}
 
 	/**

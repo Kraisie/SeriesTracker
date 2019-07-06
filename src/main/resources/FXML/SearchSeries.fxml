@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -15,7 +16,11 @@
             </font>
         </Label>
         <Label id="normalAlert" alignment="CENTER"
-               text="Leave Fields on 0 if you do not want to include them in your search!" textFill="RED"/>
+               text="Leave Fields on 0 if you do not want to include them in your search!" textFill="RED">
+            <VBox.margin>
+                <Insets bottom="5.0" top="5.0"/>
+            </VBox.margin>
+        </Label>
         <GridPane hgap="15.0" vgap="15.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
@@ -35,7 +40,8 @@
                 </font>
             </Label>
             <Spinner fx:id="durationSpinner" editable="true" prefWidth="95.0" GridPane.columnIndex="1"/>
-            <Label id="normalLabel" text="Derivation of duration in minutes (±):" GridPane.rowIndex="1"/>
+            <Label id="normalLabel" fx:id="labelDerivation" text="Derivation of duration in minutes (±):"
+                   GridPane.rowIndex="1"/>
             <Spinner fx:id="derivationSpinner" editable="true" prefWidth="95.0" GridPane.columnIndex="1"
                      GridPane.rowIndex="1"/>
             <Label id="normalLabel" text="Rating of the series:" GridPane.rowIndex="2">
@@ -51,7 +57,7 @@
             </Label>
             <Spinner fx:id="seasonsSpinner" editable="true" prefWidth="95.0" GridPane.columnIndex="1"
                      GridPane.rowIndex="3"/>
-            <Label id="normalLabel" text="Userstate of series:" GridPane.rowIndex="4">
+            <Label id="normalLabel" fx:id="labelUserstate" text="Userstate of series:" GridPane.rowIndex="4">
                 <font>
                     <Font size="15.0"/>
                 </font>

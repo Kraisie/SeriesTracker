@@ -7,11 +7,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,6 +48,15 @@ class Controller {
 
 		imageView.setX((imageView.getFitWidth() - width) / 2);
 		imageView.setY((imageView.getFitHeight() - height) / 2);
+	}
+
+	void setTooltipToLabel(Label label, String text) {
+		label.hoverProperty().addListener((observable, oldValue, newValue) -> {
+			Tooltip tooltip = new Tooltip(text);
+			tooltip.setShowDelay(Duration.millis(200));
+			tooltip.setShowDuration(Duration.INDEFINITE);
+			label.setTooltip(tooltip);
+		});
 	}
 
 	/**
