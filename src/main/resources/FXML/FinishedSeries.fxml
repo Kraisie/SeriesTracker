@@ -22,6 +22,14 @@
             <TableColumn id="centeredColumn" fx:id="columnSeasons" text="Seasons"/>
             <TableColumn id="centeredColumn" fx:id="columnEpisodes" text="Episodes"/>
         </columns>
+        <contextMenu>
+            <ContextMenu>
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#displayInformation" text="Information..."/>
+                    <MenuItem mnemonicParsing="false" onAction="#deleteSeries" text="Delete"/>
+                </items>
+            </ContextMenu>
+        </contextMenu>
     </TableView>
     <HBox spacing="10.0">
         <Label id="normalLabel" text="Total time:"/>

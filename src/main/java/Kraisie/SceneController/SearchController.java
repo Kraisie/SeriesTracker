@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -23,8 +22,6 @@ public class SearchController extends Controller {
 	private VBox containerSearchData;
 	@FXML
 	private VBox containerResultSet;
-	@FXML
-	private HBox containerResultButtons;
 	@FXML
 	private Spinner<Integer> durationSpinner;
 	@FXML
@@ -47,8 +44,6 @@ public class SearchController extends Controller {
 	private RadioButton radioEnded;
 	@FXML
 	private ToggleGroup state;
-	@FXML
-	private Button infoButton;
 	@FXML
 	private Button backButton;
 	@FXML
@@ -126,8 +121,8 @@ public class SearchController extends Controller {
 
 		containerResultSet.setVisible(!mode);
 		containerResultSet.setDisable(mode);
-		containerResultButtons.setVisible(!mode);
-		containerResultButtons.setDisable(mode);
+		researchButton.setVisible(!mode);
+		researchButton.setDisable(mode);
 	}
 
 	/**
@@ -188,6 +183,44 @@ public class SearchController extends Controller {
 		isAlreadyFound = true;
 		tmpMatches = matches;
 		ownInitialize();
+	}
+
+	/**
+	 * opens information scene for a selected series
+	 *
+	 * @see Controller
+	 * @see AdvancedInformationController
+	 */
+	@FXML
+	private void displayInformation() {
+		MySeries selectedSeries = getSelectedSeries();
+
+		if (selectedSeries == null) {
+			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.", (Stage) foundMatches.getScene().getWindow());
+			return;
+		}
+
+		try {
+			String title = "Information about " + selectedSeries.getName();
+			openAdvancedInformationFromSearch((Stage) foundMatches.getScene().getWindow(), "/FXML/AdvancedInformation.fxml", title, selectedSeries, tmpMatches);
+		} catch (IOException e) {
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) foundMatches.getScene().getWindow());
+		}
+	}
+
+	/**
+	 * @return series that is selected in ListView or null if not found
+	 */
+	private MySeries getSelectedSeries() {
+		String name = foundMatches.getSelectionModel().getSelectedItem();
+		List<MySeries> allSeries = MySeries.readData();
+		for (MySeries series : allSeries) {
+			if (series.getName().equals(name)) {
+				return series;
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -297,35 +330,6 @@ public class SearchController extends Controller {
 		tmpMatches = null;
 		isAlreadyFound = false;
 		ownInitialize();
-	}
-
-	/**
-	 * opens information scene for a specific series and injects list of all matches to reuse it later
-	 *
-	 * @see Controller
-	 * @see AdvancedInformationController
-	 */
-	@FXML
-	private void showInformation() {
-		if (foundMatches.getSelectionModel().getSelectedItem() == null) {
-			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.", (Stage) infoButton.getScene().getWindow());
-			return;
-		}
-
-		List<MySeries> allSeries = MySeries.readData();
-		MySeries selectedSeries = null;
-		for (MySeries series : allSeries) {
-			if (series.getName().equals(foundMatches.getSelectionModel().getSelectedItem())) {
-				selectedSeries = series;
-				break;
-			}
-		}
-
-		try {
-			openAdvancedInformationFromSearch((Stage) infoButton.getScene().getWindow(), "/FXML/AdvancedInformation.fxml", "Information about " + foundMatches.getSelectionModel().getSelectedItem(), selectedSeries, tmpMatches);
-		} catch (IOException e) {
-			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) infoButton.getScene().getWindow());
-		}
 	}
 
 	/**

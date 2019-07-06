@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
 
@@ -86,6 +87,58 @@ public class FinishedController extends Controller {
 		}
 
 		return sum;
+	}
+
+	/**
+	 * opens information scene for a selected series
+	 *
+	 * @see Controller
+	 * @see AdvancedInformationController
+	 */
+	@FXML
+	private void displayInformation() {
+		MySeries selectedSeries = tableFinishedSeries.getSelectionModel().getSelectedItem();
+
+		if (selectedSeries == null) {
+			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.", (Stage) tableFinishedSeries.getScene().getWindow());
+			return;
+		}
+
+		try {
+			String title = "Information about " + selectedSeries.getName();
+			openSceneWithOneParameter((Stage) tableFinishedSeries.getScene().getWindow(), "/FXML/AdvancedInformation.fxml", title, selectedSeries);
+		} catch (IOException e) {
+			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) tableFinishedSeries.getScene().getWindow());
+		}
+	}
+
+	/**
+	 * deletes a selected series after verification in PopUp
+	 */
+	@FXML
+	private void deleteSeries() {
+		MySeries selectedSeries = tableFinishedSeries.getSelectionModel().getSelectedItem();
+		if (selectedSeries == null) {
+			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.", (Stage) tableFinishedSeries.getScene().getWindow());
+			return;
+		}
+
+		boolean verify = popUp.showChoice(
+				"Do you want to delete the series?",
+				"This will delete the series from your list, all progress will be lost and can not be recovered!",
+				(Stage) tableFinishedSeries.getScene().getWindow()
+		);
+
+		if (verify) {
+			List<MySeries> allSeries = MySeries.readData();
+			allSeries.remove(selectedSeries);
+			try {
+				MySeries.writeData(allSeries);
+			} catch (IOException e) {
+				popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) tableFinishedSeries.getScene().getWindow());
+			}
+			initialize();
+		}
 	}
 
 

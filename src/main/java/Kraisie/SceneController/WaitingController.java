@@ -28,6 +28,8 @@ public class WaitingController extends Controller {
 	@FXML
 	private Button backButton;
 
+	private PopUp popUp = new PopUp();
+
 	@FXML
 	private void initialize() {
 		populateTable();
@@ -89,7 +91,6 @@ public class WaitingController extends Controller {
 	 */
 	@FXML
 	private void displayInformation() {
-		PopUp popUp = new PopUp();
 		MySeries selectedSeries = tableWaiting.getSelectionModel().getSelectedItem();
 
 		if (selectedSeries == null) {
@@ -106,6 +107,35 @@ public class WaitingController extends Controller {
 	}
 
 	/**
+	 * deletes a selected series after verification in PopUp
+	 */
+	@FXML
+	private void deleteSeries() {
+		MySeries selectedSeries = tableWaiting.getSelectionModel().getSelectedItem();
+		if (selectedSeries == null) {
+			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.", (Stage) tableWaiting.getScene().getWindow());
+			return;
+		}
+
+		boolean verify = popUp.showChoice(
+				"Do you want to delete the series?",
+				"This will delete the series from your list, all progress will be lost and can not be recovered!",
+				(Stage) tableWaiting.getScene().getWindow()
+		);
+
+		if (verify) {
+			List<MySeries> allSeries = MySeries.readData();
+			allSeries.remove(selectedSeries);
+			try {
+				MySeries.writeData(allSeries);
+			} catch (IOException e) {
+				popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) tableWaiting.getScene().getWindow());
+			}
+			initialize();
+		}
+	}
+
+	/**
 	 * opens main menu scene
 	 *
 	 * @see Controller
@@ -116,7 +146,6 @@ public class WaitingController extends Controller {
 		try {
 			openMain((Stage) backButton.getScene().getWindow());
 		} catch (IOException e) {
-			PopUp popUp = new PopUp();
 			popUp.showError("Failed to open the scene!", getStackTrace(e), true, (Stage) backButton.getScene().getWindow());
 		}
 	}

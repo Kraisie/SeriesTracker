@@ -5,11 +5,11 @@
 <?import javafx.scene.text.*?>
 <AnchorPane id="myPane" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml" fx:controller="Kraisie.SceneController.SearchController">
-    <VBox fx:id="containerSearchData" alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="90.0"
+    <VBox fx:id="containerSearchData" alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="60.0"
           AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
         <Label id="biggerLabel" alignment="CENTER" maxWidth="600.0"
-               text="Search series by duration of the episodes, rating and  number of seasons:"
-               textAlignment="CENTER" wrapText="true">
+               text="Search series by duration of the episodes, rating and  number of seasons:" textAlignment="CENTER"
+               wrapText="true">
             <font>
                 <Font size="22.0"/>
             </font>
@@ -69,18 +69,12 @@
                 </rowConstraints>
                 <CheckBox fx:id="checkStarted" mnemonicParsing="false" selected="true"/>
                 <Label id="normalLabel" text="Not started" GridPane.columnIndex="1"/>
-                <CheckBox fx:id="checkWatching" mnemonicParsing="false" selected="true"
-                          GridPane.rowIndex="1"/>
-                <Label id="normalLabel" text="Currently watching" GridPane.columnIndex="1"
-                       GridPane.rowIndex="1"/>
-                <CheckBox fx:id="checkWaiting" mnemonicParsing="false" selected="true"
-                          GridPane.rowIndex="2"/>
-                <Label id="normalLabel" text="Waiting for new season" GridPane.columnIndex="1"
-                       GridPane.rowIndex="2"/>
-                <CheckBox fx:id="checkFinished" mnemonicParsing="false" selected="true"
-                          GridPane.rowIndex="3"/>
-                <Label id="normalLabel" text="Finished series" GridPane.columnIndex="1"
-                       GridPane.rowIndex="3"/>
+                <CheckBox fx:id="checkWatching" mnemonicParsing="false" selected="true" GridPane.rowIndex="1"/>
+                <Label id="normalLabel" text="Currently watching" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <CheckBox fx:id="checkWaiting" mnemonicParsing="false" selected="true" GridPane.rowIndex="2"/>
+                <Label id="normalLabel" text="Waiting for new season" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <CheckBox fx:id="checkFinished" mnemonicParsing="false" selected="true" GridPane.rowIndex="3"/>
+                <Label id="normalLabel" text="Finished series" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
             </GridPane>
             <Label id="normalLabel" text="State of the series:" GridPane.rowIndex="5">
                 <font>
@@ -94,27 +88,28 @@
                         <ToggleGroup fx:id="state"/>
                     </toggleGroup>
                 </RadioButton>
-                <RadioButton fx:id="radioEnded" mnemonicParsing="false" text="Ended"
-                             toggleGroup="$state"/>
+                <RadioButton fx:id="radioEnded" mnemonicParsing="false" text="Ended" toggleGroup="$state"/>
             </VBox>
         </GridPane>
     </VBox>
-    <VBox fx:id="containerResultSet" alignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="25.0"
+    <VBox fx:id="containerResultSet" alignment="CENTER" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="25.0"
           AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
-        <ListView id="centeredList" fx:id="foundMatches" VBox.vgrow="ALWAYS"/>
+        <ListView id="centeredList" fx:id="foundMatches" VBox.vgrow="ALWAYS">
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#displayInformation" text="Information..."/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </ListView>
     </VBox>
     <VBox layoutX="25.0" layoutY="478.0" spacing="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="25.0"
           AnchorPane.rightAnchor="25.0">
-        <HBox fx:id="containerResultButtons" alignment="CENTER" spacing="25.0">
-            <Button fx:id="infoButton" mnemonicParsing="false" onAction="#showInformation"
-                    text="Information"/>
-            <Button fx:id="researchButton" mnemonicParsing="false" onAction="#reSearch"
-                    text="Search another series"/>
-        </HBox>
         <HBox alignment="CENTER" spacing="25.0">
             <Button fx:id="searchButton" mnemonicParsing="false" onAction="#search" text="Search series"/>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#back"
-                    text="Go back to Main Menu"/>
+            <Button fx:id="researchButton" mnemonicParsing="false" onAction="#reSearch" text="Search another series"/>
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#back" text="Go back to Main Menu"/>
         </HBox>
     </VBox>
 </AnchorPane>

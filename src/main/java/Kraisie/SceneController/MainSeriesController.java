@@ -562,7 +562,7 @@ public class MainSeriesController extends Controller {
 	}
 
 	/**
-	 * deletes a selected series without opening a specific scene but with a verification PopUp
+	 * deletes a selected series after verification in PopUp
 	 */
 	@FXML
 	private void directDeleteSeries() {
