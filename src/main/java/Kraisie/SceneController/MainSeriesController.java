@@ -544,6 +544,40 @@ public class MainSeriesController extends Controller {
 		}
 	}
 
+	/**
+	 * deletes a selected series without opening a specific scene but with a verification PopUp
+	 */
+	@FXML
+	private void directDeleteSeries() {
+		MySeries selectedSeries = tableContinueWatching.getSelectionModel().getSelectedItem();
+
+		if (selectedSeries == null) {
+			selectedSeries = tableStartWatching.getSelectionModel().getSelectedItem();
+		}
+
+		if (selectedSeries == null) {
+			popUp.showWarning("No series selected!", "Please select a series to get the fitting information.", (Stage) tableStartWatching.getScene().getWindow());
+			return;
+		}
+
+		boolean verify = popUp.showChoice(
+				"Do you want to delete the series?",
+				"This will delete the series from your list, all progress will be lost and can not be recovered!",
+				(Stage) tableStartWatching.getScene().getWindow()
+		);
+
+		if (verify) {
+			List<MySeries> allSeries = MySeries.readData();
+			allSeries.remove(selectedSeries);
+			try {
+				MySeries.writeData(allSeries);
+			} catch (IOException e) {
+				popUp.showError("Failed while saving!", "Trying to save data failed. Please check the validity of you Path.", false, (Stage) tableStartWatching.getScene().getWindow());
+			}
+			initialize();
+		}
+	}
+
 	@FXML
 	private void displayWaiting() {
 		try {

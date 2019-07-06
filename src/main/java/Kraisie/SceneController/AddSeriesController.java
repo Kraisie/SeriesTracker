@@ -36,12 +36,6 @@ public class AddSeriesController extends Controller {
 	 */
 	@FXML
 	private void addTVDB() {
-		List<MySeries> allSeries = MySeries.readData();
-		if (MySeries.checkDuplicate(allSeries, nameTVDB.getText())) {
-			popUp.showAlert("Duplicate found!", "That series is already in your list.", false, (Stage) nameTVDB.getScene().getWindow());
-			return;
-		}
-
 		TVDB_Data tvdbAPI = new TVDB_Data(APIKey.readKey());
 		List<SearchData> possibleSeries = tvdbAPI.searchSeries(nameTVDB.getText());
 		if (possibleSeries == null || possibleSeries.size() == 0) {
@@ -49,7 +43,16 @@ public class AddSeriesController extends Controller {
 			return;
 		}
 
+		List<MySeries> allSeries = MySeries.readData();
 		if (possibleSeries.size() == 1) {
+			// check if that series already exists in the list
+			for (SearchData data : possibleSeries) {
+				if (MySeries.checkDuplicate(allSeries, data.getId())) {
+					popUp.showAlert("Duplicate found!", "That series is already in your list.", false, (Stage) nameTVDB.getScene().getWindow());
+					return;
+				}
+			}
+
 			MySeries series = tvdbAPI.getUpdate(String.valueOf(possibleSeries.get(0).getId()), 0, -1, -1);
 			// check for empty series (uncommon but happens)
 			if (series.getEpisodes().size() >= 1) {

@@ -258,6 +258,11 @@ public class SelectController extends Controller {
 
 		if (selectedSeries != null) {
 			List<MySeries> allSeries = MySeries.readData();
+			if (MySeries.checkDuplicate(allSeries, selectedSeries.getId())) {
+				popUp.showAlert("Duplicate found!", "That series is already in your list.", false, (Stage) radio1.getScene().getWindow());
+				return;
+			}
+
 			TVDB_Data tvdbAPI = new TVDB_Data(APIKey.readKey());
 			MySeries series = tvdbAPI.getUpdate(String.valueOf(selectedSeries.getId()), 0, -1, -1);
 

@@ -144,16 +144,16 @@ public class MySeries {
 	 * Checks for duplicate series
 	 *
 	 * @param allSeries list of all series
-	 * @param name      the name of the series that is supposed to be checked
+	 * @param tvdbID      the TVDB id which should get checked
 	 * @return true if a series with the same name is found
 	 */
-	public static boolean checkDuplicate(List<MySeries> allSeries, String name) {
+	public static boolean checkDuplicate(List<MySeries> allSeries, int tvdbID) {
 		if (allSeries.isEmpty()) {
 			return false;
 		}
 
 		for (MySeries series : allSeries) {
-			if (name.equals(series.getName())) {
+			if (String.valueOf(tvdbID).equals(series.getTvdbID())) {
 				return true;
 			}
 		}
@@ -276,6 +276,11 @@ public class MySeries {
 			if (epi.isAired()) {
 				size++;
 			}
+		}
+
+		// if no episodes are watched the user did not start the series yet/did not watch the first episode so the completion is at 0%
+		if (size == 0) {
+			return 0d;
 		}
 
 		return (sum / size) * 100;
