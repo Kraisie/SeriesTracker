@@ -176,6 +176,13 @@ public class MainSeriesController extends Controller {
 		}
 
 		insertTableData(unstartedSeries, watchingSeries);
+
+		/*
+		Force table update as increasing or decreasing the episodes
+		does not seem to trigger an UI update even when calling initialize.
+		Thus we need to refresh the table manually.
+		 */
+		tableContinueWatching.refresh();
 	}
 
 	/**
