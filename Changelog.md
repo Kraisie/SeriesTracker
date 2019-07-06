@@ -110,3 +110,5 @@
     * Added new scene for awaited series
     * Fixed problem with series that are not complete and do not provide a continuous list of episodes
     * Added option to delete a series via right-click
+    * Improved duplicate check
+    * Added option to restore default window size of the main scene

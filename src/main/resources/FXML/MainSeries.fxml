@@ -18,6 +18,7 @@
                 </Menu>
                 <MenuItem mnemonicParsing="false" onAction="#searchSeries" text="Search Series"/>
                 <SeparatorMenuItem mnemonicParsing="false"/>
+                <MenuItem mnemonicParsing="false" onAction="#restoreDefaultResolution" text="Restore default size"/>
                 <MenuItem mnemonicParsing="false" onAction="#close" text="Close"/>
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
@@ -94,6 +95,8 @@
                                 <items>
                                     <MenuItem mnemonicParsing="false" onAction="#displayInformation"
                                               text="Information..."/>
+                                    <MenuItem mnemonicParsing="false" onAction="#directDeleteSeries"
+                                              text="Delete series"/>
                                 </items>
                             </ContextMenu>
                         </contextMenu>
@@ -137,6 +140,8 @@
                                 <items>
                                     <MenuItem mnemonicParsing="false" onAction="#displayInformation"
                                               text="Information..."/>
+                                    <MenuItem mnemonicParsing="false" onAction="#directDeleteSeries"
+                                              text="Delete series"/>
                                 </items>
                             </ContextMenu>
                         </contextMenu>

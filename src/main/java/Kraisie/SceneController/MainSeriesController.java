@@ -86,8 +86,8 @@ public class MainSeriesController extends Controller {
 	 */
 	public void initBackground() {
 		Stage stage = (Stage) borderPane.getScene().getWindow();
-		int width = (int) borderPane.getScene().getWidth();
-		int height = (int) borderPane.getScene().getHeight();
+		int width = (int) borderPane.getWidth();
+		int height = (int) borderPane.getHeight();
 		setBackground(width, height);
 
 		if (borderPane.getBackground().getImages().size() > 0) {
@@ -126,8 +126,8 @@ public class MainSeriesController extends Controller {
 		Image img = borderPane.getBackground().getImages().get(0).getImage();
 		BackgroundManager bm = new BackgroundManager(SwingFXUtils.fromFXImage(img, null));
 
-		int w = (int) borderPane.getScene().getWidth();
-		int h = (int) borderPane.getScene().getHeight();
+		int w = (int) borderPane.getWidth();
+		int h = (int) borderPane.getHeight();
 		Background background = bm.getFittingBackground(w, h);
 		borderPane.setBackground(background);
 	}
@@ -506,6 +506,23 @@ public class MainSeriesController extends Controller {
 		} catch (Exception e) {
 			popUp.showWarning("Can not open browser!", "There is no supported browser installed on your machine.", (Stage) menuBar.getScene().getWindow());
 		}
+	}
+
+	/**
+	 * restores the default resolution of 1280x720
+	 */
+	@FXML
+	private void restoreDefaultResolution() {
+		Stage stage = (Stage) borderPane.getScene().getWindow();
+
+		// calculate difference between BorderPane w/h to Window w/h to get the size of the window border
+		double borderWidth = stage.getWidth() - borderPane.getWidth();
+		double borderHeight = stage.getHeight() - borderPane.getHeight();
+
+		stage.setWidth(1280d + borderWidth);
+		stage.setHeight(720d + borderHeight);
+		borderPane.resize(1280d, 720d);
+		updateBackgroundSize();
 	}
 
 	/**
