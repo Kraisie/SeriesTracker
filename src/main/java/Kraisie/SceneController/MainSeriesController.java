@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -123,7 +124,12 @@ public class MainSeriesController extends Controller {
 	 * updates the image on resize of the scene
 	 */
 	private void updateBackgroundSize() {
-		Image img = borderPane.getBackground().getImages().get(0).getImage();
+		List<BackgroundImage> backgroundImages = borderPane.getBackground().getImages();
+		if (backgroundImages.size() == 0) {
+			return;
+		}
+
+		Image img = backgroundImages.get(0).getImage();
 		BackgroundManager bm = new BackgroundManager(SwingFXUtils.fromFXImage(img, null));
 
 		int w = (int) borderPane.getWidth();

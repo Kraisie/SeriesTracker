@@ -19,7 +19,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.List;
 
-class Controller {
+public class Controller {
 
 	/**
 	 * centers too small images in the ImageView

@@ -4,6 +4,7 @@ import Kraisie.Data.BackUp;
 import Kraisie.Data.MySeries;
 import Kraisie.Data.Settings;
 import Kraisie.Dialog.PopUp;
+import Kraisie.SceneController.Controller;
 import Kraisie.SceneController.MainSeriesController;
 import Kraisie.TVDB.APIKey;
 import Kraisie.TVDB.TVDB_Data;
@@ -167,8 +168,11 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
 			Parent root = loader.load();
 
-			MainSeriesController controller = loader.getController();
-			primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> controller.initBackground());
+			Controller controller = loader.getController();
+			if (controller instanceof MainSeriesController) {
+				MainSeriesController mainController = (MainSeriesController) controller;
+				primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> mainController.initBackground());
+			}
 
 
 			primaryStage.setTitle("Series Control Panel");

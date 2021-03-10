@@ -43,7 +43,7 @@ public class TVDB_Data {
 	 */
 	public static Image getBannerImage(String banner) {
 		try {
-			URL url = new URL("https://thetvdb.com/banners/" + banner);
+			URL url = new URL("https://thetvdb.com" + banner);
 			BufferedImage bufImg = ImageIO.read(url);
 
 			return SwingFXUtils.toFXImage(bufImg, null);
@@ -401,7 +401,7 @@ public class TVDB_Data {
 
 		double rating = 0d;
 		if (series.getData().getSiteRating() != null && !series.getData().getSiteRating().isEmpty()) {
-			rating = Double.valueOf(series.getData().getSiteRating());
+			rating = Double.parseDouble(series.getData().getSiteRating());
 		}
 
 
