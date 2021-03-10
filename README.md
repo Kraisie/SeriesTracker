@@ -6,9 +6,8 @@ All data is provided by [TheTvdb.com](https://www.thetvdb.com/), a database of T
 
 ### Usage
 ##### Needed stuff 
-* You need [Java 12](https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html) for this program
+* You need [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) for this program
 * The `.jar`-File of the [SeriesTracker](https://github.com/Kraisie/SeriesTracker/releases)
-    * You can download the specific version for your platform (Linux, Mac, Windows) or the one that runs on all platforms (Master)
 * And furthermore an account and an API-Key from [TheTvdb.com](https://www.thetvdb.com/member/api) 
 
 ##### Start
