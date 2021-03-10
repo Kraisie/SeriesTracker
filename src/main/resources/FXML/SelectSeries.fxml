@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:id="borderPane" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="kraisie.scenes.SelectSeriesController">
+    <center>
+        <Pagination fx:id="pagination" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="25.0" left="15.0" right="15.0" top="25.0"/>
+            </BorderPane.margin>
+        </Pagination>
+    </center>
+</BorderPane>

@@ -6,6 +6,28 @@
 }
 
 /*
+    used for a grey background on images to make text readable
+*/
+#myBackground,
+.pagination .page {
+    -fx-background-color: linear-gradient(to bottom left, rgba(48, 48, 48, 0.95), rgba(84, 84, 84, 0.95), rgba(48, 48, 48, 0.95));
+    -fx-background-radius: 20;
+    -fx-background-insets: 0, 1;
+    -fx-padding: 7;
+}
+
+/*
+    used for a selection without showing the radio button
+*/
+#selectionButton {
+    -fx-background-color: rgba(50, 50, 50, 0.75);
+}
+
+#selectionButton:hover {
+    -fx-background-color: rgba(22, 22, 22, 0.75);
+}
+
+/*
     PopUp/Dialog
 */
 .dialog-pane {
@@ -38,8 +60,14 @@
     Labels which are not in the main menu
 */
 #normalLabel .text {
-    -fx-font: 15px "Serif";
+    -fx-font: 16px "Serif";
     -fx-fill: #96f52b;
+}
+
+#normalTitle .text {
+    -fx-font: 16px "Serif";
+    -fx-fill: #96f52b;
+    -fx-font-weight: bold;
 }
 
 #biggerLabel .text {
@@ -49,13 +77,15 @@
 }
 
 #smallAlert .text {
-    -fx-font: 9px "Serif";
+    -fx-font: 13px "Serif";
     -fx-fill: #ff0000;
 }
 
 #normalAlert .text {
-    -fx-font: 13px "Serif";
+    -fx-font: 16px "Serif";
     -fx-fill: #ff0000;
+    -fx-stroke: #720000;
+    -fx-stroke-width: 0.35;
 }
 
 /*
@@ -78,6 +108,53 @@
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0.0, 0, 1);
     -fx-font: 14px "Serif";
+    -fx-text-fill: #96f52b;
+}
+
+/*
+    Sidebar
+*/
+#navBar {
+    -fx-pref-width: 300px;
+    -fx-background-color: #282828;
+    -fx-padding: 5 5 5 0;
+    -fx-spacing: 5;
+}
+
+#navBarIcon {
+    -fx-pref-width: 50px;
+    -fx-background-color: #282828;
+    -fx-padding: 25 5 5 5;
+}
+
+#navBarButton {
+    -fx-background-color: inherit;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-pref-width: 300px;
+    -fx-pref-height: 100px;
+    -fx-effect: null;
+    /*Workaround as margin is not supported by css for JavaFX*/
+    -fx-padding: 0 0 5 0;
+    -fx-border-insets: 0 0 5 0;
+    -fx-background-insets: 0 0 5 0;
+}
+
+#navBarIconButton {
+    -fx-background-color: inherit;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    -fx-effect: null;
+}
+
+#navBarButton:hover, #navBarIconButton:hover {
+    -fx-background-color: #323232;
+}
+
+#navBarButton .text {
+    -fx-font: 24px "Serif";
     -fx-text-fill: #96f52b;
 }
 
@@ -215,7 +292,8 @@
 }
 
 .combo-box, .combo-box .list-cell,
-.spinner .text-field, .spinner .increment-arrow-button, .spinner .decrement-arrow-button {
+.spinner .text-field, .spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
     -fx-background-color: linear-gradient(#a0ff35, #a9ff00),
     radial-gradient(center 50% -40%, radius 200%, #646464 45%, #4d4d4d 50%);
     -fx-font: 15px "Serif";
@@ -304,5 +382,41 @@
     -fx-border-radius: 5;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0.0, 0, 1);
     -fx-font: 14px "Serif";
+    -fx-text-fill: #96f52b;
+}
+
+/*
+    Pagination
+*/
+.pagination-control .control-box .number-button,
+.pagination-control .control-box .left-arrow-button,
+.pagination-control .control-box .right-arrow-button {
+    -fx-background-color: linear-gradient(#a0ff35, #a9ff00),
+    radial-gradient(center 50% -40%, radius 200%, #646464 45%, #4d4d4d 50%);
+    -fx-background-radius: 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0.0, 0, 1);
+    -fx-font: 14px "Serif";
+    -fx-text-fill: #96f52b;
+}
+
+.pagination-control .control-box .number-button:hover,
+.pagination-control .control-box .number-button:selected,
+.pagination-control .control-box .left-arrow-button:hover,
+.pagination-control .control-box .right-arrow-button:hover {
+    -fx-background-color: linear-gradient(#8ceb21, #958700),
+    radial-gradient(center 50% -40%, radius 200%, #505050 45%, #393939 50%);
+}
+
+.pagination-control .control-box .left-arrow-button .left-arrow,
+.pagination-control .control-box .right-arrow-button .right-arrow {
+    -fx-background-color: #a9ff00;
+}
+
+.pagination-control .page-information {
+    -fx-background-color: linear-gradient(to bottom left, rgba(48, 48, 48, 0.85), rgba(84, 84, 84, 0.85), rgba(48, 48, 48, 0.85));
+    -fx-background-radius: 3;
+    -fx-padding: 1;
+    -fx-font: 15px "Serif";
     -fx-text-fill: #96f52b;
 }

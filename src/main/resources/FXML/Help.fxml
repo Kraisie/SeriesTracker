@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/myStyle.css"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="kraisie.scenes.HelpController">
+    <children>
+        <WebView fx:id="webView" layoutX="14.0" layoutY="14.0" prefHeight="-1.0" prefWidth="-1.0"
+                 stylesheets="@../css/myStyle.css" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="35.0"
+                 AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="35.0"/>
+    </children>
+</AnchorPane>

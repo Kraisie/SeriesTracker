@@ -4,155 +4,142 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<BorderPane id="myPane" fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/myStyle.css"
-            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Kraisie.SceneController.MainSeriesController">
-    <top>
-        <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
-            <Menu mnemonicParsing="false" text="Mode">
-                <Menu mnemonicParsing="false" text="Sort by...">
-                    <MenuItem mnemonicParsing="false" onAction="#sortByName" text="Name"/>
-                    <MenuItem mnemonicParsing="false" onAction="#sortByCompletion" text="Completion Rate"/>
-                    <MenuItem mnemonicParsing="false" onAction="#sortByTime" text="Less needed Time"/>
-                </Menu>
-                <MenuItem mnemonicParsing="false" onAction="#searchSeries" text="Search Series"/>
-                <SeparatorMenuItem mnemonicParsing="false"/>
-                <MenuItem mnemonicParsing="false" onAction="#restoreDefaultResolution" text="Restore default size"/>
-                <MenuItem mnemonicParsing="false" onAction="#close" text="Close"/>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
-                <MenuItem mnemonicParsing="false" onAction="#addSeries" text="Add a new Series"/>
-                <SeparatorMenuItem mnemonicParsing="false"/>
-                <MenuItem mnemonicParsing="false" onAction="#importBackUp" text="Import BackUp"/>
-                <MenuItem mnemonicParsing="false" onAction="#createBackUp" text="Create new BackUp"/>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Update">
-                <MenuItem mnemonicParsing="false" onAction="#menuUpdateAll" text="Update Series"/>
-                <MenuItem mnemonicParsing="false" onAction="#menuUpdateEnded" text="Update ended Series"/>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Settings">
-                <MenuItem mnemonicParsing="false" onAction="#showSettings" text="Open Settings"/>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-                <MenuItem mnemonicParsing="false" onAction="#showHowTo" text="How to use this program"/>
-                <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About"/>
-            </Menu>
-        </MenuBar>
-    </top>
-    <bottom>
-        <VBox spacing="5.0" BorderPane.alignment="CENTER">
-            <BorderPane.margin>
-                <Insets bottom="3.0"/>
-            </BorderPane.margin>
-            <HBox alignment="CENTER">
-                <Button fx:id="waitButton" minHeight="35.0" mnemonicParsing="false" onAction="#displayWaiting"
-                        text="All awaited series">
-                    <HBox.margin>
-                        <Insets right="25.0"/>
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="buttonFinishedSeries" minHeight="35.0" mnemonicParsing="false"
-                        onAction="#displayFinishedSeries" text="All finished series">
-                    <HBox.margin>
-                        <Insets left="25.0"/>
-                    </HBox.margin>
-                </Button>
-            </HBox>
-            <AnchorPane>
-                <ProgressBar fx:id="progressIndicator" progress="0.0" visible="false" AnchorPane.leftAnchor="0.0"
-                             AnchorPane.rightAnchor="0.0"/>
-            </AnchorPane>
-        </VBox>
-    </bottom>
-    <center>
-        <AnchorPane BorderPane.alignment="CENTER">
-            <BorderPane.margin>
-                <Insets/>
-            </BorderPane.margin>
-            <HBox AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0"
-                  AnchorPane.topAnchor="25.0">
-                <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
-                    <HBox.margin>
-                        <Insets right="50.0"/>
-                    </HBox.margin>
-                    <Label fx:id="labelWatching" alignment="CENTER" contentDisplay="CENTER" text="Continue watching"
-                           textAlignment="CENTER" textFill="LIME" underline="true">
-                        <font>
-                            <Font size="24.0"/>
-                        </font>
-                    </Label>
-                    <TableView fx:id="tableContinueWatching" onKeyPressed="#scrollToKeyWatching"
-                               onMouseClicked="#clickOnTableWatching" opacity="0.9" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn fx:id="columnContinueName" text="Name"/>
-                            <TableColumn id="centeredColumn" fx:id="columnContinueSeason" text="Season"/>
-                            <TableColumn id="centeredColumn" fx:id="columnContinueEpisode" text="Episode"/>
-                        </columns>
-                        <contextMenu>
-                            <ContextMenu>
-                                <items>
-                                    <MenuItem mnemonicParsing="false" onAction="#displayInformation"
-                                              text="Information..."/>
-                                    <MenuItem mnemonicParsing="false" onAction="#directDeleteSeries"
-                                              text="Delete series"/>
-                                </items>
-                            </ContextMenu>
-                        </contextMenu>
-                    </TableView>
-                    <HBox alignment="CENTER">
-                        <VBox.margin>
-                            <Insets/>
-                        </VBox.margin>
-                        <Button fx:id="buttonIncEpisode" alignment="CENTER" minHeight="50.0" minWidth="50.0"
-                                mnemonicParsing="false" onAction="#incEpisodeButton" text="+" HBox.hgrow="ALWAYS">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/myStyle.css"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="kraisie.scenes.MainSeriesController">
+    <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <bottom>
+            <HBox BorderPane.alignment="CENTER">
+                <BorderPane.margin>
+                    <Insets bottom="5.0"/>
+                </BorderPane.margin>
+                <Region minWidth="5.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                        <Button fx:id="waitButton" minHeight="10.0" minWidth="10.0" mnemonicParsing="false"
+                                onAction="#showWaiting" prefHeight="35.0" text="All awaited series"
+                                HBox.hgrow="ALWAYS">
                             <HBox.margin>
-                                <Insets right="25.0"/>
+                                <Insets/>
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="buttonDecEpisode" alignment="CENTER" minHeight="50.0" minWidth="50.0"
-                                mnemonicParsing="false" onAction="#decEpisodeButton" text="-" HBox.hgrow="ALWAYS">
+                        <Region minWidth="5.0" prefWidth="50.0" HBox.hgrow="SOMETIMES"/>
+                        <Button fx:id="buttonFinishedSeries" minHeight="10.0" minWidth="10.0"
+                                mnemonicParsing="false" onAction="#showFinishedSeries" prefHeight="35.0"
+                                text="All finished series" HBox.hgrow="ALWAYS">
                             <HBox.margin>
-                                <Insets left="25.0"/>
+                                <Insets/>
                             </HBox.margin>
                         </Button>
                     </HBox>
                 </VBox>
-                <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
-                    <HBox.margin>
-                        <Insets left="50.0"/>
-                    </HBox.margin>
-                    <Label fx:id="labelStarting" alignment="CENTER" text="Start watching" textFill="LIME"
-                           underline="true">
-                        <font>
-                            <Font size="24.0"/>
-                        </font>
-                    </Label>
-                    <TableView fx:id="tableStartWatching" onKeyPressed="#scrollToKeyNotStarted"
-                               onMouseClicked="#clickOnTableUnstarted" opacity="0.9" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn fx:id="columnStartName" text="Name"/>
-                            <TableColumn id="centeredColumn" fx:id="columnStartSeasons" text="Seasons"/>
-                        </columns>
-                        <contextMenu>
-                            <ContextMenu>
-                                <items>
-                                    <MenuItem mnemonicParsing="false" onAction="#displayInformation"
-                                              text="Information..."/>
-                                    <MenuItem mnemonicParsing="false" onAction="#directDeleteSeries"
-                                              text="Delete series"/>
-                                </items>
-                            </ContextMenu>
-                        </contextMenu>
-                    </TableView>
-                    <Button fx:id="buttonStartedSeries" alignment="CENTER_RIGHT" minHeight="50.0"
-                            mnemonicParsing="false" onAction="#startSeries" text="Started series" VBox.vgrow="ALWAYS">
-                        <VBox.margin>
-                            <Insets/>
-                        </VBox.margin>
-                    </Button>
-                </VBox>
+                <Region minWidth="5.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
             </HBox>
-        </AnchorPane>
-    </center>
-</BorderPane>
+        </bottom>
+        <center>
+            <AnchorPane BorderPane.alignment="CENTER">
+                <BorderPane.margin>
+                    <Insets/>
+                </BorderPane.margin>
+                <HBox layoutY="25.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+                    <Region maxWidth="-Infinity" minWidth="5.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+                    <VBox alignment="CENTER" minWidth="50.0" HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets/>
+                        </HBox.margin>
+                        <Label fx:id="labelWatching" alignment="CENTER" contentDisplay="CENTER"
+                               text="Continue watching" textAlignment="CENTER" textFill="LIME" underline="true">
+                            <font>
+                                <Font size="24.0"/>
+                            </font>
+                        </Label>
+                        <Region maxHeight="-Infinity" minHeight="5.0" prefHeight="15.0" VBox.vgrow="ALWAYS"/>
+                        <TableView fx:id="tableContinueWatching" minHeight="50.0" minWidth="30.0"
+                                   onKeyPressed="#scrollToKeyWatching" onMouseClicked="#clickOnTableWatching"
+                                   opacity="0.9" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="columnContinueName" text="Name"/>
+                                <TableColumn id="centeredColumn" fx:id="columnContinueSeason" text="Season"/>
+                                <TableColumn id="centeredColumn" fx:id="columnContinueEpisode" text="Episode"/>
+                            </columns>
+                            <contextMenu>
+                                <ContextMenu>
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#showInformation"
+                                                  text="Information..."/>
+                                        <MenuItem mnemonicParsing="false" onAction="#deleteSeries"
+                                                  text="Delete series"/>
+                                    </items>
+                                </ContextMenu>
+                            </contextMenu>
+                        </TableView>
+                        <Region maxHeight="-Infinity" minHeight="5.0" prefHeight="15.0" VBox.vgrow="ALWAYS"/>
+                        <HBox alignment="CENTER" VBox.vgrow="NEVER">
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                            <Region minWidth="5.0" HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="buttonIncEpisode" alignment="CENTER" minWidth="10.0"
+                                    mnemonicParsing="false" onAction="#incEpisodeButton" prefHeight="50.0"
+                                    prefWidth="50.0" text="+" HBox.hgrow="SOMETIMES">
+                                <HBox.margin>
+                                    <Insets/>
+                                </HBox.margin>
+                            </Button>
+                            <Region minWidth="5.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="buttonDecEpisode" alignment="CENTER" minWidth="10.0"
+                                    mnemonicParsing="false" onAction="#decEpisodeButton" prefHeight="50.0"
+                                    prefWidth="50.0" text="-" HBox.hgrow="SOMETIMES">
+                                <HBox.margin>
+                                    <Insets/>
+                                </HBox.margin>
+                            </Button>
+                            <Region minWidth="5.0" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+                    <Region maxWidth="-Infinity" minWidth="5.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+                    <VBox alignment="CENTER" minWidth="50.0" HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets/>
+                        </HBox.margin>
+                        <Label fx:id="labelStarting" alignment="CENTER" text="Start watching" textFill="LIME"
+                               underline="true">
+                            <font>
+                                <Font size="24.0"/>
+                            </font>
+                        </Label>
+                        <Region maxHeight="-Infinity" minHeight="5.0" prefHeight="15.0"/>
+                        <TableView fx:id="tableStartWatching" minHeight="50.0" minWidth="30.0"
+                                   onKeyPressed="#scrollToKeyNotStarted" onMouseClicked="#clickOnTableUnstarted"
+                                   opacity="0.9" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="columnStartName" text="Name"/>
+                                <TableColumn id="centeredColumn" fx:id="columnStartSeasons" text="Seasons"/>
+                            </columns>
+                            <contextMenu>
+                                <ContextMenu>
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#showInformation"
+                                                  text="Information..."/>
+                                        <MenuItem mnemonicParsing="false" onAction="#deleteSeries"
+                                                  text="Delete series"/>
+                                    </items>
+                                </ContextMenu>
+                            </contextMenu>
+                        </TableView>
+                        <Region maxHeight="-Infinity" minHeight="5.0" prefHeight="15.0"/>
+                        <Button fx:id="buttonStartedSeries" alignment="CENTER_RIGHT" minWidth="10.0"
+                                mnemonicParsing="false" onAction="#startSeries" prefHeight="50.0"
+                                text="Started series" VBox.vgrow="SOMETIMES">
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                        </Button>
+                    </VBox>
+                    <Region maxWidth="-Infinity" minWidth="5.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </AnchorPane>
+        </center>
+    </BorderPane>
+</AnchorPane>

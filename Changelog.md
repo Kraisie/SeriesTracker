@@ -70,45 +70,48 @@
     * Fixed invalid keystrokes to scroll
     * Removed unnecessary logins to TVDB
 * **VERSION 2.0.2 - Fixed Windows related issues and a few bugs**
-    * Fixed small bug when searching for series
-    * Removed double PopUp when APIKey was missing
-    * Fixed [Windows resizeable window bug](https://bugs.openjdk.java.net/browse/JDK-8089008)
-* **VERSION 2.1**
-    * Improved stability and code quality
-    * Added time related order option
-    * Added `About` screen
-* **VERSION 2.1.1**
-    * Added icon to PopUps
-    * Changed main menu sizes
-    * Changed date related and search related behaviour
-* **VERSION 2.1.2**
-    * Upgraded graphics for every scene
-    * Improved file management
-* **Version 2.1.3**
-    * Added option to select a preferred language for the TVDB results
-    * Improved way to delete series
-    * Improved searching options
-    * Minor layout/graphics changes and improvements
-    * Added JavaDoc
-    * New scenes now open centered to the old one
-    * Program requests API Key via form if not set on start
-    * Added validity check for API Key
-    * Improved behaviour and design on first start
+  * Fixed small bug when searching for series
+  * Removed double PopUp when APIKey was missing
+  * Fixed [Windows resizeable window bug](https://bugs.openjdk.java.net/browse/JDK-8089008)
+* **VERSION 2.1 - Stability Update**
+  * Improved stability and code quality
+  * Added time related order option
+  * Added `About` screen
+* **VERSION 2.1.1 - Small Fixes**
+  * Added icon to PopUps
+  * Changed main menu sizes
+  * Changed date related and search related behaviour
+* **VERSION 2.1.2 - Graphics Rework**
+  * Upgraded graphics for every scene
+  * Improved file management
+* **Version 2.1.3 - Design Improvements**
+  * Added option to select a preferred language for the TVDB results
+  * Improved way to delete series
+  * Improved searching options
+  * Minor layout/graphics changes and improvements
+  * Added JavaDoc
+  * New scenes now open centered to the old one
+  * Program requests API Key via form if not set on start
+  * Added validity check for API Key
+  * Improved behaviour and design on first start
     
 </p>
 </details>
 
-* **VERSION 2.2**
-    * Added Java12 support
-    * Removed PopUp calls from non-UI classes
-    * PopUps are now centered to the stage
-    * Improved selection of a series to add
-    * Improved layouts for DPI awareness
-* **VERSION 2.2.1**
-    * Made all scenes responsive to size changes
-    * Moved "Waiting" table to new scene
-    * Fixed problem with series that are not complete and do not provide a continuous list of episodes
-    * Moved option to delete a series from scene to context menu
-    * Improved duplicate check
-    * Added option to restore default window size of the main scene
-    * Added tooltips for unclear options/parameter
+* **VERSION 2.2 - Java12**
+  * Added Java12 support
+  * Removed PopUp calls from non-UI classes
+  * PopUps are now centered to the stage
+  * Improved selection of a series to add
+  * Improved layouts for DPI awareness
+* **VERSION 2.2.1 - Responsive Layout**
+  * Made all scenes responsive to size changes
+  * Moved "Waiting" table to new scene
+  * Fixed problem with series that are not complete and do not provide a continuous list of episodes
+  * Moved option to delete a series from scene to context menu
+  * Improved duplicate check
+  * Added option to restore default window size of the main scene
+  * Added tooltips for unclear options/parameter
+    **VERSION 2.3 - Code Quality Update**
+  * Stripped all logic from Controllers
+  * Added different icons for PopUps

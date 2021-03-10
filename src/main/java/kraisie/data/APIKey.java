@@ -1,0 +1,58 @@
+package kraisie.data;
+
+import com.google.gson.Gson;
+import kraisie.tvdb.Token;
+
+import java.io.IOException;
+import java.nio.file.Files;
+
+import static java.nio.file.StandardOpenOption.CREATE;
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
+
+public class APIKey {
+
+	private String apikey;
+	private String userkey;
+	private String username;
+
+	public APIKey(final String apikey, final String userkey, final String username) {
+		this.apikey = apikey;
+		this.userkey = userkey;
+		this.username = username;
+	}
+
+	public static APIKey readKey() {
+		String json;
+		Settings settings = Settings.readData();
+		if (settings == null) {
+			return new APIKey("", "", "");
+		}
+
+		try {
+			json = Files.readString(settings.getPathAPIKey());
+		} catch (IOException e) {
+			return new APIKey("", "", "");
+		}
+
+		Gson gson = new Gson();
+		return gson.fromJson(json, APIKey.class);
+	}
+
+	public static void writeKey(APIKey key) throws IOException {
+		Gson gson = new Gson();
+		String json = gson.toJson(key);
+		Settings settings = Settings.readData();
+		Files.writeString(settings.getPathAPIKey(), json, TRUNCATE_EXISTING, CREATE);
+	}
+
+	public boolean isValid() {
+		Token token = new Token(getFormattedKey());
+		return token.exists();
+	}
+
+	public String getFormattedKey() {
+		return "{\"apikey\": \"" + apikey + "\","
+				+ "\"userkey\": \"" + userkey + "\","
+				+ "\"username\": \"" + username + "\"}";
+	}
+}

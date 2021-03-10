@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane id="myPane" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml" fx:controller="Kraisie.SceneController.ApiKeyFormController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" id="myPane" stylesheets="@../css/myStyle.css"
+            xmlns="http://javafx.com/javafx" fx:controller="kraisie.scenes.ApiKeyFormController">
     <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="25.0"
           AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
         <Label id="biggerLabel" alignment="CENTER" maxWidth="600.0"

@@ -1,48 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<AnchorPane id="myPane" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml" fx:controller="Kraisie.SceneController.AddSeriesController">
-    <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="50.0"
-          AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0">
-        <Label id="biggerLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="650.0"
-               text="You can automatically add a series with data from TVDB. Just type the name of the series and press 'Add Series':"
-               textAlignment="CENTER" textFill="WHITE" wrapText="true">
-            <font>
-                <Font size="24.0"/>
-            </font>
-            <VBox.margin>
-                <Insets/>
-            </VBox.margin>
-        </Label>
-        <Label id="normalAlert" alignment="CENTER"
-               text="This process may take some time, please do not close this window!" textAlignment="CENTER"
-               textFill="RED" wrapText="true"/>
-        <TextField fx:id="nameTVDB" onKeyPressed="#acceptOnEnter" promptText="Name of a series" VBox.vgrow="ALWAYS">
-            <VBox.margin>
-                <Insets bottom="15.0" top="15.0"/>
-            </VBox.margin>
-        </TextField>
-        <Label id="normalLabel" alignment="CENTER" maxWidth="650.0"
-               text="If it gives you an error stating that the series could not be found please check your spelling and also make sure you have the right name."
-               textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true"/>
-        <GridPane>
-            <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <VBox.margin>
-                <Insets top="5.0"/>
-            </VBox.margin>
-            <Button mnemonicParsing="false" onAction="#addTVDB" text="Add Series"/>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#back" text="Go back to the Main Menu"
-                    GridPane.columnIndex="1"/>
-        </GridPane>
-    </VBox>
-</AnchorPane>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="borderPane" stylesheets="@../css/myStyle.css"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="kraisie.scenes.AddSeriesController">
+    <center>
+        <HBox>
+            <Region maxWidth="-Infinity" minWidth="15.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+            <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
+                <ImageView fitHeight="191.0" fitWidth="255.0" pickOnBounds="true" preserveRatio="true"
+                           VBox.vgrow="ALWAYS">
+                    <viewport>
+                        <Rectangle2D/>
+                    </viewport>
+                    <Image url="@../Pics/logo_tvdb.png"/>
+                </ImageView>
+                <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
+                <VBox id="myBackground" alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <Label id="biggerLabel" alignment="CENTER" contentDisplay="CENTER"
+                           text="You can automatically add a series with data from TVDB. Just type the name of the series and press 'Add Series':"
+                           textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                    </Label>
+                    <Label id="normalAlert" alignment="CENTER"
+                           text="This process may take some time, please do not close this window!"
+                           textAlignment="CENTER" textFill="RED" wrapText="true" VBox.vgrow="ALWAYS">
+                    </Label>
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
+                    <HBox prefWidth="200.0">
+                        <Region maxWidth="-Infinity" minWidth="15.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="nameTVDB" onKeyPressed="#acceptOnEnter" promptText="Name of a series"
+                                   HBox.hgrow="ALWAYS"/>
+                        <Region maxWidth="-Infinity" minWidth="15.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
+                    <Label id="normalLabel" alignment="CENTER"
+                           text="If it gives you an error stating that the series could not be found please check your spelling and also make sure you have the right name."
+                           textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true"
+                           VBox.vgrow="ALWAYS">
+                    </Label>
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
+                    <Button mnemonicParsing="false" onAction="#addTVDB" text="Add Series" VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </VBox>
+            <Region maxWidth="-Infinity" minWidth="15.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+            <BorderPane.margin>
+                <Insets bottom="20.0" top="20.0"/>
+            </BorderPane.margin>
+        </HBox>
+    </center>
+</BorderPane>

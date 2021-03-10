@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" id="myPane" fx:id="borderPane" prefHeight="720.0" prefWidth="1280.0"
+            stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="kraisie.scenes.MotherController">
+    <left>
+        <HBox BorderPane.alignment="CENTER_LEFT">
+            <VBox id="navBarIcon" alignment="TOP_CENTER" HBox.hgrow="NEVER">
+                <Button id="navBarIconButton" mnemonicParsing="false" onAction="#onNavBarTrigger">
+                    <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../Pics/Icon/hamburger.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </VBox>
+            <VBox id="navBar" fx:id="navBar" alignment="TOP_CENTER">
+                <Button id="navBarButton" fx:id="mainMenu" mnemonicParsing="false" onAction="#showMainMenu"
+                        text="Main Menu">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </Button>
+                <Button id="navBarButton" fx:id="addSeries" mnemonicParsing="false" onAction="#showAddSeries"
+                        text="Add a new series">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </Button>
+                <Button id="navBarButton" fx:id="searchSeries" mnemonicParsing="false" onAction="#showSearchSeries"
+                        text="Search for a series"/>
+                <Button id="navBarButton" fx:id="backUpSeries" mnemonicParsing="false" onAction="#showBackUp"
+                        text="BackUp"/>
+                <Button id="navBarButton" fx:id="updateSeries" mnemonicParsing="false" onAction="#showUpdate"
+                        text="Update"/>
+                <Button id="navBarButton" fx:id="settingsMenu" mnemonicParsing="false" onAction="#showSettings"
+                        text="Settings"/>
+                <Button id="navBarButton" fx:id="help" mnemonicParsing="false" onAction="#showHelp" text="Help"/>
+                <HBox.margin>
+                    <Insets/>
+                </HBox.margin>
+            </VBox>
+        </HBox>
+    </left>
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+    </center>
+</BorderPane>
