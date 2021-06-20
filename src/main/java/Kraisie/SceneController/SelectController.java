@@ -134,8 +134,11 @@ public class SelectController extends Controller {
 	 */
 	private void enableSelectionSlots() {
 		URL noImage = MainSeriesController.class.getResource("/Pics/Alert/NoImageAvailable.png");
-		Image noImg = new Image(noImage.toString());
+		if(noImage == null) {
+			throw new IllegalStateException("Fallback image is null");
+		}
 
+		Image noImg = new Image(noImage.toString());
 		// replace non existant information
 		for (SearchData data : foundSeries) {
 			if (data.getFirstAired().isEmpty()) {
@@ -148,21 +151,11 @@ public class SelectController extends Controller {
 		}
 
 		if (foundSeries.size() >= 2) {
-			if (!foundSeries.get(0).getBanner().isEmpty()) {
-				Image img1 = TVDB_Data.getBannerImage(foundSeries.get(0).getBanner());
-				image1.setImage(img1);
-			} else {
-				image1.setImage(noImg);
-				centerImage(image1);
-			}
+			SearchData series1 = foundSeries.get(0);
+			setImage(series1, image1, noImg);
 
-			if (!foundSeries.get(1).getBanner().isEmpty()) {
-				Image img2 = TVDB_Data.getBannerImage(foundSeries.get(1).getBanner());
-				image2.setImage(img2);
-			} else {
-				image2.setImage(noImg);
-				centerImage(image2);
-			}
+			SearchData series2 = foundSeries.get(1);
+			setImage(series2, image2, noImg);
 
 			labelName1.setText("Name: " + foundSeries.get(0).getSeriesName());
 			labelYear1.setText("Year: " + foundSeries.get(0).getFirstAired().substring(0, 4));
@@ -182,13 +175,8 @@ public class SelectController extends Controller {
 		}
 
 		if (foundSeries.size() >= 3) {
-			if (!foundSeries.get(2).getBanner().isEmpty()) {
-				Image img3 = TVDB_Data.getBannerImage(foundSeries.get(2).getBanner());
-				image3.setImage(img3);
-			} else {
-				image3.setImage(noImg);
-				centerImage(image3);
-			}
+			SearchData series3 = foundSeries.get(2);
+			setImage(series3, image3, noImg);
 
 			labelName3.setText("Name: " + foundSeries.get(2).getSeriesName());
 			labelYear3.setText("Year: " + foundSeries.get(2).getFirstAired().substring(0, 4));
@@ -200,13 +188,8 @@ public class SelectController extends Controller {
 		}
 
 		if (foundSeries.size() >= 4) {
-			if (!foundSeries.get(3).getBanner().isEmpty()) {
-				Image img4 = TVDB_Data.getBannerImage(foundSeries.get(3).getBanner());
-				image4.setImage(img4);
-			} else {
-				image4.setImage(noImg);
-				centerImage(image4);
-			}
+			SearchData series4 = foundSeries.get(3);
+			setImage(series4, image4, noImg);
 
 			labelName4.setText("Name: " + foundSeries.get(3).getSeriesName());
 			labelYear4.setText("Year: " + foundSeries.get(3).getFirstAired().substring(0, 4));
@@ -218,13 +201,8 @@ public class SelectController extends Controller {
 		}
 
 		if (foundSeries.size() >= 5) {
-			if (!foundSeries.get(4).getBanner().isEmpty()) {
-				Image img5 = TVDB_Data.getBannerImage(foundSeries.get(4).getBanner());
-				image5.setImage(img5);
-			} else {
-				image5.setImage(noImg);
-				centerImage(image5);
-			}
+			SearchData series5 = foundSeries.get(4);
+			setImage(series5, image5, noImg);
 
 			labelName5.setText("Name: " + foundSeries.get(4).getSeriesName());
 			labelYear5.setText("Year: " + foundSeries.get(4).getFirstAired().substring(0, 4));
@@ -234,6 +212,27 @@ public class SelectController extends Controller {
 
 			radio5.setDisable(false);
 		}
+	}
+
+	private void setImage(SearchData data, ImageView imageView, Image fallback) {
+		if(data == null) {
+			return;
+		}
+
+		if (data.getBanner() == null) {
+			imageView.setImage(fallback);
+			centerImage(imageView);
+			return;
+		}
+
+		if (data.getBanner().isEmpty()) {
+			imageView.setImage(fallback);
+			centerImage(imageView);
+			return;
+		}
+
+		Image img = TVDB_Data.getBannerImage(data.getBanner());
+		imageView.setImage(img);
 	}
 
 	/**
