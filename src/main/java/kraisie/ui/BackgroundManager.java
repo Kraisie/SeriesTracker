@@ -71,7 +71,11 @@ public class BackgroundManager {
 	}
 
 	private void getFallbackImage() throws IOException {
-		URL url = new URL("https://i.imgur.com/iJYsAF4.jpg");
+		URL url = BackgroundManager.class.getResource("/Pics/fallback.jpg");
+		if (url == null) {
+			throw new IllegalStateException("Fallback Picture not available!");
+		}
+
 		bufImg = ImageIO.read(url);
 		File file = new File(System.getProperty("user.home"), "/SERIESTRACKER/Backgrounds/fallback.jpg");
 		ImageIO.write(bufImg, "jpg", file);

@@ -52,9 +52,12 @@ public class TVDB {
 
 	public static Image getFallbackImage() {
 		try {
-			URL noImage = TVDB.class.getResource("/Pics/Alert/NoImageAvailable.png");
-			BufferedImage bufImg = ImageIO.read(noImage);
+			URL noImage = TVDB.class.getResource("/Pics/NoImageAvailable.png");
+			if (noImage == null) {
+				throw new IllegalStateException("Resource Picture not available!");
+			}
 
+			BufferedImage bufImg = ImageIO.read(noImage);
 			return SwingFXUtils.toFXImage(bufImg, null);
 		} catch (IOException e) {
 			return null;
