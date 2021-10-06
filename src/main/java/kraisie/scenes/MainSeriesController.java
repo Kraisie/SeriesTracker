@@ -229,8 +229,8 @@ public class MainSeriesController {
 		Scenes scene = Scenes.INFO;
 		SceneLoader loader = new SceneLoader(scene);
 		Parent root = loader.loadSceneWithSeries(selected);
-		BorderPane motherScene = (BorderPane) borderPane.getParent();
-		motherScene.setCenter(root);
+		BorderPane motherPane = (BorderPane) borderPane.getParent();
+		motherPane.setCenter(root);
 		stage.setTitle(scene.getTitle());
 	}
 
