@@ -210,10 +210,6 @@ public class SelectSeriesController {
 		return result.getPoster();
 	}
 
-	private Image getSeriesImage(SearchResult series) {
-		return series.getPoster();
-	}
-
 	private void setButtonProperties(Button btn) {
 		btn.setPrefWidth(BTN_PREF_WIDTH);
 		btn.setPrefHeight(BTN_PREF_HEIGHT);
@@ -245,10 +241,11 @@ public class SelectSeriesController {
 
 		pagination.setPageFactory(pageIndex -> {
 			VBox vBox = new VBox();
+			vBox.setAlignment(Pos.CENTER);
 			HBox hBox = new HBox();
 			hBox.setAlignment(Pos.CENTER);
 
-			Image image = getSeriesImage(selectedSeries);
+			Image image = selectedSeries.getPoster();
 			Rectangle roundedImage = getRoundedImageRectangle(image);
 			SearchData searchData = selectedSeries.getSearchData();
 
@@ -289,7 +286,6 @@ public class SelectSeriesController {
 			hBox.getChildren().add(spacerH2);
 			hBox.getChildren().add(infoBox);
 			hBox.getChildren().add(spacerH3);
-			vBox.setAlignment(Pos.CENTER);
 			vBox.getChildren().add(hBox);
 
 			return vBox;

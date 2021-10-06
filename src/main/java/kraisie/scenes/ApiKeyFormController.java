@@ -45,9 +45,6 @@ public class ApiKeyFormController {
 			return;
 		}
 
-		// TODO: check if key is valid
-		// if not pop up wrong data
-		// if yes save key
 		APIKey key = new APIKey(apiKey, userKey, userName);
 		if (!key.isValid()) {
 			// TODO: pop up wrong data

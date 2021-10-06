@@ -18,8 +18,8 @@ import java.time.format.DateTimeFormatter;
 
 public class StartUpChecks {
 
-	private Stage primaryStage;
-	private DataSingleton data;
+	private final Stage primaryStage;
+	private final DataSingleton data;
 
 	public StartUpChecks(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -72,8 +72,7 @@ public class StartUpChecks {
 			BasicFileAttributes attributes = Files.readAttributes(parsedFile, BasicFileAttributes.class);
 			creation = LocalDateTime.parse(attributes.creationTime().toString(), format);
 		} catch (IOException e) {
-			// TODO: log error, can not access file attributes
-			e.printStackTrace();
+			System.err.println("Can not access file properties!");
 		}
 
 		return creation;
@@ -85,7 +84,7 @@ public class StartUpChecks {
 
 		boolean success = file.delete();
 		if (!success && file.exists()) {
-			// TODO: log error, unable to delete file
+			System.err.println("Can not delete ReadMe!");
 		}
 	}
 

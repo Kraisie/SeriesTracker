@@ -11,11 +11,11 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class APIKey {
 
-	private String apikey;
-	private String userkey;
-	private String username;
+	private final String apikey;
+	private final String userkey;
+	private final String username;
 
-	public APIKey(final String apikey, final String userkey, final String username) {
+	public APIKey(String apikey, String userkey, String username) {
 		this.apikey = apikey;
 		this.userkey = userkey;
 		this.username = username;

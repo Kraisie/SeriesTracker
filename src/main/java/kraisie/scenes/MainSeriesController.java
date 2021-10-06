@@ -2,30 +2,23 @@ package kraisie.scenes;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import kraisie.data.Collection;
 import kraisie.data.DataSingleton;
 import kraisie.data.Series;
+import kraisie.data.definitions.Scenes;
+import kraisie.ui.SceneLoader;
 
 public class MainSeriesController {
 
 	@FXML
-	private AnchorPane anchor;
-
-	@FXML
-	private Button waitButton;
-
-	@FXML
-	private Button buttonFinishedSeries;
-
-	@FXML
-	private Label labelWatching;
+	private BorderPane borderPane;
 
 	@FXML
 	private TableView<Series> tableContinueWatching;
@@ -40,15 +33,6 @@ public class MainSeriesController {
 	private TableColumn<Series, String> columnContinueEpisode;
 
 	@FXML
-	private Button buttonIncEpisode;
-
-	@FXML
-	private Button buttonDecEpisode;
-
-	@FXML
-	private Label labelStarting;
-
-	@FXML
 	private TableView<Series> tableStartWatching;
 
 	@FXML
@@ -56,9 +40,6 @@ public class MainSeriesController {
 
 	@FXML
 	private TableColumn<Series, String> columnStartSeasons;
-
-	@FXML
-	private Button buttonStartedSeries;
 
 	private Collection collection;
 
@@ -239,7 +220,18 @@ public class MainSeriesController {
 
 	@FXML
 	private void showInformation() {
+		Series selected = getSelectedSeries();
+		if (selected == null) {
+			return;
+		}
 
+		Stage stage = (Stage) borderPane.getScene().getWindow();
+		Scenes scene = Scenes.INFO;
+		SceneLoader loader = new SceneLoader(scene);
+		Parent root = loader.loadSceneWithSeries(selected);
+		BorderPane motherScene = (BorderPane) borderPane.getParent();
+		motherScene.setCenter(root);
+		stage.setTitle(scene.getTitle());
 	}
 
 	@FXML

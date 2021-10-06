@@ -16,7 +16,7 @@ public class EpisodeList {
 
 	public int getCurrentSeason() {
 		if (getCurrent() == null) {
-			return -1;
+			return 0;
 		}
 
 		return getCurrent().getSeason();
@@ -24,10 +24,22 @@ public class EpisodeList {
 
 	public int getCurrentEpisode() {
 		if (getCurrent() == null) {
-			return -1;
+			return 0;
 		}
 
 		return getCurrent().getEpNumberOfSeason();
+	}
+
+	public int getCurrentEpisodeOverall() {
+		int index = 0;
+		for (Episode ep : episodes) {
+			index++;
+			if (ep.isCurrent()) {
+				return index;
+			}
+		}
+
+		return 0;
 	}
 
 	public int getNumberOfSeasons() {
@@ -37,6 +49,10 @@ public class EpisodeList {
 
 		Episode episode = episodes.get(episodes.size() - 1);
 		return episode.getSeason();
+	}
+
+	public int getNumberOfEpisodes() {
+		return episodes.size();
 	}
 
 	public Episode getCurrent() {

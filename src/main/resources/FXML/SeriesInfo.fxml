@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<BorderPane fx:id="borderPane" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="kraisie.scenes.InfoController">
+   <center>
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <HBox id="myBackground" alignment="CENTER">
+               <children>
+                  <Region minWidth="25.0"/>
+                  <Rectangle fx:id="seriesImage" arcHeight="5.0" arcWidth="5.0" height="200.0" stroke="BLACK"
+                             strokeType="INSIDE" strokeWidth="0.0" width="200.0">
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                     </HBox.margin>
+                  </Rectangle>
+                  <Region minWidth="25.0"/>
+                  <VBox>
+                     <children>
+                        <Region minHeight="25.0"/>
+                        <HBox>
+                           <children>
+                              <Label id="normalTitle" minWidth="-Infinity" text="Name: "/>
+                              <Label id="normalLabel" fx:id="seriesName" wrapText="true"/>
+                           </children>
+                        </HBox>
+                        <Region minHeight="25.0"/>
+                        <HBox>
+                           <children>
+                              <Label id="normalTitle" minWidth="-Infinity" text="Overview: "/>
+                              <Label id="normalLabel" fx:id="seriesOverview" wrapText="true"/>
+                           </children>
+                        </HBox>
+                        <Region minHeight="25.0"/>
+                        <HBox>
+                           <children>
+                              <Label id="normalTitle" minWidth="-Infinity" text="Network: "/>
+                              <Label id="normalLabel" fx:id="seriesNetwork" wrapText="true"/>
+                           </children>
+                        </HBox>
+                        <Region minHeight="25.0"/>
+                        <HBox>
+                           <children>
+                              <Label id="normalTitle" minWidth="-Infinity" text="Status: "/>
+                              <Label id="normalLabel" fx:id="seriesStatus" wrapText="true"/>
+                           </children>
+                        </HBox>
+                        <Region minHeight="25.0"/>
+                        <HBox>
+                           <children>
+                              <Label id="normalTitle" minWidth="-Infinity" text="Episode length: "/>
+                              <Label id="normalLabel" fx:id="seriesEpisodeLength" wrapText="true"/>
+                           </children>
+                        </HBox>
+                        <Region minHeight="25.0"/>
+                        <HBox>
+                           <children>
+                              <Label id="normalTitle" minWidth="-Infinity" text="Rating: "/>
+                              <Label id="normalLabel" fx:id="seriesRating" wrapText="true"/>
+                           </children>
+                        </HBox>
+                        <Region minHeight="25.0"/>
+                        <HBox>
+                           <children>
+                              <Label id="normalTitle" minWidth="-Infinity" text="Season: "/>
+                              <Label id="normalLabel" fx:id="seriesSeasons" wrapText="true"/>
+                           </children>
+                        </HBox>
+                        <Region minHeight="25.0"/>
+                        <HBox>
+                           <children>
+                              <Label id="normalTitle" minWidth="-Infinity" text="Episode: "/>
+                              <Label id="normalLabel" fx:id="seriesEpisodes" wrapText="true"/>
+                           </children>
+                        </HBox>
+                        <Region minHeight="25.0"/>
+                        <HBox>
+                           <children>
+                              <Label id="normalTitle" minWidth="-Infinity" text="Completion: "/>
+                              <Label id="normalLabel" fx:id="seriesCompletion" wrapText="true"/>
+                           </children>
+                        </HBox>
+                        <Region VBox.vgrow="ALWAYS"/>
+                     </children>
+                  </VBox>
+                  <Region minWidth="25.0"/>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

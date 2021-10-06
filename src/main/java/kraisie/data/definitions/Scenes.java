@@ -92,7 +92,7 @@ public enum Scenes {
 
 		@Override
 		public String getPath() {
-			return PATH_FOLDER_PREFIX + "Information.fxml";
+			return PATH_FOLDER_PREFIX + "SeriesInfo.fxml";
 		}
 
 		@Override

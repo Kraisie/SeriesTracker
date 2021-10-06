@@ -141,7 +141,7 @@ public class TVDB {
 		return gson.fromJson(json, SeriesSearchData.class);
 	}
 
-	private SeriesPosters getSeriesPosters(int id) {
+	public SeriesPosters getSeriesPosters(int id) {
 		final String apiQueryImagesUrl = "https://api.thetvdb.com/series/" + id + "/images/query?keyType=poster";
 		String json = extractResponseEntity(apiQueryImagesUrl);
 		if (json == null) {

@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 
 public class Token {
 
-	private String token;
+	private final String token;
 
 	public Token(String credentials) {
 		this.token = login(credentials);

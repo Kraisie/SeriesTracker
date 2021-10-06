@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
 
     /* uncomment for cross-platform jar: */
@@ -32,7 +32,7 @@ dependencies {
 }
 
 javafx {
-    version = "16"
+    version = "17"
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.swing', 'javafx.web']
 }
 

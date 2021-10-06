@@ -39,8 +39,21 @@ public class Series {
 		return episodeList.getCurrentEpisode();
 	}
 
+	public int getCurrentEpisodeOverall() {
+		return episodeList.getCurrentEpisodeOverall();
+	}
+
+	public String getCompletion() {
+		double completion = ((double) getCurrentEpisodeOverall() / getNumberOfEpisodes()) * 100d;
+		return String.format("%.2f", completion) + "%";
+	}
+
 	public int getNumberOfSeasons() {
 		return episodeList.getNumberOfSeasons();
+	}
+
+	public int getNumberOfEpisodes() {
+		return episodeList.getNumberOfEpisodes();
 	}
 
 	public void increaseWatchProgress() {

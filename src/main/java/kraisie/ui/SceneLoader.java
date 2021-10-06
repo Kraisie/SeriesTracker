@@ -6,7 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import kraisie.data.Series;
 import kraisie.data.definitions.Scenes;
+import kraisie.scenes.InfoController;
 import kraisie.scenes.MotherController;
 import kraisie.scenes.SelectSeriesController;
 import kraisie.tvdb.SearchResult;
@@ -50,6 +52,10 @@ public class SceneLoader {
 
 	private void setIcon(String path) {
 		URL resource = getClass().getResource(path);
+		if (resource == null) {
+			return;
+		}
+
 		Image img = new Image(resource.toString());
 		stage.getIcons().add(img);
 	}
@@ -94,6 +100,20 @@ public class SceneLoader {
 		if (tmpController instanceof SelectSeriesController) {
 			SelectSeriesController controller = loader.getController();
 			controller.initData(data);
+		}
+
+		return root;
+	}
+
+	public Parent loadSceneWithSeries(Series series) {
+		String pathFxml = scene.getPath();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(pathFxml));
+		Parent root = loadRoot(loader);
+
+		Object tmpController = loader.getController();
+		if (tmpController instanceof InfoController) {
+			InfoController controller = loader.getController();
+			controller.initData(series);
 		}
 
 		return root;
