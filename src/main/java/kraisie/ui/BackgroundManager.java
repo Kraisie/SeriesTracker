@@ -64,7 +64,7 @@ public class BackgroundManager {
 		}
 
 		if (bufImg == null) {
-			throw new IOException();
+			throw new IOException("Could not resort to fallback image!");
 		}
 
 		return bufImg;
