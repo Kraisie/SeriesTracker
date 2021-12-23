@@ -41,9 +41,6 @@ public class MotherController {
 	private Button searchSeries;
 
 	@FXML
-	private Button backUpSeries;
-
-	@FXML
 	private Button updateSeries;
 
 	@FXML
@@ -70,7 +67,7 @@ public class MotherController {
 	}
 
 	private ScheduledExecutorService createDaemonExecutorService() {
-		// create a ScheduleExecutorService that is based on daemon threads so it gets stopped when the application closes
+		// create a ScheduleExecutorService that is based on daemon threads, so it gets stopped when the application closes
 		return Executors.newScheduledThreadPool(1, runnable -> {
 			Thread t = Executors.defaultThreadFactory().newThread(runnable);
 			t.setDaemon(true);
@@ -191,7 +188,6 @@ public class MotherController {
 		mainMenu.setVisible(navBarVisibility);
 		addSeries.setVisible(navBarVisibility);
 		searchSeries.setVisible(navBarVisibility);
-		backUpSeries.setVisible(navBarVisibility);
 		updateSeries.setVisible(navBarVisibility);
 		settingsMenu.setVisible(navBarVisibility);
 		help.setVisible(navBarVisibility);
@@ -201,7 +197,6 @@ public class MotherController {
 		mainMenu.setDisable(!navBarVisibility);
 		addSeries.setDisable(!navBarVisibility);
 		searchSeries.setDisable(!navBarVisibility);
-		backUpSeries.setDisable(!navBarVisibility);
 		updateSeries.setDisable(!navBarVisibility);
 		settingsMenu.setDisable(!navBarVisibility);
 		help.setDisable(!navBarVisibility);
@@ -226,11 +221,6 @@ public class MotherController {
 	@FXML
 	private void showSearchSeries() {
 		showScene(Scenes.SEARCH);
-	}
-
-	@FXML
-	private void showBackUp() {
-		// showScene(Scenes.);
 	}
 
 	@FXML
