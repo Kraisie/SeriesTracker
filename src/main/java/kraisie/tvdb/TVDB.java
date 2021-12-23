@@ -194,9 +194,9 @@ public class TVDB {
 				episodeList,
 				UserState.NOT_STARTED,
 				tvdbSeries.getStatus(),
-				Integer.parseInt(tvdbSeries.getRuntime()),
+				Integer.parseInt(tvdbSeries.getRuntime().isBlank() ? "0" : tvdbSeries.getRuntime()),
 				tvdbSeries.getOverview(),
-				Double.parseDouble(tvdbSeries.getSiteRating()),
+				Double.parseDouble(tvdbSeries.getSiteRating().isBlank() ? "0.0" : tvdbSeries.getSiteRating()),
 				tvdbSeries.getBanner(),
 				tvdbSeries.getNetwork()
 		);
