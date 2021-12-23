@@ -231,7 +231,7 @@ public class MainSeriesController {
 		Parent root = loader.loadSceneWithSeries(selected);
 		BorderPane motherPane = (BorderPane) borderPane.getParent();
 		motherPane.setCenter(root);
-		stage.setTitle(scene.getTitle());
+		stage.setTitle(scene.getTitle() + " about " + selected.getName());
 	}
 
 	@FXML
