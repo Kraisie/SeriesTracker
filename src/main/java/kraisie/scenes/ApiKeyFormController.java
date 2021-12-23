@@ -49,7 +49,7 @@ public class ApiKeyFormController {
 		}
 
 		APIKey key = new APIKey(apiKey, userKey, userName);
-		if (!key.isInvalid()) {
+		if (key.isInvalid()) {
 			PopUp popUp = PopUp.forStage((Stage) doneButton.getScene().getWindow());
 			popUp.showError("Invalid data!", "The data is invalid. Please make sure it is correct and try again.", false);
 			return;
