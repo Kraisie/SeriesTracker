@@ -95,7 +95,10 @@ public class MotherController {
 			borderPane.setBackground(background);
 		}
 
-		transition(bm);
+		if (bm.hasBackgroundChoice()) {
+			transition(bm);
+		}
+
 		addSizeListeners();
 	}
 

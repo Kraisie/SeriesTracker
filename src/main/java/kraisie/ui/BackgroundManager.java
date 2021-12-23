@@ -19,6 +19,8 @@ public class BackgroundManager {
 
 	private BufferedImage bufImg;
 
+	private static final File BACKGROUND_FOLDER = new File(System.getProperty("user.home"), "/SERIESTRACKER/Backgrounds/");
+
 	public BackgroundManager() throws IOException {
 		this.bufImg = getRandomImage();
 	}
@@ -35,21 +37,14 @@ public class BackgroundManager {
 	}
 
 	private BufferedImage getRandomImage() throws IOException {
-		File backgroundFolder;
-		File[] files = null;
-
 		// create folder if it does not exist
-		backgroundFolder = new File(System.getProperty("user.home"), "/SERIESTRACKER/Backgrounds/");
-		Files.createDirectories(Paths.get(backgroundFolder.getParent()));
-		boolean createdDir = backgroundFolder.mkdir();
+		Files.createDirectories(Paths.get(BACKGROUND_FOLDER.getParent()));
+		boolean createdDir = BACKGROUND_FOLDER.mkdir();
 
 		// check if there are fitting files
+		File[] files = null;
 		if (!createdDir) {
-			files = backgroundFolder.listFiles((dir, name) -> (
-					name.toLowerCase().endsWith(".png") ||
-							name.toLowerCase().endsWith(".jpg") ||
-							name.toLowerCase().endsWith(".jpeg")
-			));
+			files = getFiles();
 		}
 
 		if (files == null || files.length == 0) {
@@ -68,6 +63,14 @@ public class BackgroundManager {
 		}
 
 		return bufImg;
+	}
+
+	private File[] getFiles() {
+		return BACKGROUND_FOLDER.listFiles((dir, name) -> (
+				name.toLowerCase().endsWith(".png") ||
+						name.toLowerCase().endsWith(".jpg") ||
+						name.toLowerCase().endsWith(".jpeg")
+		));
 	}
 
 	private void getFallbackImage() throws IOException {
@@ -94,6 +97,15 @@ public class BackgroundManager {
 						size
 				)
 		);
+	}
+
+	public boolean hasBackgroundChoice() {
+		File[] files = getFiles();
+		if (files == null) {
+			return false;
+		}
+
+		return files.length > 1;
 	}
 
 
