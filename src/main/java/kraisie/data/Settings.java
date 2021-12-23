@@ -15,8 +15,6 @@ public class Settings {
 	private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
 	private String pathAPIKey;
 	private String pathSeries;
-	private String pathBackUp;
-	private int backUpCycle;        // every x days BackUp
 	private boolean sortByCompletion;
 	private boolean sortByTime;
 	private String langIso;
@@ -28,8 +26,6 @@ public class Settings {
 	public Settings() {
 		this.pathAPIKey = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/API_Key.json").toString();
 		this.pathSeries = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Series.json").toString();
-		this.pathBackUp = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/BackUp.json").toString();
-		this.backUpCycle = 1;
 		this.sortByCompletion = false;
 		this.sortByTime = false;
 		this.langIso = "en";
@@ -39,11 +35,9 @@ public class Settings {
 		this.fadeDuration = 500;
 	}
 
-	public Settings(String pathAPIKey, String pathSeries, String pathBackUp, int backUpCycle, boolean sortByCompletion, boolean sortByTime, String langIso, int[] prefSize, boolean cycleBackgrounds, int backgroundCycle, int fadeDuration) {
+	public Settings(String pathAPIKey, String pathSeries, boolean sortByCompletion, boolean sortByTime, String langIso, int[] prefSize, boolean cycleBackgrounds, int backgroundCycle, int fadeDuration) {
 		this.pathAPIKey = pathAPIKey;
 		this.pathSeries = pathSeries;
-		this.pathBackUp = pathBackUp;
-		this.backUpCycle = backUpCycle;
 		this.langIso = langIso;
 		this.prefSize = prefSize;
 		this.cycleBackgrounds = cycleBackgrounds;
@@ -124,19 +118,7 @@ public class Settings {
 			return false;
 		}
 
-		if (!getPathBackUp().toFile().exists()) {
-			return false;
-		}
-
-		if (this.backUpCycle <= 0) {
-			return false;
-		}
-
-		if (prefSize[0] <= 0 || prefSize[1] <= 0) {
-			return false;
-		}
-
-		return true;
+		return prefSize[0] > 0 && prefSize[1] > 0;
 	}
 
 	public Path getPathAPIKey() {
@@ -153,22 +135,6 @@ public class Settings {
 
 	public void setPathSeries(Path pathSeries) {
 		this.pathSeries = pathSeries.toString();
-	}
-
-	public Path getPathBackUp() {
-		return Paths.get(pathBackUp);
-	}
-
-	public void setPathBackUp(Path pathBackUp) {
-		this.pathBackUp = pathBackUp.toString();
-	}
-
-	public int getBackUpCycle() {
-		return backUpCycle;
-	}
-
-	public void setBackUpCycle(int backUpCycle) {
-		this.backUpCycle = backUpCycle;
 	}
 
 	public boolean isSortByCompletion() {
