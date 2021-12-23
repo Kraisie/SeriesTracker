@@ -38,7 +38,7 @@ public class BrowserControl {
 		}
 
 		if (browser == null) {
-			throw new Exception();
+			throw new Exception("No supported browser found!");
 		}
 
 		Runtime.getRuntime().exec(new String[]{browser, url});

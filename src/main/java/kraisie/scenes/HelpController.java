@@ -7,6 +7,7 @@ import javafx.scene.web.WebView;
 import kraisie.dialog.BrowserControl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
@@ -28,7 +29,13 @@ public class HelpController {
 		webEngine.getLoadWorker().stateProperty().addListener((obsV, oldV, newV) -> {
 			if (newV == Worker.State.SUCCEEDED) {
 				EventListener listener = ev -> {
-					String url = ((Element) ev.getTarget()).getAttribute("href");
+					Element e = (Element) ev.getTarget();
+					Node anchor = findParentAnchor(e.getParentNode());
+					if (anchor == null) {
+						return;
+					}
+
+					String url = ((Element) anchor).getAttribute("href");
 					ev.preventDefault();
 					openLocalBrowser(url);
 				};
@@ -36,6 +43,18 @@ public class HelpController {
 				addAnchorListeners(webEngine, listener);
 			}
 		});
+	}
+
+	private Node findParentAnchor(Node current) {
+		while (current != null) {
+			if (current.getNodeName().equalsIgnoreCase("a")) {
+				break;
+			}
+
+			current = current.getParentNode();
+		}
+
+		return current;
 	}
 
 	private void addAnchorListeners(WebEngine webEngine, EventListener listener) {
