@@ -30,16 +30,8 @@ public class EpisodeList {
 		return getCurrent().getEpNumberOfSeason();
 	}
 
-	public int getCurrentEpisodeOverall() {
-		int index = 0;
-		for (Episode ep : episodes) {
-			index++;
-			if (ep.isCurrent()) {
-				return index;
-			}
-		}
-
-		return 0;
+	public int getNumberOfSeenEpisodes() {
+		return Math.max(0, getCurrentIndex());
 	}
 
 	public int getNumberOfSeasons() {
@@ -88,14 +80,7 @@ public class EpisodeList {
 	}
 
 	private int getCurrentIndex() {
-		for (int i = 0; i < episodes.size(); i++) {
-			Episode episode = episodes.get(i);
-			if (episode.isCurrent()) {
-				return i;
-			}
-		}
-
-		return -1;
+		return episodes.indexOf(getCurrent());
 	}
 
 	private boolean hasNextAiredEpisode() {

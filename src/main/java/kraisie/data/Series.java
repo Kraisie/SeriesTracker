@@ -40,7 +40,7 @@ public class Series {
 	}
 
 	public int getCurrentEpisodeOverall() {
-		return episodeList.getCurrentEpisodeOverall();
+		return episodeList.getNumberOfSeenEpisodes();
 	}
 
 	public String getCompletion() {
