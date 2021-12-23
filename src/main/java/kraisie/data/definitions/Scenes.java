@@ -116,6 +116,22 @@ public enum Scenes {
 			return PATH_STANDARD_ICON;
 		}
 	},
+	SEARCH_RESULTS {
+		@Override
+		public String getTitle() {
+			return "Search results";
+		}
+
+		@Override
+		public String getPath() {
+			return PATH_FOLDER_PREFIX + "SearchResult.fxml";
+		}
+
+		@Override
+		public String getIcon() {
+			return PATH_STANDARD_ICON;
+		}
+	},
 	SELECT {
 		@Override
 		public String getTitle() {

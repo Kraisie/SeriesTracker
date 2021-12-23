@@ -69,7 +69,7 @@ public class AddSeriesController {
 		Stage stage = (Stage) borderPane.getScene().getWindow();
 		Scenes scene = Scenes.SELECT;
 		SceneLoader loader = new SceneLoader(scene);
-		Parent root = loader.loadSceneWithData(data);
+		Parent root = loader.loadSceneWithSearchData(data);
 		BorderPane motherPane = (BorderPane) borderPane.getParent();
 		motherPane.setCenter(root);
 		stage.setTitle(scene.getTitle());

@@ -10,6 +10,7 @@ import kraisie.data.Series;
 import kraisie.data.definitions.Scenes;
 import kraisie.scenes.InfoController;
 import kraisie.scenes.MotherController;
+import kraisie.scenes.SearchResultController;
 import kraisie.scenes.SelectSeriesController;
 import kraisie.tvdb.SearchResult;
 
@@ -20,7 +21,7 @@ import java.util.List;
 public class SceneLoader {
 
 	private Stage stage;
-	private Scenes scene;
+	private final Scenes scene;
 
 	public SceneLoader(Scenes scene) {
 		this.scene = scene;
@@ -91,7 +92,7 @@ public class SceneLoader {
 		return loadRoot(loader);
 	}
 
-	public Parent loadSceneWithData(List<SearchResult> data) {
+	public Parent loadSceneWithSearchData(List<SearchResult> data) {
 		String pathFxml = scene.getPath();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(pathFxml));
 		Parent root = loadRoot(loader);
@@ -113,6 +114,20 @@ public class SceneLoader {
 		Object tmpController = loader.getController();
 		if (tmpController instanceof InfoController) {
 			InfoController controller = loader.getController();
+			controller.initData(series);
+		}
+
+		return root;
+	}
+
+	public Parent loadSceneWithSeriesList(List<Series> series) {
+		String pathFxml = scene.getPath();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(pathFxml));
+		Parent root = loadRoot(loader);
+
+		Object tmpController = loader.getController();
+		if (tmpController instanceof SearchResultController) {
+			SearchResultController controller = loader.getController();
 			controller.initData(series);
 		}
 

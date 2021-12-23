@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.*?>
+<BorderPane fx:id="borderPane" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="kraisie.scenes.SearchResultController">
+    <center>
+        <HBox>
+            <Region maxWidth="-Infinity" minWidth="15.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+            <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
+                <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
+                <VBox id="myBackground" alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0"/>
+                    <Label id="biggerLabel" alignment="CENTER" contentDisplay="CENTER"
+                           text="The following series match your criteria" textAlignment="CENTER" textFill="WHITE"
+                           wrapText="true" VBox.vgrow="ALWAYS">
+                    </Label>
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0"/>
+                    <ListView id="centeredList" fx:id="seriesList">
+                        <contextMenu>
+                            <ContextMenu>
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#showInformation"
+                                              text="Information..."/>
+                                </items>
+                            </ContextMenu>
+                        </contextMenu>
+                    </ListView>
+                    <Region layoutX="17.0" layoutY="119.0" maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0"/>
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </VBox>
+            <Region maxWidth="-Infinity" minWidth="15.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+            <BorderPane.margin>
+                <Insets bottom="20.0" top="20.0"/>
+            </BorderPane.margin>
+        </HBox>
+    </center>
+</BorderPane>
