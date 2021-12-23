@@ -1,10 +1,12 @@
 package kraisie;
 
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import kraisie.data.APIKey;
 import kraisie.data.DataSingleton;
 import kraisie.data.Settings;
 import kraisie.data.definitions.Scenes;
+import kraisie.dialog.PopUp;
 import kraisie.ui.SceneLoader;
 
 import java.io.File;
@@ -98,7 +100,23 @@ public class StartUpChecks {
 	}
 
 	private void openApiKeyForm() {
-		SceneLoader loader = new SceneLoader(new Stage(), Scenes.API_KEY);
+		Stage newStage = buildStage();
+		SceneLoader loader = new SceneLoader(newStage, Scenes.API_KEY);
 		loader.openNewScene();
+	}
+
+	private Stage buildStage() {
+		Stage newStage = new Stage();
+		newStage.setOnCloseRequest(e -> {
+			e.consume();
+			PopUp popUp = PopUp.forStage(newStage);
+			boolean quit = popUp.showChoice("API key required to continue!", "Do you really want to stop the program?");
+			if (quit) {
+				Platform.exit();
+				System.exit(0);
+			}
+		});
+
+		return newStage;
 	}
 }
