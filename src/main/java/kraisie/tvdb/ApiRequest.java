@@ -34,8 +34,8 @@ public class ApiRequest {
 				reader.close();
 			}
 		} catch (UnknownHostException e) {
-			// TODO: pop up no connection
-			return "NoConnection";
+			// TODO: log error
+			return "Error";
 		} catch (IOException e) {
 			// TODO: log error
 			e.printStackTrace();

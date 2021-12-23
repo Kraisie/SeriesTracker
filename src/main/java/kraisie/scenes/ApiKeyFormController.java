@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import kraisie.data.APIKey;
 import kraisie.dialog.BrowserControl;
+import kraisie.dialog.PopUp;
 
 import java.io.IOException;
 
@@ -30,7 +31,8 @@ public class ApiKeyFormController {
 		try {
 			BrowserControl.openBrowser("https://thetvdb.com/dashboard/account/apikey");
 		} catch (Exception e) {
-			// TODO: PopUp no supported browser
+			PopUp popUp = PopUp.forStage((Stage) doneButton.getScene().getWindow());
+			popUp.showError("No supported browser!", "Could not open a supported browser. You can find your API key in your TVDB account information. .", false);
 		}
 	}
 
@@ -41,14 +43,15 @@ public class ApiKeyFormController {
 		String userName = textUserName.getText();
 
 		if (apiKey.isBlank() || userKey.isBlank() || userName.isBlank()) {
-			// TODO: pop up missing data
+			PopUp popUp = PopUp.forStage((Stage) doneButton.getScene().getWindow());
+			popUp.showError("Missing data!", "Please fill out all fields and try again.", false);
 			return;
 		}
 
 		APIKey key = new APIKey(apiKey, userKey, userName);
-		if (!key.isValid()) {
-			// TODO: pop up wrong data
-			System.out.println("wrong");
+		if (!key.isInvalid()) {
+			PopUp popUp = PopUp.forStage((Stage) doneButton.getScene().getWindow());
+			popUp.showError("Invalid data!", "The data is invalid. Please make sure it is correct and try again.", false);
 			return;
 		}
 
@@ -60,8 +63,10 @@ public class ApiKeyFormController {
 		try {
 			APIKey.writeKey(key);
 		} catch (IOException e) {
+			// TODO: log error
+			PopUp popUp = PopUp.forStage((Stage) doneButton.getScene().getWindow());
+			popUp.showError("Saving failed!", "Could not save api key on disk! Please check the logs.", false);
 			e.printStackTrace();
-			// TODO: pop up could not save
 		}
 	}
 

@@ -36,13 +36,11 @@ public class StartUpChecks {
 		}
 
 		// TODO: rest of startup checks
-		// check if backup is older than cycle allows, if yes create a new backup
 		// check if new episodes aired, if yes open scene with affected series
 
-		if (!isApiKeyValid()) {
+		APIKey apiKey = APIKey.readKey();
+		if (apiKey.isInvalid()) {
 			openApiKeyForm();
-		} else {
-			// TODO: if token added persistent read it and check if it says "NoConnection", if yes open popup no connection
 		}
 	}
 
@@ -97,11 +95,6 @@ public class StartUpChecks {
 	private void saveStandardSettings() {
 		Settings settings = new Settings();
 		Settings.writeData(settings);
-	}
-
-	private boolean isApiKeyValid() {
-		APIKey key = APIKey.readKey();
-		return key.isValid();
 	}
 
 	private void openApiKeyForm() {

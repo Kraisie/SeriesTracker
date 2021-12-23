@@ -11,6 +11,7 @@ import kraisie.data.DataSingleton;
 import kraisie.data.Series;
 import kraisie.data.definitions.Scenes;
 import kraisie.data.definitions.UserState;
+import kraisie.dialog.PopUp;
 import kraisie.ui.SceneLoader;
 
 import java.util.ArrayList;
@@ -85,7 +86,11 @@ public class SearchSeriesController {
 		int numberOfSeasons = spinnerSeasons.getValue();
 		int duration = spinnerDuration.getValue();
 		List<Series> matchingSeries = getMatchingSeries(acceptableUserStates, state, numberOfSeasons, duration);
-		// TODO: if size = 0 popup -> no series found
+		if (matchingSeries.size() == 0) {
+			PopUp popUp = PopUp.forStage((Stage) borderPane.getScene().getWindow());
+			popUp.showWarning("No match found!", "There is no series in your list that matches your criteria.");
+			return;
+		}
 		showResults(matchingSeries);
 	}
 

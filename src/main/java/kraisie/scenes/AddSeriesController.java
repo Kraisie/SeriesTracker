@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import kraisie.data.Collection;
 import kraisie.data.DataSingleton;
 import kraisie.data.definitions.Scenes;
+import kraisie.dialog.PopUp;
 import kraisie.tvdb.SearchResult;
 import kraisie.tvdb.TVDB;
 import kraisie.ui.SceneLoader;
@@ -47,13 +48,21 @@ public class AddSeriesController {
 			SearchResult match = possibleMatches.get(0);
 			int seriesId = match.getSearchData().getId();
 			Collection collection = data.getCollection();
+			if (collection.seriesExists(seriesId)) {
+				PopUp popUp = PopUp.forStage((Stage) borderPane.getScene().getWindow());
+				popUp.showWarning("Series already added!", "You already added that series to your series list.");
+				showMainScene();
+				return;
+			}
+
 			collection.addNewSeriesById(seriesId);
 			showMainScene();
 			return;
 		}
 
 		if (possibleMatches.size() == 0) {
-			// TODO: popUp, not able to get series from TVDB
+			PopUp popUp = PopUp.forStage((Stage) borderPane.getScene().getWindow());
+			popUp.showWarning("Not match found!", "TVDB could not find a matching series with that name.");
 			return;
 		}
 

@@ -35,7 +35,7 @@ public final class DataSingleton {
 			Collection.writeData(collection);
 			Settings.writeData(settings);
 		} catch (IOException e) {
-			// TODO: log error, show popup
+			// TODO: log error, show popup -> requires stage -> return something/throw exception/cont catch it here
 			e.printStackTrace();
 		}
 	}

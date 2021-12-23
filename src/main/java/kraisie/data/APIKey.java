@@ -45,9 +45,9 @@ public class APIKey {
 		Files.writeString(settings.getPathAPIKey(), json, TRUNCATE_EXISTING, CREATE);
 	}
 
-	public boolean isValid() {
+	public boolean isInvalid() {
 		Token token = new Token(getFormattedKey());
-		return token.exists();
+		return !token.exists();
 	}
 
 	public String getFormattedKey() {

@@ -72,7 +72,6 @@ public class Collection {
 		Series newSeries = api.getSeries(id);
 
 		if (seriesExists(id)) {
-			// TODO: pop up series already exists
 			return;
 		}
 
