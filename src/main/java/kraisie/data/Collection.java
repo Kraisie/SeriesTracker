@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
@@ -79,27 +80,19 @@ public class Collection {
 	}
 
 	public ObservableList<Series> getObservableStarted() {
-		ObservableList<Series> startedSeries = FXCollections.observableArrayList();
-
-		for (Series s : this.series) {
-			if (s.getUserStatus() == UserState.WATCHING) {
-				startedSeries.add(s);
-			}
-		}
-
-		return startedSeries;
+		return getSeriesByUserState(UserState.WATCHING);
 	}
 
 	public ObservableList<Series> getObservableUnstarted() {
-		ObservableList<Series> unstartedSeries = FXCollections.observableArrayList();
+		return getSeriesByUserState(UserState.NOT_STARTED);
+	}
 
-		for (Series s : this.series) {
-			if (s.getUserStatus() == UserState.NOT_STARTED) {
-				unstartedSeries.add(s);
-			}
-		}
-
-		return unstartedSeries;
+	private ObservableList<Series> getSeriesByUserState(UserState filter) {
+		return FXCollections.observableArrayList(
+				series.stream()
+						.filter(s -> s.getUserStatus() == filter)
+						.collect(Collectors.toList())
+		);
 	}
 
 	// check air dates
