@@ -156,4 +156,19 @@ public class Series {
 	public void setNetwork(String network) {
 		this.network = network;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Series series = (Series) o;
+
+		return tvdbID.equals(series.tvdbID);
+	}
+
+	@Override
+	public int hashCode() {
+		return tvdbID.hashCode();
+	}
 }

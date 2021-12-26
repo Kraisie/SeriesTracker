@@ -108,13 +108,11 @@ public class Collection {
 		return false;
 	}
 
-	public void startSeries(Series newSeries) {
-		for (Series s : series) {
-			if (s.getTvdbID().equals(newSeries.getTvdbID())) {
-				s.setUserStatus(UserState.WATCHING);
-				s.getEpisodeList().get(0).setCurrent(true);
-			}
-		}
+	public void startSeries(Series startedSeries) {
+		int index = series.indexOf(startedSeries);
+		Series match = series.get(index);
+		match.setUserStatus(UserState.WATCHING);
+		match.getEpisodeList().get(0).setCurrent(true);
 	}
 
 	public List<Series> getSeries() {
