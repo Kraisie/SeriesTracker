@@ -34,7 +34,7 @@ public final class DataSingleton {
 		return settings;
 	}
 
-	public static TVDB getApi() {
+	public TVDB getApi() {
 		if (api.isTokenExpired()) {
 			api = new TVDB();
 		}

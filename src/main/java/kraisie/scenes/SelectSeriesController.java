@@ -46,15 +46,16 @@ public class SelectSeriesController {
 	private static final int GRID_H_GAP = 25;
 	private static final int GRID_V_GAP = 15;
 
-	private List<SearchData> data;
+	private DataSingleton data;
+	private List<SearchData> searchData;
 
 	@FXML
 	private void initialize() {
-
+		data = DataSingleton.getInstance();
 	}
 
 	public void initData(List<SearchData> data) {
-		this.data = data;
+		this.searchData = data;
 		// listeners get triggered when pagination gets rendered (first for width, then height)
 		setResizeListener();
 		setPageFactoryGrid();
@@ -88,11 +89,11 @@ public class SelectSeriesController {
 	private void calcObjectsPerPage(double width, double height) {
 		objectsPerColumn = (int) width / (BTN_PREF_WIDTH + (GRID_H_GAP * 2));
 		objectsPerRow = (int) height / (BTN_PREF_HEIGHT + (GRID_V_GAP * 2));
-		objectsPerPage = Math.min((objectsPerColumn * objectsPerRow), data.size());
+		objectsPerPage = Math.min((objectsPerColumn * objectsPerRow), searchData.size());
 	}
 
 	private int calcPageCount() {
-		return (int) Math.ceil((double) data.size() / objectsPerPage);
+		return (int) Math.ceil((double) searchData.size() / objectsPerPage);
 	}
 
 	private void setPageFactoryGrid() {
@@ -151,11 +152,11 @@ public class SelectSeriesController {
 
 	private List<SearchData> getPageContentList(int pageIndex) {
 		int startIndex = pageIndex * objectsPerPage;
-		int endIndex = Math.min(startIndex + objectsPerPage, data.size());
+		int endIndex = Math.min(startIndex + objectsPerPage, searchData.size());
 
 		List<SearchData> series = new ArrayList<>();
 		for (int i = startIndex; i < endIndex; i++) {
-			series.add(data.get(i));
+			series.add(searchData.get(i));
 		}
 
 		return series;
@@ -211,7 +212,7 @@ public class SelectSeriesController {
 	}
 
 	private Image getSeriesImage(SearchData series) {
-		TVDB api = DataSingleton.getApi();
+		TVDB api = data.getApi();
 		SeriesPosters posters = api.getSeriesPosters(series.getId());
 		return getTvdbPoster(posters);
 	}
@@ -243,7 +244,7 @@ public class SelectSeriesController {
 
 	private void showSelectedSeriesInfo(Button btn) {
 		String btnLabel = btn.getText();
-		for (SearchData result : data) {
+		for (SearchData result : searchData) {
 			if (btnLabel.equals(result.getSeriesName())) {
 				seriesFocused = true;
 				selectedSeries = result;

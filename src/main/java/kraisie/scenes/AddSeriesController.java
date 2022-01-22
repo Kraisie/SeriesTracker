@@ -70,7 +70,7 @@ public class AddSeriesController {
 	}
 
 	private List<SearchData> getPossibleMatches(String name) {
-		TVDB api = DataSingleton.getApi();
+		TVDB api = data.getApi();
 		return api.searchSeries(name);
 	}
 

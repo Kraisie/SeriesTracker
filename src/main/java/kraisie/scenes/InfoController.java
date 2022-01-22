@@ -55,12 +55,13 @@ public class InfoController {
 
 	private Image image;
 	private Series series;
+	private DataSingleton data;
 
 	private static final int PANE_MARGIN = 25;
 
 	@FXML
 	private void initialize() {
-
+		data = DataSingleton.getInstance();
 	}
 
 	public void initData(Series series) {
@@ -80,7 +81,7 @@ public class InfoController {
 	}
 
 	private Image retrievePoster(String tvdbId) {
-		TVDB api = DataSingleton.getApi();
+		TVDB api = data.getApi();
 		SeriesPosters posters = api.getSeriesPosters(Integer.parseInt(tvdbId));
 		if (posters == null) {
 			return TVDB.getFallbackImage();
