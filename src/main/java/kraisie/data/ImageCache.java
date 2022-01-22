@@ -2,6 +2,7 @@ package kraisie.data;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import kraisie.dialog.LogUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -25,7 +26,7 @@ public class ImageCache {
 			BufferedImage bufImg = ImageIO.read(imagePath.toFile());
 			return SwingFXUtils.toFXImage(bufImg, null);
 		} catch (IOException e) {
-			// TODO: log error
+			LogUtil.logError("Could not load cached image!", e);
 			return null;
 		}
 	}
@@ -40,10 +41,14 @@ public class ImageCache {
 			return;
 		}
 
-		boolean mkdirs = settings.getPathCache().toFile().mkdirs();
+		File folder = settings.getPathCache().toFile();
+		boolean mkdirs = folder.mkdirs();
 		if (!mkdirs) {
-			// TODO: log error
-			System.err.println("Could not create cache folder!");
+			String perms = "[" +
+					(folder.canRead() ? "R" : "") +
+					(folder.canWrite() ? "W" : "") +
+					(folder.canExecute() ? "E" : "") + "]";
+			LogUtil.logError("Could not create cache folder! Perms: " + perms + ".");
 		}
 	}
 
@@ -70,8 +75,7 @@ public class ImageCache {
 				throw new IOException("Could not save image!");
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
-			// TODO: log error
+			LogUtil.logError("Could not save image!", e);
 		}
 	}
 

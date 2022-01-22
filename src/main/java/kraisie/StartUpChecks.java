@@ -6,6 +6,7 @@ import kraisie.data.APIKey;
 import kraisie.data.DataSingleton;
 import kraisie.data.Settings;
 import kraisie.data.definitions.Scenes;
+import kraisie.dialog.LogUtil;
 import kraisie.dialog.PopUp;
 import kraisie.ui.SceneLoader;
 
@@ -72,7 +73,7 @@ public class StartUpChecks {
 			BasicFileAttributes attributes = Files.readAttributes(parsedFile, BasicFileAttributes.class);
 			creation = LocalDateTime.parse(attributes.creationTime().toString(), format);
 		} catch (IOException e) {
-			System.err.println("Can not access file properties!");
+			LogUtil.logError("Can not access file properties!", e);
 		}
 
 		return creation;
@@ -84,7 +85,7 @@ public class StartUpChecks {
 
 		boolean success = file.delete();
 		if (!success && file.exists()) {
-			System.err.println("Can not delete ReadMe!");
+			LogUtil.logWarning("Can not delete ReadMe!");
 		}
 	}
 

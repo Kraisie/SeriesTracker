@@ -1,6 +1,7 @@
 package kraisie.data;
 
 import com.google.gson.Gson;
+import kraisie.dialog.LogUtil;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -53,8 +54,7 @@ public class Settings {
 		try {
 			json = Files.readString(PATH);
 		} catch (IOException e) {
-			e.printStackTrace();
-			// TODO: log error, could not read settings file content
+			LogUtil.logError("Could not read settings file content! Creating new settings file.", e);
 			createSettingsSave();
 			return new Settings();
 		}
@@ -68,8 +68,7 @@ public class Settings {
 			Files.createDirectories(PATH.getParent());
 			Files.createFile(PATH);
 		} catch (IOException e) {
-			e.printStackTrace();
-			// TODO: log error, could not create save location for settings
+			LogUtil.logError("Could not create save location for settings!", e);
 		}
 
 		writeData(new Settings());
@@ -81,8 +80,7 @@ public class Settings {
 		try {
 			Files.writeString(PATH, json, TRUNCATE_EXISTING, CREATE);
 		} catch (IOException e) {
-			e.printStackTrace();
-			// TODO: log error, could not write to file/error while saving
+			LogUtil.logError("Error while saving settings!", e);
 		}
 	}
 

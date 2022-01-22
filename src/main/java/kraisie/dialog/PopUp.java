@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.Optional;
 
@@ -64,6 +66,24 @@ public class PopUp {
 		setProperties(alert, contentBox, header, message);
 		Platform.runLater(() -> setCoordinates(alert, baseStage));
 		alert.showAndWait();
+	}
+
+	public void showError(String header, Exception e, boolean contentBox) {
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+		addIcon(alertStage);
+		alert.setTitle("Error!");
+		String message = stackTraceToString(e);
+		setProperties(alert, contentBox, header, message);
+		Platform.runLater(() -> setCoordinates(alert, baseStage));
+		alert.showAndWait();
+	}
+
+	private String stackTraceToString(Exception e) {
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		e.printStackTrace(pw);
+		return sw.toString();
 	}
 
 	public boolean showChoice(String header, String message) {

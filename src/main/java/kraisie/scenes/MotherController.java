@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import kraisie.data.Settings;
 import kraisie.data.definitions.Scenes;
+import kraisie.dialog.LogUtil;
 import kraisie.ui.BackgroundManager;
 import kraisie.ui.SceneLoader;
 
@@ -85,8 +86,7 @@ public class MotherController {
 		try {
 			bm = new BackgroundManager();
 		} catch (IOException e) {
-			// TODO: exception handling (logger, as normal background shows if no connection and no files)
-			e.printStackTrace();
+			LogUtil.logError("Could not load background image! Skipping background initialisation.", e);
 			return;
 		}
 

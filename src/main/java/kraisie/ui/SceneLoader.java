@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import kraisie.data.Series;
 import kraisie.data.definitions.Scenes;
+import kraisie.dialog.LogUtil;
 import kraisie.scenes.InfoController;
 import kraisie.scenes.MotherController;
 import kraisie.scenes.SearchResultController;
@@ -71,8 +72,7 @@ public class SceneLoader {
 		try {
 			root = loader.load();
 		} catch (IOException e) {
-			// TODO: Logger
-			e.printStackTrace();
+			LogUtil.logError("Could not load FXML root!", e);
 		}
 
 		return root;

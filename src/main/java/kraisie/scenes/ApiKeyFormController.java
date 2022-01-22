@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import kraisie.data.APIKey;
 import kraisie.dialog.BrowserControl;
+import kraisie.dialog.LogUtil;
 import kraisie.dialog.PopUp;
 
 import java.io.IOException;
@@ -63,7 +64,7 @@ public class ApiKeyFormController {
 		try {
 			APIKey.writeKey(key);
 		} catch (IOException e) {
-			// TODO: log error
+			LogUtil.logError("Could not save API key!", e);
 			PopUp popUp = PopUp.forStage((Stage) doneButton.getScene().getWindow());
 			popUp.showError("Saving failed!", "Could not save api key on disk! Please check the logs.", false);
 			e.printStackTrace();

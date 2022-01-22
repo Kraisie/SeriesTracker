@@ -1,5 +1,6 @@
 package kraisie.tvdb;
 
+import kraisie.dialog.LogUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -34,11 +35,10 @@ public class ApiRequest {
 				reader.close();
 			}
 		} catch (UnknownHostException e) {
-			// TODO: log error
+			LogUtil.logError("Unknown host! Could not request API token.", e);
 			return "Error";
 		} catch (IOException e) {
-			// TODO: log error
-			e.printStackTrace();
+			LogUtil.logError("Could not request API token!", e);
 		}
 
 		return answer;

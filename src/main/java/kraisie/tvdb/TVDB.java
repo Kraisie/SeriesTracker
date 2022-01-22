@@ -8,6 +8,7 @@ import kraisie.data.Episode;
 import kraisie.data.EpisodeList;
 import kraisie.data.Settings;
 import kraisie.data.definitions.UserState;
+import kraisie.dialog.LogUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -35,7 +36,7 @@ public class TVDB {
 	public TVDB() {
 		APIKey key = APIKey.readKey();
 		this.token = new Token(key.getFormattedKey());
-		System.out.println(this.token.getToken());
+		LogUtil.logDebug("Token: " + token);
 		this.settings = Settings.readData();
 	}
 
@@ -84,7 +85,7 @@ public class TVDB {
 
 		String json = getResponseContent(response);
 		if (json.startsWith("{\"Error\":") || json.isEmpty()) {
-			// TODO: log error
+			LogUtil.logWarning("API replied with error on search request!\nRequest: " + apiSearchSeriesUrl + "\nResponse: " + json);
 			return new ArrayList<>();
 		}
 
@@ -109,8 +110,7 @@ public class TVDB {
 			HttpClient httpClient = HttpClients.createDefault();
 			return httpClient.execute(request);
 		} catch (IOException e) {
-			e.printStackTrace();
-			// TODO: log error
+			LogUtil.logError("HTTP Client could not execute request!", e);
 		}
 
 		return null;
@@ -130,8 +130,7 @@ public class TVDB {
 			json = reader.readLine();
 			reader.close();
 		} catch (IOException e) {
-			e.printStackTrace();
-			// TODO: log error
+			LogUtil.logError("Could not extract json from HTTP entity!", e);
 		}
 
 		return json;
@@ -157,13 +156,13 @@ public class TVDB {
 		HttpGet request = generateRequest(apiGetEpisodesUrl);
 		HttpResponse response = receiveResponse(request);
 		if (response == null) {
-			// TODO: log error
+			LogUtil.logWarning("Received no response on " + apiGetEpisodesUrl);
 			return null;
 		}
 
 		String json = getResponseContent(response);
 		if (json.startsWith("{\"Error\":") || json.isBlank()) {
-			// TODO: log error
+			LogUtil.logWarning("API replied with error on episode request!\nRequest: " + apiGetEpisodesUrl + "\nResponse: " + json);
 			return null;
 		}
 		return json;
@@ -236,7 +235,7 @@ public class TVDB {
 		for (int page = 2; page <= pages; page++) {
 			SeriesEpisodes episodes = getEpisodePage(id, page);
 			if (episodes == null) {
-				// TODO: log error
+				LogUtil.logWarning("Episode page (" + page + "/" + pages + ") is null! Ignoring that page.");
 				return new ArrayList<>();
 			}
 

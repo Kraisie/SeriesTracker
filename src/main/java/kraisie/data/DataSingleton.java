@@ -48,13 +48,8 @@ public final class DataSingleton {
 		return imageCache;
 	}
 
-	public static void save() {
-		try {
-			Collection.writeData(collection);
-			Settings.writeData(settings);
-		} catch (IOException e) {
-			// TODO: log error, show popup -> requires stage -> return something/throw exception/cont catch it here
-			e.printStackTrace();
-		}
+	public static void save() throws IOException {
+		Collection.writeData(collection);
+		Settings.writeData(settings);
 	}
 }

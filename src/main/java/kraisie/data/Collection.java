@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import kraisie.data.definitions.UserState;
+import kraisie.dialog.LogUtil;
 import kraisie.tvdb.TVDB;
 
 import java.io.IOException;
@@ -27,13 +28,13 @@ public class Collection {
 	public static Collection readData() {
 		Settings settings = Settings.readData();
 		if (settings == null) {
-			System.err.println("No existing Settings file found. Creating new Collection.");
+			LogUtil.logWarning("No existing Settings file found. Creating new Collection.");
 			return new Collection();
 		}
 
 		Path path = settings.getPathSeries();
 		if (!path.toFile().exists()) {
-			System.err.println("No existing Collection file found. Creating new Collection.");
+			LogUtil.logWarning("No existing Collection file found. Creating new Collection.");
 			return new Collection();
 		}
 
@@ -41,7 +42,7 @@ public class Collection {
 		try {
 			json = Files.readString(path);
 		} catch (IOException e) {
-			System.err.println("Could not read Collection file content!");
+			LogUtil.logWarning("Could not read Collection file content!");
 			return new Collection();
 		}
 
