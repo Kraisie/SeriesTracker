@@ -19,16 +19,9 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 public class Collection {
 
 	private List<Series> series;
-	private long lastUpdate;
 
 	public Collection() {
 		this.series = new ArrayList<>();
-		this.lastUpdate = System.currentTimeMillis();
-	}
-
-	public Collection(List<Series> series, long lastUpdate) {
-		this.series = series;
-		this.lastUpdate = lastUpdate;
 	}
 
 	public static Collection readData() {
@@ -134,13 +127,5 @@ public class Collection {
 
 	public void setSeries(List<Series> series) {
 		this.series = series;
-	}
-
-	public long getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(long lastUpdate) {
-		this.lastUpdate = lastUpdate;
 	}
 }
