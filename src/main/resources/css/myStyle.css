@@ -405,6 +405,10 @@
     -fx-faint-focus-color: transparent;
 }
 
+#logArea {
+    -fx-font: 18px "Serif";
+}
+
 /*
     TextField
 */

@@ -228,7 +228,7 @@ public class MotherController {
 
 	@FXML
 	private void showUpdate() {
-		// showScene(Scenes.);
+		showScene(Scenes.UPDATE);
 	}
 
 	@FXML

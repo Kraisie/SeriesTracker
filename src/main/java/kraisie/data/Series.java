@@ -157,6 +157,10 @@ public class Series {
 		this.network = network;
 	}
 
+	public boolean isContinuing() {
+		return status.equalsIgnoreCase("Continuing");
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

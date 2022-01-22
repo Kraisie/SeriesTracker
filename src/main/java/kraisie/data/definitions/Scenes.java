@@ -67,23 +67,6 @@ public enum Scenes {
 			return PATH_STANDARD_ICON;
 		}
 	},
-	FINISHED {
-		@Override
-		public String getTitle() {
-			return "All finished series";
-		}
-
-
-		@Override
-		public String getPath() {
-			return PATH_FOLDER_PREFIX + "FinishedSeries.fxml";
-		}
-
-		@Override
-		public String getIcon() {
-			return PATH_STANDARD_ICON;
-		}
-	},
 	INFO {
 		@Override
 		public String getTitle() {
@@ -164,22 +147,6 @@ public enum Scenes {
 			return PATH_STANDARD_ICON;
 		}
 	},
-	WAITING {
-		@Override
-		public String getTitle() {
-			return "All awaited series";
-		}
-
-		@Override
-		public String getPath() {
-			return PATH_FOLDER_PREFIX + "WaitingSeries.fxml";
-		}
-
-		@Override
-		public String getIcon() {
-			return PATH_STANDARD_ICON;
-		}
-	},
 	HELP {
 		@Override
 		public String getTitle() {
@@ -189,6 +156,22 @@ public enum Scenes {
 		@Override
 		public String getPath() {
 			return PATH_FOLDER_PREFIX + "Help.fxml";
+		}
+
+		@Override
+		public String getIcon() {
+			return PATH_STANDARD_ICON;
+		}
+	},
+	UPDATE {
+		@Override
+		public String getTitle() {
+			return "Update series";
+		}
+
+		@Override
+		public String getPath() {
+			return PATH_FOLDER_PREFIX + "Update.fxml";
 		}
 
 		@Override

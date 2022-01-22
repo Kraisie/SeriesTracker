@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="kraisie.scenes.UpdateSeriesController">
+    <center>
+        <HBox>
+            <Region maxWidth="-Infinity" minWidth="15.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+            <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
+                <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
+                <VBox id="myBackground" alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0"/>
+                    <Label id="biggerLabel" alignment="CENTER" contentDisplay="CENTER" text="Update your series:"
+                           textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                    </Label>
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0"/>
+                    <Label id="normalAlert" alignment="CENTER"
+                           text="Update the continuing series or the ended series. You can also update all your series by clicking &quot;Update all&quot;."
+                           textAlignment="CENTER" textFill="RED" wrapText="true" VBox.vgrow="ALWAYS">
+                    </Label>
+                    <Label id="normalAlert" alignment="CENTER"
+                           text="Please let the update finish before going back/closing!" textAlignment="CENTER"
+                           textFill="RED" wrapText="true"/>
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
+                    <HBox alignment="CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
+                        <children>
+                            <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+                                <children>
+                                    <TextArea id="logArea" fx:id="updateLogArea" editable="false" VBox.vgrow="ALWAYS"/>
+                                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0"/>
+                                    <ProgressBar fx:id="updateProgress" progress="0.0" VBox.vgrow="ALWAYS"/>
+                                </children>
+                            </VBox>
+                            <VBox alignment="TOP_CENTER" spacing="20.0" HBox.hgrow="ALWAYS">
+                                <children>
+                                    <Button fx:id="updateContinuing" mnemonicParsing="false"
+                                            onAction="#updateContinuing" text="Update Continuing"/>
+                                    <Button fx:id="updateEnded" mnemonicParsing="false" onAction="#updateEnded"
+                                            text="Update Ended"/>
+                                    <Button fx:id="updateAll" mnemonicParsing="false" onAction="#updateAll"
+                                            text="Update All"/>
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                </VBox>
+            </VBox>
+            <Region maxWidth="-Infinity" minWidth="15.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+            <BorderPane.margin>
+                <Insets bottom="20.0" top="20.0"/>
+            </BorderPane.margin>
+        </HBox>
+    </center>
+</BorderPane>

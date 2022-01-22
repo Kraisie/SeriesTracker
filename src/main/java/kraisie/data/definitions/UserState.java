@@ -32,7 +32,7 @@ public enum UserState {
 
 		@Override
 		public String toString() {
-			return "Waiting for new season";
+			return "Waiting for new episodes";
 		}
 	},
 	FINISHED {

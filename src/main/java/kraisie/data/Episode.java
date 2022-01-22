@@ -22,6 +22,10 @@ public class Episode {
 	}
 
 	public boolean isAired() {
+		if (firstAired.isBlank()) {
+			return false;
+		}
+
 		LocalDate today = LocalDate.now();
 		LocalDate airDate = LocalDate.parse(firstAired, DateTimeFormatter.ISO_LOCAL_DATE);
 
@@ -74,5 +78,23 @@ public class Episode {
 
 	public void setCurrent(boolean current) {
 		this.current = current;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Episode episode = (Episode) o;
+
+		if (epNumberOfSeason != episode.epNumberOfSeason) return false;
+		return season == episode.season;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = epNumberOfSeason;
+		result = 31 * result + season;
+		return result;
 	}
 }

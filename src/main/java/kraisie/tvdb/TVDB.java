@@ -28,8 +28,8 @@ import java.util.List;
 
 public class TVDB {
 
-	private Token token;
-	private Settings settings;
+	private final Token token;
+	private final Settings settings;
 
 	public TVDB() {
 		APIKey key = APIKey.readKey();
@@ -85,6 +85,10 @@ public class TVDB {
 
 		SeriesSearchData searchData = extractSeriesSearchData(json);
 		SearchData[] seriesData = searchData.getData();
+		/*
+		TODO: dont preload all images, e.g. return search data or search result without images
+		      then load them as needed (by poster link)
+		 */
 		List<SearchResult> results = new ArrayList<>();
 		for (SearchData data : seriesData) {
 			SeriesPosters posters = getSeriesPosters(data.getId());
@@ -289,5 +293,59 @@ public class TVDB {
 		String firstAired = episode.getFirstAired() == null ? "No air date given" : episode.getFirstAired();
 
 		return new Episode(episodeNumber, seasonNumber, name, overview, firstAired);
+	}
+
+	public kraisie.data.Series updateSeries(kraisie.data.Series series) {
+		int id = Integer.parseInt(series.getTvdbID());
+		kraisie.data.Series updatedSeries = getSeries(id);
+		List<Episode> episodes = getEpisodes(id);
+		EpisodeList episodeList = new EpisodeList(episodes);
+		kraisie.data.Series newSeries = new kraisie.data.Series(
+				updatedSeries.getName(),
+				series.getTvdbID(),
+				episodeList,
+				series.getUserStatus(),
+				updatedSeries.getStatus(),
+				updatedSeries.getRuntime(),
+				updatedSeries.getDescription(),
+				updatedSeries.getRating(),
+				updatedSeries.getBanner(),
+				updatedSeries.getNetwork()
+		);
+
+		skipToCurrent(newSeries, series);
+		updateUserState(newSeries);
+		return newSeries;
+	}
+
+	private void skipToCurrent(kraisie.data.Series newSeries, kraisie.data.Series oldSeries) {
+		if (newSeries.getUserStatus() == UserState.NOT_STARTED) {
+			return;
+		}
+
+		int index = 0;
+		Episode oldCurrent = oldSeries.getEpisodeList().getCurrent();
+		Episode newCurrent = newSeries.getEpisodeList().getEpisodes().get(index);
+		while (!newCurrent.equals(oldCurrent) && newSeries.getEpisodeList().isIncrementable()) {
+			newCurrent = newSeries.getEpisodeList().getEpisodes().get(++index);
+		}
+
+		if (newCurrent.equals(oldCurrent)) {
+			newSeries.getEpisodeList().get(index).setCurrent(true);
+		}
+	}
+
+	private void updateUserState(kraisie.data.Series newSeries) {
+		if (newSeries.getUserStatus() == UserState.WAITING && newSeries.getStatus().equalsIgnoreCase("Ended") &&
+				!newSeries.getEpisodeList().isIncrementable()) {
+			newSeries.setUserStatus(UserState.FINISHED);
+			return;
+		}
+
+		if ((newSeries.getUserStatus() == UserState.FINISHED || newSeries.getUserStatus() == UserState.WAITING) &&
+				newSeries.getEpisodeList().isIncrementable()) {
+			newSeries.setUserStatus(UserState.WATCHING);
+			newSeries.increaseWatchProgress();
+		}
 	}
 }
