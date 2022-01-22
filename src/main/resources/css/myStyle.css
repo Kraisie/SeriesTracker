@@ -400,6 +400,11 @@
     -fx-background-insets: 0, 1;
 }
 
+.text-area:readonly:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
 /*
     TextField
 */
