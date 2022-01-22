@@ -84,8 +84,16 @@ public class EpisodeList {
 	}
 
 	private boolean hasNextAiredEpisode() {
-		Episode next = getNextEpisode();
-		return next.isAired();
+		// some episodes do not have air dates but later ones have.
+		// because of that we need to check all later episodes for an air date to make sure.
+		for (int i = getCurrentIndex() + 1; i < episodes.size(); i++) {
+			Episode next = episodes.get(i);
+			if (next.isAired()) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private Episode getNextEpisode() {
