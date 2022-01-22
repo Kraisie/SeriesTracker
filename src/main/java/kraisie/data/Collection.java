@@ -57,15 +57,18 @@ public class Collection {
 	}
 
 	public static void writeData(Collection collection) throws IOException {
-		// sort series by name
+		Collection sortedCollection = sortSeriesByName(collection);
+		Gson gson = new Gson();
+		String json = gson.toJson(sortedCollection);
+		Settings settings = Settings.readData();
+		Files.writeString(settings.getPathSeries(), json, TRUNCATE_EXISTING, CREATE);
+	}
+
+	private static Collection sortSeriesByName(Collection collection) {
 		List<Series> allSeries = collection.getSeries();
 		allSeries.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
 		collection.setSeries(allSeries);
-
-		Gson gson = new Gson();
-		String json = gson.toJson(collection);
-		Settings settings = Settings.readData();
-		Files.writeString(settings.getPathSeries(), json, TRUNCATE_EXISTING, CREATE);
+		return collection;
 	}
 
 	public void addNewSeriesById(int id) {
@@ -77,6 +80,7 @@ public class Collection {
 		}
 
 		series.add(newSeries);
+		sortSeriesByName(this);
 	}
 
 	public ObservableList<Series> getObservableStarted() {
@@ -121,6 +125,7 @@ public class Collection {
 		Series match = series.get(index);
 		match.setUserStatus(UserState.WATCHING);
 		match.getEpisodeList().get(0).setCurrent(true);
+		sortSeriesByName(this);
 	}
 
 	public List<Series> getSeries() {
