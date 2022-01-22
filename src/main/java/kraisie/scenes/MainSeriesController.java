@@ -94,7 +94,6 @@ public class MainSeriesController {
 		columnNameLeft.setCellValueFactory(new PropertyValueFactory<>("name"));
 		columnCurrentSeason.setCellValueFactory(new PropertyValueFactory<>("currentSeason"));
 		columnCurrentEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
-
 		columnNameRight.setCellValueFactory(new PropertyValueFactory<>("name"));
 		columnSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
 	}
@@ -103,7 +102,6 @@ public class MainSeriesController {
 		columnNameLeft.prefWidthProperty().bind(leftTable.widthProperty().divide(2));
 		columnCurrentSeason.prefWidthProperty().bind(leftTable.widthProperty().divide(4));
 		columnCurrentEpisode.prefWidthProperty().bind(leftTable.widthProperty().divide(4));
-
 		columnNameRight.prefWidthProperty().bind(rightTable.widthProperty().divide(1.5));
 		columnSeasons.prefWidthProperty().bind(rightTable.widthProperty().divide(3));
 	}
@@ -111,21 +109,18 @@ public class MainSeriesController {
 	private void populateTablesDefault() {
 		ObservableList<Series> started = collection.getObservableStarted();
 		ObservableList<Series> unstarted = collection.getObservableUnstarted();
-
-		leftTable.setItems(started);
-		rightTable.setItems(unstarted);
-
-		leftTable.refresh();
-		rightTable.refresh();
+		populateTables(started, unstarted);
 	}
 
 	private void populateTablesAlternate() {
 		ObservableList<Series> waiting = collection.getObservableWaiting();
 		ObservableList<Series> finished = collection.getObservableFinished();
+		populateTables(waiting, finished);
+	}
 
-		leftTable.setItems(waiting);
-		rightTable.setItems(finished);
-
+	private void populateTables(ObservableList<Series> left, ObservableList<Series> right) {
+		leftTable.setItems(left);
+		rightTable.setItems(right);
 		leftTable.refresh();
 		rightTable.refresh();
 	}
