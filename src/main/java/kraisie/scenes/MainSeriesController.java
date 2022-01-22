@@ -83,8 +83,6 @@ public class MainSeriesController {
 		} else {
 			populateTablesDefault();
 		}
-
-
 	}
 
 	private void setTableProperties() {
