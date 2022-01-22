@@ -20,7 +20,9 @@ import kraisie.data.Collection;
 import kraisie.data.DataSingleton;
 import kraisie.data.definitions.Scenes;
 import kraisie.tvdb.SearchData;
-import kraisie.tvdb.SearchResult;
+import kraisie.tvdb.SeriesImage;
+import kraisie.tvdb.SeriesPosters;
+import kraisie.tvdb.TVDB;
 import kraisie.ui.SceneLoader;
 
 import java.util.ArrayList;
@@ -37,21 +39,21 @@ public class SelectSeriesController {
 	private int objectsPerColumn;
 	private int objectsPerPage;
 	private boolean seriesFocused;
-	private SearchResult selectedSeries;
+	private SearchData selectedSeries;
 
 	private static final int BTN_PREF_WIDTH = 175;
 	private static final int BTN_PREF_HEIGHT = 250;
 	private static final int GRID_H_GAP = 25;
 	private static final int GRID_V_GAP = 15;
 
-	private List<SearchResult> data;
+	private List<SearchData> data;
 
 	@FXML
 	private void initialize() {
 
 	}
 
-	public void initData(List<SearchResult> data) {
+	public void initData(List<SearchData> data) {
 		this.data = data;
 		// listeners get triggered when pagination gets rendered (first for width, then height)
 		setResizeListener();
@@ -109,7 +111,7 @@ public class SelectSeriesController {
 		grid.setVgap(GRID_V_GAP);
 		grid.setPadding(new Insets(GRID_V_GAP, GRID_H_GAP, GRID_V_GAP, GRID_H_GAP));
 
-		List<SearchResult> series = getPageContentList(pageIndex);
+		List<SearchData> series = getPageContentList(pageIndex);
 		fillGrid(grid, series);
 
 		hBox.getChildren().add(grid);
@@ -118,7 +120,7 @@ public class SelectSeriesController {
 	}
 
 
-	private void fillGrid(GridPane grid, List<SearchResult> series) {
+	private void fillGrid(GridPane grid, List<SearchData> series) {
 		int listIndex = 0;
 		for (int i = 0; i < objectsPerRow; i++) {
 			for (int j = 0; j < objectsPerColumn; j++) {
@@ -136,7 +138,7 @@ public class SelectSeriesController {
 		}
 	}
 
-	private Button buildButton(List<SearchResult> series, int listIndex) {
+	private Button buildButton(List<SearchData> series, int listIndex) {
 		String seriesName = series.get(listIndex).getSeriesName();
 		Button btn = new Button(seriesName);
 
@@ -147,11 +149,11 @@ public class SelectSeriesController {
 		return btn;
 	}
 
-	private List<SearchResult> getPageContentList(int pageIndex) {
+	private List<SearchData> getPageContentList(int pageIndex) {
 		int startIndex = pageIndex * objectsPerPage;
 		int endIndex = Math.min(startIndex + objectsPerPage, data.size());
 
-		List<SearchResult> series = new ArrayList<>();
+		List<SearchData> series = new ArrayList<>();
 		for (int i = startIndex; i < endIndex; i++) {
 			series.add(data.get(i));
 		}
@@ -159,14 +161,14 @@ public class SelectSeriesController {
 		return series;
 	}
 
-	private void setToolTipToButton(Button button, List<SearchResult> series, int index) {
+	private void setToolTipToButton(Button button, List<SearchData> series, int index) {
 		button.hoverProperty().addListener((observable) -> {
 			Tooltip tooltip = buildTooltip(series, index);
 			button.setTooltip(tooltip);
 		});
 	}
 
-	private Tooltip buildTooltip(List<SearchResult> series, int index) {
+	private Tooltip buildTooltip(List<SearchData> series, int index) {
 		String overview = getTooltipText(series, index);
 		Tooltip tooltip = new Tooltip(overview);
 		tooltip.setShowDelay(Duration.millis(100));
@@ -176,9 +178,8 @@ public class SelectSeriesController {
 		return tooltip;
 	}
 
-	private String getTooltipText(List<SearchResult> series, int index) {
-		SearchResult result = series.get(index);
-		SearchData searchData = result.getSearchData();
+	private String getTooltipText(List<SearchData> series, int index) {
+		SearchData searchData = series.get(index);
 		String overview = searchData.getOverview();
 
 		if (overview == null) {
@@ -196,7 +197,7 @@ public class SelectSeriesController {
 		return overview;
 	}
 
-	private void setGraphicToButton(Button button, List<SearchResult> series, int index) {
+	private void setGraphicToButton(Button button, List<SearchData> series, int index) {
 		ImageView img = new ImageView();
 		img.setPreserveRatio(true);
 		img.setFitWidth(BTN_PREF_WIDTH - 25);
@@ -205,9 +206,28 @@ public class SelectSeriesController {
 		button.setGraphic(img);
 	}
 
-	private Image getSeriesImage(List<SearchResult> series, int index) {
-		SearchResult result = series.get(index);
-		return result.getPoster();
+	private Image getSeriesImage(List<SearchData> series, int index) {
+		return getSeriesImage(series.get(index));
+	}
+
+	private Image getSeriesImage(SearchData series) {
+		TVDB api = DataSingleton.getApi();
+		SeriesPosters posters = api.getSeriesPosters(series.getId());
+		return getTvdbPoster(posters);
+	}
+
+	private Image getTvdbPoster(SeriesPosters posters) {
+		if (posters == null) {
+			return TVDB.getFallbackImage();
+		}
+
+		SeriesImage[] seriesImages = posters.getData();
+		if (seriesImages.length == 0) {
+			return TVDB.getFallbackImage();
+		}
+
+		String posterName = seriesImages[0].getFileName();
+		return TVDB.getBannerImage(posterName);
 	}
 
 	private void setButtonProperties(Button btn) {
@@ -223,7 +243,7 @@ public class SelectSeriesController {
 
 	private void showSelectedSeriesInfo(Button btn) {
 		String btnLabel = btn.getText();
-		for (SearchResult result : data) {
+		for (SearchData result : data) {
 			if (btnLabel.equals(result.getSeriesName())) {
 				seriesFocused = true;
 				selectedSeries = result;
@@ -245,9 +265,8 @@ public class SelectSeriesController {
 			HBox hBox = new HBox();
 			hBox.setAlignment(Pos.CENTER);
 
-			Image image = selectedSeries.getPoster();
+			Image image = getSeriesImage(selectedSeries);
 			Rectangle roundedImage = getRoundedImageRectangle(image);
-			SearchData searchData = selectedSeries.getSearchData();
 
 			Region spacerH1 = new Region();
 			spacerH1.setMinWidth(25d);
@@ -269,15 +288,15 @@ public class SelectSeriesController {
 			VBox.setVgrow(spacerToButtons, Priority.ALWAYS);
 
 			VBox infoBox = new VBox();
-			infoBox.getChildren().add(getInfoBox("Name: ", searchData.getSeriesName()));
+			infoBox.getChildren().add(getInfoBox("Name: ", selectedSeries.getSeriesName()));
 			infoBox.getChildren().add(spacerV1);
-			infoBox.getChildren().add(getInfoBox("Overview: ", searchData.getOverview()));
+			infoBox.getChildren().add(getInfoBox("Overview: ", selectedSeries.getOverview()));
 			infoBox.getChildren().add(spacerV2);
-			infoBox.getChildren().add(getInfoBox("Network: ", searchData.getNetwork()));
+			infoBox.getChildren().add(getInfoBox("Network: ", selectedSeries.getNetwork()));
 			infoBox.getChildren().add(spacerV3);
-			infoBox.getChildren().add(getInfoBox("First aired: ", searchData.getFirstAired()));
+			infoBox.getChildren().add(getInfoBox("First aired: ", selectedSeries.getFirstAired()));
 			infoBox.getChildren().add(spacerV4);
-			infoBox.getChildren().add(getInfoBox("Status: ", searchData.getStatus()));
+			infoBox.getChildren().add(getInfoBox("Status: ", selectedSeries.getStatus()));
 			infoBox.getChildren().add(spacerToButtons);
 			infoBox.getChildren().add(getButtonBox());
 
@@ -345,7 +364,7 @@ public class SelectSeriesController {
 		add.setOnAction(event -> {
 			DataSingleton data = DataSingleton.getInstance();
 			Collection collection = data.getCollection();
-			collection.addNewSeriesById(selectedSeries.getSearchData().getId());
+			collection.addNewSeriesById(selectedSeries.getId());
 			showMainScene();
 		});
 

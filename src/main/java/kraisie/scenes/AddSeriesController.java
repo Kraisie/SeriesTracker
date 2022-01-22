@@ -11,7 +11,7 @@ import kraisie.data.Collection;
 import kraisie.data.DataSingleton;
 import kraisie.data.definitions.Scenes;
 import kraisie.dialog.PopUp;
-import kraisie.tvdb.SearchResult;
+import kraisie.tvdb.SearchData;
 import kraisie.tvdb.TVDB;
 import kraisie.ui.SceneLoader;
 
@@ -43,10 +43,10 @@ public class AddSeriesController {
 	}
 
 	private void searchSeries(String name) {
-		List<SearchResult> possibleMatches = getPossibleMatches(name);
+		List<SearchData> possibleMatches = getPossibleMatches(name);
 		if (possibleMatches.size() == 1) {
-			SearchResult match = possibleMatches.get(0);
-			int seriesId = match.getSearchData().getId();
+			SearchData match = possibleMatches.get(0);
+			int seriesId = match.getId();
 			Collection collection = data.getCollection();
 			if (collection.seriesExists(seriesId)) {
 				PopUp popUp = PopUp.forStage((Stage) borderPane.getScene().getWindow());
@@ -69,12 +69,12 @@ public class AddSeriesController {
 		openSelectionScene(possibleMatches);
 	}
 
-	private List<SearchResult> getPossibleMatches(String name) {
+	private List<SearchData> getPossibleMatches(String name) {
 		TVDB api = DataSingleton.getApi();
 		return api.searchSeries(name);
 	}
 
-	private void openSelectionScene(List<SearchResult> data) {
+	private void openSelectionScene(List<SearchData> data) {
 		Stage stage = (Stage) borderPane.getScene().getWindow();
 		Scenes scene = Scenes.SELECT;
 		SceneLoader loader = new SceneLoader(scene);

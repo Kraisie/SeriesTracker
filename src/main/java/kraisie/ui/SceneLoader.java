@@ -12,7 +12,7 @@ import kraisie.scenes.InfoController;
 import kraisie.scenes.MotherController;
 import kraisie.scenes.SearchResultController;
 import kraisie.scenes.SelectSeriesController;
-import kraisie.tvdb.SearchResult;
+import kraisie.tvdb.SearchData;
 
 import java.io.IOException;
 import java.net.URL;
@@ -92,7 +92,7 @@ public class SceneLoader {
 		return loadRoot(loader);
 	}
 
-	public Parent loadSceneWithSearchData(List<SearchResult> data) {
+	public Parent loadSceneWithSearchData(List<SearchData> data) {
 		String pathFxml = scene.getPath();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(pathFxml));
 		Parent root = loadRoot(loader);

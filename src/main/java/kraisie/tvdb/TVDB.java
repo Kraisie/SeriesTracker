@@ -24,6 +24,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TVDB {
@@ -68,7 +69,7 @@ public class TVDB {
 		return token.isExpired();
 	}
 
-	public List<SearchResult> searchSeries(String name) {
+	public List<SearchData> searchSeries(String name) {
 		String urlSeries = getEncodedName(name);
 		if (urlSeries.isBlank()) {
 			return new ArrayList<>();
@@ -88,18 +89,7 @@ public class TVDB {
 		}
 
 		SeriesSearchData searchData = extractSeriesSearchData(json);
-		SearchData[] seriesData = searchData.getData();
-		/*
-		TODO: dont preload all images, e.g. return search data or search result without images
-		      then load them as needed (by poster link)
-		 */
-		List<SearchResult> results = new ArrayList<>();
-		for (SearchData data : seriesData) {
-			SeriesPosters posters = getSeriesPosters(data.getId());
-			results.add(new SearchResult(data, posters));
-		}
-
-		return results;
+		return Arrays.asList(searchData.getData());
 	}
 
 	private String getEncodedName(String name) {
