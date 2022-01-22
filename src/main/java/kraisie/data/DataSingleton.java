@@ -1,5 +1,7 @@
 package kraisie.data;
 
+import kraisie.tvdb.TVDB;
+
 import java.io.IOException;
 
 // not thread safe, not synchronised
@@ -8,10 +10,12 @@ public final class DataSingleton {
 	private static DataSingleton instance;
 	private static Collection collection;
 	private static Settings settings;
+	private static TVDB api;
 
 	private DataSingleton() {
 		collection = Collection.readData();
 		settings = Settings.readData();
+		api = new TVDB();
 	}
 
 	public static DataSingleton getInstance() {
@@ -28,6 +32,14 @@ public final class DataSingleton {
 
 	public Settings getSettings() {
 		return settings;
+	}
+
+	public static TVDB getApi() {
+		if (api.isTokenExpired()) {
+			api = new TVDB();
+		}
+
+		return api;
 	}
 
 	public static void save() {

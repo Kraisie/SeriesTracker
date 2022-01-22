@@ -40,8 +40,8 @@ public class TVDB {
 
 	public static Image getBannerImage(String banner) {
 		try {
-			String banenrUrl = "https://thetvdb.com/banners/" + banner;
-			URL url = new URL(banenrUrl);
+			String bannerUrl = "https://thetvdb.com/banners/" + banner;
+			URL url = new URL(bannerUrl);
 			BufferedImage bufImg = ImageIO.read(url);
 
 			return SwingFXUtils.toFXImage(bufImg, null);
@@ -62,6 +62,10 @@ public class TVDB {
 		} catch (IOException e) {
 			return null;
 		}
+	}
+
+	public boolean isTokenExpired() {
+		return token.isExpired();
 	}
 
 	public List<SearchResult> searchSeries(String name) {

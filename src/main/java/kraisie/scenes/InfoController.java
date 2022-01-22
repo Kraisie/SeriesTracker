@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import kraisie.data.DataSingleton;
 import kraisie.data.Series;
 import kraisie.tvdb.SeriesImage;
 import kraisie.tvdb.SeriesPosters;
@@ -79,7 +80,7 @@ public class InfoController {
 	}
 
 	private Image retrievePoster(String tvdbId) {
-		TVDB api = new TVDB();
+		TVDB api = DataSingleton.getApi();
 		SeriesPosters posters = api.getSeriesPosters(Integer.parseInt(tvdbId));
 		if (posters == null) {
 			return TVDB.getFallbackImage();

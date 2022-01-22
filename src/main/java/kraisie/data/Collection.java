@@ -72,7 +72,7 @@ public class Collection {
 	}
 
 	public void addNewSeriesById(int id) {
-		TVDB api = new TVDB();
+		TVDB api = DataSingleton.getApi();
 		Series newSeries = api.getSeries(id);
 
 		if (seriesExists(id)) {

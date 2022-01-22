@@ -94,7 +94,7 @@ public class UpdateSeriesController {
 		Task<Void> updateTask = new Task<>() {
 			@Override
 			protected Void call() {
-				TVDB api = new TVDB();
+				TVDB api = DataSingleton.getApi();
 				List<String> changeLog = new ArrayList<>();
 				for (int i = 0; i < series.size(); i++) {
 					updateLog(series.get(i), i + 1, series.size());
