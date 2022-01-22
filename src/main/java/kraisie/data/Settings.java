@@ -13,10 +13,9 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 public class Settings {
 
 	private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
-	private String pathAPIKey;
-	private String pathSeries;
-	private boolean sortByCompletion;
-	private boolean sortByTime;
+	private static final String PATH_API_KEY = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/API_Key.json").toString();
+	private static final String PATH_SERIES = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Series.json").toString();
+	private static final String PATH_CACHE = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/.cache").toString();
 	private String langIso;
 	private int[] prefSize;
 	private boolean cycleBackgrounds;
@@ -24,10 +23,6 @@ public class Settings {
 	private int fadeDuration;        // x millis TODO: slider in settings e.g. 100-2500
 
 	public Settings() {
-		this.pathAPIKey = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/API_Key.json").toString();
-		this.pathSeries = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Series.json").toString();
-		this.sortByCompletion = false;
-		this.sortByTime = false;
 		this.langIso = "en";
 		this.prefSize = new int[]{1280, 720};
 		this.cycleBackgrounds = true;
@@ -35,15 +30,12 @@ public class Settings {
 		this.fadeDuration = 500;
 	}
 
-	public Settings(String pathAPIKey, String pathSeries, boolean sortByCompletion, boolean sortByTime, String langIso, int[] prefSize, boolean cycleBackgrounds, int backgroundCycle, int fadeDuration) {
-		this.pathAPIKey = pathAPIKey;
-		this.pathSeries = pathSeries;
+	public Settings(String langIso, int[] prefSize, boolean cycleBackgrounds, int backgroundCycle, int fadeDuration) {
 		this.langIso = langIso;
 		this.prefSize = prefSize;
 		this.cycleBackgrounds = cycleBackgrounds;
 		this.backgroundCycle = backgroundCycle;
 		this.fadeDuration = fadeDuration;
-		selectSorting(sortByCompletion, sortByTime);
 	}
 
 	public static Settings readData() {
@@ -94,63 +86,20 @@ public class Settings {
 		}
 	}
 
-	private void selectSorting(boolean sortByCompletion, boolean sortByTime) {
-		if (sortByCompletion && sortByTime) {
-			this.sortByCompletion = false;
-			this.sortByTime = false;
-		} else {
-			this.sortByCompletion = sortByCompletion;
-			this.sortByTime = sortByTime;
-		}
-	}
-
 	public boolean isValid() {
-		if (this.sortByCompletion && this.sortByTime) {
-			sortByCompletion = false;
-			sortByTime = false;
-		}
-
-		if (!getPathAPIKey().toFile().exists()) {
-			return false;
-		}
-
-		if (!getPathSeries().toFile().exists()) {
-			return false;
-		}
-
 		return prefSize[0] > 0 && prefSize[1] > 0;
 	}
 
 	public Path getPathAPIKey() {
-		return Paths.get(pathAPIKey);
-	}
-
-	public void setPathAPIKey(Path pathAPIKey) {
-		this.pathAPIKey = pathAPIKey.toString();
+		return Paths.get(PATH_API_KEY);
 	}
 
 	public Path getPathSeries() {
-		return Paths.get(pathSeries);
+		return Paths.get(PATH_SERIES);
 	}
 
-	public void setPathSeries(Path pathSeries) {
-		this.pathSeries = pathSeries.toString();
-	}
-
-	public boolean isSortByCompletion() {
-		return sortByCompletion;
-	}
-
-	public void setSortByCompletion(boolean sortByCompletion) {
-		this.sortByCompletion = sortByCompletion;
-	}
-
-	public boolean isSortByTime() {
-		return sortByTime;
-	}
-
-	public void setSortByTime(boolean sortByTime) {
-		this.sortByTime = sortByTime;
+	public Path getPathCache() {
+		return Paths.get(PATH_CACHE);
 	}
 
 	public String getLangIso() {

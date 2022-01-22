@@ -11,11 +11,13 @@ public final class DataSingleton {
 	private static Collection collection;
 	private static Settings settings;
 	private static TVDB api;
+	private static ImageCache imageCache;
 
 	private DataSingleton() {
 		collection = Collection.readData();
 		settings = Settings.readData();
 		api = new TVDB();
+		imageCache = new ImageCache(settings);
 	}
 
 	public static DataSingleton getInstance() {
@@ -40,6 +42,10 @@ public final class DataSingleton {
 		}
 
 		return api;
+	}
+
+	public ImageCache getImageCache() {
+		return imageCache;
 	}
 
 	public static void save() {

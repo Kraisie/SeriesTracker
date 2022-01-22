@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import kraisie.data.DataSingleton;
+import kraisie.data.ImageCache;
 import kraisie.data.Series;
 import kraisie.tvdb.SeriesImage;
 import kraisie.tvdb.SeriesPosters;
@@ -81,8 +82,14 @@ public class InfoController {
 	}
 
 	private Image retrievePoster(String tvdbId) {
+		ImageCache cache = data.getImageCache();
+		int id = Integer.parseInt(tvdbId);
+		if (cache.isCached(id)) {
+			return cache.get(id);
+		}
+
 		TVDB api = data.getApi();
-		SeriesPosters posters = api.getSeriesPosters(Integer.parseInt(tvdbId));
+		SeriesPosters posters = api.getSeriesPosters(id);
 		if (posters == null) {
 			return TVDB.getFallbackImage();
 		}
@@ -93,7 +100,12 @@ public class InfoController {
 		}
 
 		String posterName = seriesImages[0].getFileName();
-		return TVDB.getBannerImage(posterName);
+		Image banner = TVDB.getBannerImage(posterName);
+		if (!cache.isCached(id)) {
+			cache.save(banner, id);
+		}
+
+		return banner;
 	}
 
 	private void setSeriesImage() {
