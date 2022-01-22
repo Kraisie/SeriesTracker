@@ -87,6 +87,14 @@ public class Collection {
 		return getSeriesByUserState(UserState.NOT_STARTED);
 	}
 
+	public ObservableList<Series> getObservableWaiting() {
+		return getSeriesByUserState(UserState.WAITING);
+	}
+
+	public ObservableList<Series> getObservableFinished() {
+		return getSeriesByUserState(UserState.FINISHED);
+	}
+
 	private ObservableList<Series> getSeriesByUserState(UserState filter) {
 		return FXCollections.observableArrayList(
 				series.stream()

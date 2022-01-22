@@ -3,6 +3,8 @@ package kraisie.scenes;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,27 +23,47 @@ public class MainSeriesController {
 	private BorderPane borderPane;
 
 	@FXML
-	private TableView<Series> tableContinueWatching;
+	private Label leftHeader;
 
 	@FXML
-	private TableColumn<Series, String> columnContinueName;
+	private Label rightHeader;
 
 	@FXML
-	private TableColumn<Series, String> columnContinueSeason;
+	private TableView<Series> leftTable;
 
 	@FXML
-	private TableColumn<Series, String> columnContinueEpisode;
+	private TableColumn<Series, String> columnNameLeft;
 
 	@FXML
-	private TableView<Series> tableStartWatching;
+	private TableColumn<Series, String> columnCurrentSeason;
 
 	@FXML
-	private TableColumn<Series, String> columnStartName;
+	private TableColumn<Series, String> columnCurrentEpisode;
 
 	@FXML
-	private TableColumn<Series, String> columnStartSeasons;
+	private TableView<Series> rightTable;
+
+	@FXML
+	private TableColumn<Series, String> columnNameRight;
+
+	@FXML
+	private TableColumn<Series, String> columnSeasons;
+
+	@FXML
+	private Button plusEpisodeButton;
+
+	@FXML
+	private Button minusEpisodeButton;
+
+	@FXML
+	private Button startSeriesButton;
+
+	@FXML
+	private Button displaySwitchButton;
 
 	private Collection collection;
+
+	private boolean displayState = false;
 
 	@FXML
 	private void initialize() {
@@ -56,7 +78,13 @@ public class MainSeriesController {
 
 	private void loadTables() {
 		setTableProperties();
-		populateTables();
+		if (displayState) {
+			populateTablesAlternate();
+		} else {
+			populateTablesDefault();
+		}
+
+
 	}
 
 	private void setTableProperties() {
@@ -65,47 +93,58 @@ public class MainSeriesController {
 	}
 
 	private void setCellValueFactories() {
-		columnContinueName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		columnContinueSeason.setCellValueFactory(new PropertyValueFactory<>("currentSeason"));
-		columnContinueEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
+		columnNameLeft.setCellValueFactory(new PropertyValueFactory<>("name"));
+		columnCurrentSeason.setCellValueFactory(new PropertyValueFactory<>("currentSeason"));
+		columnCurrentEpisode.setCellValueFactory(new PropertyValueFactory<>("currentEpisode"));
 
-		columnStartName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		columnStartSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
+		columnNameRight.setCellValueFactory(new PropertyValueFactory<>("name"));
+		columnSeasons.setCellValueFactory(new PropertyValueFactory<>("numberOfSeasons"));
 	}
 
 	private void setColumnWidth() {
-		columnContinueName.prefWidthProperty().bind(tableContinueWatching.widthProperty().divide(2));
-		columnContinueSeason.prefWidthProperty().bind(tableContinueWatching.widthProperty().divide(4));
-		columnContinueEpisode.prefWidthProperty().bind(tableContinueWatching.widthProperty().divide(4));
+		columnNameLeft.prefWidthProperty().bind(leftTable.widthProperty().divide(2));
+		columnCurrentSeason.prefWidthProperty().bind(leftTable.widthProperty().divide(4));
+		columnCurrentEpisode.prefWidthProperty().bind(leftTable.widthProperty().divide(4));
 
-		columnStartName.prefWidthProperty().bind(tableStartWatching.widthProperty().divide(1.5));
-		columnStartSeasons.prefWidthProperty().bind(tableStartWatching.widthProperty().divide(3));
+		columnNameRight.prefWidthProperty().bind(rightTable.widthProperty().divide(1.5));
+		columnSeasons.prefWidthProperty().bind(rightTable.widthProperty().divide(3));
 	}
 
-	private void populateTables() {
+	private void populateTablesDefault() {
 		ObservableList<Series> started = collection.getObservableStarted();
 		ObservableList<Series> unstarted = collection.getObservableUnstarted();
 
-		tableContinueWatching.setItems(started);
-		tableStartWatching.setItems(unstarted);
+		leftTable.setItems(started);
+		rightTable.setItems(unstarted);
 
-		tableContinueWatching.refresh();
-		tableStartWatching.refresh();
+		leftTable.refresh();
+		rightTable.refresh();
+	}
+
+	private void populateTablesAlternate() {
+		ObservableList<Series> waiting = collection.getObservableWaiting();
+		ObservableList<Series> finished = collection.getObservableFinished();
+
+		leftTable.setItems(waiting);
+		rightTable.setItems(finished);
+
+		leftTable.refresh();
+		rightTable.refresh();
 	}
 
 	@FXML
 	private void clickOnTableUnstarted() {
-		tableContinueWatching.getSelectionModel().clearSelection();
+		leftTable.getSelectionModel().clearSelection();
 	}
 
 	@FXML
 	private void clickOnTableWatching() {
-		tableStartWatching.getSelectionModel().clearSelection();
+		rightTable.getSelectionModel().clearSelection();
 	}
 
 	@FXML
 	private void decEpisodeButton() {
-		Series selectedSeries = tableContinueWatching.getSelectionModel().getSelectedItem();
+		Series selectedSeries = leftTable.getSelectionModel().getSelectedItem();
 		if (selectedSeries == null) {
 			return;
 		}
@@ -128,17 +167,17 @@ public class MainSeriesController {
 	}
 
 	private Series getSelectedSeries() {
-		Series selected = tableContinueWatching.getSelectionModel().getSelectedItem();
+		Series selected = leftTable.getSelectionModel().getSelectedItem();
 		if (selected != null) {
 			return selected;
 		}
 
-		return tableStartWatching.getSelectionModel().getSelectedItem();
+		return rightTable.getSelectionModel().getSelectedItem();
 	}
 
 	@FXML
 	private void incEpisodeButton() {
-		Series selectedSeries = tableContinueWatching.getSelectionModel().getSelectedItem();
+		Series selectedSeries = leftTable.getSelectionModel().getSelectedItem();
 		if (selectedSeries == null) {
 			return;
 		}
@@ -151,12 +190,12 @@ public class MainSeriesController {
 
 	@FXML
 	private void scrollToKeyNotStarted(KeyEvent event) {
-		scrollToSeries(tableStartWatching, event);
+		scrollToSeries(rightTable, event);
 	}
 
 	@FXML
 	private void scrollToKeyWatching(KeyEvent event) {
-		scrollToSeries(tableContinueWatching, event);
+		scrollToSeries(leftTable, event);
 	}
 
 	private void scrollToSeries(TableView<Series> table, KeyEvent event) {
@@ -214,8 +253,35 @@ public class MainSeriesController {
 	}
 
 	@FXML
-	private void showFinishedSeries() {
+	private void switchDisplay() {
+		displayState = !displayState;
+		switchTexts();
+		disableButtons();
+		updateScene();
+		resetScroll();
+	}
 
+	private void switchTexts() {
+		if (displayState) {
+			leftHeader.setText("Awaiting new episodes");
+			rightHeader.setText("Finished series");
+			displaySwitchButton.setText("Started/Unstarted series");
+		} else {
+			leftHeader.setText("Continue watching");
+			rightHeader.setText("Start watching");
+			displaySwitchButton.setText("Awaited/Finished series");
+		}
+	}
+
+	private void disableButtons() {
+		plusEpisodeButton.setDisable(!plusEpisodeButton.isDisable());
+		minusEpisodeButton.setDisable(!minusEpisodeButton.isDisable());
+		startSeriesButton.setDisable(!startSeriesButton.isDisable());
+	}
+
+	private void resetScroll() {
+		leftTable.scrollTo(0);
+		rightTable.scrollTo(0);
 	}
 
 	@FXML
@@ -235,19 +301,14 @@ public class MainSeriesController {
 	}
 
 	@FXML
-	private void showWaiting() {
-
-	}
-
-	@FXML
 	private void startSeries() {
-		Series selectedSeries = tableStartWatching.getSelectionModel().getSelectedItem();
+		Series selectedSeries = rightTable.getSelectionModel().getSelectedItem();
 		if (selectedSeries == null) {
 			return;
 		}
 
 		collection.startSeries(selectedSeries);
 		updateScene();
-		tableContinueWatching.getSelectionModel().select(selectedSeries);
+		leftTable.getSelectionModel().select(selectedSeries);
 	}
 }

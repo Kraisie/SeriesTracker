@@ -13,23 +13,8 @@
                 <Insets bottom="5.0"/>
             </BorderPane.margin>
             <Region minWidth="5.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
-            <VBox spacing="5.0" HBox.hgrow="ALWAYS">
-                <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                    <Button minHeight="10.0" minWidth="10.0" mnemonicParsing="false" onAction="#showWaiting"
-                            prefHeight="35.0" text="All awaited series" HBox.hgrow="ALWAYS">
-                        <HBox.margin>
-                            <Insets/>
-                        </HBox.margin>
-                    </Button>
-                    <Region minWidth="5.0" prefWidth="50.0" HBox.hgrow="SOMETIMES"/>
-                    <Button minHeight="10.0" minWidth="10.0" mnemonicParsing="false" onAction="#showFinishedSeries"
-                            prefHeight="35.0" text="All finished series" HBox.hgrow="ALWAYS">
-                        <HBox.margin>
-                            <Insets/>
-                        </HBox.margin>
-                    </Button>
-                </HBox>
-            </VBox>
+            <Button fx:id="displaySwitchButton" minHeight="10.0" minWidth="10.0" mnemonicParsing="false"
+                    onAction="#switchDisplay" prefHeight="35.0" text="Awaited/Finished series" HBox.hgrow="ALWAYS"/>
             <Region minWidth="5.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
         </HBox>
     </bottom>
@@ -45,20 +30,19 @@
                     <HBox.margin>
                         <Insets/>
                     </HBox.margin>
-                    <Label alignment="CENTER" contentDisplay="CENTER" text="Continue watching" textAlignment="CENTER"
-                           textFill="LIME" underline="true">
+                    <Label fx:id="leftHeader" alignment="CENTER" contentDisplay="CENTER" text="Continue watching"
+                           textAlignment="CENTER" textFill="LIME" underline="true">
                         <font>
                             <Font size="24.0"/>
                         </font>
                     </Label>
                     <Region maxHeight="-Infinity" minHeight="5.0" prefHeight="15.0" VBox.vgrow="ALWAYS"/>
-                    <TableView fx:id="tableContinueWatching" minHeight="50.0" minWidth="30.0"
-                               onKeyPressed="#scrollToKeyWatching" onMouseClicked="#clickOnTableWatching" opacity="0.9"
-                               VBox.vgrow="ALWAYS">
+                    <TableView fx:id="leftTable" minHeight="50.0" minWidth="30.0" onKeyPressed="#scrollToKeyWatching"
+                               onMouseClicked="#clickOnTableWatching" opacity="0.9" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn fx:id="columnContinueName" text="Name"/>
-                            <TableColumn id="centeredColumn" fx:id="columnContinueSeason" text="Season"/>
-                            <TableColumn id="centeredColumn" fx:id="columnContinueEpisode" text="Episode"/>
+                            <TableColumn fx:id="columnNameLeft" text="Name"/>
+                            <TableColumn id="centeredColumn" fx:id="columnCurrentSeason" text="Season"/>
+                            <TableColumn id="centeredColumn" fx:id="columnCurrentEpisode" text="Episode"/>
                         </columns>
                         <contextMenu>
                             <ContextMenu>
@@ -76,15 +60,17 @@
                             <Insets/>
                         </VBox.margin>
                         <Region minWidth="5.0" HBox.hgrow="ALWAYS"/>
-                        <Button alignment="CENTER" minWidth="10.0" mnemonicParsing="false" onAction="#incEpisodeButton"
-                                prefHeight="50.0" prefWidth="50.0" text="+" HBox.hgrow="SOMETIMES">
+                        <Button fx:id="plusEpisodeButton" alignment="CENTER" minWidth="10.0" mnemonicParsing="false"
+                                onAction="#incEpisodeButton" prefHeight="50.0" prefWidth="50.0" text="+"
+                                HBox.hgrow="SOMETIMES">
                             <HBox.margin>
                                 <Insets/>
                             </HBox.margin>
                         </Button>
                         <Region minWidth="5.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
-                        <Button alignment="CENTER" minWidth="10.0" mnemonicParsing="false" onAction="#decEpisodeButton"
-                                prefHeight="50.0" prefWidth="50.0" text="-" HBox.hgrow="SOMETIMES">
+                        <Button fx:id="minusEpisodeButton" alignment="CENTER" minWidth="10.0" mnemonicParsing="false"
+                                onAction="#decEpisodeButton" prefHeight="50.0" prefWidth="50.0" text="-"
+                                HBox.hgrow="SOMETIMES">
                             <HBox.margin>
                                 <Insets/>
                             </HBox.margin>
@@ -97,18 +83,18 @@
                     <HBox.margin>
                         <Insets/>
                     </HBox.margin>
-                    <Label alignment="CENTER" text="Start watching" textFill="LIME" underline="true">
+                    <Label fx:id="rightHeader" alignment="CENTER" text="Start watching" textFill="LIME"
+                           underline="true">
                         <font>
                             <Font size="24.0"/>
                         </font>
                     </Label>
                     <Region maxHeight="-Infinity" minHeight="5.0" prefHeight="15.0"/>
-                    <TableView fx:id="tableStartWatching" minHeight="50.0" minWidth="30.0"
-                               onKeyPressed="#scrollToKeyNotStarted" onMouseClicked="#clickOnTableUnstarted"
-                               opacity="0.9" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="rightTable" minHeight="50.0" minWidth="30.0" onKeyPressed="#scrollToKeyNotStarted"
+                               onMouseClicked="#clickOnTableUnstarted" opacity="0.9" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn fx:id="columnStartName" text="Name"/>
-                            <TableColumn id="centeredColumn" fx:id="columnStartSeasons" text="Seasons"/>
+                            <TableColumn fx:id="columnNameRight" text="Name"/>
+                            <TableColumn id="centeredColumn" fx:id="columnSeasons" text="Seasons"/>
                         </columns>
                         <contextMenu>
                             <ContextMenu>
@@ -121,8 +107,8 @@
                         </contextMenu>
                     </TableView>
                     <Region maxHeight="-Infinity" minHeight="5.0" prefHeight="15.0"/>
-                    <Button alignment="CENTER_RIGHT" minWidth="10.0" mnemonicParsing="false" onAction="#startSeries"
-                            prefHeight="50.0" text="Started series" VBox.vgrow="SOMETIMES">
+                    <Button fx:id="startSeriesButton" alignment="CENTER_RIGHT" minWidth="10.0" mnemonicParsing="false"
+                            onAction="#startSeries" prefHeight="50.0" text="Started series" VBox.vgrow="SOMETIMES">
                         <VBox.margin>
                             <Insets/>
                         </VBox.margin>
