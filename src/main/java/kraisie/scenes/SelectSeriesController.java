@@ -1,9 +1,11 @@
 package kraisie.scenes;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -18,7 +20,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import kraisie.data.Collection;
 import kraisie.data.DataSingleton;
+import kraisie.data.ImageCache;
 import kraisie.data.definitions.Scenes;
+import kraisie.dialog.LogUtil;
 import kraisie.tvdb.SearchData;
 import kraisie.tvdb.SeriesImage;
 import kraisie.tvdb.SeriesPosters;
@@ -145,7 +149,7 @@ public class SelectSeriesController {
 
 		setButtonProperties(btn);
 		setToolTipToButton(btn, series, listIndex);
-		setGraphicToButton(btn, series, listIndex);
+		setGraphicToButton(btn, series, listIndex);     // TODO: query in another thread, dont preload all images for the buttons on a page
 
 		return btn;
 	}
@@ -268,6 +272,7 @@ public class SelectSeriesController {
 
 			Image image = getSeriesImage(selectedSeries);
 			Rectangle roundedImage = getRoundedImageRectangle(image);
+			roundedImage.setUserData("poster");
 
 			Region spacerH1 = new Region();
 			spacerH1.setMinWidth(25d);
@@ -363,7 +368,8 @@ public class SelectSeriesController {
 
 		Button add = new Button("Add series");
 		add.setOnAction(event -> {
-			DataSingleton data = DataSingleton.getInstance();
+			Image poster = findPoster();
+			cachePoster(poster, selectedSeries);
 			Collection collection = data.getCollection();
 			collection.addNewSeriesById(selectedSeries.getId());
 			showMainScene();
@@ -373,8 +379,47 @@ public class SelectSeriesController {
 		buttonBox.getChildren().addAll(back, add);
 		buttonBox.setAlignment(Pos.CENTER);
 		buttonBox.setSpacing(50d);
-
 		return buttonBox;
+	}
+
+	private Image findPoster() {
+		Rectangle posterNode = (Rectangle) findPosterNode(pagination);
+		if (posterNode == null) {
+			LogUtil.logError("Did not find Rectangle Node for poster!");
+			return null;
+		}
+
+		ImagePattern p = (ImagePattern) posterNode.getFill();
+		return p.getImage();
+	}
+
+	private Node findPosterNode(Parent root) {
+		ObservableList<Node> children = root.getChildrenUnmodifiable();
+		for (Node child : children) {
+			if ((child instanceof Rectangle) && child.getUserData().equals("poster")) {
+				return child;
+			}
+
+			if (child instanceof Pane) {
+				return findPosterNode((Parent) child);
+			}
+		}
+
+		return null;
+	}
+
+	private void cachePoster(Image img, SearchData series) {
+		if (img == null) {
+			LogUtil.logDebug("Image to cache is null!");
+			return;
+		}
+
+		ImageCache cache = data.getImageCache();
+		if (cache.isCached(series.getId())) {
+			return;
+		}
+
+		cache.save(img, series.getId());
 	}
 
 	private void showMainScene() {

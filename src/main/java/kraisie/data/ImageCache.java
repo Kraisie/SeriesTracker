@@ -58,7 +58,9 @@ public class ImageCache {
 	}
 
 	public void save(Image img, int tvdbId) {
+		LogUtil.logDebug("Trying to cache poster for ID " + tvdbId + ".");
 		if (isCached(tvdbId)) {
+			LogUtil.logDebug("Poster for ID " + tvdbId + " is already cached.");
 			return;
 		}
 
