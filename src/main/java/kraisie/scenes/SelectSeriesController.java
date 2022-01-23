@@ -31,6 +31,9 @@ import kraisie.ui.SceneLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class SelectSeriesController {
 
@@ -44,14 +47,14 @@ public class SelectSeriesController {
 	private int objectsPerPage;
 	private boolean seriesFocused;
 	private SearchData selectedSeries;
+	private DataSingleton data;
+	private List<SearchData> searchData;
+	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
 	private static final int BTN_PREF_WIDTH = 175;
 	private static final int BTN_PREF_HEIGHT = 250;
 	private static final int GRID_H_GAP = 25;
 	private static final int GRID_V_GAP = 15;
-
-	private DataSingleton data;
-	private List<SearchData> searchData;
 
 	@FXML
 	private void initialize() {
@@ -149,7 +152,12 @@ public class SelectSeriesController {
 
 		setButtonProperties(btn);
 		setToolTipToButton(btn, series, listIndex);
-		setGraphicToButton(btn, series, listIndex);     // TODO: query in another thread, dont preload all images for the buttons on a page
+		scheduler.schedule(
+				() -> {
+					Image image = getSeriesImage(series, listIndex);
+					Platform.runLater(() -> setGraphicToButton(btn, image));
+				}, 150, TimeUnit.MILLISECONDS    // delay call to load pictures into scene to not block scene creation
+		);
 
 		return btn;
 	}
@@ -202,12 +210,12 @@ public class SelectSeriesController {
 		return overview;
 	}
 
-	private void setGraphicToButton(Button button, List<SearchData> series, int index) {
+	private void setGraphicToButton(Button button, Image image) {
 		ImageView img = new ImageView();
 		img.setPreserveRatio(true);
 		img.setFitWidth(BTN_PREF_WIDTH - 25);
 		img.setFitHeight(BTN_PREF_HEIGHT - 50);
-		img.setImage(getSeriesImage(series, index));
+		img.setImage(image);
 		button.setGraphic(img);
 	}
 
