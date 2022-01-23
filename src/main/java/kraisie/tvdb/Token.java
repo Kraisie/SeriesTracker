@@ -42,4 +42,9 @@ public class Token {
 	public boolean isExpired() {
 		return System.currentTimeMillis() > validUntilMs;
 	}
+
+	@Override
+	public String toString() {
+		return "{\"" + token + "\", " + validUntilMs + "}";
+	}
 }
