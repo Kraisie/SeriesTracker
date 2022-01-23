@@ -92,4 +92,28 @@ public class ImageCache {
 		newBufferedImage.createGraphics().drawImage(bufImg, 0, 0, Color.WHITE, null);
 		return newBufferedImage;
 	}
+
+	public boolean clear() {
+		Path cachePath = settings.getPathCache();
+		File[] files = cachePath.toFile().listFiles(pathname -> pathname.getName().endsWith("jpg"));
+		if (files == null) {
+			LogUtil.logDebug("Could not check files in " + cachePath + "");
+			return false;
+		}
+
+		if (files.length == 0) {
+			LogUtil.logDebug("There are no cached files to delete in " + cachePath + "");
+			return true;
+		}
+
+		boolean success = true;
+		for (File file : files) {
+			if (!file.delete()) {
+				success = false;
+				LogUtil.logWarning("Could not delete " + file.getAbsolutePath());
+			}
+		}
+
+		return success;
+	}
 }
