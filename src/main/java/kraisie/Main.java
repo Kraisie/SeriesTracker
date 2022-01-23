@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import kraisie.data.DataSingleton;
 import kraisie.data.definitions.Scenes;
+import kraisie.dialog.ExceptionHandler;
 import kraisie.dialog.LogUtil;
 import kraisie.dialog.PopUp;
 import kraisie.ui.SceneLoader;
@@ -17,9 +18,14 @@ public class Main extends Application {
 	}
 
 	public void start(Stage primaryStage) {
+		addExceptionHandler();
 		addCloseHandler(primaryStage);
 		doStartUpTask(primaryStage);
 		openScene(primaryStage);
+	}
+
+	private void addExceptionHandler() {
+		Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
 	}
 
 	private void addCloseHandler(Stage primaryStage) {
