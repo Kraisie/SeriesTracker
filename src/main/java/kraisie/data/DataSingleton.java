@@ -28,6 +28,10 @@ public final class DataSingleton {
 		return DataSingleton.instance;
 	}
 
+	public static void updateSettings(Settings newSettings) {
+		settings = newSettings;
+	}
+
 	public Collection getCollection() {
 		return collection;
 	}

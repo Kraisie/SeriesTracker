@@ -3,61 +3,70 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml" id="myPane" alignment="CENTER" spacing="10.0"
-      stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx"
-      fx:controller="kraisie.scenes.SettingsController">
-    <padding>
-        <Insets top="20.0"/>
-    </padding>
-    <Label id="biggerLabel" text="SETTINGS" textAlignment="CENTER" underline="true"/>
-    <GridPane hgap="15.0" vgap="10.0">
-        <columnConstraints>
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0"/>
-            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="300.0"/>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-        </rowConstraints>
-        <padding>
-            <Insets bottom="10.0" left="25.0" right="25.0" top="15.0"/>
-        </padding>
-        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" text="Save Settings" GridPane.rowIndex="9"/>
-        <Button mnemonicParsing="false" onAction="#standard" text="Standard Settings" GridPane.columnIndex="1"
-                GridPane.rowIndex="9"/>
-        <Button fx:id="backButton" mnemonicParsing="false" onAction="#back" text="Back" GridPane.columnIndex="2"
-                GridPane.rowIndex="9"/>
-        <Label id="normalLabel" text="Folder to save your API key in:"/>
-        <TextField fx:id="textPathAPIKey" GridPane.columnIndex="1"/>
-        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#changePathAPIKey" text="Change Path"
-                GridPane.columnIndex="2"/>
-        <Label id="normalLabel" text="&quot;apikey&quot;:" GridPane.rowIndex="1"/>
-        <Label id="normalLabel" text="&quot;userkey&quot;:" GridPane.rowIndex="2"/>
-        <Label id="normalLabel" text="&quot;username&quot;:" GridPane.rowIndex="3"/>
-        <TextField fx:id="textApiKey" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        <TextField fx:id="textUserKey" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-        <TextField fx:id="textUserName" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-        <Label id="normalLabel" text="Folder to save your series in:" GridPane.rowIndex="4"/>
-        <TextField fx:id="textPathSave" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-        <Label id="normalLabel" text="Folder to save your BackUp in:" GridPane.rowIndex="5"/>
-        <TextField fx:id="textPathBackUp" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-        <Button mnemonicParsing="false" onAction="#changePathSave" text="Change Path" GridPane.columnIndex="2"
-                GridPane.rowIndex="4"/>
-        <Button mnemonicParsing="false" onAction="#changePathBackUp" text="Change Path" GridPane.columnIndex="2"
-                GridPane.rowIndex="5"/>
-        <Label id="normalLabel" fx:id="labelBackUp" text="Frequency of BackUps in days:" GridPane.rowIndex="6"/>
-        <Label id="normalLabel" fx:id="labelLanguage" text="Preferred Language for TVDB:" GridPane.rowIndex="7"/>
-        <Spinner fx:id="frequencySpinner" prefHeight="25.0" prefWidth="95.0" GridPane.columnIndex="1"
-                 GridPane.rowIndex="6"/>
-        <ComboBox fx:id="languageCombo" prefWidth="95.0" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-    </GridPane>
-</VBox>
+<BorderPane fx:id="borderPane" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="kraisie.scenes.SettingsController">
+    <center>
+        <HBox>
+            <Region maxWidth="-Infinity" minWidth="15.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+            <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
+                <VBox id="myBackground" alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0"/>
+                    <Label id="biggerLabel" alignment="CENTER" contentDisplay="CENTER" text="Settings:"
+                           textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                    </Label>
+                    <Region layoutX="17.0" layoutY="119.0" maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0"/>
+                    <Label id="smallAlert" alignment="CENTER" contentDisplay="CENTER"
+                           text="Hover over a setting to see a short description!" textAlignment="CENTER"
+                           textFill="WHITE" wrapText="true"/>
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
+                    <GridPane alignment="CENTER" hgap="25.0" vgap="15.0">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" minWidth="-Infinity"/>
+                            <ColumnConstraints halignment="LEFT" minWidth="-Infinity"/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        </rowConstraints>
+                        <children>
+                            <Label id="normalLabel" fx:id="tvdbLanguageLabel" alignment="CENTER" minWidth="-Infinity"
+                                   text="TVDB Language:"/>
+                            <ChoiceBox fx:id="tvdbLanguageChoice" nodeOrientation="LEFT_TO_RIGHT"
+                                       GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+                            <Label id="normalLabel" fx:id="cycleBackgroundsLabel" minWidth="-Infinity"
+                                   text="Cycle backgrounds:" GridPane.rowIndex="1"/>
+                            <Label id="normalLabel" fx:id="fadeDurationLabel" minWidth="-Infinity" text="Fade duration:"
+                                   GridPane.rowIndex="3"/>
+                            <Slider fx:id="fadeDurationSlider" majorTickUnit="500.0" max="2500.0" minorTickCount="50"
+                                    showTickLabels="true" showTickMarks="true" snapToTicks="true" value="500.0"
+                                    GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                            <CheckBox fx:id="cycleBackgroundsBox" mnemonicParsing="false" GridPane.columnIndex="1"
+                                      GridPane.rowIndex="1"/>
+                            <Label id="normalLabel" fx:id="cycleRateLabel" alignment="CENTER" minWidth="-Infinity"
+                                   text="Cycle rate:" GridPane.rowIndex="2"/>
+                            <Slider fx:id="cycleDurationSlider" blockIncrement="1.0" majorTickUnit="30.0" max="300.0"
+                                    min="30.0" minorTickCount="10" showTickLabels="true" showTickMarks="true"
+                                    snapToTicks="true" value="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        </children>
+                        <VBox.margin>
+                            <Insets left="10.0" right="10.0"/>
+                        </VBox.margin>
+                    </GridPane>
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
+                    <HBox alignment="CENTER" spacing="25.0" VBox.vgrow="ALWAYS">
+                        <children>
+                            <Button mnemonicParsing="false" onAction="#resetToDefault" text="Reset to default"/>
+                            <Button mnemonicParsing="false" onAction="#saveSettings" text="Save"/>
+                        </children>
+                    </HBox>
+                </VBox>
+            </VBox>
+            <Region maxWidth="-Infinity" minWidth="15.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
+            <BorderPane.margin>
+                <Insets bottom="20.0" top="20.0"/>
+            </BorderPane.margin>
+        </HBox>
+    </center>
+</BorderPane>

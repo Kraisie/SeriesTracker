@@ -34,10 +34,6 @@ public class StartUpChecks {
 			deleteReadMe();
 		}
 
-		if (!isSettingsValid()) {
-			saveStandardSettings();
-		}
-
 		// TODO: rest of startup checks
 		// check if new episodes aired, if yes open scene with affected series
 
@@ -87,12 +83,6 @@ public class StartUpChecks {
 		if (!success && file.exists()) {
 			LogUtil.logWarning("Can not delete ReadMe!");
 		}
-	}
-
-	private boolean isSettingsValid() {
-		DataSingleton data = DataSingleton.getInstance();
-		Settings settings = data.getSettings();
-		return settings.isValid();
 	}
 
 	private void saveStandardSettings() {

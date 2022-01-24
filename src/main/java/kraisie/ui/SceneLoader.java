@@ -9,10 +9,7 @@ import javafx.stage.WindowEvent;
 import kraisie.data.Series;
 import kraisie.data.definitions.Scenes;
 import kraisie.dialog.LogUtil;
-import kraisie.scenes.InfoController;
-import kraisie.scenes.MotherController;
-import kraisie.scenes.SearchResultController;
-import kraisie.scenes.SelectSeriesController;
+import kraisie.scenes.*;
 import kraisie.tvdb.SearchData;
 
 import java.io.IOException;
@@ -129,6 +126,20 @@ public class SceneLoader {
 		if (tmpController instanceof SearchResultController) {
 			SearchResultController controller = loader.getController();
 			controller.initData(series);
+		}
+
+		return root;
+	}
+
+	public Parent loadSceneWithMotherController(MotherController motherScene) {
+		String pathFxml = scene.getPath();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(pathFxml));
+		Parent root = loadRoot(loader);
+
+		Object tmpController = loader.getController();
+		if (tmpController instanceof SettingsController) {
+			SettingsController controller = loader.getController();
+			controller.initData(motherScene);
 		}
 
 		return root;

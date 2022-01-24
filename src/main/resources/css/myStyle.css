@@ -459,3 +459,28 @@
     -fx-font: 15px "Serif";
     -fx-text-fill: #96f52b;
 }
+
+/*
+    Slider
+*/
+.slider .track {
+    -fx-border-width: 1px;
+    -fx-border-color: #90B931;
+    -fx-control-inner-background: rgb(84, 84, 84);
+}
+
+.slider .thumb {
+    -fx-background-color: linear-gradient(to bottom right, #8ceb21, #958700);
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.slider .axis {
+    -fx-tick-label-fill: #96f52b;
+}
+
+.slider .axis .axis-tick-mark,
+.slider .axis .axis-minor-tick-mark {
+    -fx-fill: null;
+    -fx-stroke: #96f52b;
+}

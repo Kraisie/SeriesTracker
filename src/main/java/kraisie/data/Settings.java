@@ -13,27 +13,25 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class Settings {
 
+	private String langIso;
+	private boolean cycleBackgrounds;
+	private int backgroundCycle;    // every x seconds
+	private int fadeDuration;
+
 	private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
 	private static final String PATH_API_KEY = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/API_Key.json").toString();
 	private static final String PATH_SERIES = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Series.json").toString();
 	private static final String PATH_CACHE = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/.cache").toString();
-	private String langIso;
-	private int[] prefSize;
-	private boolean cycleBackgrounds;
-	private int backgroundCycle;    // every x minutes
-	private int fadeDuration;        // x millis TODO: slider in settings e.g. 100-2500
 
 	public Settings() {
 		this.langIso = "en";
-		this.prefSize = new int[]{1280, 720};
 		this.cycleBackgrounds = true;
-		this.backgroundCycle = 1;
+		this.backgroundCycle = 60;
 		this.fadeDuration = 500;
 	}
 
-	public Settings(String langIso, int[] prefSize, boolean cycleBackgrounds, int backgroundCycle, int fadeDuration) {
+	public Settings(String langIso, boolean cycleBackgrounds, int backgroundCycle, int fadeDuration) {
 		this.langIso = langIso;
-		this.prefSize = prefSize;
 		this.cycleBackgrounds = cycleBackgrounds;
 		this.backgroundCycle = backgroundCycle;
 		this.fadeDuration = fadeDuration;
@@ -84,10 +82,6 @@ public class Settings {
 		}
 	}
 
-	public boolean isValid() {
-		return prefSize[0] > 0 && prefSize[1] > 0;
-	}
-
 	public Path getPathAPIKey() {
 		return Paths.get(PATH_API_KEY);
 	}
@@ -106,14 +100,6 @@ public class Settings {
 
 	public void setLangIso(String langIso) {
 		this.langIso = langIso;
-	}
-
-	public int[] getPrefSize() {
-		return prefSize;
-	}
-
-	public void setPrefSize(int[] prefSize) {
-		this.prefSize = prefSize;
 	}
 
 	public boolean isCycleBackgrounds() {

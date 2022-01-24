@@ -13,6 +13,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import kraisie.data.DataSingleton;
 import kraisie.data.Settings;
 import kraisie.data.definitions.Scenes;
 import kraisie.dialog.LogUtil;
@@ -51,19 +52,29 @@ public class MotherController {
 	private Button help;
 
 	private boolean navBarVisibility = true;
-	private Settings settings;
+	private DataSingleton data;
+	private ScheduledExecutorService scheduler;
 
 	@FXML
 	private void initialize() {
-		this.settings = Settings.readData();        // TODO: update settings in this class when changed in Settings screen
+		data = DataSingleton.getInstance();
+		initBackgroundCycle();
+	}
+
+	void resetScheduler() {
+		if (!scheduler.isTerminated()) {
+			scheduler.shutdown();
+		}
+
 		initBackgroundCycle();
 	}
 
 	private void initBackgroundCycle() {
+		Settings settings = data.getSettings();
 		if (settings.isCycleBackgrounds()) {
 			int cycle = settings.getBackgroundCycle();
-			ScheduledExecutorService scheduler = createDaemonExecutorService();
-			scheduler.scheduleAtFixedRate(this::initBackground, cycle, cycle, TimeUnit.MINUTES);
+			scheduler = createDaemonExecutorService();
+			scheduler.scheduleAtFixedRate(this::initBackground, cycle, cycle, TimeUnit.SECONDS);
 		}
 	}
 
@@ -120,7 +131,7 @@ public class MotherController {
 	private Transition createAnimationIn(Pane pane) {
 		return new Transition() {
 			{
-				setCycleDuration(Duration.millis(settings.getFadeDuration()));
+				setCycleDuration(Duration.millis(data.getSettings().getFadeDuration()));
 				setInterpolator(Interpolator.EASE_OUT);
 			}
 
@@ -135,7 +146,7 @@ public class MotherController {
 	private Transition createAnimationOut(Pane pane) {
 		return new Transition() {
 			{
-				setCycleDuration(Duration.millis(settings.getFadeDuration()));
+				setCycleDuration(Duration.millis(data.getSettings().getFadeDuration()));
 				setInterpolator(Interpolator.EASE_IN);
 			}
 
@@ -234,6 +245,12 @@ public class MotherController {
 	@FXML
 	private void showSettings() {
 		showScene(Scenes.SETTINGS);
+		Stage stage = (Stage) borderPane.getScene().getWindow();
+		Scenes scene = Scenes.SETTINGS;
+		SceneLoader loader = new SceneLoader(scene);
+		Parent root = loader.loadSceneWithMotherController(this);
+		borderPane.setCenter(root);
+		stage.setTitle(scene.getTitle());
 	}
 
 	@FXML
