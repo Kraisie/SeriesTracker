@@ -6,14 +6,12 @@ All data is provided by [TheTvdb.com](https://www.thetvdb.com/), a database of T
 
 ### Usage
 
-##### Needed stuff
+##### Requirements
 
 * You need [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) or higher
   for this program.
-* The `.jar`-File of the [SeriesTracker](https://github.com/Kraisie/SeriesTracker/releases).
-  * You can download the specific version for your platform (Linux, Mac, Windows) or the one that runs on all
-    platforms (Master).
-* And furthermore an account and an API-Key from [TheTvdb.com](https://www.thetvdb.com/).
+* The `.jar`-File for your platform of the [SeriesTracker](https://github.com/Kraisie/SeriesTracker/releases).
+* And furthermore an account and a v3 API-Key from [TheTvdb.com](https://www.thetvdb.com/).
 
 ##### Start
 
@@ -36,7 +34,7 @@ If you want to clone or download and extract the repository yourself you can sta
 ##### How to get an API Key
 
 * First [create an account](https://www.thetvdb.com/register) on theTVDB.com.
-* Generate a new API Key [here](https://thetvdb.com/dashboard/account/apikey/create).
+* Generate a new v3 API Key [here](https://thetvdb.com/dashboard/account/apikey).
 * Afterwards copy the `Username` (in the @ field) and `Unique User Key`
   from [here](https://thetvdb.com/dashboard/account/editinfo) and the `API Key`
   from [here](https://thetvdb.com/dashboard/account/apikey).
@@ -49,17 +47,18 @@ If you want to clone or download and extract the repository yourself you can sta
   * Type the name of the series in the text field and press enter/click on "Add series"
   * If there are multiple matches you may need to select the desired series in the following screen
 * Search a series in your local series by opening the menu and clicking on "Search for a series"
-
-##### Update
-
-* "Update" > "Update Series" updates all series except the ones that are already discontinued as there won't be much
-  change.
-  * You can still update the discontinued series explicitly with "Update" > "Update ended Series".
+* Updates your local series data by clicking on "Update".
 
 ##### Customization
 
-* You can use custom backgrounds in the main menu. Just navigate to your Home folder, open the `SERIESTRACKER` folder
-  and place your `png`, `jpg`, or `jpeg` in `/Backgrounds/`.
+You can use custom backgrounds in the main menu. Just navigate to your Home folder, open the `SERIESTRACKER` folder and
+place your `png`, `jpg`, or `jpeg` in `/Backgrounds/`. The home folder location depends on your operating system:
+
+```
+Windows: C:\\Users\<CurrentUserName>
+Linux: /home/<CurrentUserName>
+Mac: /Users/<CurrentUserName>
+```
 
 ### Legal Notice
 
