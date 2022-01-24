@@ -65,10 +65,6 @@ public class SettingsController {
 	}
 
 	private void addTooltip(Label label, String tooltipText) {
-//		label.hoverProperty().addListener((observable) -> {
-//			Tooltip tooltip = buildTooltip(tooltipText);
-//			label.setTooltip(tooltip);
-//		});
 		Tooltip tooltip = buildTooltip(tooltipText);
 		label.setTooltip(tooltip);
 	}

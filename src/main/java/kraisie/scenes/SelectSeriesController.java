@@ -175,10 +175,8 @@ public class SelectSeriesController {
 	}
 
 	private void setToolTipToButton(Button button, List<SearchData> series, int index) {
-		button.hoverProperty().addListener((observable) -> {
-			Tooltip tooltip = buildTooltip(series, index);
-			button.setTooltip(tooltip);
-		});
+		Tooltip tooltip = buildTooltip(series, index);
+		button.setTooltip(tooltip);
 	}
 
 	private Tooltip buildTooltip(List<SearchData> series, int index) {
