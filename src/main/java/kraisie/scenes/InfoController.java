@@ -1,7 +1,8 @@
 package kraisie.scenes;
 
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -19,13 +20,10 @@ import kraisie.tvdb.TVDB;
 public class InfoController {
 
 	@FXML
-	private Button backButton;
-
-	@FXML
 	private BorderPane borderPane;
 
 	@FXML
-	private Rectangle seriesImage;
+	private Rectangle seriesImage;    // not visible when first loaded
 
 	@FXML
 	private Label seriesCompletion;
@@ -67,7 +65,7 @@ public class InfoController {
 
 	public void initData(Series series) {
 		this.series = series;
-		this.image = retrievePoster(series.getTvdbID());
+		loadPoster(series.getTvdbID());
 		setResizeListener();
 	}
 
@@ -81,31 +79,49 @@ public class InfoController {
 		setInfo();
 	}
 
-	private Image retrievePoster(String tvdbId) {
+	private void loadPoster(String tvdbId) {
 		ImageCache cache = data.getImageCache();
 		int id = Integer.parseInt(tvdbId);
 		if (cache.isCached(id)) {
-			return cache.get(id);
+			image = cache.get(id);
+			seriesImage.setVisible(true);
 		}
 
+		Task<Void> updateTask = new Task<>() {
+			@Override
+			protected Void call() {
+				retrievePoster(cache, id);
+				return null;
+			}
+		};
+
+		Thread thread = new Thread(updateTask, "info-poster-task");
+		thread.setDaemon(true);
+		thread.start();
+	}
+
+	private void retrievePoster(ImageCache cache, int id) {
 		TVDB api = data.getApi();
 		SeriesPosters posters = api.getSeriesPosters(id);
 		if (posters == null) {
-			return TVDB.getFallbackImage();
+			image = TVDB.getFallbackImage();
+			seriesImage.setVisible(true);
+			return;
 		}
 
 		SeriesImage[] seriesImages = posters.getData();
 		if (seriesImages.length == 0) {
-			return TVDB.getFallbackImage();
+			image = TVDB.getFallbackImage();
+			seriesImage.setVisible(true);
+			return;
 		}
 
 		String posterName = seriesImages[0].getFileName();
-		Image banner = TVDB.getBannerImage(posterName);
+		image = TVDB.getBannerImage(posterName);
+		Platform.runLater(this::updateContent);
 		if (!cache.isCached(id)) {
-			cache.save(banner, id);
+			cache.save(image, id);
 		}
-
-		return banner;
 	}
 
 	private void setSeriesImage() {
@@ -116,9 +132,11 @@ public class InfoController {
 		seriesImage.setHeight(sizes[1]);
 		seriesImage.setArcWidth(20.0);
 		seriesImage.setArcHeight(20.0);
-		ImagePattern pattern = new ImagePattern(image);
-		seriesImage.setFill(pattern);
 		seriesImage.setEffect(new DropShadow(20, Color.BLACK));
+		if (image != null) {
+			seriesImage.setFill(new ImagePattern(image));
+			seriesImage.setVisible(true);
+		}
 	}
 
 	private double[] calcImageViewHeight(Image image) {
