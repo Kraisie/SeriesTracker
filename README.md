@@ -69,3 +69,5 @@ by [TheTvdb.com](https://www.thetvdb.com/) or its affiliates.
 
 The [default background image](https://www.pexels.com/de-de/foto/flachbildschirm-mit-farbbalken-668296/) is from
 [Tim Mossholder](https://www.pexels.com/de-de/@timmossholder) on [Pexels](https://www.pexels.com/).
+
+The 'No Image Available' icon is from Homie the gorilla.
