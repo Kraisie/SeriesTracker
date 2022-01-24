@@ -9,7 +9,6 @@
         <HBox>
             <Region maxWidth="-Infinity" minWidth="15.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
             <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
-                <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
                 <VBox id="myBackground" alignment="CENTER" VBox.vgrow="ALWAYS">
                     <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0"/>
                     <Label id="biggerLabel" alignment="CENTER" contentDisplay="CENTER" text="Update your series:"
