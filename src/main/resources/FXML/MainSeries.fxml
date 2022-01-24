@@ -23,8 +23,8 @@
             <BorderPane.margin>
                 <Insets/>
             </BorderPane.margin>
-            <HBox layoutY="25.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                  AnchorPane.topAnchor="25.0">
+            <HBox id="myBackground" layoutY="25.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
+                  AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                 <Region maxWidth="-Infinity" minWidth="5.0" prefWidth="50.0" HBox.hgrow="ALWAYS"/>
                 <VBox alignment="CENTER" minWidth="50.0" HBox.hgrow="ALWAYS">
                     <HBox.margin>
@@ -108,7 +108,7 @@
                     </TableView>
                     <Region maxHeight="-Infinity" minHeight="5.0" prefHeight="15.0"/>
                     <Button fx:id="startSeriesButton" alignment="CENTER_RIGHT" minWidth="10.0" mnemonicParsing="false"
-                            onAction="#startSeries" prefHeight="50.0" text="Started series" VBox.vgrow="SOMETIMES">
+                            onAction="#startSeries" prefHeight="50.0" text="Start series" VBox.vgrow="SOMETIMES">
                         <VBox.margin>
                             <Insets/>
                         </VBox.margin>

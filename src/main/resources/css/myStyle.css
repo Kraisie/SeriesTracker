@@ -10,7 +10,7 @@
 */
 #myBackground,
 .pagination .page {
-    -fx-background-color: linear-gradient(to bottom left, rgba(48, 48, 48, 0.95), rgba(84, 84, 84, 0.95), rgba(48, 48, 48, 0.95));
+    -fx-background-color: linear-gradient(to bottom left, rgba(48, 48, 48, 0.9), rgba(84, 84, 84, 0.9), rgba(48, 48, 48, 0.9));
     -fx-background-radius: 20;
     -fx-background-insets: 0, 1;
     -fx-padding: 7;
@@ -206,14 +206,14 @@
 
 .table-row-cell:odd,
 .list-cell:odd {
-    -fx-background-color: #424242;
-    -fx-table-cell-border-color: #424242;
+    -fx-background-color: #424242AA;
+    -fx-table-cell-border-color: #424242AA;
 }
 
 .table-row-cell:even,
 .list-cell:even {
-    -fx-background-color: #616161;
-    -fx-table-cell-border-color: #616161;
+    -fx-background-color: #616161AA;
+    -fx-table-cell-border-color: #616161AA;
 }
 
 .table-row-cell:selected,
