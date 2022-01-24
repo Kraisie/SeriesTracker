@@ -1,7 +1,7 @@
 plugins {
     id 'idea'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'org.openjfx.javafxplugin' version '0.0.11'
 }
 
 group 'kraisie'
@@ -18,9 +18,9 @@ dependencies {
     implementation 'org.slf4j:slf4j-simple:1.7.33'
 
     /* uncomment for cross-platform jar: */
-//    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:win"
-//    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:linux"
-//    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:mac"
+//    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:win"
+//    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:linux"
+//    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:mac"
 //
 //    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:win"
 //    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:linux"
@@ -29,12 +29,16 @@ dependencies {
 //    runtimeOnly "org.openjfx:javafx-swing:$javafx.version:win"
 //    runtimeOnly "org.openjfx:javafx-swing:$javafx.version:linux"
 //    runtimeOnly "org.openjfx:javafx-swing:$javafx.version:mac"
+//
+//    runtimeOnly "org.openjfx:javafx-web:$javafx.version:win"
+//    runtimeOnly "org.openjfx:javafx-web:$javafx.version:linux"
+//    runtimeOnly "org.openjfx:javafx-web:$javafx.version:mac"
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 javafx {
-    version = "17"
+    version = "17.0.2"
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.swing', 'javafx.web']
 }
 
