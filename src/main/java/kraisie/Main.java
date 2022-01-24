@@ -14,7 +14,13 @@ import java.io.IOException;
 public class Main extends Application {
 
 	public static void main(String[] args) {
+		setupLogger();
 		launch(args);
+	}
+
+	private static void setupLogger() {
+		String logFileLocation = System.getProperty("user.home") + "/SERIESTRACKER/seriestracker.log";
+		System.setProperty("org.slf4j.simpleLogger.logFile", logFileLocation);
 	}
 
 	public void start(Stage primaryStage) {

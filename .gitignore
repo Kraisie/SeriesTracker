@@ -85,6 +85,3 @@ nbdist/
 .classpath
 .project
 .settings
-
-### Logging ###
-*.log
