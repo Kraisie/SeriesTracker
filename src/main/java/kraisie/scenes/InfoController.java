@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -11,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import kraisie.data.DataSingleton;
+import kraisie.data.Episode;
 import kraisie.data.ImageCache;
 import kraisie.data.Series;
 import kraisie.tvdb.SeriesImage;
@@ -52,9 +54,16 @@ public class InfoController {
 	@FXML
 	private Label seriesStatus;
 
+	@FXML
+	private Label overviewEpisodeLabel;
+
+	@FXML
+	private TextArea overviewArea;
+
 	private Image image;
 	private Series series;
 	private DataSingleton data;
+	private int episodePreviewIndex;
 
 	private static final int PANE_MARGIN = 25;
 
@@ -65,6 +74,7 @@ public class InfoController {
 
 	public void initData(Series series) {
 		this.series = series;
+		episodePreviewIndex = series.getEpisodeList().getCurrentIndex();
 		loadPoster(series.getTvdbID());
 		setResizeListener();
 	}
@@ -76,7 +86,7 @@ public class InfoController {
 
 	private void updateContent() {
 		setSeriesImage();
-		setInfo();
+		fillInfo();
 	}
 
 	private void loadPoster(String tvdbId) {
@@ -153,7 +163,7 @@ public class InfoController {
 		}
 	}
 
-	private void setInfo() {
+	private void fillInfo() {
 		seriesName.setText(series.getName());
 		seriesOverview.setText(series.getDescription());
 		seriesNetwork.setText(series.getNetwork());
@@ -163,6 +173,42 @@ public class InfoController {
 		seriesSeasons.setText(series.getCurrentSeason() + " / " + series.getNumberOfSeasons());
 		seriesEpisodes.setText(series.getCurrentEpisodeOverall() + " / " + series.getNumberOfEpisodes());
 		seriesCompletion.setText(series.getCompletion());
+		fillEpisodeOverview();
 	}
 
+	private void fillEpisodeOverview() {
+		Episode episode = series.getEpisodeList().get(episodePreviewIndex);
+		overviewEpisodeLabel.setText(episode.getSeason() + "." + episode.getEpNumberOfSeason());
+		String overview = getEpisodeOverview(episode);
+		overviewArea.setText(overview);
+	}
+
+	private String getEpisodeOverview(Episode episode) {
+		if (episode == null) {
+			return "No episode overview given!";
+		}
+
+		String overview = episode.getOverview();
+		if (overview == null) {
+			return "No episode overview given!";
+		}
+
+		if (overview.isBlank()) {
+			return "No episode overview given!";
+		}
+
+		return episode.getOverview();
+	}
+
+	@FXML
+	private void incEpisode() {
+		episodePreviewIndex = Math.min(series.getEpisodeList().getEpisodes().size() - 1, episodePreviewIndex + 1);
+		fillEpisodeOverview();
+	}
+
+	@FXML
+	private void decEpisode() {
+		episodePreviewIndex = Math.max(0, episodePreviewIndex - 1);
+		fillEpisodeOverview();
+	}
 }

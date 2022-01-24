@@ -21,74 +21,120 @@
                         <Region minWidth="25.0"/>
                         <VBox>
                             <children>
-                                <Region minHeight="25.0"/>
-                                <HBox>
+                                <VBox>
                                     <children>
-                                        <Label id="normalTitle" minWidth="-Infinity" text="Name: "/>
-                                        <Label id="normalLabel" fx:id="seriesName" wrapText="true"/>
+                                        <Region minHeight="25.0"/>
+                                        <HBox>
+                                            <children>
+                                                <Label id="normalTitle" minWidth="-Infinity" text="Name: "/>
+                                                <Label id="normalLabel" fx:id="seriesName" wrapText="true"/>
+                                            </children>
+                                        </HBox>
+                                        <Region minHeight="25.0"/>
+                                        <HBox>
+                                            <children>
+                                                <Label id="normalTitle" minWidth="-Infinity" text="Overview: "/>
+                                                <Label id="normalLabel" fx:id="seriesOverview" wrapText="true"/>
+                                            </children>
+                                        </HBox>
+                                        <Region minHeight="25.0"/>
                                     </children>
-                        </HBox>
-                                <Region minHeight="25.0"/>
-                        <HBox>
-                            <children>
-                                <Label id="normalTitle" minWidth="-Infinity" text="Overview: "/>
-                                <Label id="normalLabel" fx:id="seriesOverview" wrapText="true"/>
+                                </VBox>
+                                <GridPane hgap="25.0" VBox.vgrow="ALWAYS">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <VBox prefHeight="200.0" prefWidth="100.0">
+                                            <children>
+                                                <HBox>
+                                                    <children>
+                                                        <Label id="normalTitle" minWidth="-Infinity" text="Network: "/>
+                                                        <Label id="normalLabel" fx:id="seriesNetwork"
+                                                               minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
+                                                    </children>
+                                                </HBox>
+                                                <Region minHeight="25.0"/>
+                                                <HBox>
+                                                    <children>
+                                                        <Label id="normalTitle" minWidth="-Infinity" text="Status: "/>
+                                                        <Label id="normalLabel" fx:id="seriesStatus"
+                                                               minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
+                                                    </children>
+                                                </HBox>
+                                                <Region minHeight="25.0"/>
+                                                <HBox>
+                                                    <children>
+                                                        <Label id="normalTitle" minWidth="-Infinity" text="Runtime:"/>
+                                                        <Label id="normalLabel" fx:id="seriesEpisodeLength"
+                                                               minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
+                                                    </children>
+                                                </HBox>
+                                                <Region minHeight="25.0"/>
+                                                <HBox>
+                                                    <children>
+                                                        <Label id="normalTitle" minWidth="-Infinity" text="Rating: "/>
+                                                        <Label id="normalLabel" fx:id="seriesRating"
+                                                               minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
+                                                    </children>
+                                                </HBox>
+                                                <Region minHeight="25.0"/>
+                                                <HBox>
+                                                    <children>
+                                                        <Label id="normalTitle" minWidth="-Infinity" text="Season: "/>
+                                                        <Label id="normalLabel" fx:id="seriesSeasons"
+                                                               minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
+                                                    </children>
+                                                </HBox>
+                                                <Region minHeight="25.0"/>
+                                                <HBox>
+                                                    <children>
+                                                        <Label id="normalTitle" minWidth="-Infinity" text="Episode: "/>
+                                                        <Label id="normalLabel" fx:id="seriesEpisodes"
+                                                               minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
+                                                    </children>
+                                                </HBox>
+                                                <Region minHeight="25.0"/>
+                                                <HBox>
+                                                    <children>
+                                                        <Label id="normalTitle" minWidth="-Infinity"
+                                                               text="Completion: "/>
+                                                        <Label id="normalLabel" fx:id="seriesCompletion"
+                                                               minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
+                                                    </children>
+                                                </HBox>
+                                                <Region/>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1"
+                                              GridPane.hgrow="ALWAYS">
+                                            <children>
+                                                <HBox alignment="CENTER" spacing="15.0">
+                                                    <children>
+                                                        <Button minWidth="-Infinity" mnemonicParsing="false"
+                                                                onAction="#decEpisode" prefWidth="30.0" text="-"/>
+                                                        <Label id="normalLabel" fx:id="overviewEpisodeLabel"
+                                                               alignment="CENTER" minWidth="-Infinity" prefWidth="60.0"
+                                                               text="33.33" HBox.hgrow="ALWAYS"/>
+                                                        <Button minWidth="-Infinity" mnemonicParsing="false"
+                                                                onAction="#incEpisode" prefWidth="30.0" text="+"/>
+                                                    </children>
+                                                </HBox>
+                                                <Region minHeight="10.0"/>
+                                                <TextArea fx:id="overviewArea" editable="false" wrapText="true"
+                                                          VBox.vgrow="ALWAYS"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </GridPane>
                             </children>
-                        </HBox>
-                                <Region minHeight="25.0"/>
-                        <HBox>
-                            <children>
-                                <Label id="normalTitle" minWidth="-Infinity" text="Network: "/>
-                                <Label id="normalLabel" fx:id="seriesNetwork" wrapText="true"/>
-                            </children>
-                        </HBox>
-                                <Region minHeight="25.0"/>
-                        <HBox>
-                            <children>
-                                <Label id="normalTitle" minWidth="-Infinity" text="Status: "/>
-                                <Label id="normalLabel" fx:id="seriesStatus" wrapText="true"/>
-                            </children>
-                        </HBox>
-                                <Region minHeight="25.0"/>
-                        <HBox>
-                            <children>
-                                <Label id="normalTitle" minWidth="-Infinity" text="Episode length: "/>
-                                <Label id="normalLabel" fx:id="seriesEpisodeLength" wrapText="true"/>
-                            </children>
-                        </HBox>
-                                <Region minHeight="25.0"/>
-                        <HBox>
-                            <children>
-                                <Label id="normalTitle" minWidth="-Infinity" text="Rating: "/>
-                                <Label id="normalLabel" fx:id="seriesRating" wrapText="true"/>
-                            </children>
-                        </HBox>
-                                <Region minHeight="25.0"/>
-                        <HBox>
-                            <children>
-                                <Label id="normalTitle" minWidth="-Infinity" text="Season: "/>
-                                <Label id="normalLabel" fx:id="seriesSeasons" wrapText="true"/>
-                            </children>
-                        </HBox>
-                                <Region minHeight="25.0"/>
-                        <HBox>
-                            <children>
-                                <Label id="normalTitle" minWidth="-Infinity" text="Episode: "/>
-                                <Label id="normalLabel" fx:id="seriesEpisodes" wrapText="true"/>
-                            </children>
-                        </HBox>
-                                <Region minHeight="25.0"/>
-                        <HBox>
-                            <children>
-                                <Label id="normalTitle" minWidth="-Infinity" text="Completion: "/>
-                                <Label id="normalLabel" fx:id="seriesCompletion" wrapText="true"/>
-                            </children>
-                        </HBox>
-                                <Region VBox.vgrow="ALWAYS"/>
-                     </children>
-                  </VBox>
+                        </VBox>
                         <Region minWidth="25.0"/>
-               </children>
+                    </children>
                <VBox.margin>
                    <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
                </VBox.margin>

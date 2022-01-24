@@ -79,7 +79,7 @@ public class EpisodeList {
 		return nextIndex <= maxIndex;
 	}
 
-	private int getCurrentIndex() {
+	public int getCurrentIndex() {
 		return episodes.indexOf(getCurrent());
 	}
 
