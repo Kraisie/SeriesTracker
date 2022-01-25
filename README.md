@@ -30,7 +30,7 @@ If you want to clone or download and extract the repository yourself you can sta
 * Open the CMD/Terminal in the folder where the files are located.
   * On Linux or Windows with gradle installed type: `gradle run`.
   * On Linux without gradle installed type: `./gradlew run`.
-  * On Windows without gradle installed type: `gradlew run`.
+  * On Windows without gradle installed type: `gradlew.bat run`.
 
 ### How to use the tracker
 
@@ -51,6 +51,7 @@ If you want to clone or download and extract the repository yourself you can sta
   * If there are multiple matches you may need to select the desired series in the following screen
 * Search a series in your local series by opening the menu and clicking on "Search for a series"
 * Updates your local series data by clicking on "Update".
+* Right-click a series in the main menu and click on "Information" to see some information about that series.
 
 ![Panel with information to each series](images/InfoPanel.png)
 
