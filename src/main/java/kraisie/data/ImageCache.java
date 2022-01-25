@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -106,14 +107,48 @@ public class ImageCache {
 			return true;
 		}
 
+		long deletedSize = 0;
+		int failures = 0;
 		boolean success = true;
 		for (File file : files) {
+			long fileSize = getFileSize(file);
 			if (!file.delete()) {
+				failures++;
 				success = false;
 				LogUtil.logWarning("Could not delete " + file.getAbsolutePath());
+			} else {
+				deletedSize += fileSize;
 			}
 		}
 
+		LogUtil.logInfo("Deleted " + buildFileSizeText(deletedSize) + " of cached images with " + failures + " failures.");
 		return success;
+	}
+
+	private long getFileSize(File file) {
+		try {
+			return Files.size(file.toPath());
+		} catch (IOException e) {
+			return 0;
+		}
+	}
+
+	private String buildFileSizeText(long size) {
+		if (size >= 1000000000) {
+			double gb = (double) size / 1000000000;
+			return String.format("%.2f GB", gb);
+		}
+
+		if (size >= 1000000) {
+			double mb = (double) size / 1000000;
+			return String.format("%.2f MB", mb);
+		}
+
+		if (size >= 1000) {
+			double kb = (double) size / 1000;
+			return String.format("%.2f KB", kb);
+		}
+
+		return size + " B";
 	}
 }
