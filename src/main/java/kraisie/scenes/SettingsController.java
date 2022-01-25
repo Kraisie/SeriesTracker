@@ -11,6 +11,7 @@ import javafx.util.Duration;
 import kraisie.data.DataSingleton;
 import kraisie.data.Settings;
 import kraisie.data.definitions.Scenes;
+import kraisie.dialog.PopUp;
 import kraisie.ui.SceneLoader;
 
 public class SettingsController {
@@ -42,11 +43,15 @@ public class SettingsController {
 	@FXML
 	private Label tvdbLanguageLabel;
 
+	@FXML
+	private Button clearCache;
+
+	private DataSingleton data;
 	private MotherController motherScene;
 
 	@FXML
 	private void initialize() {
-		DataSingleton data = DataSingleton.getInstance();
+		data = DataSingleton.getInstance();
 		Settings settings = data.getSettings();
 		addTooltips();
 		fillLanguageOptions();
@@ -152,6 +157,17 @@ public class SettingsController {
 	@FXML
 	private void resetToDefault() {
 		setSettings(new Settings());
+	}
+
+	@FXML
+	private void clearCache() {
+		boolean success = data.getImageCache().clear();
+		PopUp popUp = PopUp.forStage((Stage) clearCache.getScene().getWindow());
+		if (success) {
+			popUp.showAlert("Cache cleared!", "The image cache has been cleared successfully.", false);
+		} else {
+			popUp.showError("Cache could not get cleared!", "The image cache could not get cleared. Please check the log file for further details.", false);
+		}
 	}
 
 	private void showMainScene() {
