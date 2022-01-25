@@ -1,6 +1,7 @@
 package kraisie.data;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import kraisie.tvdb.Token;
 
 import java.io.IOException;
@@ -39,7 +40,8 @@ public class APIKey {
 	}
 
 	public static void writeKey(APIKey key) throws IOException {
-		Gson gson = new Gson();
+		// save as pretty json as users might edit this by hand
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(key);
 		Settings settings = Settings.readData();
 		Files.writeString(settings.getPathAPIKey(), json, TRUNCATE_EXISTING, CREATE);

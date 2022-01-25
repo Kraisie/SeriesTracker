@@ -1,6 +1,7 @@
 package kraisie.data;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import kraisie.dialog.LogUtil;
 
 import java.io.IOException;
@@ -73,7 +74,8 @@ public class Settings {
 	}
 
 	public static void writeData(Settings settings) {
-		Gson gson = new Gson();
+		// save as pretty json as users might edit this by hand
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(settings);
 		try {
 			Files.writeString(PATH, json, TRUNCATE_EXISTING, CREATE);
