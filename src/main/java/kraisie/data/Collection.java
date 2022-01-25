@@ -102,7 +102,27 @@ public class Collection {
 		);
 	}
 
-	// check air dates
+	public List<Series> checkAirDates() {
+		List<Series> newContent = new ArrayList<>();
+		for (Series s : series) {
+			if (s.getUserStatus() != UserState.WAITING) {
+				continue;
+			}
+
+			if (s.getStatus().equalsIgnoreCase("Ended")) {
+				s.setUserStatus(UserState.FINISHED);
+				continue;
+			}
+
+			if (s.hasNewlyAiredEpisodes()) {
+				s.setUserStatus(UserState.WATCHING);
+				s.increaseWatchProgress();
+				newContent.add(s);
+			}
+		}
+
+		return newContent;
+	}
 
 	public boolean seriesExists(int id) {
 		String sId = String.valueOf(id);

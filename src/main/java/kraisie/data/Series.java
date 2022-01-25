@@ -77,6 +77,10 @@ public class Series {
 		episodeList.decrementCurrent();
 	}
 
+	public boolean hasNewlyAiredEpisodes() {
+		return episodeList.hasNextAiredEpisode();
+	}
+
 	public String getName() {
 		return name;
 	}

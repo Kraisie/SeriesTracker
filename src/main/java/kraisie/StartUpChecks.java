@@ -4,20 +4,12 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import kraisie.data.APIKey;
 import kraisie.data.DataSingleton;
-import kraisie.data.Settings;
+import kraisie.data.Series;
 import kraisie.data.definitions.Scenes;
-import kraisie.dialog.LogUtil;
 import kraisie.dialog.PopUp;
 import kraisie.ui.SceneLoader;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class StartUpChecks {
 
@@ -30,64 +22,14 @@ public class StartUpChecks {
 	}
 
 	public void run() {
-		if (isReadMeExpired()) {
-			deleteReadMe();
-		}
+		// check each series for episodes that aired
+		checkAirDates();
 
-		// TODO: rest of startup checks
-		// check if new episodes aired, if yes open scene with affected series
-
+		// check for the api key
 		APIKey apiKey = APIKey.readKey();
 		if (apiKey.isInvalid()) {
 			openApiKeyForm();
 		}
-	}
-
-	private boolean isReadMeExpired() {
-		Path path = getReadMePath();
-		if (path.toFile().exists()) {
-			return isExpired(path);
-		}
-
-		return false;
-	}
-
-	private Path getReadMePath() {
-		String parsedFilePath = System.getProperty("user.home") + "/SERIESTRACKER/README.html";
-		return Paths.get(parsedFilePath);
-	}
-
-	private boolean isExpired(Path parsedFile) {
-		LocalDateTime creation = getFileCreationDate(parsedFile);
-		return LocalDateTime.now().minusDays(7).isAfter(creation);
-	}
-
-	private LocalDateTime getFileCreationDate(Path parsedFile) {
-		LocalDateTime creation = LocalDateTime.now();
-		try {
-			DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
-			BasicFileAttributes attributes = Files.readAttributes(parsedFile, BasicFileAttributes.class);
-			creation = LocalDateTime.parse(attributes.creationTime().toString(), format);
-		} catch (IOException e) {
-			LogUtil.logError("Can not access file properties!", e);
-		}
-
-		return creation;
-	}
-
-	private void deleteReadMe() {
-		Path path = getReadMePath();
-		File file = path.toFile();
-
-		boolean success = file.delete();
-		if (!success && file.exists()) {
-			LogUtil.logWarning("Can not delete ReadMe!");
-		}
-	}
-
-	private void saveStandardSettings() {
-		Settings settings = new Settings();
-		Settings.writeData(settings);
 	}
 
 	private void openApiKeyForm() {
@@ -109,5 +51,28 @@ public class StartUpChecks {
 		});
 
 		return newStage;
+	}
+	
+	private void checkAirDates() {
+		List<Series> newContent = data.getCollection().checkAirDates();
+		if (newContent.size() > 0) {
+			displayNewContent(newContent);
+		}
+	}
+
+	private void displayNewContent(List<Series> newContent) {
+		String seriesList = buildSeriesNameList(newContent);
+		PopUp popUp = PopUp.forStage(primaryStage);
+		popUp.showAlert("There are " + newContent.size() + " series with new content!", seriesList, true);
+	}
+
+	private String buildSeriesNameList(List<Series> series) {
+		StringBuilder sb = new StringBuilder();
+		for (Series s : series) {
+			sb.append(s.getName()).append("\n");
+		}
+
+		sb.setLength(sb.length() - 1);
+		return sb.toString();
 	}
 }
