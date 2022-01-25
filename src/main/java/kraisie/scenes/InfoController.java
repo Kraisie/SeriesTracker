@@ -135,6 +135,10 @@ public class InfoController {
 	}
 
 	private void setSeriesImage() {
+		if (image == null) {
+			return;
+		}
+
 		double[] sizes = calcImageViewHeight(image);
 		seriesImage.setX(PANE_MARGIN);
 		seriesImage.setY(PANE_MARGIN);
@@ -143,10 +147,8 @@ public class InfoController {
 		seriesImage.setArcWidth(20.0);
 		seriesImage.setArcHeight(20.0);
 		seriesImage.setEffect(new DropShadow(20, Color.BLACK));
-		if (image != null) {
-			seriesImage.setFill(new ImagePattern(image));
-			seriesImage.setVisible(true);
-		}
+		seriesImage.setFill(new ImagePattern(image));
+		seriesImage.setVisible(true);
 	}
 
 	private double[] calcImageViewHeight(Image image) {
