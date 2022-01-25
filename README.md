@@ -1,8 +1,11 @@
 # Series-Tracker
 
-A program to keep track of all your series you are currently watching, you plan to watch in the future and all those you already finished. 
-This program helps you to never watch an episode again because you forgot if you already saw it, or reminds you of the series you started, but never finished as you forgot that there was a new season.
-All data is provided by [TheTvdb.com](https://www.thetvdb.com/), a database of TV series.
+A program to keep track of all your series you are currently watching, you plan to watch in the future and all those you
+already finished. This program helps you to never watch an episode again because you forgot if you already saw it, or
+reminds you of the series you started, but never finished as you forgot that there was a new season. All data is
+provided by [TheTvdb.com](https://www.thetvdb.com/), a database of TV series.
+
+![Main menu](images/MainMenu.png)
 
 ### Usage
 
@@ -48,6 +51,8 @@ If you want to clone or download and extract the repository yourself you can sta
   * If there are multiple matches you may need to select the desired series in the following screen
 * Search a series in your local series by opening the menu and clicking on "Search for a series"
 * Updates your local series data by clicking on "Update".
+
+![Panel with information to each series](images/InfoPanel.png)
 
 ##### Customization
 
