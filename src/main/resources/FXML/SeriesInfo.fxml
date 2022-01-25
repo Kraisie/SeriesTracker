@@ -69,7 +69,7 @@
                                                 <Region minHeight="25.0"/>
                                                 <HBox>
                                                     <children>
-                                                        <Label id="normalTitle" minWidth="-Infinity" text="Runtime:"/>
+                                                        <Label id="normalTitle" minWidth="-Infinity" text="Runtime: "/>
                                                         <Label id="normalLabel" fx:id="seriesEpisodeLength"
                                                                minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
                                                     </children>
