@@ -39,12 +39,17 @@ public class Series {
 		return episodeList.getCurrentEpisode();
 	}
 
-	public int getCurrentEpisodeOverall() {
-		return episodeList.getNumberOfSeenEpisodes();
+	public int getSeenEpisodes() {
+		int seenEpisodes = episodeList.getNumberOfSeenEpisodes();
+		if (userStatus == UserState.FINISHED || userStatus == UserState.WAITING) {
+			seenEpisodes++;
+		}
+
+		return seenEpisodes;
 	}
 
 	public String getCompletion() {
-		double completion = ((double) getCurrentEpisodeOverall() / getNumberOfEpisodes()) * 100d;
+		double completion = ((double) getSeenEpisodes() / getNumberOfEpisodes()) * 100d;
 		return String.format("%.2f", completion) + "%";
 	}
 

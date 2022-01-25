@@ -173,7 +173,7 @@ public class InfoController {
 		seriesEpisodeLength.setText(series.getRuntime() + " minutes");
 		seriesRating.setText(series.getRating() + " / 10");
 		seriesSeasons.setText(series.getCurrentSeason() + " / " + series.getNumberOfSeasons());
-		seriesEpisodes.setText(series.getCurrentEpisodeOverall() + " / " + series.getNumberOfEpisodes());
+		seriesEpisodes.setText(series.getSeenEpisodes() + " / " + series.getNumberOfEpisodes());
 		seriesCompletion.setText(series.getCompletion());
 		fillEpisodeOverview();
 	}
