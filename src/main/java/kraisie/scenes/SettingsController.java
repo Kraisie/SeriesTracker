@@ -67,11 +67,12 @@ public class SettingsController {
 		addTooltip(cycleBackgroundsLabel, "Wether the background pictures should be changed if more than one is available.");
 		addTooltip(cycleRateLabel, "The time between background picture changes in seconds.");
 		addTooltip(fadeDurationLabel, "The duration of the fade animations between background picture changes in milliseconds.");
+		addTooltip(clearCache, "Clears the cached images of series.");
 	}
 
-	private void addTooltip(Label label, String tooltipText) {
+	private void addTooltip(Control node, String tooltipText) {
 		Tooltip tooltip = buildTooltip(tooltipText);
-		label.setTooltip(tooltip);
+		node.setTooltip(tooltip);
 	}
 
 	private Tooltip buildTooltip(String text) {
