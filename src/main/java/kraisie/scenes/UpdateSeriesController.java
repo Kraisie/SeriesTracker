@@ -151,9 +151,11 @@ public class UpdateSeriesController {
 
 	private boolean updateSeries(TVDB api, int collectionIndex) {
 		Series series = collection.getSeries().get(collectionIndex);
+		UserState oldState = series.getUserStatus();
 		Series updatedSeries = api.updateSeries(series);
+		UserState newState = updatedSeries.getUserStatus();
 		collection.getSeries().set(collectionIndex, updatedSeries);
-		return series.getUserStatus() != updatedSeries.getUserStatus();
+		return oldState != newState;
 	}
 
 	private void addToChangeLog(List<String> changeLog, Series oldSeries, Series newSeries) {
