@@ -3,6 +3,7 @@ package kraisie.ui;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import kraisie.util.RandomUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -13,7 +14,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Random;
 
 public class BackgroundManager {
 
@@ -53,8 +53,7 @@ public class BackgroundManager {
 
 		// select a random image
 		if (bufImg == null && files != null) {
-			Random random = new Random();
-			InputStream is = new FileInputStream(files[random.nextInt(files.length)]);
+			InputStream is = new FileInputStream(files[RandomUtil.getIntInBound(files.length)]);
 			bufImg = ImageIO.read(is);
 		}
 
