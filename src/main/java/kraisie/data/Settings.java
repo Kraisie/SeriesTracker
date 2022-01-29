@@ -64,13 +64,25 @@ public class Settings {
 
 	private static void createSettingsSave() {
 		try {
-			Files.createDirectories(PATH.getParent());
+			createDirectories();
 			Files.createFile(PATH);
 		} catch (IOException e) {
 			LogUtil.logError("Could not create save location for settings!", e);
 		}
 
 		writeData(new Settings());
+	}
+
+	private static void createDirectories() throws IOException {
+		Path parent = PATH.getParent();
+		if (parent == null) {
+			throw new IOException("Parent path is null! " + PATH);
+		}
+
+		Path dirs = Files.createDirectories(parent);
+		if (dirs == null) {
+			throw new IOException("Directory path is null! " + parent);
+		}
 	}
 
 	public static void writeData(Settings settings) {
