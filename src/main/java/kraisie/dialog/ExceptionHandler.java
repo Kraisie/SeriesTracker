@@ -1,5 +1,7 @@
 package kraisie.dialog;
 
+import kraisie.util.LogUtil;
+
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
 	@Override

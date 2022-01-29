@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import kraisie.data.definitions.UserState;
-import kraisie.dialog.LogUtil;
 import kraisie.tvdb.TVDB;
+import kraisie.util.LogUtil;
 
 import java.io.IOException;
 import java.nio.file.Files;

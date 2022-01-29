@@ -22,12 +22,12 @@ import kraisie.data.Collection;
 import kraisie.data.DataSingleton;
 import kraisie.data.ImageCache;
 import kraisie.data.definitions.Scenes;
-import kraisie.dialog.LogUtil;
 import kraisie.tvdb.SearchData;
 import kraisie.tvdb.SeriesImage;
 import kraisie.tvdb.SeriesPosters;
 import kraisie.tvdb.TVDB;
 import kraisie.ui.SceneLoader;
+import kraisie.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;

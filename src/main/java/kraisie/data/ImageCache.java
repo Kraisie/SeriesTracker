@@ -2,7 +2,7 @@ package kraisie.data;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import kraisie.dialog.LogUtil;
+import kraisie.util.LogUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

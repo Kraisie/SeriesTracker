@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import kraisie.data.Series;
 import kraisie.data.definitions.Scenes;
-import kraisie.dialog.LogUtil;
 import kraisie.scenes.*;
 import kraisie.tvdb.SearchData;
+import kraisie.util.LogUtil;
 
 import java.io.IOException;
 import java.net.URL;

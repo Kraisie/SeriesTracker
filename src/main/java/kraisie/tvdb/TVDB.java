@@ -8,7 +8,7 @@ import kraisie.data.Episode;
 import kraisie.data.EpisodeList;
 import kraisie.data.Settings;
 import kraisie.data.definitions.UserState;
-import kraisie.dialog.LogUtil;
+import kraisie.util.LogUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

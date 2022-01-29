@@ -5,9 +5,9 @@ import javafx.stage.Stage;
 import kraisie.data.DataSingleton;
 import kraisie.data.definitions.Scenes;
 import kraisie.dialog.ExceptionHandler;
-import kraisie.dialog.LogUtil;
 import kraisie.dialog.PopUp;
 import kraisie.ui.SceneLoader;
+import kraisie.util.LogUtil;
 
 import java.io.IOException;
 

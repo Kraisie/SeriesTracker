@@ -2,7 +2,7 @@ package kraisie.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import kraisie.dialog.LogUtil;
+import kraisie.util.LogUtil;
 
 import java.io.IOException;
 import java.nio.file.Files;

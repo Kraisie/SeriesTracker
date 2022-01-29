@@ -6,8 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import kraisie.data.APIKey;
 import kraisie.dialog.BrowserControl;
-import kraisie.dialog.LogUtil;
 import kraisie.dialog.PopUp;
+import kraisie.util.LogUtil;
 
 import java.io.IOException;
 

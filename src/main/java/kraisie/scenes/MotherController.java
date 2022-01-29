@@ -16,9 +16,9 @@ import javafx.util.Duration;
 import kraisie.data.DataSingleton;
 import kraisie.data.Settings;
 import kraisie.data.definitions.Scenes;
-import kraisie.dialog.LogUtil;
 import kraisie.ui.BackgroundManager;
 import kraisie.ui.SceneLoader;
+import kraisie.util.LogUtil;
 
 import java.io.IOException;
 import java.util.concurrent.Executors;
