@@ -16,29 +16,11 @@ dependencies {
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
     implementation 'org.slf4j:slf4j-api:1.7.33'
     implementation 'org.slf4j:slf4j-simple:1.7.33'
-
-    /* uncomment for cross-platform jar: */
-//    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:win"
-//    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:linux"
-//    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:mac"
-//
-//    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:win"
-//    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:linux"
-//    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:mac"
-//
-//    runtimeOnly "org.openjfx:javafx-swing:$javafx.version:win"
-//    runtimeOnly "org.openjfx:javafx-swing:$javafx.version:linux"
-//    runtimeOnly "org.openjfx:javafx-swing:$javafx.version:mac"
-//
-//    runtimeOnly "org.openjfx:javafx-web:$javafx.version:win"
-//    runtimeOnly "org.openjfx:javafx-web:$javafx.version:linux"
-//    runtimeOnly "org.openjfx:javafx-web:$javafx.version:mac"
-
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 javafx {
-    version = "17.0.2"
+    version = '17.0.2'
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.swing', 'javafx.web']
 }
 
