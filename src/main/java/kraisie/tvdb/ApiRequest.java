@@ -14,7 +14,11 @@ import java.io.InputStreamReader;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 
-public class ApiRequest {
+public final class ApiRequest {
+
+	private ApiRequest() {
+		throw new AssertionError("Trying to instantiate a utility class.");
+	}
 
 	public static String post(String body) {
 		String answer = "";

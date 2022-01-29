@@ -1,12 +1,11 @@
 package kraisie.dialog;
 
-public class BrowserControl {
+public final class BrowserControl {
 
-	/**
-	 * Opens a browser on various systems
-	 *
-	 * @param url URL to be shown by the browser as String
-	 */
+	private BrowserControl() {
+		throw new AssertionError("Trying to instantiate a utility class.");
+	}
+
 	public static void openBrowser(String url) throws Exception {
 		String os = System.getProperty("os.name").toLowerCase();
 

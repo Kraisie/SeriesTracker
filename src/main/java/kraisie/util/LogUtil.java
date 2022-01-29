@@ -3,7 +3,11 @@ package kraisie.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LogUtil {
+public final class LogUtil {
+
+	private LogUtil() {
+		throw new AssertionError("Trying to instantiate a utility class.");
+	}
 
 	private final static Logger LOGGER = LoggerFactory.getLogger(LogUtil.class);
 
