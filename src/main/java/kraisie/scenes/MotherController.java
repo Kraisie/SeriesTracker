@@ -3,11 +3,13 @@ package kraisie.scenes;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
+import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -50,6 +52,9 @@ public class MotherController {
 
 	@FXML
 	private Button help;
+
+	@FXML
+	private ProgressIndicator progressIndicator;
 
 	private boolean navBarVisibility = true;
 	private DataSingleton data;
@@ -222,6 +227,15 @@ public class MotherController {
 		navBar.setManaged(navBarVisibility);
 	}
 
+	void bindProgress(Task<Void> task) {
+		progressIndicator.progressProperty().unbind();
+		progressIndicator.progressProperty().bind(task.progressProperty());
+	}
+
+	void setProgressVisible(boolean visible) {
+		progressIndicator.setVisible(visible);
+	}
+
 	@FXML
 	private void showMainMenu() {
 		showScene(Scenes.MAIN);
@@ -240,13 +254,17 @@ public class MotherController {
 	@FXML
 	private void showUpdate() {
 		showScene(Scenes.UPDATE);
+		passMotherController(Scenes.UPDATE);
 	}
 
 	@FXML
 	private void showSettings() {
 		showScene(Scenes.SETTINGS);
+		passMotherController(Scenes.SETTINGS);
+	}
+
+	private void passMotherController(Scenes scene) {
 		Stage stage = (Stage) borderPane.getScene().getWindow();
-		Scenes scene = Scenes.SETTINGS;
 		SceneLoader loader = new SceneLoader(scene);
 		Parent root = loader.loadSceneWithMotherController(this);
 		borderPane.setCenter(root);

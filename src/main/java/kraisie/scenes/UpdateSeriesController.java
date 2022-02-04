@@ -4,9 +4,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.VBox;
 import kraisie.data.Collection;
 import kraisie.data.DataSingleton;
 import kraisie.data.Series;
@@ -23,9 +21,6 @@ public class UpdateSeriesController {
 	private TextArea updateLogArea;
 
 	@FXML
-	private ProgressBar updateProgress;
-
-	@FXML
 	private Button updateContinuing;
 
 	@FXML
@@ -36,18 +31,17 @@ public class UpdateSeriesController {
 
 	private DataSingleton data;
 	private Collection collection;
+	private MotherController motherController;
 
 	@FXML
 	private void initialize() {
 		data = DataSingleton.getInstance();
 		collection = data.getCollection();
-		addProgressBarWidthListener();
 		addButtonWidthListener();
 	}
 
-	private void addProgressBarWidthListener() {
-		VBox parent = (VBox) updateLogArea.getParent();
-		updateProgress.prefWidthProperty().bind(parent.widthProperty());
+	public void initData(MotherController motherController) {
+		this.motherController = motherController;
 	}
 
 	private void addButtonWidthListener() {
@@ -90,8 +84,13 @@ public class UpdateSeriesController {
 			return;
 		}
 
-		setButtonDisable(true);
+		setUpdateButtonDisable(true);
 		updateLogArea.setText("Updating " + series.size() + " series...");
+		Task<Void> updateTask = buildUpdateTask(series);
+		startUpdate(updateTask);
+	}
+
+	private Task<Void> buildUpdateTask(List<Series> series) {
 		Task<Void> updateTask = new Task<>() {
 			@Override
 			protected Void call() {
@@ -112,21 +111,26 @@ public class UpdateSeriesController {
 						() -> {
 							logSummary(changeLog);
 							updateLogArea.appendText("Update finished!");
-							setButtonDisable(false);
+							setUpdateButtonDisable(false);
+							motherController.setProgressVisible(false);
 						}
 				);
 				return null;
 			}
 		};
 
-		updateProgress.progressProperty().unbind();
-		updateProgress.progressProperty().bind(updateTask.progressProperty());
+		motherController.setProgressVisible(true);
+		motherController.bindProgress(updateTask);
+		return updateTask;
+	}
+
+	private void startUpdate(Task<Void> updateTask) {
 		Thread thread = new Thread(updateTask, "st-update-task");
 		thread.setDaemon(true);
 		thread.start();
 	}
 
-	private void setButtonDisable(boolean disable) {
+	private void setUpdateButtonDisable(boolean disable) {
 		updateContinuing.setDisable(disable);
 		updateEnded.setDisable(disable);
 		updateAll.setDisable(disable);

@@ -142,6 +142,11 @@ public class SceneLoader {
 			controller.initData(motherScene);
 		}
 
+		if (tmpController instanceof UpdateSeriesController) {
+			UpdateSeriesController controller = loader.getController();
+			controller.initData(motherScene);
+		}
+
 		return root;
 	}
 }

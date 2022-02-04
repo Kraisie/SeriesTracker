@@ -297,6 +297,22 @@
 }
 
 /*
+    Progress Indicator
+*/
+.progress-indicator .determinate-indicator .percentage {
+    -fx-fill: #96f52b;
+}
+
+.progress-indicator .determinate-indicator .indicator {
+    -fx-background-color: linear-gradient(#a0ff35, #a9ff00),
+    radial-gradient(center 50% -40%, radius 200%, #646464 45%, #4d4d4d 50%);
+}
+
+.progress-indicator .determinate-indicator .progress {
+    -fx-background-color: #96f52b;
+}
+
+/*
     Combo Box / Spinner
 */
 .combo-box,

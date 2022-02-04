@@ -29,7 +29,6 @@
                                 <children>
                                     <TextArea id="logArea" fx:id="updateLogArea" editable="false" VBox.vgrow="ALWAYS"/>
                                     <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0"/>
-                                    <ProgressBar fx:id="updateProgress" progress="0.0" VBox.vgrow="ALWAYS"/>
                                 </children>
                             </VBox>
                             <VBox alignment="TOP_CENTER" spacing="20.0" HBox.hgrow="ALWAYS">

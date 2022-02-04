@@ -18,6 +18,8 @@
                         </ImageView>
                     </graphic>
                 </Button>
+                <Region VBox.vgrow="ALWAYS"/>
+                <ProgressIndicator fx:id="progressIndicator" progress="0.0" visible="false" VBox.vgrow="ALWAYS"/>
             </VBox>
             <VBox id="navBar" fx:id="navBar" alignment="TOP_CENTER">
                 <Button id="navBarButton" fx:id="mainMenu" mnemonicParsing="false" onAction="#showMainMenu"
