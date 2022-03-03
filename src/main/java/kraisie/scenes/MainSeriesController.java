@@ -209,6 +209,7 @@ public class MainSeriesController {
 		if (matchesFirstCharIgnoreCase(pressedKey, selectedSeriesName)) {
 			if (nextSeriesMatches(table, pressedKey)) {
 				table.getSelectionModel().selectNext();
+				table.scrollTo(table.getSelectionModel().getSelectedItem());
 				return;
 			}
 		}
@@ -240,6 +241,7 @@ public class MainSeriesController {
 		for (Series s : series) {
 			if (matchesFirstCharIgnoreCase(pressedKey, s.getName())) {
 				table.getSelectionModel().select(s);
+				table.scrollTo(s);
 				return;
 			}
 		}
