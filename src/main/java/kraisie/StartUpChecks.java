@@ -63,7 +63,8 @@ public class StartUpChecks {
 	private void displayNewContent(List<Series> newContent) {
 		String seriesList = buildSeriesNameList(newContent);
 		PopUp popUp = PopUp.forStage(primaryStage);
-		popUp.showAlert("There are " + newContent.size() + " series with new content!", seriesList, true);
+		String verb = newContent.size() == 1 ? "is" : "are";
+		popUp.showAlert("There " + verb + " " + newContent.size() + " series with new content!", seriesList, true);
 	}
 
 	private String buildSeriesNameList(List<Series> series) {
