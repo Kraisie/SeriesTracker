@@ -97,11 +97,13 @@ public class UpdateSeriesController {
 				TVDB api = data.getApi();
 				List<String> changeLog = new ArrayList<>();
 				for (int i = 0; i < series.size(); i++) {
-					updateLog(series.get(i), i + 1, series.size());
-					int collectionIndex = collection.getSeries().indexOf(series.get(i));
+					Series s = series.get(i);
+					updateLog(s, i + 1, series.size());
+					int collectionIndex = collection.getSeries().indexOf(s);
+					UserState oldUserState = s.getUserStatus();
 					boolean userStateChange = updateSeries(api, collectionIndex);
 					if (userStateChange) {
-						addToChangeLog(changeLog, series.get(i), collection.getSeries().get(collectionIndex));
+						addToChangeLog(changeLog, series.get(i), oldUserState);
 					}
 
 					updateProgress(i + 1, series.size());
@@ -162,11 +164,11 @@ public class UpdateSeriesController {
 		return oldState != newState;
 	}
 
-	private void addToChangeLog(List<String> changeLog, Series oldSeries, Series newSeries) {
+	private void addToChangeLog(List<String> changeLog, Series series, UserState oldUserState) {
 		changeLog.add(
-				"\"" + oldSeries.getName() + "\" user state changed: \"" +
-						oldSeries.getUserStatus() + "\" to \"" + newSeries.getUserStatus() + "\"." +
-						(newSeries.getUserStatus() == UserState.WATCHING ? "\n\tThis series has new episodes available!" : "")
+				"\"" + series.getName() + "\" user state changed: \"" +
+						oldUserState + "\" to \"" + series.getUserStatus() + "\"." +
+						(series.getUserStatus() == UserState.WATCHING ? "\n\tThis series has new episodes available!" : "")
 		);
 	}
 
