@@ -127,41 +127,6 @@ public class SelectSeriesController {
 		return vBox;
 	}
 
-
-	private void fillGrid(GridPane grid, List<SearchData> series) {
-		int listIndex = 0;
-		for (int i = 0; i < objectsPerRow; i++) {
-			for (int j = 0; j < objectsPerColumn; j++) {
-				if (listIndex >= series.size()) {
-					return;
-				}
-
-				Button btn = buildButton(series, listIndex);
-				GridPane.setRowIndex(btn, i);
-				GridPane.setColumnIndex(btn, j);
-				grid.getChildren().add(btn);
-
-				listIndex++;
-			}
-		}
-	}
-
-	private Button buildButton(List<SearchData> series, int listIndex) {
-		String seriesName = series.get(listIndex).getSeriesName();
-		Button btn = new Button(seriesName);
-
-		setButtonProperties(btn);
-		setToolTipToButton(btn, series, listIndex);
-		scheduler.schedule(
-				() -> {
-					Image image = getSeriesImage(series, listIndex);
-					Platform.runLater(() -> setGraphicToButton(btn, image));
-				}, 150, TimeUnit.MILLISECONDS    // delay call to load pictures into scene to not block scene creation
-		);
-
-		return btn;
-	}
-
 	private List<SearchData> getPageContentList(int pageIndex) {
 		int startIndex = pageIndex * objectsPerPage;
 		int endIndex = Math.min(startIndex + objectsPerPage, searchData.size());
@@ -174,13 +139,51 @@ public class SelectSeriesController {
 		return series;
 	}
 
-	private void setToolTipToButton(Button button, List<SearchData> series, int index) {
-		Tooltip tooltip = buildTooltip(series, index);
+	private void fillGrid(GridPane grid, List<SearchData> seriesPage) {
+		int listIndex = 0;
+		for (int i = 0; i < objectsPerRow; i++) {
+			for (int j = 0; j < objectsPerColumn; j++) {
+				if (listIndex >= seriesPage.size()) {
+					return;
+				}
+
+				Button btn = buildButton(seriesPage.get(listIndex));
+				GridPane.setRowIndex(btn, i);
+				GridPane.setColumnIndex(btn, j);
+				grid.getChildren().add(btn);
+
+				listIndex++;
+			}
+		}
+	}
+
+	private Button buildButton(SearchData seriesData) {
+		String seriesName = seriesData.getSeriesName();
+		Button btn = new Button(seriesName);
+		setButtonProperties(btn);
+		setToolTipToButton(btn, seriesData);
+		retrieveButtonImage(btn, seriesData);
+		return btn;
+	}
+
+	private void setButtonProperties(Button btn) {
+		btn.setPrefWidth(BTN_PREF_WIDTH);
+		btn.setPrefHeight(BTN_PREF_HEIGHT);
+
+		btn.setWrapText(true);
+		btn.setTextAlignment(TextAlignment.CENTER);
+		btn.setId("selectionButton");
+		btn.setContentDisplay(ContentDisplay.TOP);
+		btn.setOnAction(event -> showSelectedSeriesInfo(btn));
+	}
+
+	private void setToolTipToButton(Button button, SearchData seriesData) {
+		Tooltip tooltip = buildTooltip(seriesData);
 		button.setTooltip(tooltip);
 	}
 
-	private Tooltip buildTooltip(List<SearchData> series, int index) {
-		String overview = getTooltipText(series, index);
+	private Tooltip buildTooltip(SearchData seriesData) {
+		String overview = getTooltipText(seriesData);
 		Tooltip tooltip = new Tooltip(overview);
 		tooltip.setShowDelay(Duration.millis(100));
 		tooltip.setShowDuration(Duration.INDEFINITE);
@@ -189,9 +192,8 @@ public class SelectSeriesController {
 		return tooltip;
 	}
 
-	private String getTooltipText(List<SearchData> series, int index) {
-		SearchData searchData = series.get(index);
-		String overview = searchData.getOverview();
+	private String getTooltipText(SearchData seriesData) {
+		String overview = seriesData.getOverview();
 
 		if (overview == null) {
 			overview = "No overview given!";
@@ -201,11 +203,20 @@ public class SelectSeriesController {
 			overview = "No overview given!";
 		}
 
-		if (searchData.getNetwork() != null) {
-			overview = overview + "\nA show by " + searchData.getNetwork();
+		if (seriesData.getNetwork() != null) {
+			overview = overview + "\nA show by " + seriesData.getNetwork();
 		}
 
 		return overview;
+	}
+
+	private void retrieveButtonImage(Button btn, SearchData seriesData) {
+		scheduler.schedule(
+				() -> {
+					Image image = getSeriesImage(seriesData);
+					Platform.runLater(() -> setGraphicToButton(btn, image));
+				}, 150, TimeUnit.MILLISECONDS    // delay call to load pictures into scene to not block scene creation
+		);
 	}
 
 	private void setGraphicToButton(Button button, Image image) {
@@ -215,10 +226,6 @@ public class SelectSeriesController {
 		img.setFitHeight(BTN_PREF_HEIGHT - 50);
 		img.setImage(image);
 		button.setGraphic(img);
-	}
-
-	private Image getSeriesImage(List<SearchData> series, int index) {
-		return getSeriesImage(series.get(index));
 	}
 
 	private Image getSeriesImage(SearchData series) {
@@ -239,17 +246,6 @@ public class SelectSeriesController {
 
 		String posterName = seriesImages[0].getFileName();
 		return TVDB.getBannerImage(posterName);
-	}
-
-	private void setButtonProperties(Button btn) {
-		btn.setPrefWidth(BTN_PREF_WIDTH);
-		btn.setPrefHeight(BTN_PREF_HEIGHT);
-
-		btn.setWrapText(true);
-		btn.setTextAlignment(TextAlignment.CENTER);
-		btn.setId("selectionButton");
-		btn.setContentDisplay(ContentDisplay.TOP);
-		btn.setOnAction(event -> showSelectedSeriesInfo(btn));
 	}
 
 	private void showSelectedSeriesInfo(Button btn) {
