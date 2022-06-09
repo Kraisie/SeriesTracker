@@ -75,6 +75,10 @@ public class InfoController {
 	public void initData(Series series) {
 		this.series = series;
 		episodePreviewIndex = series.getEpisodeList().getCurrentIndex();
+		if (episodePreviewIndex == -1) {
+			episodePreviewIndex = 0;
+		}
+
 		loadPoster(series.getTvdbID());
 		setResizeListener();
 	}
