@@ -10,6 +10,7 @@ import kraisie.data.DataSingleton;
 import kraisie.data.Series;
 import kraisie.data.definitions.UserState;
 import kraisie.tvdb.TVDB;
+import kraisie.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,10 +159,25 @@ public class UpdateSeriesController {
 	private boolean updateSeries(TVDB api, int collectionIndex) {
 		Series series = collection.getSeries().get(collectionIndex);
 		UserState oldState = series.getUserStatus();
-		Series updatedSeries = api.updateSeries(series);
+		Series updatedSeries = requestUpdatedSeries(api, series);
+		if (updatedSeries == null) {
+			logError("Could not update \"" + series.getName() + "\"! Check the log file for further information.");
+			logError("Skipping series.");
+			return false;
+		}
+
 		UserState newState = updatedSeries.getUserStatus();
 		collection.getSeries().set(collectionIndex, updatedSeries);
 		return oldState != newState;
+	}
+
+	private Series requestUpdatedSeries(TVDB api, Series series) {
+		try {
+			return api.updateSeries(series);
+		} catch (Exception e) {
+			LogUtil.logError("Could not update \"" + series.getName() + "\"!", e);
+			return null;
+		}
 	}
 
 	private void addToChangeLog(List<String> changeLog, Series series, UserState oldUserState) {
@@ -177,5 +193,11 @@ public class UpdateSeriesController {
 		for (String change : changeLog) {
 			updateLogArea.appendText(change + "\n\n");
 		}
+	}
+
+	private void logError(String msg) {
+		Platform.runLater(
+				() -> updateLogArea.appendText("\n\t" + msg)
+		);
 	}
 }

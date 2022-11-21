@@ -138,16 +138,16 @@ public class TVDB {
 		return gson.fromJson(json, SeriesPosters.class);
 	}
 
-	private String extractResponseEntity(final String apiGetEpisodesUrl) {
-		HttpGet request = generateRequest(apiGetEpisodesUrl);
+	private String extractResponseEntity(final String apiUrl) {
+		HttpGet request = generateRequest(apiUrl);
 		String json = receiveResponse(request);
 		if (json == null) {
-			LogUtil.logWarning("Received no response on " + apiGetEpisodesUrl);
+			LogUtil.logWarning("Received no response on " + apiUrl);
 			return null;
 		}
 
 		if (json.startsWith("{\"Error\":") || json.isBlank()) {
-			LogUtil.logWarning("API replied with error on episode request!\nRequest: " + apiGetEpisodesUrl + "\nResponse: " + json);
+			LogUtil.logWarning("API replied with error for " + request.getMethod() + " " + apiUrl + "\nResponse: " + json);
 			return null;
 		}
 		return json;
@@ -271,9 +271,13 @@ public class TVDB {
 		return new Episode(episodeNumber, seasonNumber, name, overview, firstAired);
 	}
 
-	public kraisie.data.Series updateSeries(kraisie.data.Series series) {
+	public kraisie.data.Series updateSeries(kraisie.data.Series series) throws Exception {
 		int id = Integer.parseInt(series.getTvdbID());
 		kraisie.data.Series updatedSeries = getSeries(id);
+		if (updatedSeries == null) {
+			return null;
+		}
+
 		List<Episode> episodes = getEpisodes(id);
 		EpisodeList episodeList = new EpisodeList(episodes);
 		kraisie.data.Series newSeries = new kraisie.data.Series(
@@ -294,7 +298,7 @@ public class TVDB {
 		return newSeries;
 	}
 
-	private void skipToCurrent(kraisie.data.Series newSeries, kraisie.data.Series oldSeries) {
+	private void skipToCurrent(kraisie.data.Series newSeries, kraisie.data.Series oldSeries) throws Exception {
 		if (newSeries.getUserStatus() == UserState.NOT_STARTED) {
 			return;
 		}
@@ -303,7 +307,11 @@ public class TVDB {
 		Episode oldCurrent = oldSeries.getEpisodeList().getCurrent();
 		Episode newCurrent = newSeries.getEpisodeList().getEpisodes().get(index);
 		while (!newCurrent.equals(oldCurrent) && newSeries.getEpisodeList().isIncrementable()) {
-			newCurrent = newSeries.getEpisodeList().getEpisodes().get(++index);
+			if (++index >= newSeries.getEpisodeList().getEpisodes().size()) {
+				throw new Exception("Updated TVDB data of \"" + oldSeries.getName() + "\" does not include the old current episode!");
+			}
+
+			newCurrent = newSeries.getEpisodeList().getEpisodes().get(index);
 		}
 
 		if (newCurrent.equals(oldCurrent)) {
