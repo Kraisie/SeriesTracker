@@ -9,17 +9,15 @@ import kraisie.data.EpisodeList;
 import kraisie.data.Settings;
 import kraisie.data.definitions.UserState;
 import kraisie.util.LogUtil;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.HttpEntity;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -45,7 +43,6 @@ public class TVDB {
 			String bannerUrl = "https://thetvdb.com/banners/" + banner;
 			URL url = new URL(bannerUrl);
 			BufferedImage bufImg = ImageIO.read(url);
-
 			return SwingFXUtils.toFXImage(bufImg, null);
 		} catch (IOException e) {
 			return getFallbackImage();
@@ -78,12 +75,11 @@ public class TVDB {
 
 		final String apiSearchSeriesUrl = "https://api.thetvdb.com/search/series?name=" + urlSeries;
 		HttpGet request = generateRequest(apiSearchSeriesUrl);
-		HttpResponse response = receiveResponse(request);
-		if (response == null) {
+		String json = receiveResponse(request);
+		if (json == null) {
 			return new ArrayList<>();
 		}
 
-		String json = getResponseContent(response);
 		if (json.startsWith("{\"Error\":") || json.isEmpty()) {
 			LogUtil.logWarning("API replied with error on search request!\nRequest: " + apiSearchSeriesUrl + "\nResponse: " + json);
 			return new ArrayList<>();
@@ -105,10 +101,9 @@ public class TVDB {
 		return request;
 	}
 
-	private HttpResponse receiveResponse(HttpGet request) {
-		try {
-			HttpClient httpClient = HttpClients.createDefault();
-			return httpClient.execute(request);
+	private String receiveResponse(HttpGet request) {
+		try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+			return httpClient.execute(request, response -> getEntityContent(response.getEntity()));
 		} catch (IOException e) {
 			LogUtil.logError("HTTP Client could not execute request!", e);
 		}
@@ -116,19 +111,10 @@ public class TVDB {
 		return null;
 	}
 
-	private String getResponseContent(HttpResponse response) {
-		HttpEntity entity = response.getEntity();
-		return getEntityContent(entity);
-	}
-
 	private String getEntityContent(HttpEntity entity) {
 		String json = "";
-		try {
-			InputStream entityContent = entity.getContent();
-			InputStreamReader isReader = new InputStreamReader(entityContent, StandardCharsets.UTF_8);
-			BufferedReader reader = new BufferedReader(isReader);
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8))) {
 			json = reader.readLine();
-			reader.close();
 		} catch (IOException e) {
 			LogUtil.logError("Could not extract json from HTTP entity!", e);
 		}
@@ -154,13 +140,12 @@ public class TVDB {
 
 	private String extractResponseEntity(final String apiGetEpisodesUrl) {
 		HttpGet request = generateRequest(apiGetEpisodesUrl);
-		HttpResponse response = receiveResponse(request);
-		if (response == null) {
+		String json = receiveResponse(request);
+		if (json == null) {
 			LogUtil.logWarning("Received no response on " + apiGetEpisodesUrl);
 			return null;
 		}
 
-		String json = getResponseContent(response);
 		if (json.startsWith("{\"Error\":") || json.isBlank()) {
 			LogUtil.logWarning("API replied with error on episode request!\nRequest: " + apiGetEpisodesUrl + "\nResponse: " + json);
 			return null;
@@ -182,7 +167,6 @@ public class TVDB {
 		Gson gson = new Gson();
 		SeriesData tvdbData = gson.fromJson(json, SeriesData.class);
 		Series tvdbSeries = tvdbData.getData();
-
 		List<Episode> episodes = getEpisodes(id);
 		EpisodeList episodeList = new EpisodeList(episodes);
 		return new kraisie.data.Series(
@@ -211,7 +195,6 @@ public class TVDB {
 
 		episodes.add(episodePage);
 		episodes.addAll(remainingEpisodes);
-
 		return convertEpisodes(episodes);
 	}
 
