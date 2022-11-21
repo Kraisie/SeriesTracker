@@ -2,6 +2,7 @@ package kraisie.data;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import kraisie.data.definitions.CacheSize;
 import kraisie.util.LogUtil;
 
 import javax.imageio.ImageIO;
@@ -12,6 +13,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class ImageCache {
 
@@ -22,6 +25,11 @@ public class ImageCache {
 	}
 
 	public Image get(int tvdbId) {
+		if (!settings.shouldCacheBanners()) {
+			LogUtil.logDebug("Cache is disabled!");
+			return null;
+		}
+
 		try {
 			Path imagePath = Paths.get(settings.getPathCache().toString(), tvdbId + ".jpg");
 			BufferedImage bufImg = ImageIO.read(imagePath.toFile());
@@ -33,6 +41,11 @@ public class ImageCache {
 	}
 
 	public boolean isCached(int tvdbId) {
+		if (!settings.shouldCacheBanners()) {
+			LogUtil.logDebug("Cache is disabled!");
+			return false;
+		}
+
 		Path imagePath = Paths.get(settings.getPathCache().toString(), tvdbId + ".jpg");
 		return imagePath.toFile().exists();
 	}
@@ -46,9 +59,9 @@ public class ImageCache {
 		boolean mkdirs = folder.mkdirs();
 		if (!mkdirs) {
 			String perms = "[" +
-					(folder.canRead() ? "R" : "") +
-					(folder.canWrite() ? "W" : "") +
-					(folder.canExecute() ? "E" : "") + "]";
+					(folder.canRead() ? "Read," : "") +
+					(folder.canWrite() ? "Write," : "") +
+					(folder.canExecute() ? "Execute" : "") + "]";
 			LogUtil.logError("Could not create cache folder! Perms: " + perms + ".");
 		}
 	}
@@ -59,6 +72,11 @@ public class ImageCache {
 	}
 
 	public void save(Image img, int tvdbId) {
+		if (!settings.shouldCacheBanners()) {
+			LogUtil.logDebug("Not saving image due to disabled cache setting.");
+			return;
+		}
+
 		LogUtil.logDebug("Trying to cache poster for ID " + tvdbId + ".");
 		if (isCached(tvdbId)) {
 			LogUtil.logDebug("Poster for ID " + tvdbId + " is already cached.");
@@ -67,6 +85,9 @@ public class ImageCache {
 
 		checkCacheDir();
 		writeImg(img, tvdbId);
+		if (settings.getMaxCacheSize() != CacheSize.UNLIMITED) {
+			purgeToMaxCacheSize();
+		}
 	}
 
 	private void writeImg(Image img, int tvdbId) {
@@ -98,12 +119,12 @@ public class ImageCache {
 		Path cachePath = settings.getPathCache();
 		File[] files = cachePath.toFile().listFiles(pathname -> pathname.getName().endsWith("jpg"));
 		if (files == null) {
-			LogUtil.logDebug("Could not check files in " + cachePath + "");
+			LogUtil.logDebug("Could not check files in " + cachePath);
 			return false;
 		}
 
 		if (files.length == 0) {
-			LogUtil.logDebug("There are no cached files to delete in " + cachePath + "");
+			LogUtil.logDebug("There are no cached files to delete in " + cachePath);
 			return true;
 		}
 
@@ -150,5 +171,66 @@ public class ImageCache {
 		}
 
 		return size + " B";
+	}
+
+	public String getCurrentSizeText() {
+		Path cachePath = settings.getPathCache();
+		File[] files = cachePath.toFile().listFiles(pathname -> pathname.getName().endsWith("jpg"));
+		if (files == null) {
+			LogUtil.logDebug("Could not check files in " + cachePath);
+			return "Unknown";
+		}
+
+		if (files.length == 0) {
+			return "0 B";
+		}
+
+		long bytes = Arrays.stream(files)
+				.mapToLong(this::getFileSize)
+				.sum();
+
+		return buildFileSizeText(bytes);
+	}
+
+	private long getCacheSizeInBytes(File[] files) {
+		return Arrays.stream(files)
+				.mapToLong(this::getFileSize)
+				.sum();
+	}
+
+	public void purgeToMaxCacheSize() {
+		Path cachePath = settings.getPathCache();
+		File[] files = cachePath.toFile().listFiles(pathname -> pathname.getName().endsWith("jpg"));
+		if (files == null) {
+			LogUtil.logDebug("Could not check files in " + cachePath);
+			return;
+		}
+
+		if (files.length == 0) {
+			return;
+		}
+
+		long maxSize = settings.getMaxCacheSize().getSizeInBytes();
+		if (maxSize <= 0) {
+			return;
+		}
+
+		long currSize = getCacheSizeInBytes(files);
+		if (currSize <= maxSize) {
+			return;
+		}
+
+		// sort files by last modified timestamp in descending order (-> oldest files get deleted first)
+		Arrays.sort(files, Comparator.comparing(File::lastModified));
+		int pos = 0;
+		while (currSize > maxSize && pos < files.length - 1) {
+			File file = files[pos];
+			long fileSize = getFileSize(file);
+			if (file.delete()) {
+				currSize -= fileSize;
+			}
+
+			pos++;
+		}
 	}
 }

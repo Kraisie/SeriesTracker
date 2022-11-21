@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import kraisie.data.DataSingleton;
 import kraisie.data.Settings;
+import kraisie.data.definitions.CacheSize;
 import kraisie.data.definitions.Scenes;
 import kraisie.dialog.PopUp;
 import kraisie.ui.SceneLoader;
@@ -29,6 +30,9 @@ public class SettingsController {
 	private CheckBox cycleBackgroundsBox;
 
 	@FXML
+	private CheckBox cacheBannersBox;
+
+	@FXML
 	private Slider fadeDurationSlider;
 
 	@FXML
@@ -36,6 +40,9 @@ public class SettingsController {
 
 	@FXML
 	private ChoiceBox<String> tvdbLanguageChoice;
+
+	@FXML
+	private ChoiceBox<String> maxCacheSizeChoice;
 
 	@FXML
 	private Label cycleBackgroundsLabel;
@@ -50,6 +57,18 @@ public class SettingsController {
 	private Label tvdbLanguageLabel;
 
 	@FXML
+	private Label cacheBannersLabel;
+
+	@FXML
+	private Label maxCacheSizeLabel;
+
+	@FXML
+	private Label currentCacheSizeLabel;
+
+	@FXML
+	private Label currentCacheSize;
+
+	@FXML
 	private Button clearCache;
 
 	private DataSingleton data;
@@ -60,7 +79,7 @@ public class SettingsController {
 		data = DataSingleton.getInstance();
 		Settings settings = data.getSettings();
 		addTooltips();
-		fillLanguageOptions();
+		fillChoiceOptions();
 		setSettings(settings);
 	}
 
@@ -71,6 +90,9 @@ public class SettingsController {
 	private void addTooltips() {
 		addTooltip(tvdbLanguageLabel, "The language in which data from TVDB will be requested in. Not all data is available in all languages. English is recommended.");
 		addTooltip(cycleBackgroundsLabel, "Whether the background pictures should be changed if more than one is available.");
+		addTooltip(cacheBannersLabel, "Whether to cache the banners of your series on your drive. Redownloads the banners each time if this is disabled and clears the cache when disabling.");
+		addTooltip(maxCacheSizeLabel, "Limits the cache size. New banners replace the oldest banner if size limit is reached. Deletes old banners if your new max size is below your current cache size!");
+		addTooltip(currentCacheSizeLabel, "The current size of your cache folder. Does not update if the cache gets modified externally!");
 		addTooltip(cycleRateLabel, "The time between background picture changes in seconds.");
 		addTooltip(fadeDurationLabel, "The duration of the fade animations between background picture changes in milliseconds.");
 		addTooltip(clearCache, "Clears the cached images of series.");
@@ -90,19 +112,30 @@ public class SettingsController {
 		return tooltip;
 	}
 
-	private void fillLanguageOptions() {
-		ObservableList<String> options = FXCollections.observableArrayList();
-		options.addAll("English", "German", "Spanish", "French", "Italian");
-		tvdbLanguageChoice.setItems(options);
+	private void fillChoiceOptions() {
+		ObservableList<String> languageOptions = FXCollections.observableArrayList();
+		languageOptions.addAll("English", "German", "Spanish", "French", "Italian");
+		tvdbLanguageChoice.setItems(languageOptions);
+
+		ObservableList<String> sizeOptions = FXCollections.observableArrayList();
+		sizeOptions.addAll(CacheSize.toStringList());
+		maxCacheSizeChoice.setItems(sizeOptions);
 	}
 
 	private void setSettings(Settings settings) {
 		String language = getLanguageNameByIso(settings.getLangIso());
 		tvdbLanguageChoice.getSelectionModel().select(language);
 		cycleBackgroundsBox.setSelected(settings.isCycleBackgrounds());
+		cacheBannersBox.setSelected(settings.shouldCacheBanners());
+		CacheSize maxSize = settings.getMaxCacheSize();
+		maxCacheSizeChoice.getSelectionModel().select(maxSize.toString());
+		maxCacheSizeChoice.disableProperty().bind(cacheBannersBox.selectedProperty().not());
+		String currentSize = data.getImageCache().getCurrentSizeText();
+		currentCacheSize.setText(currentSize);
 		cycleDurationSlider.setValue(settings.getBackgroundCycle());
 		cycleDurationSlider.disableProperty().bind(cycleBackgroundsBox.selectedProperty().not());
 		fadeDurationSlider.setValue(settings.getFadeDuration());
+		fadeDurationSlider.disableProperty().bind(cycleBackgroundsBox.selectedProperty().not());
 	}
 
 	private String getLanguageNameByIso(String iso) {
@@ -134,7 +167,15 @@ public class SettingsController {
 		newSettings.setCycleBackgrounds(cycleBackgroundsBox.isSelected());
 		newSettings.setBackgroundCycle((int) cycleDurationSlider.getValue());
 		newSettings.setFadeDuration((int) fadeDurationSlider.getValue());
+		newSettings.setCacheBanners(cacheBannersBox.isSelected());
+		newSettings.setMaxCacheSize(CacheSize.get(maxCacheSizeChoice.getValue()));
 		DataSingleton.updateSettings(newSettings);
+		if (newSettings.shouldCacheBanners()) {
+			data.getImageCache().purgeToMaxCacheSize();
+		} else {
+			data.getImageCache().clear();
+		}
+
 		motherScene.resetScheduler();
 		showMainScene();
 	}
@@ -175,6 +216,8 @@ public class SettingsController {
 		} else {
 			popUp.showError("Cache could not get cleared!", "The image cache could not get cleared. Please check the log file for further details.", false);
 		}
+
+		setSettings(data.getSettings());
 	}
 
 	private void showMainScene() {

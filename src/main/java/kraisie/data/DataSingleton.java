@@ -30,6 +30,7 @@ public final class DataSingleton {
 
 	public static void updateSettings(Settings newSettings) {
 		settings = newSettings;
+		imageCache = new ImageCache(settings);
 	}
 
 	public Collection getCollection() {

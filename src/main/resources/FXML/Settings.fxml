@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<BorderPane fx:id="borderPane" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/17"
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane fx:id="borderPane" stylesheets="@../css/myStyle.css" xmlns="http://javafx.com/javafx/19"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="kraisie.scenes.SettingsController">
     <center>
         <HBox>
@@ -19,15 +29,16 @@
                            text="Hover over a setting to see a short description!" textAlignment="CENTER"
                            textFill="WHITE" wrapText="true"/>
                     <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
-                    <GridPane alignment="CENTER" hgap="25.0" vgap="15.0">
+                    <GridPane alignment="CENTER" hgap="25.0" maxWidth="-Infinity" vgap="15.0">
                         <columnConstraints>
                             <ColumnConstraints halignment="CENTER" minWidth="-Infinity"/>
                             <ColumnConstraints halignment="LEFT" minWidth="-Infinity"/>
+                            <ColumnConstraints halignment="CENTER" minWidth="-Infinity"/>
+                            <ColumnConstraints halignment="LEFT" minWidth="-Infinity"/>
+                            <ColumnConstraints halignment="RIGHT" minWidth="-Infinity"/>
                         </columnConstraints>
                         <rowConstraints>
                             <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                         </rowConstraints>
                         <children>
@@ -37,28 +48,49 @@
                                        GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
                             <Label id="normalLabel" fx:id="cycleBackgroundsLabel" minWidth="-Infinity"
                                    text="Cycle backgrounds:" GridPane.rowIndex="1"/>
-                            <Label id="normalLabel" fx:id="fadeDurationLabel" minWidth="-Infinity" text="Fade duration:"
-                                   GridPane.rowIndex="3"/>
-                            <Slider fx:id="fadeDurationSlider" majorTickUnit="500.0" max="2500.0" minorTickCount="50"
-                                    showTickLabels="true" showTickMarks="true" snapToTicks="true" value="500.0"
-                                    GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                             <CheckBox fx:id="cycleBackgroundsBox" mnemonicParsing="false" GridPane.columnIndex="1"
                                       GridPane.rowIndex="1"/>
-                            <Label id="normalLabel" fx:id="cycleRateLabel" alignment="CENTER" minWidth="-Infinity"
-                                   text="Cycle rate:" GridPane.rowIndex="2"/>
-                            <Slider fx:id="cycleDurationSlider" blockIncrement="1.0" majorTickUnit="30.0" max="300.0"
-                                    min="30.0" minorTickCount="10" showTickLabels="true" showTickMarks="true"
-                                    snapToTicks="true" value="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                            <Label id="normalLabel" fx:id="cacheBannersLabel" alignment="CENTER" layoutX="21.0"
+                                   layoutY="16.0" minWidth="-Infinity" text="Cache banners:" GridPane.columnIndex="2"/>
+                            <CheckBox fx:id="cacheBannersBox" layoutX="183.0" layoutY="64.0" mnemonicParsing="false"
+                                      GridPane.columnIndex="3"/>
+                            <Label id="normalLabel" fx:id="maxCacheSizeLabel" alignment="CENTER" layoutX="348.0"
+                                   layoutY="16.0" minWidth="-Infinity" text="Max cache size:" GridPane.columnIndex="2"
+                                   GridPane.rowIndex="1"/>
+                            <ChoiceBox fx:id="maxCacheSizeChoice" layoutX="184.0" layoutY="10.0"
+                                       nodeOrientation="LEFT_TO_RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                            <HBox spacing="25.0" GridPane.columnIndex="4">
+                                <children>
+                                    <Label id="normalLabel" fx:id="currentCacheSizeLabel" alignment="CENTER"
+                                           minWidth="-Infinity" text="Current cache size:"/>
+                                    <Label id="normalLabel" fx:id="currentCacheSize" alignment="CENTER"
+                                           minWidth="-Infinity"/>
+                                </children>
+                            </HBox>
+                            <Button fx:id="clearCache" mnemonicParsing="false" onAction="#clearCache"
+                                    text="Clear image cache" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
                         </children>
                         <VBox.margin>
                             <Insets left="10.0" right="10.0"/>
                         </VBox.margin>
                     </GridPane>
+                    <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0"/>
+                    <VBox>
+                        <children>
+                            <Label id="normalLabel" fx:id="cycleRateLabel" alignment="CENTER" minWidth="-Infinity"
+                                   text="Cycle rate:"/>
+                            <Slider fx:id="cycleDurationSlider" blockIncrement="5.0" majorTickUnit="30.0" max="300.0"
+                                    min="30.0" minorTickCount="5" showTickLabels="true" showTickMarks="true"
+                                    snapToTicks="true" value="60.0"/>
+                            <Label id="normalLabel" fx:id="fadeDurationLabel" minWidth="-Infinity"
+                                   text="Fade duration:"/>
+                            <Slider fx:id="fadeDurationSlider" blockIncrement="50.0" majorTickUnit="250.0" max="2500.0"
+                                    showTickLabels="true" showTickMarks="true" snapToTicks="true" value="500.0"/>
+                        </children>
+                    </VBox>
                     <Region maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" VBox.vgrow="ALWAYS"/>
                     <HBox alignment="CENTER" spacing="25.0" VBox.vgrow="ALWAYS">
                         <children>
-                            <Button fx:id="clearCache" mnemonicParsing="false" onAction="#clearCache"
-                                    text="Clear image cache"/>
                             <Button mnemonicParsing="false" onAction="#resetToDefault" text="Reset to default"/>
                             <Button mnemonicParsing="false" onAction="#saveSettings" text="Save"/>
                         </children>

@@ -2,6 +2,7 @@ package kraisie.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import kraisie.data.definitions.CacheSize;
 import kraisie.util.LogUtil;
 
 import java.io.IOException;
@@ -18,6 +19,8 @@ public class Settings {
 	private boolean cycleBackgrounds;
 	private int backgroundCycle;    // every x seconds
 	private int fadeDuration;
+	private boolean cacheBanners;
+	private CacheSize maxCacheSize;
 
 	private static final Path PATH = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/Settings.json");
 	private static final String PATH_API_KEY = Paths.get(System.getProperty("user.home"), "/SERIESTRACKER/API_Key.json").toString();
@@ -29,13 +32,18 @@ public class Settings {
 		this.cycleBackgrounds = true;
 		this.backgroundCycle = 60;
 		this.fadeDuration = 500;
+		this.cacheBanners = true;
+		this.maxCacheSize = CacheSize.UNLIMITED;
 	}
 
-	public Settings(String langIso, boolean cycleBackgrounds, int backgroundCycle, int fadeDuration) {
+	public Settings(String langIso, boolean cycleBackgrounds, int backgroundCycle, int fadeDuration,
+					boolean cacheBanners, CacheSize maxCacheSize) {
 		this.langIso = langIso;
 		this.cycleBackgrounds = cycleBackgrounds;
 		this.backgroundCycle = backgroundCycle;
 		this.fadeDuration = fadeDuration;
+		this.cacheBanners = cacheBanners;
+		this.maxCacheSize = maxCacheSize;
 	}
 
 	public static Settings readData() {
@@ -138,5 +146,21 @@ public class Settings {
 
 	public void setFadeDuration(int fadeDuration) {
 		this.fadeDuration = fadeDuration;
+	}
+
+	public boolean shouldCacheBanners() {
+		return cacheBanners;
+	}
+
+	public void setCacheBanners(boolean cacheBanners) {
+		this.cacheBanners = cacheBanners;
+	}
+
+	public CacheSize getMaxCacheSize() {
+		return maxCacheSize;
+	}
+
+	public void setMaxCacheSize(CacheSize maxCacheSize) {
+		this.maxCacheSize = maxCacheSize;
 	}
 }
