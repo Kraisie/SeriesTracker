@@ -4,7 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Control;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -64,7 +70,7 @@ public class SettingsController {
 
 	private void addTooltips() {
 		addTooltip(tvdbLanguageLabel, "The language in which data from TVDB will be requested in. Not all data is available in all languages. English is recommended.");
-		addTooltip(cycleBackgroundsLabel, "Wether the background pictures should be changed if more than one is available.");
+		addTooltip(cycleBackgroundsLabel, "Whether the background pictures should be changed if more than one is available.");
 		addTooltip(cycleRateLabel, "The time between background picture changes in seconds.");
 		addTooltip(fadeDurationLabel, "The duration of the fade animations between background picture changes in milliseconds.");
 		addTooltip(clearCache, "Clears the cached images of series.");

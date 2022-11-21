@@ -11,7 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -119,7 +124,7 @@ public class MotherController {
 	}
 
 	private void transition(BackgroundManager bm) {
-		// change background of highest pane in center to hide borderpane background while changing picture
+		// change background of the highest pane in center to hide borderpane background while changing picture
 		// without using BackgroundFill on the real Background
 		Pane pane = (Pane) borderPane.getCenter();
 		final Animation animationIn = createAnimationIn(pane);
