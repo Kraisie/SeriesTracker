@@ -55,20 +55,21 @@ public class ImageCache {
 			return;
 		}
 
-		File folder = settings.getPathCache().toFile();
-		boolean mkdirs = folder.mkdirs();
+		File cacheFolder = settings.getPathCache().toFile();
+		boolean mkdirs = cacheFolder.mkdirs();
 		if (!mkdirs) {
+			File seriestrackerBaseFolder = cacheFolder.getParentFile();
 			String perms = "[" +
-					(folder.canRead() ? "Read," : "") +
-					(folder.canWrite() ? "Write," : "") +
-					(folder.canExecute() ? "Execute" : "") + "]";
-			LogUtil.logError("Could not create cache folder! Perms: " + perms + ".");
+					(seriestrackerBaseFolder.canRead() ? "Read," : "") +
+					(seriestrackerBaseFolder.canWrite() ? "Write," : "") +
+					(seriestrackerBaseFolder.canExecute() ? "Execute" : "") + "]";
+			LogUtil.logError("Could not create cache folder! Perms in parent folder: " + perms + ".");
 			return;
 		}
 
 		String os = System.getProperty("os.name").toLowerCase();
 		if (os.contains("win")) {
-			windowsMarkAsHidden(folder);
+			windowsMarkAsHidden(cacheFolder);
 		}
 	}
 
@@ -110,10 +111,10 @@ public class ImageCache {
 			File file = new File(settings.getPathCache().toString(), tvdbId + ".jpg");
 			boolean success = ImageIO.write(bufImg, "jpg", file);
 			if (!success) {
-				throw new IOException("Could not save image!");
+				throw new IOException("Could not find appropriate writer to save image to cache!");
 			}
 		} catch (IOException e) {
-			LogUtil.logError("Could not save image!", e);
+			LogUtil.logError("Could not save image to cache!", e);
 		}
 	}
 
