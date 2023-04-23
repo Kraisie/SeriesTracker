@@ -8,6 +8,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
@@ -169,9 +170,9 @@ public class MotherController {
 	}
 
 	private void addSizeListeners() {
-		Stage stage = (Stage) borderPane.getScene().getWindow();
-		stage.widthProperty().addListener((obs, oldVal, newVal) -> updateBackgroundSize());
-		stage.heightProperty().addListener((obs, oldVal, newVal) -> updateBackgroundSize());
+		Scene scene = borderPane.getScene();
+		scene.widthProperty().addListener((obs, oldVal, newVal) -> updateBackgroundSize());
+		scene.heightProperty().addListener((obs, oldVal, newVal) -> updateBackgroundSize());
 	}
 
 	private void updateBackgroundSize() {
