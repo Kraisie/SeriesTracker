@@ -63,12 +63,26 @@ public class ImageCache {
 					(folder.canWrite() ? "Write," : "") +
 					(folder.canExecute() ? "Execute" : "") + "]";
 			LogUtil.logError("Could not create cache folder! Perms: " + perms + ".");
+			return;
+		}
+
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			windowsMarkAsHidden(folder);
 		}
 	}
 
 	private boolean cacheDirExists() {
 		File folder = settings.getPathCache().toFile();
 		return folder.exists() && folder.canRead() && folder.canWrite();
+	}
+
+	private void windowsMarkAsHidden(File cacheFolder) {
+		try {
+			Files.setAttribute(cacheFolder.toPath(), "dos:hidden", true);
+		} catch (IOException e) {
+			LogUtil.logError("Could not mark cache folder as hidden!", e);
+		}
 	}
 
 	public void save(Image img, int tvdbId) {
